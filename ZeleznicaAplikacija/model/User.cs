@@ -9,7 +9,8 @@ namespace ZeleznicaAplikacija.model
     public enum UserType
     {
         CLIENT,
-        MANAGER
+        MANAGER,
+        NO_TYPE
     }
 
     public class User

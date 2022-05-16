@@ -11,6 +11,12 @@ namespace ZeleznicaAplikacija.repo
     public class MainRepository
     {
         public static List<Ticket> Tickets { get; set; }
+        public static List<User> Clients { get; set; }
+        public static List<User> Managers { get; set; }
+        public static List<User> Users { get; set; }
+
+        public static string CurrentUser;
+
 
         static MainRepository()
         {
@@ -19,8 +25,9 @@ namespace ZeleznicaAplikacija.repo
             User manager1 = new User("ksenija@gmail.com", "sifra", "Ksenija", "Maric", UserType.MANAGER, "063/9559-343", new DateTime(1996, 03, 08));
             User manager2 = new User("vanja@gmail.com", "sifra", "Vanja", "Jovanovic", UserType.MANAGER, "065/9319-366", new DateTime(1996, 05, 15));
 
-            List<User> clients = new List<User> { client1, client2 };
-            List<User> managers = new List<User> { manager1, manager2 };
+            Clients = new List<User> { client1, client2 };
+            Managers = new List<User> { manager1, manager2 };
+            Users = new List<User> { client1, client2, manager1, manager2};
 
             Wagon w1 = new Wagon(1, 12, WagonClass.FIRST);
             Wagon w2 = new Wagon(2, 15, WagonClass.SECOND);
@@ -128,6 +135,10 @@ namespace ZeleznicaAplikacija.repo
             Tickets.Add(ticket3);
             Tickets.Add(ticket4);
 
+        }
+        public static void setLoggedUser(string username)
+        {
+            CurrentUser = username;
         }
 
     }

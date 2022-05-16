@@ -60,7 +60,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="gui\WelcomePageClient.xaml.cs">
+      <DependentUpon>WelcomePageClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="gui\WelcomeWindowClient.xaml.cs">
+      <DependentUpon>WelcomeWindowClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="repo\MainRepository.cs" />
+    <Compile Include="service\UserService.cs" />
+    <Page Include="gui\WelcomePageClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="gui\WelcomeWindowClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
