@@ -10,13 +10,13 @@ namespace ZeleznicaAplikacija.model
     {
         public Seat() { }
 
-        public Seat(int wagon, int seatNumber)
+        public Seat(Wagon wagon, int seatNumber)
         {
             Wagon = wagon;
             SeatNumber = seatNumber;
         }
 
-        public int Wagon { get; set; }
+        public Wagon Wagon { get; set; }
         public int SeatNumber { get; set; }
     }
 }

@@ -10,8 +10,9 @@ namespace ZeleznicaAplikacija.model
     {
         public Ticket() { }
 
-        public Ticket(bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat)
+        public Ticket(bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train)
         {
+            Train = train;
             ReturnTicket = returnTicket;
             Line = line;
             DepartureTime = departureTime;
@@ -19,6 +20,12 @@ namespace ZeleznicaAplikacija.model
             ReturnSeat = returnSeat;
         }
 
+        public override string ToString()
+        {
+            return $"Ticket: {Train.Name}, returning: {ReturnTicket}, line: {Line.Start.Street} - {Line.End.Street}, departure time: {DepartureTime}, seat: {Seat.SeatNumber}.";
+        }
+
+        public Train Train { get; set; }
         public Boolean ReturnTicket { get; set; }
         public TrainLine Line { get; set; }
         public DateTime DepartureTime { get; set; }

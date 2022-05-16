@@ -16,12 +16,14 @@ namespace ZeleznicaAplikacija.model
     {
         public Wagon() { }
 
-        public Wagon(int numberOfSeats, WagonClass @class)
+        public Wagon(int id, int numberOfSeats, WagonClass wagonClass)
         {
+            Id = id;
             NumberOfSeats = numberOfSeats;
-            Class = @class;
+            Class = wagonClass;
         }
 
+        private int Id { get; set; }
         public int NumberOfSeats { get; set; }
         public Train Train { get; set; }
         public WagonClass Class { get; set; }

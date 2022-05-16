@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Specialized;
 
 namespace ZeleznicaAplikacija.model
 {
@@ -10,7 +11,7 @@ namespace ZeleznicaAplikacija.model
     {
         public TrainLine() { }
 
-        public TrainLine(TrainStation start, TrainStation end, List<Train> trains, List<string> timeSlots, List<string> timeSlotsWeekend, double price, Dictionary<TrainStation, TrainStationInfo> map)
+        public TrainLine(TrainStation start, TrainStation end, List<Train> trains, List<string> timeSlots, List<string> timeSlotsWeekend, double price, OrderedDictionary map)
         {
             Start = start;
             End = end;
@@ -27,6 +28,6 @@ namespace ZeleznicaAplikacija.model
         public List<string> TimeSlots { get; set; }
         public List<string> TimeSlotsWeekend { get; set; }
         public double Price { get; set; }
-        public Dictionary<TrainStation, TrainStationInfo> Map { get; set; }
+        public OrderedDictionary Map { get; set; }
     }
 }

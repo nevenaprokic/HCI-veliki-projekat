@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZeleznicaAplikacija.repo;
 
 namespace ZeleznicaAplikacija
 {
@@ -23,6 +24,7 @@ namespace ZeleznicaAplikacija
         public MainWindow()
         {
             InitializeComponent();
+            MainRepository mainRepository = new MainRepository();
         }
     }
 }
