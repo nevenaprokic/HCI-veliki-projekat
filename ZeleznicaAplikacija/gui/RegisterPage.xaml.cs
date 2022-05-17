@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ZeleznicaAplikacija.model;
+using ZeleznicaAplikacija.validators;
 
 namespace ZeleznicaAplikacija.gui
 {
@@ -38,12 +39,12 @@ namespace ZeleznicaAplikacija.gui
             string password2 = passwordTxt2.Password.ToString();
             string phone = phoneTxt.Text;
 
+            // datum je po default-u danasnji tako da ne moze biti nevalidan u sustini
             DateTime? dateOfBirth = datePicker1.SelectedDate;
             if (dateOfBirth.HasValue)
             {
                 string formatted = dateOfBirth.Value.ToString("dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture);
             }
-
             
 
         }
@@ -51,6 +52,16 @@ namespace ZeleznicaAplikacija.gui
         private void LoginLinkCommand(object sender, RoutedEventArgs e)
         {
             frame.Content = new LoginPage(frame);
+        }
+
+        private void onPasswordChanged1(object sender, RoutedEventArgs e)
+        {
+            (DataContext as UserValidation).SetPassword1((sender as PasswordBox).SecurePassword);
+        }
+
+        private void onPasswordChanged2(object sender, RoutedEventArgs e)
+        {
+            (DataContext as UserValidation).SetPassword2((sender as PasswordBox).SecurePassword);
         }
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ZeleznicaAplikacija.gui"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:local1="clr-namespace:ZeleznicaAplikacija.validators"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1100"
@@ -61,17 +62,19 @@
             ValidatesOnDataErrors=True}"/>
 
         <Label Content="Lozinka" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Bottom"/>
-        <PasswordBox  Grid.Column="4" x:Name="passwordTxt1" Height="23" Grid.Row="9" Width="Auto" MinWidth="180" VerticalAlignment="Top" />
+        <PasswordBox  Grid.Column="4" x:Name="passwordTxt1" Height="23" Grid.Row="9" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password1,
+            ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged1"/>
 
         <Label Content="Ponovi lozinku" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Bottom"/>
-        <PasswordBox  Grid.Column="4" x:Name="passwordTxt2" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top"/>
+            <PasswordBox  Grid.Column="4" x:Name="passwordTxt2" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password2,
+                ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged2"/>
 
         <Label Content="Broj telefona" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="12" VerticalAlignment="Bottom"/>
         <TextBox Grid.Column="4" x:Name="phoneTxt" Height="23" Grid.Row="13" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
         <Label Content="Datum rodjenja" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="14" VerticalAlignment="Bottom"/>
-        <DatePicker Height="35" Grid.Column="4" x:Name="datePicker1" Grid.Row="15" VerticalAlignment="Top" />
+        <DatePicker Height="35" Grid.Column="4" x:Name="datePicker1" SelectedDate="{x:Static sys:DateTime.Now}" Grid.Row="15" VerticalAlignment="Top" />
 
         <Label Content="Tip korisnika" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="15" VerticalAlignment="Bottom"/>
         <ComboBox SelectedIndex="0" Name="comboBox" Grid.Column="4" Grid.Row="16" VerticalAlignment="Top" Height="23">

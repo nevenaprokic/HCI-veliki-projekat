@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace ZeleznicaAplikacija.validators
         public string Password1 { get; set; }
         public string Password2 { get; set; }
         public string Phone { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         public string this[string name]
         {
@@ -50,16 +52,6 @@ namespace ZeleznicaAplikacija.validators
                             result = "Format is not correct";
                     }
                 }
-                //if (name == "Password2")
-                //{
-                //    if (string.IsNullOrEmpty(name))
-                //        result = "Please enter an password";
-                //    else if (Password2 != null && Password1 != null && Password2 != Password1)
-                //    {
-                //        result = "It must be over 5 chars";
-                //    }
-
-                //}
                 if (name == "Phone")
                 {
                     //063-388/0388
@@ -74,12 +66,28 @@ namespace ZeleznicaAplikacija.validators
                             result = "Format is not correct";
                     }
                 }
+                if (name == "Password1")
+                {
+                    Console.WriteLine(Password1);
+                }
 
                 return result;
             }
         }
 
-       
+        internal void SetPassword1(SecureString securePassword)
+        {
+            Console.WriteLine(securePassword.ToString());
+            Password1 = securePassword.ToString();
+        }
+
+        internal void SetPassword2(SecureString securePassword)
+        {
+            Console.WriteLine(securePassword.ToString());
+            Password2 = securePassword.ToString();
+            // ovde ce ici provera
+            Console.WriteLine(Password1.Equals(Password2));
+        }
 
     }
 }
