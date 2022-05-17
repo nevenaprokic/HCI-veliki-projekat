@@ -10,18 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ZeleznicaAplikacija.gui
 {
     /// <summary>
-    /// Interaction logic for WelcomeWindowClient.xaml
+    /// Interaction logic for WelcomePageManager.xaml
     /// </summary>
-    public partial class WelcomeWindowClient : Window
+    public partial class WelcomePageManager : Page
     {
-        public WelcomeWindowClient()
+        private Frame frame;
+
+        public WelcomePageManager(Frame f)
         {
             InitializeComponent();
+            frame = f;
         }
     }
 }

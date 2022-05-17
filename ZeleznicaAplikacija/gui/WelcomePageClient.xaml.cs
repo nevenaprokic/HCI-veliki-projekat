@@ -20,9 +20,12 @@ namespace ZeleznicaAplikacija.gui
     /// </summary>
     public partial class WelcomePageClient : Page
     {
-        public WelcomePageClient()
+        private Frame frame;
+
+        public WelcomePageClient(Frame f)
         {
             InitializeComponent();
+            frame = f;
         }
 
     }

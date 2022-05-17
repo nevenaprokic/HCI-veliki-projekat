@@ -1,4 +1,4 @@
-﻿<Page x:Class="ZeleznicaAplikacija.gui.WelcomePageClient"
+﻿<Page x:Class="ZeleznicaAplikacija.gui.WelcomePageManager"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,9 @@
       xmlns:local="clr-namespace:ZeleznicaAplikacija.gui"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1100"
-      Title="WelcomePageClient">
+      Title="WelcomePageManager">
 
     <Grid>
-        <Button Content="Prijavi se" />
+        
     </Grid>
 </Page>

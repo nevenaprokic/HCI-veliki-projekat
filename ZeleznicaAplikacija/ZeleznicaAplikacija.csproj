@@ -60,19 +60,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="gui\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="gui\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="gui\WelcomePageClient.xaml.cs">
       <DependentUpon>WelcomePageClient.xaml</DependentUpon>
     </Compile>
-    <Compile Include="gui\WelcomeWindowClient.xaml.cs">
-      <DependentUpon>WelcomeWindowClient.xaml</DependentUpon>
+    <Compile Include="gui\WelcomePageManager.xaml.cs">
+      <DependentUpon>WelcomePageManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="repo\MainRepository.cs" />
     <Compile Include="service\UserService.cs" />
+    <Page Include="gui\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="gui\RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="gui\WelcomePageClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="gui\WelcomeWindowClient.xaml">
+    <Page Include="gui\WelcomePageManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +137,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\" />
+    <Folder Include="validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

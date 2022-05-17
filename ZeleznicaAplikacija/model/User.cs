@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ZeleznicaAplikacija.model
         NO_TYPE
     }
 
-    public class User
+    public class User : IDataErrorInfo
     {
         public User() { }
 
@@ -35,6 +36,27 @@ namespace ZeleznicaAplikacija.model
         public UserType Type { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        string IDataErrorInfo.Error
+        {
+            get { return null; }
+        }
+
+        string IDataErrorInfo.this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Email")
+                {
+                    // Validate property and return a string if there is an error
+                    if (string.IsNullOrEmpty(Email))
+                        return "Name is Required";
+                }
+
+                // If there's no error, null gets returned
+                return null;
+            }
+        }
     }
 
 
