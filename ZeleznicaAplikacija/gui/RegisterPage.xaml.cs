@@ -22,13 +22,11 @@ namespace ZeleznicaAplikacija.gui
     public partial class RegisterPage : Page
     {
         private Frame frame;
-        private User user;
 
         public RegisterPage(Frame f)
         {
             InitializeComponent();
             frame = f;
-            this.DataContext = this;
         }
 
         private void RegisterHandler(object sender, RoutedEventArgs e) 

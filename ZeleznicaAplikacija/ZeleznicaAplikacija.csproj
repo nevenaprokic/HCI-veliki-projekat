@@ -66,6 +66,7 @@
     <Compile Include="gui\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="validators\UserValidation.cs" />
     <Compile Include="gui\WelcomePageClient.xaml.cs">
       <DependentUpon>WelcomePageClient.xaml</DependentUpon>
     </Compile>
@@ -140,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Themes\" />
-    <Folder Include="validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

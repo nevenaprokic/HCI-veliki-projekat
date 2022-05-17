@@ -4,21 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ZeleznicaAplikacija.gui"
+      xmlns:local1="clr-namespace:ZeleznicaAplikacija.validators"
       mc:Ignorable="d" 
       d:DesignHeight="750" d:DesignWidth="1100"
       Title="RegisterPage">
+    <Page.DataContext>
+        <local1:UserValidation />
+    </Page.DataContext>
 
-    <Page.Resources>
-        <Style TargetType="{x:Type FrameworkElement}" x:Key="ValidatingControl">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="ToolTip" Value="{Binding 
-                Path=(Validation.Errors)[0].ErrorContent, 
-                RelativeSource={x:Static RelativeSource.Self}}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
@@ -55,24 +48,27 @@
 
 
         <Label Content="Korisničko ime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="userNameTxt" Height="23" Grid.Row="3" MinWidth="180" VerticalAlignment="Top" Text="{Binding UpdateSourceTrigger=LostFocus, Path=Email,
-            ValidatesOnDataErrors=True, NotifyOnValidationError=true}" />
+        <TextBox Grid.Column="4" x:Name="userNameTxt" Height="23" Grid.Row="3" MinWidth="180" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=LostFocus,
+            ValidatesOnDataErrors=True}" />
 
 
         <Label Content="Ime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="firstNameTxt" Height="23" Grid.Row="5" MinWidth="180" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="4" x:Name="firstNameTxt" Height="23" Grid.Row="5" MinWidth="180" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=LostFocus,
+            ValidatesOnDataErrors=True}"/>
 
         <Label Content="Prezime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="lastNameTxt" Height="23" Grid.Row="7" MinWidth="180" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="4" x:Name="lastNameTxt" Height="23" Grid.Row="7" MinWidth="180" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=LostFocus,
+            ValidatesOnDataErrors=True}"/>
 
         <Label Content="Lozinka" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Bottom"/>
-        <PasswordBox  Grid.Column="4" x:Name="passwordTxt1" Height="23" Grid.Row="9" Width="Auto" MinWidth="180" VerticalAlignment="Top"/>
+        <PasswordBox  Grid.Column="4" x:Name="passwordTxt1" Height="23" Grid.Row="9" Width="Auto" MinWidth="180" VerticalAlignment="Top" />
 
         <Label Content="Ponovi lozinku" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Bottom"/>
         <PasswordBox  Grid.Column="4" x:Name="passwordTxt2" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top"/>
 
         <Label Content="Broj telefona" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="12" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="phoneTxt" Height="23" Grid.Row="13" MinWidth="180" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="4" x:Name="phoneTxt" Height="23" Grid.Row="13" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
+            ValidatesOnDataErrors=True}"/>
 
         <Label Content="Datum rodjenja" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="14" VerticalAlignment="Bottom"/>
         <DatePicker Height="35" Grid.Column="4" x:Name="datePicker1" Grid.Row="15" VerticalAlignment="Top" />
