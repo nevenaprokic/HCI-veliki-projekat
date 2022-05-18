@@ -10,7 +10,7 @@
       d:DesignHeight="750" d:DesignWidth="1100"
       Title="RegisterPage">
     <Page.DataContext>
-        <local1:UserValidation />
+        <local1:RegistrationViewModel />
     </Page.DataContext>
 
     <Grid>
@@ -55,33 +55,33 @@
         <Label Content="-Registracija-" Grid.Column="2" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" Foreground="#141C61" FontSize="25"/>
         <Label Content="Korisničko ime" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="4" VerticalAlignment="Bottom"/>
         <Image x:Name="mailIcon" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center"/>
-        <TextBox Grid.Column="3" x:Name="userNameTxt" Height="23" Grid.Row="5" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=LostFocus,
+        <TextBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="userNameTxt" Height="23" Grid.Row="5" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}" />
 
 
+        <TextBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="firstNameTxt" Height="23" Grid.Row="7" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=LostFocus,
+            ValidatesOnDataErrors=True}"/>
         <Label Content="Ime" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="6" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
         <Image x:Name="nameIcon" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center"/>
-        <TextBox Grid.Column="3" x:Name="firstNameTxt" Height="23" Grid.Row="7" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=LostFocus,
-            ValidatesOnDataErrors=True}"/>
 
         <Label Content="Prezime" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="8" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
         <Image x:Name="lastNameIcon" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center"/>
-        <TextBox Grid.Column="3" x:Name="lastNameTxt" Height="23" Grid.Row="9" MinWidth="180" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=LostFocus,
+        <TextBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="lastNameTxt" Height="23" Grid.Row="9" MinWidth="180" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
         <Label Content="Lozinka" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="10" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
         <Image x:Name="passwordIcon" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center"/>
-        <PasswordBox  Grid.Column="3" x:Name="passwordTxt1" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password1,
-            ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged1"/>
+        <PasswordBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="passwordTxt1" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password1,
+            UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged1"/>
 
         <Label Content="Ponovi lozinku" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="12" VerticalAlignment="Bottom"/>
-        <Image x:Name="password1Icon" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"/>    
-        <PasswordBox  Grid.Column="3" x:Name="passwordTxt2" Height="23" Grid.Row="13" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password2,
-                ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged2"/>
+        <Image x:Name="password1Icon" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"/>
+        <PasswordBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="passwordTxt2" Height="23" Grid.Row="13" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password2,
+                UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged2"/>
 
         <Label Content="Broj telefona" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="14" VerticalAlignment="Bottom"/>
         <Image x:Name="phoneIcon" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"/>
-        <TextBox Grid.Column="3" x:Name="phoneTxt" Height="23" Grid.Row="15" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
+        <TextBox Validation.ErrorTemplate="{StaticResource errorTemplate}" Grid.Column="3" x:Name="phoneTxt" Height="23" Grid.Row="15" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
         <Label Content="Datum rodjenja" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="16" VerticalAlignment="Bottom"/>
@@ -95,7 +95,7 @@
             <ComboBoxItem Content="Menadzer"></ComboBoxItem>
         </ComboBox>
 
-        <Button Content="Registruj se" Grid.Column="2" Grid.Row="21" Grid.ColumnSpan="2" Background="#141C61" HorizontalAlignment="Center" MinWidth="200" FontSize="18" Foreground="White" Click="RegisterHandler">
+        <Button x:Name="registerBtn" Content="Registruj se" IsEnabled="{Binding CanRegister}" Grid.Column="2" Grid.Row="21" Grid.ColumnSpan="2" Background="#141C61" HorizontalAlignment="Center" MinWidth="200" FontSize="18" Foreground="White" Click="RegisterHandler">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

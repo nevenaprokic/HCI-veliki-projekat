@@ -39,6 +39,7 @@ namespace ZeleznicaAplikacija.gui
             dateIcon.Source = BitmapFrame.Create(new Uri("../../images/date.png", UriKind.RelativeOrAbsolute));
             typeIcon.Source = BitmapFrame.Create(new Uri("../../images/type.png", UriKind.RelativeOrAbsolute));
             frame = f;
+            //registerBtn.IsEnabled = false;
         }
 
         private void RegisterHandler(object sender, RoutedEventArgs e) 
@@ -67,12 +68,12 @@ namespace ZeleznicaAplikacija.gui
 
         private void onPasswordChanged1(object sender, RoutedEventArgs e)
         {
-            (DataContext as UserValidation).SetPassword1((sender as PasswordBox).SecurePassword);
+            (DataContext as RegistrationViewModel).SetPassword1((sender as PasswordBox).SecurePassword);
         }
 
         private void onPasswordChanged2(object sender, RoutedEventArgs e)
         {
-            (DataContext as UserValidation).SetPassword2((sender as PasswordBox).SecurePassword);
+            (DataContext as RegistrationViewModel).SetPassword2((sender as PasswordBox).SecurePassword);
         }
     }
 }

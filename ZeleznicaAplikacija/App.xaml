@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:ZeleznicaAplikacija"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ControlTemplate x:Key="errorTemplate">
+            <Border BorderBrush="OrangeRed" BorderThickness="2">
+                <Grid>
+                    <AdornedElementPlaceholder/>
+                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed"
+                               Margin="0,0,4,0" HorizontalAlignment="Right"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
     </Application.Resources>
 </Application>
