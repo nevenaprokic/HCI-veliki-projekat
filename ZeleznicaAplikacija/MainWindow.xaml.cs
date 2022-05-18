@@ -28,8 +28,9 @@ namespace ZeleznicaAplikacija
         {
             this.Title = "Prijava";
 
-            Uri iconUri = new Uri("../../images/logo.png", UriKind.RelativeOrAbsolute);
+            Uri iconUri = new Uri("../../images/logo1.png", UriKind.RelativeOrAbsolute);
             this.Icon = BitmapFrame.Create(iconUri);
+            
         }
         public MainWindow()
         {

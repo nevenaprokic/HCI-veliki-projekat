@@ -16,6 +16,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="7*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="4*" />
             <RowDefinition Height="5*" />
@@ -30,10 +33,10 @@
             <RowDefinition Height="4*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="4*" />
-            <RowDefinition Height="9*" />
-            <RowDefinition Height="4*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="4*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="5*" />
             <RowDefinition Height="5*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
@@ -41,48 +44,58 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.4*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="21" Background="#E8F0F2" BorderThickness="1" CornerRadius="8"/>
 
-        <Label Content="Korisničko ime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="userNameTxt" Height="23" Grid.Row="3" MinWidth="180" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=LostFocus,
+        <Label Content="-Registracija-" Grid.Column="2" HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top" Foreground="#141C61" FontSize="25"/>
+        <Label Content="Korisničko ime" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="4" VerticalAlignment="Bottom"/>
+        <Image x:Name="mailIcon" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center"/>
+        <TextBox Grid.Column="3" x:Name="userNameTxt" Height="23" Grid.Row="5" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}" />
 
 
-        <Label Content="Ime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="firstNameTxt" Height="23" Grid.Row="5" MinWidth="180" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=LostFocus,
+        <Label Content="Ime" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="6" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
+        <Image x:Name="nameIcon" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Center"/>
+        <TextBox Grid.Column="3" x:Name="firstNameTxt" Height="23" Grid.Row="7" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
-        <Label Content="Prezime" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="lastNameTxt" Height="23" Grid.Row="7" MinWidth="180" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=LostFocus,
+        <Label Content="Prezime" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="8" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
+        <Image x:Name="lastNameIcon" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Center"/>
+        <TextBox Grid.Column="3" x:Name="lastNameTxt" Height="23" Grid.Row="9" MinWidth="180" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
-        <Label Content="Lozinka" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Bottom"/>
-        <PasswordBox  Grid.Column="4" x:Name="passwordTxt1" Height="23" Grid.Row="9" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password1,
+        <Label Content="Lozinka" Grid.Column="3" HorizontalAlignment="Left" Grid.Row="10" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"/>
+        <Image x:Name="passwordIcon" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Center"/>
+        <PasswordBox  Grid.Column="3" x:Name="passwordTxt1" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password1,
             ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged1"/>
 
-        <Label Content="Ponovi lozinku" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="10" VerticalAlignment="Bottom"/>
-            <PasswordBox  Grid.Column="4" x:Name="passwordTxt2" Height="23" Grid.Row="11" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password2,
+        <Label Content="Ponovi lozinku" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="12" VerticalAlignment="Bottom"/>
+        <Image x:Name="password1Icon" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center"/>    
+        <PasswordBox  Grid.Column="3" x:Name="passwordTxt2" Height="23" Grid.Row="13" Width="Auto" MinWidth="180" VerticalAlignment="Top" Tag="{Binding Password2,
                 ValidatesOnDataErrors=True}" PasswordChanged="onPasswordChanged2"/>
 
-        <Label Content="Broj telefona" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="12" VerticalAlignment="Bottom"/>
-        <TextBox Grid.Column="4" x:Name="phoneTxt" Height="23" Grid.Row="13" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
+        <Label Content="Broj telefona" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="14" VerticalAlignment="Bottom"/>
+        <Image x:Name="phoneIcon" Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center"/>
+        <TextBox Grid.Column="3" x:Name="phoneTxt" Height="23" Grid.Row="15" MinWidth="180" VerticalAlignment="Top" Text="{Binding Phone, UpdateSourceTrigger=LostFocus,
             ValidatesOnDataErrors=True}"/>
 
-        <Label Content="Datum rodjenja" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="14" VerticalAlignment="Bottom"/>
-        <DatePicker Height="35" Grid.Column="4" x:Name="datePicker1" SelectedDate="{x:Static sys:DateTime.Now}" Grid.Row="15" VerticalAlignment="Top" />
+        <Label Content="Datum rodjenja" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="16" VerticalAlignment="Bottom"/>
+        <Image x:Name="dateIcon" Grid.Column="2" Grid.Row="16" HorizontalAlignment="Center"/>
+        <DatePicker Height="35" Grid.Column="3" x:Name="datePicker1" SelectedDate="{x:Static sys:DateTime.Now}" Grid.Row="17" VerticalAlignment="Top" />
 
-        <Label Content="Tip korisnika" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="15" VerticalAlignment="Bottom"/>
-        <ComboBox SelectedIndex="0" Name="comboBox" Grid.Column="4" Grid.Row="16" VerticalAlignment="Top" Height="23">
+        <Label Content="Tip korisnika" Grid.Column="3" HorizontalAlignment="Left" FontSize="15" Foreground="#141C61" Grid.Row="18" VerticalAlignment="Bottom"/>
+        <Image x:Name="typeIcon" Grid.Column="2" Grid.Row="18" HorizontalAlignment="Center"/>
+        <ComboBox SelectedIndex="0" Name="comboBox" Grid.Column="3"  Grid.Row="19" VerticalAlignment="Top"  Height="23">
             <ComboBoxItem Content="Klijent"></ComboBoxItem>
             <ComboBoxItem Content="Menadzer"></ComboBoxItem>
         </ComboBox>
 
-        <Button Content="Registruj se" Grid.Column="4" Grid.Row="18" Background="#141C61" Foreground="White" Click="RegisterHandler">
+        <Button Content="Registruj se" Grid.Column="2" Grid.Row="21" Grid.ColumnSpan="2" Background="#141C61" HorizontalAlignment="Center" MinWidth="200" FontSize="18" Foreground="White" Click="RegisterHandler">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -90,10 +103,9 @@
             </Button.Resources>
         </Button>
 
-        <TextBlock  Grid.Column="4" Grid.Row="19" HorizontalAlignment="Right">
+        <TextBlock  Grid.Column="3" Grid.Row="22" FontSize="15" HorizontalAlignment="Left">
             <Hyperlink Click="LoginLinkCommand">Prijavi se</Hyperlink>
         </TextBlock>
 
-        <Image Grid.ColumnSpan="4" Grid.RowSpan="12" Grid.Column="0" Grid.Row="3" Source="https://cdn.discordapp.com/attachments/952136225974808589/976102503466811422/istockphoto-538801788-170667a.jpg" />
     </Grid>
 </Page>
