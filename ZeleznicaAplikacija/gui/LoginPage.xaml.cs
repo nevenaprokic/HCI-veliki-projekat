@@ -57,7 +57,7 @@ namespace ZeleznicaAplikacija.gui
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new WelcomePageManager(frame);
+                frame.Content = new MonthlyReport(frame);
             }
 
         }

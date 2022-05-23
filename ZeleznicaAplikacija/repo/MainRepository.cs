@@ -22,7 +22,7 @@ namespace ZeleznicaAplikacija.repo
         {
             User client1 = new User("pera@gmail.com", "sifra", "Petar", "Peric", UserType.CLIENT, "063/9879-010", new DateTime(2000, 11, 29));
             User client2 = new User("mile@gmail.com", "sifra", "Mile", "Subotic", UserType.CLIENT, "064/1119-510", new DateTime(1998, 07, 10));
-            User manager1 = new User("ksenija@gmail.com", "sifra", "Ksenija", "Maric", UserType.MANAGER, "063/9559-343", new DateTime(1996, 03, 08));
+            User manager1 = new User("a", "a", "Ksenija", "Maric", UserType.MANAGER, "063/9559-343", new DateTime(1996, 03, 08));
             User manager2 = new User("vanja@gmail.com", "sifra", "Vanja", "Jovanovic", UserType.MANAGER, "065/9319-366", new DateTime(1996, 05, 15));
 
             Clients = new List<User> { client1, client2 };
@@ -124,11 +124,11 @@ namespace ZeleznicaAplikacija.repo
             List<TrainLine> trainLines = new List<TrainLine> { tl1, tl2, tl3 };
 
             //tickets
-            //bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(false, tl1, new DateTime(2022, 05, 25), seats[0], null, t1);
-            Ticket ticket2 = new Ticket(false, tl2, new DateTime(2022, 05, 25), seats[20], null, t2);
-            Ticket ticket3 = new Ticket(false, tl3, new DateTime(2022, 05, 25), seats[30], null, t1);
-            Ticket ticket4 = new Ticket(true, tl3, new DateTime(2022, 05, 26), seats[20], seats[21], t2);
+            //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
+            Ticket ticket1 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 25), seats[0], null, t1, ts1, ts6); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            Ticket ticket2 = new Ticket(client2, false, tl2, new DateTime(2022, 05, 25), seats[20], null, t2, ts6, ts6);
+            Ticket ticket3 = new Ticket(client1, false, tl3, new DateTime(2022, 05, 25), seats[30], null, t1, ts1, ts6);
+            Ticket ticket4 = new Ticket(client2, true, tl3, new DateTime(2022, 05, 26), seats[20], seats[21], t2, ts1, ts6);
             Tickets = new List<Ticket>();
             Tickets.Add(ticket1);
             Tickets.Add(ticket2);
