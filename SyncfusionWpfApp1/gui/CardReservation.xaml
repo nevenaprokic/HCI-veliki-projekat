@@ -1,0 +1,334 @@
+﻿<Page x:Class="SyncfusionWpfApp1.gui.CardReservation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+      mc:Ignorable="d" 
+      d:DesignHeight="773.934" d:DesignWidth="1212.941"
+      Title="CardReservation">
+
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="3.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="8.1*"/>
+            <RowDefinition Height="1.5*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
+                    <Image x:Name="trainIcon"/>
+                </Viewbox>
+                <Border CornerRadius="50"
+                  x:Name="FirstCircle"
+               Grid.Row="0" Grid.Column="0"
+                Width="45"
+                Height="45"
+                Margin="0 0 10 0"
+                Background="#b3d9ff"
+                BorderBrush="Black"
+                BorderThickness="1"
+                 HorizontalAlignment="Right">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold">1
+                    </TextBlock>
+                </Border>
+
+                <Image x:Name="arrow" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
+
+                <Border CornerRadius="50"
+                  x:Name="SeconCircle"
+               Grid.Row="1" Grid.Column="2"
+                Width="45"
+                Height="45"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" >2
+                    </TextBlock>
+                </Border>
+
+                <Image x:Name="arrow1" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" />
+
+
+                <Border CornerRadius="50"
+                  x:Name="ThrdCircle"
+               Grid.Row="0" Grid.Column="4"
+                Width="45"
+                Height="45"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" >3
+                    </TextBlock>
+                </Border>
+                <Image x:Name="arrow2" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Center" />
+
+                <Border CornerRadius="50"
+                  x:Name="FourthCircle"
+               Grid.Row="0" Grid.Column="6"
+                Width="45"
+                Height="45"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15">4
+                    </TextBlock>
+                </Border>
+
+            </Grid>
+
+
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="3.8*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Izaberite svoju destinaciju za putovanje u 4 koraka" TextWrapping="Wrap" FontSize="15px" Foreground="White" FontStyle="Italic" HorizontalAlignment="Left" ></TextBlock>
+                </Viewbox>
+
+
+            </Grid>
+
+            <Label Content="Polazište: *" Grid.Row="3" Grid.Column="1" FontSize="15" Foreground="White"></Label>
+            <ComboBox  Grid.Row="4" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name"></ComboBox>
+            <Label Content="Odredište: *" Grid.Row="3" Grid.Column="3" FontSize="15" Foreground="White"></Label>
+            <ComboBox  Grid.Row="4" Grid.Column="3" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name"/>
+            <Label Content="Datum polaska: *" Grid.Row="6" Grid.Column="1" FontSize="15" Foreground="White"></Label>
+            <DatePicker  Grid.Column="1" Grid.Row="7"  Name="datePicker1" Background="White" SelectedDateChanged="startDate_SelectedDateChanged"/>
+            <Label Content="Datum povratka:" Grid.Row="6" Grid.Column="3" FontSize="15" Foreground="White"></Label>
+            <DatePicker  Grid.Column="3" Grid.Row="7" Name="datePicker2" Background="White" SelectedDateChanged="endDate_SelectedDateChanged"/>
+            <Label Content="Satnica polaska:" Grid.Row="9" Grid.Column="1" FontSize="15" Foreground="White"></Label>
+            <ComboBox ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartDate}" Grid.Row="10" Grid.Column="1" Background="White" IsEditable="True"></ComboBox>
+            <Label Content="Satnica povratka:" Grid.Row="9" Grid.Column="3" FontSize="15" Foreground="White"></Label>
+            <ComboBox ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackDate}" Grid.Row="10" Grid.Column="3" Background="White" IsEditable="True"></ComboBox>
+
+            <Grid Grid.Column="3" Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Content="Back" Visibility="Hidden" />
+                <Button Grid.Column="2" Content="Next" Background="#b3d9ff" Click="FistPageNextBtnClicked"/>
+            </Grid>
+
+
+        </Grid>
+
+        <Grid x:Name="SecondPage" Grid.Row="1" Grid.Column="1" Visibility="Hidden">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
+                    <Image x:Name="trainIcon1"/>
+                </Viewbox>
+                <Border CornerRadius="50"
+                  x:Name="FirstCircle2"
+               Grid.Row="0" Grid.Column="0"
+                Width="45"
+                Height="45"
+                Margin="0 0 10 0"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                 HorizontalAlignment="Right">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15">1
+                    </TextBlock>
+                </Border>
+
+                <Image x:Name="arrow3" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" />
+
+                <Border CornerRadius="50"
+                  x:Name="SeconCircle2"
+               Grid.Row="1" Grid.Column="2"
+                Width="45"
+                Height="45"
+                Background="#b3d9ff"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold">2
+                    </TextBlock>
+                </Border>
+
+                <Image x:Name="arrow4" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" />
+
+
+                <Border CornerRadius="50"
+                  x:Name="ThrdCircle2"
+               Grid.Row="0" Grid.Column="4"
+                Width="45"
+                Height="45"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" >3
+                    </TextBlock>
+                </Border>
+                <Image x:Name="arrow5" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Center" />
+
+                <Border CornerRadius="50"
+                  x:Name="FourthCircle2"
+               Grid.Row="0" Grid.Column="6"
+                Width="45"
+                Height="45"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="1"
+                HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15">4
+                    </TextBlock>
+                </Border>
+
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="Odaberite vožnju" TextWrapping="Wrap" FontSize="15px" Foreground="White" FontStyle="Italic" HorizontalAlignment="Left" ></TextBlock>
+                </Viewbox>
+
+
+            </Grid>
+
+            <Label Content="Voz:" Grid.Row="3" Grid.Column="1" FontSize="15" Foreground="White"></Label>
+            <ComboBox  Grid.Row="4" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding stationsNames}"></ComboBox>
+            <Label Content="Maksimalna cena:" Grid.Row="3" Grid.Column="3" FontSize="15" Foreground="White"></Label>
+            <syncfusion:DoubleTextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Height="36" Margin="70,0,0,0" />
+            <syncfusion:SfDataGrid  Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="5" Background="White">
+               
+                
+            </syncfusion:SfDataGrid>
+            <Grid Grid.Column="3" Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Content="Back" Background="#b3d9ff" Click="SecondPageBackBtnClicked"/>
+                <Button Grid.Column="2" Content="Next" Background="#b3d9ff"/>
+            </Grid>
+
+
+        </Grid>
+
+
+
+    </Grid>
+</Page>
+
+    
