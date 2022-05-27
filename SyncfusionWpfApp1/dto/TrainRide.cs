@@ -18,5 +18,16 @@ namespace SyncfusionWpfApp1.dto
         public int travelDuration { get; set; }
         public double price { get; set; }
 
-     }
+        public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start, int travelDuration, double price)
+        {
+            this.startStation = startStation;
+            this.endStation = endStation;
+            this.line = line;
+            this.train = train;
+            this.wagonClass = wagonClass;
+            this.start = start;
+            this.travelDuration = travelDuration;
+            this.price = price;
+        }
+    }
 }

@@ -70,7 +70,7 @@ namespace SyncfusionWpfApp1
             InitializeComponent();
 			this.Loaded += OnLoaded;
             SetProperties();
-            Uri iconUri = new Uri("../../images/train.png", UriKind.RelativeOrAbsolute);
+            Uri iconUri = new Uri("../../../images/train.png", UriKind.RelativeOrAbsolute);
             //imegePicture.Source = BitmapFrame.Create(iconUri);
             MainRepository mainRepository = new MainRepository();
             userService = new UserService();
@@ -124,7 +124,7 @@ namespace SyncfusionWpfApp1
         {
             this.Title = "Želecnica Srbije";
 
-            Uri iconUri = new Uri("../../images/logo1.png", UriKind.RelativeOrAbsolute);
+            Uri iconUri = new Uri("../../../images/logo1.png", UriKind.RelativeOrAbsolute);
             this.Icon = BitmapFrame.Create(iconUri);
 
         }

@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SyncfusionWpfApp1.repo;
 using System.ComponentModel;
+using SyncfusionWpfApp1.dto;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -33,7 +34,10 @@ namespace SyncfusionWpfApp1.gui
         public List<string> trainClasses { get; set; }
 
         private List<string> _sortedStartTimes;
-        public List<string> _sortedBackTimes { get; set; }
+        private List<string> _sortedBackTimes;
+
+        private List<TrainRide> _trainRides;
+
 
         public List<String> SortedStartTimes
         {
@@ -61,6 +65,19 @@ namespace SyncfusionWpfApp1.gui
                 {
                     _sortedBackTimes = value;
                     RaisePropertyChanged("SortedBackTimes");
+                }
+            }
+        }
+
+        public List<TrainRide> TrainRides
+        {
+            get { return _trainRides;  }
+            set
+            {
+                if(_trainRides != value)
+                {
+                    _trainRides = value;
+                    RaisePropertyChanged("TrainRides");
                 }
             }
         }
@@ -161,12 +178,12 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../images/ReservationBackground.png", UriKind.Relative));
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-            Uri iconUriMail = new Uri("../../images/trian_station.png", UriKind.RelativeOrAbsolute);
+            Uri iconUriMail = new Uri("../../../images/trian_station.png", UriKind.RelativeOrAbsolute);
             trainIcon.Source = BitmapFrame.Create(iconUriMail);
             trainIcon1.Source = BitmapFrame.Create(iconUriMail);
-            Uri iconUriArrow = new Uri("../../images/arrow.png", UriKind.RelativeOrAbsolute);
+            Uri iconUriArrow = new Uri("../../../images/arrow.png", UriKind.RelativeOrAbsolute);
             arrow.Source = BitmapFrame.Create(iconUriArrow);
             arrow1.Source = BitmapFrame.Create(iconUriArrow);
             arrow2.Source = BitmapFrame.Create(iconUriArrow);
@@ -201,8 +218,20 @@ namespace SyncfusionWpfApp1.gui
             //preuzeti podatke i validirati ih
             this.FirstPage.Visibility = Visibility.Hidden;
             this.SecondPage.Visibility = Visibility.Visible;
+
+            DateTime startDateTime = convertToFullDateTime(StartDate, StartTime);
+            DateTime backDateTime = convertToFullDateTime(BackDate, BackTime);
+            TrainRides = MainRepository.filterSelectedLines(startStation, endStation, startDateTime, backDateTime);
+
             
 
+        }
+
+        private DateTime convertToFullDateTime(DateTime date, string time)
+        {
+            string[] timeTokens = time.Split(":");
+            DateTime dateTime = new DateTime(date.Year, date.Month, date.Day, int.Parse(timeTokens[0]), int.Parse(timeTokens[1]), 0);
+            return dateTime;
         }
 
         private void StartStationChanged(object sender, SelectionChangedEventArgs e)

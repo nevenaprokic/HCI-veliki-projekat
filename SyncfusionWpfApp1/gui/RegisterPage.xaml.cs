@@ -28,16 +28,16 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../images/back.jpg", UriKind.Relative));
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/back.jpg", UriKind.Relative));
             this.Background = myBrush;
-            mailIcon.Source = BitmapFrame.Create(new Uri("../../images/username.png", UriKind.RelativeOrAbsolute));
-            nameIcon.Source = BitmapFrame.Create(new Uri("../../images/name.png", UriKind.RelativeOrAbsolute));
-            lastNameIcon.Source = BitmapFrame.Create(new Uri("../../images/name.png", UriKind.RelativeOrAbsolute));
-            passwordIcon.Source = BitmapFrame.Create(new Uri("../../images/password.png", UriKind.RelativeOrAbsolute));
-            password1Icon.Source = BitmapFrame.Create(new Uri("../../images/password.png", UriKind.RelativeOrAbsolute));
-            phoneIcon.Source = BitmapFrame.Create(new Uri("../../images/phone.png", UriKind.RelativeOrAbsolute));
-            dateIcon.Source = BitmapFrame.Create(new Uri("../../images/date.png", UriKind.RelativeOrAbsolute));
-            typeIcon.Source = BitmapFrame.Create(new Uri("../../images/type.png", UriKind.RelativeOrAbsolute));
+            mailIcon.Source = BitmapFrame.Create(new Uri("../../../images/username.png", UriKind.RelativeOrAbsolute));
+            nameIcon.Source = BitmapFrame.Create(new Uri("../../../images/name.png", UriKind.RelativeOrAbsolute));
+            lastNameIcon.Source = BitmapFrame.Create(new Uri("../../../images/name.png", UriKind.RelativeOrAbsolute));
+            passwordIcon.Source = BitmapFrame.Create(new Uri("../../../images/password.png", UriKind.RelativeOrAbsolute));
+            password1Icon.Source = BitmapFrame.Create(new Uri("../../../images/password.png", UriKind.RelativeOrAbsolute));
+            phoneIcon.Source = BitmapFrame.Create(new Uri("../../../images/phone.png", UriKind.RelativeOrAbsolute));
+            dateIcon.Source = BitmapFrame.Create(new Uri("../../../images/date.png", UriKind.RelativeOrAbsolute));
+            typeIcon.Source = BitmapFrame.Create(new Uri("../../../images/type.png", UriKind.RelativeOrAbsolute));
             frame = f;
             //registerBtn.IsEnabled = false;
         }

@@ -9,18 +9,34 @@
       d:DesignHeight="773.934" d:DesignWidth="1212.941"
       Title="CardReservation">
 
+    <Page.Resources>
+        <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
+            <Setter Property="Background" Value="Bisque" />
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="DarkBlue"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+        <Style TargetType="syncfusion:GridCell" x:Key="customCellStyle">
+            <Setter Property="BorderBrush" Value="#141C61"/>
+            <Setter Property="BorderThickness" Value="0.4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+ 
 
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="8.1*"/>
-            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1" >
@@ -39,7 +55,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -150,16 +166,25 @@
 
             <Label Content="Polazište: *" Grid.Row="3" Grid.Column="1" FontSize="15" Foreground="White"></Label>
             <ComboBox  Grid.Row="4" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name"></ComboBox>
+            
             <Label Content="Odredište: *" Grid.Row="3" Grid.Column="3" FontSize="15" Foreground="White"></Label>
             <ComboBox  Grid.Row="4" Grid.Column="3" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name"/>
+                       
             <Label Content="Datum polaska: *" Grid.Row="6" Grid.Column="1" FontSize="15" Foreground="White"></Label>
             <DatePicker  Grid.Column="1" Grid.Row="7"  Name="datePicker1" Background="White" SelectedDateChanged="startDate_SelectedDateChanged"/>
+            <Label x:Name="startDateError" Grid.Row="8" Grid.Column="1"></Label>
+            
             <Label Content="Datum povratka:" Grid.Row="6" Grid.Column="3" FontSize="15" Foreground="White"></Label>
             <DatePicker  Grid.Column="3" Grid.Row="7" Name="datePicker2" Background="White" SelectedDateChanged="endDate_SelectedDateChanged"/>
+            <Label x:Name="backDateError" Grid.Row="8" Grid.Column="3"></Label>
+            
             <Label Content="Satnica polaska:" Grid.Row="9" Grid.Column="1" FontSize="15" Foreground="White"></Label>
-            <ComboBox ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartDate}" Grid.Row="10" Grid.Column="1" Background="White" IsEditable="True"></ComboBox>
+            <ComboBox ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" Grid.Row="10" Grid.Column="1" Background="White" IsEditable="True"></ComboBox>
+            <Label x:Name="startTimeError" Grid.Row="11" Grid.Column="1"></Label>
+            
             <Label Content="Satnica povratka:" Grid.Row="9" Grid.Column="3" FontSize="15" Foreground="White"></Label>
-            <ComboBox ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackDate}" Grid.Row="10" Grid.Column="3" Background="White" IsEditable="True"></ComboBox>
+            <ComboBox ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackTime}" Grid.Row="10" Grid.Column="3" Background="White" IsEditable="True"></ComboBox>
+            <Label x:Name="backTimeError" Grid.Row="11" Grid.Column="3"></Label>
 
             <Grid Grid.Column="3" Grid.Row="12">
                 <Grid.ColumnDefinitions>
@@ -194,7 +219,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -205,8 +230,8 @@
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
-            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,38,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="1.5*"/>
@@ -301,15 +326,81 @@
 
             </Grid>
 
-            <Label Content="Voz:" Grid.Row="3" Grid.Column="1" FontSize="15" Foreground="White"></Label>
-            <ComboBox  Grid.Row="4" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding stationsNames}"></ComboBox>
-            <Label Content="Maksimalna cena:" Grid.Row="3" Grid.Column="3" FontSize="15" Foreground="White"></Label>
-            <syncfusion:DoubleTextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Height="36" Margin="70,0,0,0" />
-            <syncfusion:SfDataGrid  Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" Grid.RowSpan="5" Background="White">
-               
-                
+
+            <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+                <Label Content="Voz:"  FontSize="15" Foreground="White"></Label>
+            </Viewbox>
+
+            <ComboBox  Grid.Row="4" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding stationsNames}" FontSize="14"></ComboBox>
+
+            <Viewbox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left">
+                <Label Content="Maksimalna cena:"  FontSize="15" Foreground="White"></Label>
+            </Viewbox>
+           
+            <syncfusion:DoubleTextBox Grid.Row="4" Grid.Column="3"  Height="36" FontSize="12"/>
+            
+            <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="6" Background="White" 
+                                   ItemsSource="{Binding TrainRides}" 
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#b3d9ff"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   >
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn MappingName="startStation.Name"
+                                    HeaderText="Polazište"
+                                    IsReadOnly="True"
+                                    Width="200"
+                                    ColumnSizer="SizeToCells"
+                 >
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="endStation.Name"
+                                   HeaderText="Odredište"
+                                    IsReadOnly="True"
+                                    Width="200"
+                                    ColumnSizer="SizeToCells"           
+                                    >
+
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="train.Name"
+                                    HeaderText="Voz"
+                                    IsReadOnly="True"
+                                    >
+
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="start"
+                                    HeaderText="Vreme polaska"
+                                    IsReadOnly="True"
+                                    ColumnSizer="SizeToCells"
+                        >
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="travelDuration"
+                                   HeaderText="Trajanje vožnje (min)"
+                                   IsReadOnly="True"
+                                   
+                   >
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="wagonClass"
+                                   HeaderText="Razred vagona"
+                                   IsReadOnly="True"
+                   >
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn MappingName="price"
+                                   HeaderText="Cena"
+                                   IsReadOnly="True"
+                   >
+
+                    </syncfusion:GridTextColumn>
+
+                   
+                </syncfusion:SfDataGrid.Columns>
+
             </syncfusion:SfDataGrid>
-            <Grid Grid.Column="3" Grid.Row="12">
+            <Grid Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="3" Margin="77,0,38,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.1*"/>

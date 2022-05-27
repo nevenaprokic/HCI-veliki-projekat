@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using SyncfusionWpfApp1.Model;
 using Syncfusion.Data.Extensions;
 using SyncfusionWpfApp1.dto;
+using System.Collections;
 
 namespace SyncfusionWpfApp1.repo
 {
@@ -247,12 +248,18 @@ namespace SyncfusionWpfApp1.repo
                         foreach(WagonClass wagonClass in trainWagonClasses)
                         {
                             double classPercent = 1;
-                            if (wagonClass.Equals(WagonClass.SECOND))
+                            if (wagonClass.Equals(WagonClass.FIRST))
                             {
                                 classPercent = 1.2;
                             }
 
                             double price = calculateRidePrice(line, startStation, endStation);
+                            int travelDuration = calculateDepartureTime(line, startStation, endStation);
+                            price = classPercent * price;
+
+                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, travelDuration, price);
+                            trainRides.Add(ride);
+
                         }
                     }
                 }
@@ -267,11 +274,14 @@ namespace SyncfusionWpfApp1.repo
             double price = 0;
             int startStationIndex = GetIndex(startStation, line);
             int endStationIndex = GetIndex(endStation, line);
-            foreach (KeyValuePair<TrainStation, TrainStationInfo> data in line.Map)
+            IDictionaryEnumerator myEnumerator = line.Map.GetEnumerator();
+            while(myEnumerator.MoveNext())
             {
                 if(index >= startStationIndex && index < endStationIndex)
                 {
-                    price += data.Value.Price;
+                    TrainStationInfo station = (TrainStationInfo) myEnumerator.Value;
+                    price += station.Price;
+                    
                 }
                 index++;
             }
@@ -279,6 +289,31 @@ namespace SyncfusionWpfApp1.repo
             return price;
             
         }
+
+        private static int calculateDepartureTime(TrainLine line, TrainStation startStation, TrainStation endStation)
+        {
+            //gledati po vrednosti uz kljuc stanice u recniku, treba da se uzmu one stanice koje su izmedju, gledati po indeksu
+            int index = 0;
+            int travelDuration = 0;
+            int startStationIndex = GetIndex(startStation, line);
+            int endStationIndex = GetIndex(endStation, line);
+            IDictionaryEnumerator myEnumerator = line.Map.GetEnumerator();
+            while (myEnumerator.MoveNext())
+            {
+                if (index >= startStationIndex && index < endStationIndex)
+                {
+                    TrainStationInfo station = (TrainStationInfo)myEnumerator.Value;
+                    travelDuration += station.FromDeparture;
+
+                }
+                index++;
+            }
+
+            return travelDuration;
+
+        }
+
+
 
         private static List<WagonClass> getTrainWagonClasses(Train train)
         {

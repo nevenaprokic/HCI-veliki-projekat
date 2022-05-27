@@ -30,11 +30,11 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../images/back.jpg", UriKind.Relative));
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/back.jpg", UriKind.Relative));
             this.Background = myBrush;
-            Uri iconUriMail = new Uri("../../images/mail.png", UriKind.RelativeOrAbsolute);
+            Uri iconUriMail = new Uri("../../../images/mail.png", UriKind.RelativeOrAbsolute);
             mailIcon.Source = BitmapFrame.Create(iconUriMail);
-            Uri iconUriPassword = new Uri("../../images/password.png", UriKind.RelativeOrAbsolute);
+            Uri iconUriPassword = new Uri("../../../images/password.png", UriKind.RelativeOrAbsolute);
             passwordIcon.Source = BitmapFrame.Create(iconUriPassword);
             userService = new UserService();
             frame = f;
