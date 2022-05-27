@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SyncfusionWpfApp1.Model;
-using SyncfusionWpfApp1.repo;
+using SyncfusionWpfApp1.service;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -49,41 +49,50 @@ namespace SyncfusionWpfApp1.gui
     public partial class MonthlyReport : Page
     {
         private Frame frame;
-        public ChosenMonthPeriod ChosenPeriod { get; set; }
+        public int ticketsCounter = 0;
+        public double totalCost = 0;
 
         public MonthlyReport(Frame f)
         {
-            ChosenPeriod = new ChosenMonthPeriod();
             InitializeComponent();
             frame = f;
-            drawTable(MainRepository.Tickets);
-            /*this.DataContext = this;*/
+            
+            drawTable();
         }
 
         private void SelectedMonth_DisplayModeChanged(object sender, CalendarModeChangedEventArgs e)
-        {          
-            List<Ticket> ticketsOfMonth = new List<Ticket>();
-            foreach (Ticket t in MainRepository.Tickets)
-            {
-                if (t.DepartureTime.Month == SelectedMonth.DisplayDate.Month &&
-                     t.DepartureTime.Year == SelectedMonth.DisplayDate.Year)
-                    ticketsOfMonth.Add(t);
-            }
-            ChosenPeriod.Start = SelectedMonth.DisplayDate.ToShortDateString();
-            ChosenPeriod.End = SelectedMonth.DisplayDate.ToShortDateString();
-            SelectedMonth.DisplayMode = CalendarMode.Year;
-            drawTable(ticketsOfMonth);
+        {
+            drawTable();
         }
 
-        private void drawTable(List<Ticket> tickets)
+        private void drawTable()
         {
+            List<Ticket> ticketsOfMonth = ReportService.TicketsForMonthlyReport(SelectedMonth.DisplayDate);
+            SelectedMonth.DisplayMode = CalendarMode.Year;
+            var firstDayOfMonth = new DateTime(SelectedMonth.DisplayDate.Year, SelectedMonth.DisplayDate.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            ticketsCounter = ticketsOfMonth.Count;
+            numberTextblock.Text = string.Format("There is total of {0} tickets sold", ticketsCounter); totalCost = CalculateTotalPrice(ticketsOfMonth);
+            totalTextblock.Text = string.Format("Total turnover {0}", totalCost);
+            periodTextblock.Text = string.Format("Period: {0} - {1}", firstDayOfMonth.ToShortDateString(), lastDayOfMonth.ToShortDateString());
+
             dataGrid?.Items.Clear();
-            foreach (Ticket t in tickets)
+            foreach (Ticket t in ticketsOfMonth)
             {
                 RowData rowData = makeRow(t);
                 dataGrid?.Items.Add(rowData);
             }
             
+        }
+
+        private double CalculateTotalPrice(List<Ticket> tickets)
+        {
+            double total = 0;
+            foreach (Ticket t in tickets)
+            {
+                total += t.Price;
+            }
+            return total;
         }
 
         private RowData makeRow(Ticket t)

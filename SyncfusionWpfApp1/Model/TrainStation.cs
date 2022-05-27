@@ -27,5 +27,11 @@ namespace SyncfusionWpfApp1.Model
 
         public string Name { get; set;  }
         public int Id { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            TrainStation ts = (TrainStation)obj;
+            return Name.Equals(ts.Name);
+        }
     }
 }
