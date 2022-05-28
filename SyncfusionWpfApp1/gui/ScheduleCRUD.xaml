@@ -33,22 +33,22 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
-
             <DataGrid Name="dataGrid"
-                  AutoGenerateColumns="True"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding Rows}" 
                   Background="#E8F0F2"
                   Grid.Row="1"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   FontSize="14" 
-                       CanUserSortColumns="False"
+                  CanUserSortColumns="False"
+                  SelectionChanged="DataGrid_SelectionChanged"
                   >
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
                         <Setter Property="BorderBrush" Value="DarkBlue" />
                         <Setter Property="Foreground" Value="DarkBlue"/>
-                        <Setter Property="Background" Value="#E8F0F2"/>
                         <Setter Property="BorderThickness" Value="0.6"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -61,11 +61,10 @@
                     <DataGridTextColumn Binding="{Binding Time}"
                                     Header="Polazak"
                                     Width="3*" 
-                                    IsReadOnly="True"
                  >
 
                     </DataGridTextColumn>
-                   
+
                     <DataGridTemplateColumn Header="Delete"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

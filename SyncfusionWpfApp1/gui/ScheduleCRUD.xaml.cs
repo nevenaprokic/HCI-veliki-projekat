@@ -32,6 +32,7 @@ namespace SyncfusionWpfApp1.gui
         private Frame frame;
         public Schedule SelectedSchedule { get; set; }
         public ObservableCollection<Schedule> Schedules { get; set; }
+        public ObservableCollection<RowDataSchedule> Rows { get; set; }
 
         public ScheduleCRUD(Frame f)
         {
@@ -41,6 +42,7 @@ namespace SyncfusionWpfApp1.gui
             DataContext = this;
             SelectedSchedule = MainRepository.Schedules[0];
             comboSchedule.ItemsSource = Schedules;
+            Rows = new ObservableCollection<RowDataSchedule>();
             drawTable();
         }
 
@@ -92,14 +94,21 @@ namespace SyncfusionWpfApp1.gui
             return sorted;
         }
 
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            int selectedIndex = dataGrid.SelectedIndex;
+            Console.WriteLine(selectedIndex);
+            newTime.Text = Rows[selectedIndex].Time;
+        }
+
         private void drawTable()
         {
-            dataGrid?.Items.Clear();
+            Rows.Clear();
             if (SelectedSchedule == null) return;
             foreach (string s in SelectedSchedule.Times)
             {
                 RowDataSchedule r = new RowDataSchedule(s);
-                dataGrid?.Items.Add(r);
+                Rows.Add(r);
             }
         }
     }
