@@ -61,9 +61,10 @@ namespace SyncfusionWpfApp1.gui
             List<Ticket> tickets = ReportService.GenerateReport((TrainStation)comboStart.SelectedItem, (TrainStation)comboEnd.SelectedItem);
             drawTable(tickets);
             ticketsCounter = tickets.Count;
-            numberTextblock.Text = string.Format("There is total of {0} tickets sold", ticketsCounter);
             totalCost = CalculateTotalPrice(tickets);
-            totalTextblock.Text = string.Format("Total turnover {0}", totalCost);
+            numberTextblock.Text = string.Format("Ukupno je prodato {0} karata", ticketsCounter); totalCost = CalculateTotalPrice(tickets);
+            totalTextblock.Text = string.Format("Ukupna dobit je {0}", totalCost);
+
         }
 
         private double CalculateTotalPrice(List<Ticket> tickets)

@@ -128,7 +128,7 @@
                     </Style>
                 </DataGrid.Resources>
             </DataGrid>
-            <TextBlock Text="There is no tickets for this train line." Grid.Row="9" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
+            <TextBlock Text="Ne postoje prodate karte za odabranu vožnju" Grid.Row="9" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
 
 
         </Grid>

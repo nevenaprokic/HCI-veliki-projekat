@@ -17,6 +17,7 @@ namespace SyncfusionWpfApp1.repo
         public static List<User> Clients { get; set; }
         public static List<User> Managers { get; set; }
         public static List<User> Users { get; set; }
+        public static List<Schedule> Schedules { get; set; }
 
         public static List<TrainStation> trainStations { get; set; }
 
@@ -86,15 +87,17 @@ namespace SyncfusionWpfApp1.repo
                 ts7, ts8, ts9, ts10, ts11, ts12, ts13, ts14, ts15, ts16};
 
             //time slots
-            List<String> schedule1 = new List<string> { "5:19", "6:11", "6:49", "8:10", "9:00", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30",
+            List<string> schedule1 = new List<string> { "5:19", "6:11", "6:49", "8:10", "9:00", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30",
                 "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "19:00", "19:30", "20:00", "20:45", "21:30", "22:30"};
-            List<String> schedule2 = new List<string> { "6:49", "8:10", "9:00", "10:00", "11:00", "11:30", "13:00", "13:30",
+            List<string> schedule2 = new List<string> { "6:49", "8:10", "9:00", "10:00", "11:00", "11:30", "13:00", "13:30",
                 "14:00", "15:30", "16:00", "16:30", "17:30", "18:00", "19:30", "20:00", "21:30", "22:30", "23:00"};
-            List<String> schedule3 = new List<string> { "5:30", "6:11", "6:49", "8:10", "9:00", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30",
+            List<string> schedule3 = new List<string> { "5:30", "6:11", "6:49", "8:10", "9:00", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30",
                 "14:15", "14:30", "15:20", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "19:00", "19:30", "20:00", "20:45", "21:30", "22:30", "23:00"};
 
-            //train station info
-            TrainStationInfo info1 = new TrainStationInfo(10, 200);
+            Schedules = new List<Schedule> { new Schedule(1, schedule1), new Schedule(2, schedule2), new Schedule(3, schedule3) };
+
+             //train station info
+             TrainStationInfo info1 = new TrainStationInfo(10, 200);
             TrainStationInfo info2 = new TrainStationInfo(10, 200);
             TrainStationInfo info3 = new TrainStationInfo(10, 250);
             TrainStationInfo info4 = new TrainStationInfo(10, 250);

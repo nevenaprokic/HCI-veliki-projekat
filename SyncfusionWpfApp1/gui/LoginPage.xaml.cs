@@ -57,7 +57,7 @@ namespace SyncfusionWpfApp1.gui
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new MonthlyReport(frame);
+                frame.Content = new ScheduleCRUD(frame);
             }
 
         }

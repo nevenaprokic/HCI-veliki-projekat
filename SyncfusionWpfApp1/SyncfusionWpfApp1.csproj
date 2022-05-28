@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="App.ico" />
+    <None Remove="images\add_icon.png" />
+    <None Remove="images\delete_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,7 @@
 <PackageReference Include="Syncfusion.SfDiagram.WPF" Version="20.1.0.55" />
 <PackageReference Include="Syncfusion.Themes.FluentLight.Wpf" Version="20.1.0.55" />
 <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.1.0.55" />
+<PackageReference Include="syncfusion.ui.wpf.net" Version="20.1.0.55" />
 </ItemGroup>
   
   <ItemGroup>
@@ -29,6 +32,8 @@
   
   <ItemGroup>
     <Resource Include="App.ico" />
+    <Resource Include="images\add_icon.png" />
+    <Resource Include="images\delete_icon.png" />
   </ItemGroup>
 
 </Project>

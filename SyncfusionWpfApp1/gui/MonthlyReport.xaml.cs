@@ -72,8 +72,8 @@ namespace SyncfusionWpfApp1.gui
             var firstDayOfMonth = new DateTime(SelectedMonth.DisplayDate.Year, SelectedMonth.DisplayDate.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             ticketsCounter = ticketsOfMonth.Count;
-            numberTextblock.Text = string.Format("There is total of {0} tickets sold", ticketsCounter); totalCost = CalculateTotalPrice(ticketsOfMonth);
-            totalTextblock.Text = string.Format("Total turnover {0}", totalCost);
+            numberTextblock.Text = string.Format("Ukupno je prodato {0} karata", ticketsCounter); totalCost = CalculateTotalPrice(ticketsOfMonth);
+            totalTextblock.Text = string.Format("Ukupna dobit je {0}", totalCost);
             periodTextblock.Text = string.Format("Period: {0} - {1}", firstDayOfMonth.ToShortDateString(), lastDayOfMonth.ToShortDateString());
 
             dataGrid?.Items.Clear();
