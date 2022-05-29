@@ -3,6 +3,7 @@ using SyncfusionWpfApp1.repo;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,37 +20,47 @@ using System.Windows.Shapes;
 
 namespace SyncfusionWpfApp1.gui
 {
-    public class RowDataSchedule
+    public partial class CreateSchedule : Page
     {
-        public string Time { get; set; }
-        
-        public RowDataSchedule(string time)
-        {
-            Time = time;
-        }
-    }
-    public partial class ScheduleCRUD : Page
-    {
-        private Frame frame;
-        public Schedule SelectedSchedule { get; set; }
-        public ObservableCollection<Schedule> Schedules { get; set; }
         public ObservableCollection<RowDataSchedule> Rows { get; set; }
         public bool AlreadyInInsertMode { get; set; }
+        public Schedule SelectedSchedule {get; set;}
+        private Frame frame;
 
-        public ScheduleCRUD(Frame f)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private string _name;
+        public string ScheduleName
+        {
+            get { return _name; }
+            set
+            {
+                if (_name != value) 
+                {
+                    _name = value.ToString();
+                    OnPropertyChanged("ScheduleName");
+                }
+            }
+        }
+
+        public CreateSchedule(Frame f)
         {
             InitializeComponent();
-            frame = f;
             setBackground();
-            Schedules = new ObservableCollection<Schedule>(MainRepository.Schedules);
+            frame = f;
+            SelectedSchedule = new Schedule();
+            SelectedSchedule.Times = new List<string>();
             DataContext = this;
-            SelectedSchedule = MainRepository.Schedules[0];
-            comboSchedule.ItemsSource = Schedules;
             AlreadyInInsertMode = true;
+            ScheduleName = "";
             Rows = new ObservableCollection<RowDataSchedule>();
             drawTable();
-            comboSchedule.SelectedIndex = 0;
-            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.Text;
+            editLabel.Content = "Unesite novo vreme za: " + ScheduleName;
         }
 
         private void setBackground()
@@ -57,25 +68,6 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.SelectedItem?.ToString();
-            SelectedSchedule = (Schedule)comboSchedule.SelectedItem;
-            CheckSelection();
-            insertMode();
-            drawTable();
-        }
-
-        private void CheckSelection()
-        {
-            bool check = true;
-            if (comboSchedule.SelectedItem == null)
-                check = false;
-            deleteScheduleButton.IsEnabled = check;
-            iconButton.IsEnabled = check;
-            newTime.IsEnabled = check;
         }
 
         private void AddRow_Handler(object sender, RoutedEventArgs e)
@@ -128,22 +120,10 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
-        private void DeleteSchedule_Handler(object sender, RoutedEventArgs e)
-        {
-            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši raspored?");
-            if ((bool)cofirmDialog.ShowDialog())
-            {
-                Schedules.Remove(SelectedSchedule);
-                MainRepository.Schedules.Remove(SelectedSchedule);
-                comboSchedule.SelectedItem = null;
-                insertMode();
-            } 
-        }
-
         private List<String> sortTimes()
         {
             List<DateTime> dateTimes = new List<DateTime>();
-            foreach(string input in SelectedSchedule.Times)
+            foreach (string input in SelectedSchedule.Times)
             {
                 var time = TimeSpan.Parse(input);
                 var dateTime = DateTime.Today.Add(time);
@@ -160,9 +140,9 @@ namespace SyncfusionWpfApp1.gui
             return sorted;
         }
 
-        private void insertMode() 
+        private void insertMode()
         {
-            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.SelectedItem?.ToString();
+            editLabel.Content = "Unesite novo vreme za: " + ScheduleName;
             Uri uri = new Uri("../../../images/add_icon.png", UriKind.RelativeOrAbsolute);
             newTime.Text = "";
             editIcon.Source = BitmapFrame.Create(uri);
@@ -178,7 +158,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void editMode()
         {
-            editLabel.Content = "Unesite izmenu za: " + comboSchedule.SelectedItem?.ToString();
+            editLabel.Content = "Unesite izmenu za: ";
             Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
             editIcon.Source = BitmapFrame.Create(uri);
 
@@ -202,12 +182,41 @@ namespace SyncfusionWpfApp1.gui
         private void drawTable()
         {
             Rows.Clear();
-            if (SelectedSchedule == null) return;
             foreach (string s in SelectedSchedule.Times)
             {
                 RowDataSchedule r = new RowDataSchedule(s);
                 Rows.Add(r);
             }
+        }
+
+        private void TextBoxName_Changed(object sender, TextChangedEventArgs e)
+        {
+            nameValidationLabel.Content = "";
+        }
+
+        private void Save_Handler(object sender, RoutedEventArgs e)
+        {
+            if (ScheduleName == "")
+            {
+                nameValidationLabel.Content = "Naziv je obavezan!";
+                return;
+            }
+
+            SelectedSchedule.Name = ScheduleName;
+            MainRepository.Schedules.Add(SelectedSchedule);
+            SelectedSchedule = new Schedule();
+            SelectedSchedule.Times = new List<string>();
+            ScheduleName = "";
+            nameBox.Text = "";
+            drawTable();
+            NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi red vožnje.");
+            if ((bool)dialog.ShowDialog())
+                return;
+        }
+
+        private void Cancel_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new ScheduleUpdateDelete(frame);
         }
     }
 }

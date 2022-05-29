@@ -94,7 +94,7 @@ namespace SyncfusionWpfApp1.repo
             List<string> schedule3 = new List<string> { "5:30", "6:11", "6:49", "8:10", "9:00", "10:00", "10:30", "11:00", "11:30", "12:00", "13:00", "13:30",
                 "14:15", "14:30", "15:20", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "19:00", "19:30", "20:00", "20:45", "21:30", "22:30", "23:00"};
 
-            Schedules = new List<Schedule> { new Schedule(1, schedule1), new Schedule(2, schedule2), new Schedule(3, schedule3) };
+            Schedules = new List<Schedule> { new Schedule("1", schedule1), new Schedule("2", schedule2), new Schedule("3", schedule3) };
 
              //train station info
              TrainStationInfo info1 = new TrainStationInfo(10, 200);
