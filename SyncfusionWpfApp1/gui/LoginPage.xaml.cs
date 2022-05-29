@@ -30,7 +30,7 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/back.jpg", UriKind.Relative));
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
             Uri iconUriMail = new Uri("../../../images/mail.png", UriKind.RelativeOrAbsolute);
             mailIcon.Source = BitmapFrame.Create(iconUriMail);
@@ -57,7 +57,8 @@ namespace SyncfusionWpfApp1.gui
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new ScheduleCRUD(frame);
+                frame.Content = new TrainLineCRUD(frame);
+                // frame.Content = new ScheduleCRUD(frame);
             }
 
         }
