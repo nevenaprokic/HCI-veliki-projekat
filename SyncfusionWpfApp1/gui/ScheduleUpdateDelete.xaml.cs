@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,14 +28,15 @@ namespace SyncfusionWpfApp1.gui
             Time = time;
         }
     }
-    public partial class ScheduleCRUD : Page
+    public partial class ScheduleUpdateDelete : Page
     {
         private Frame frame;
         public Schedule SelectedSchedule { get; set; }
         public ObservableCollection<Schedule> Schedules { get; set; }
         public ObservableCollection<RowDataSchedule> Rows { get; set; }
+        public bool AlreadyInInsertMode { get; set; }
 
-        public ScheduleCRUD(Frame f)
+        public ScheduleUpdateDelete(Frame f)
         {
             InitializeComponent();
             frame = f;
@@ -43,10 +45,11 @@ namespace SyncfusionWpfApp1.gui
             DataContext = this;
             SelectedSchedule = MainRepository.Schedules[0];
             comboSchedule.ItemsSource = Schedules;
-            
+            AlreadyInInsertMode = true;
             Rows = new ObservableCollection<RowDataSchedule>();
             drawTable();
             comboSchedule.SelectedIndex = 0;
+            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.Text;
         }
 
         private void setBackground()
@@ -58,8 +61,10 @@ namespace SyncfusionWpfApp1.gui
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.SelectedItem?.ToString();
             SelectedSchedule = (Schedule)comboSchedule.SelectedItem;
             CheckSelection();
+            insertMode();
             drawTable();
         }
 
@@ -75,10 +80,25 @@ namespace SyncfusionWpfApp1.gui
 
         private void AddRow_Handler(object sender, RoutedEventArgs e)
         {
-            SelectedSchedule.Times.Add(newTime.Text);
-            SelectedSchedule.Times = sortTimes();
-            drawTable();
-            newTime.Text = "";
+            if (validInput())
+            {
+                SelectedSchedule.Times.Add(newTime.Text);
+                SelectedSchedule.Times = sortTimes();
+                drawTable();
+                newTime.Text = "";
+                messageLabel.Content = "";
+            }
+            else
+            {
+                messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
+            }
+        }
+
+        private bool validInput()
+        {
+            Regex rx = new Regex(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+            Match m = rx.Match(newTime.Text);
+            return m.Success;
         }
 
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
@@ -91,14 +111,21 @@ namespace SyncfusionWpfApp1.gui
 
         private void EditRow_Handler(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = dataGrid.SelectedIndex;
-            if (selectedIndex == -1) return;
-            string newValue = newTime.Text;
+            if (validInput())
+            {
+                int selectedIndex = dataGrid.SelectedIndex;
+                if (selectedIndex == -1) return;
+                string newValue = newTime.Text;
 
-            SelectedSchedule.Times[selectedIndex] = newValue;
-            SelectedSchedule.Times = sortTimes();
-            drawTable();
-            insertMode();
+                SelectedSchedule.Times[selectedIndex] = newValue;
+                SelectedSchedule.Times = sortTimes();
+                drawTable();
+                insertMode();
+            }
+            else
+            {
+                messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
+            }
         }
 
         private void DeleteSchedule_Handler(object sender, RoutedEventArgs e)
@@ -111,6 +138,11 @@ namespace SyncfusionWpfApp1.gui
                 comboSchedule.SelectedItem = null;
                 insertMode();
             } 
+        }
+
+        private void Create_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CreateSchedule(frame);
         }
 
         private List<String> sortTimes()
@@ -135,21 +167,33 @@ namespace SyncfusionWpfApp1.gui
 
         private void insertMode() 
         {
-            editLabel.Content = "Unesite novo vreme:";
+            editLabel.Content = "Unesite novo vreme za: " + comboSchedule.SelectedItem?.ToString();
             Uri uri = new Uri("../../../images/add_icon.png", UriKind.RelativeOrAbsolute);
             newTime.Text = "";
             editIcon.Source = BitmapFrame.Create(uri);
-            iconButton.Click += AddRow_Handler;
-            iconButton.Click -= EditRow_Handler;
+
+            if (!AlreadyInInsertMode)
+            {
+                iconButton.Click += AddRow_Handler;
+                iconButton.Click -= EditRow_Handler;
+            }
+            AlreadyInInsertMode = true;
+            messageLabel.Content = "";
         }
 
         private void editMode()
         {
-            editLabel.Content = "Unesite izmenu:";
+            editLabel.Content = "Unesite izmenu za: " + comboSchedule.SelectedItem?.ToString();
             Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
             editIcon.Source = BitmapFrame.Create(uri);
-            iconButton.Click -= AddRow_Handler;
-            iconButton.Click += EditRow_Handler;
+
+            if (AlreadyInInsertMode)
+            {
+                iconButton.Click -= AddRow_Handler;
+                iconButton.Click += EditRow_Handler;
+            }
+            AlreadyInInsertMode = false;
+            messageLabel.Content = "";
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
