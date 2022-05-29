@@ -107,7 +107,7 @@
                 </Style>
             </DataGrid.CellStyle>
 
-
+            <!--DA LI STAVITI I DUGME ZA DETALJNIJI PREGLED-->      
             <DataGrid.Columns >
                 <DataGridTemplateColumn Header="Označi" Width="0.4*">
                     <DataGridTemplateColumn.CellTemplate>
@@ -119,7 +119,7 @@
                 <DataGridTextColumn Binding="{Binding Id}" Header="O"  Width="0.1*" /> <!--oznaka vozne linije-->
                 <DataGridTextColumn Binding="{Binding StartStationName}" Header="Početna stanica"  Width="2.3*"/>
                 <DataGridTextColumn Binding="{Binding EndStationName}" Header="Krajnja stanica"  Width="2.3*"/>
-                <DataGridTextColumn Binding="{Binding Trains}" Header="Vozovi"  Width="2*"/>
+                <!--<DataGridTextColumn Binding="{Binding Trains}" Header="Vozovi"  Width="2*"/>-->
                 <DataGridTextColumn Binding="{Binding Price}" Header="Cena"  Width="0.6*"/>
                 <DataGridTemplateColumn Header="Izmeni"  Width="0.6*">
                     <DataGridTemplateColumn.CellTemplate>
@@ -135,7 +135,7 @@
                 <DataGridTemplateColumn Header="Obriši"  Width="0.6*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="deleteRowButton" Height="30" Background="White">
+                            <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="White">
                                 <StackPanel>
                                     <Image x:Name="deleteIconTable" Source="/images/delete2.png"  Width="20" Height="20"></Image>
                                 </StackPanel>

@@ -23,16 +23,16 @@ namespace SyncfusionWpfApp1.gui
         public int Id { get; set; }
         public string StartStationName { get; set; }
         public string EndStationName { get; set; }
-        public List<string> TrainsName { get; set; }
+        //public List<string> TrainsName { get; set; }
         public double Price { get; set; }
 
         public RowDataTrainLine() { }
-        public RowDataTrainLine(int id, string startStationName, string endStationName, List<string> trainName, double price)
+        public RowDataTrainLine(int id, string startStationName, string endStationName, double price)
         {
             this.Id = id;
             this.StartStationName = startStationName;
             this.EndStationName = endStationName;
-            this.TrainsName = trainName;
+            //this.TrainsName = trainName;
             this.Price = price;
         }
 
@@ -75,13 +75,21 @@ namespace SyncfusionWpfApp1.gui
         {
             Rows.Clear();
             foreach(TrainLine t in TrainLines){
-                List<string> trains = new List<string>();
-                foreach(Train train in t.Trains){
+                List<string> trains = new();
+                /*foreach(Train train in t.Trains){
                     trains.Add(train.Name);
-                }
-                RowDataTrainLine r = new RowDataTrainLine(t.Id, t.Start.Name, t.End.Name, trains, t.Price);
+                }*/
+                RowDataTrainLine r = new RowDataTrainLine(t.Id, t.Start.Name, t.End.Name, t.Price);
                 Rows.Add(r);
             }
         }
+        private void DeleteRow_Handler(object sender, RoutedEventArgs e)
+        {
+            int forRemove = dataGrid.SelectedIndex;
+            Console.WriteLine(forRemove);
+            TrainLines.RemoveAt(forRemove);
+            drawTable();
+        }
+
     }
 }
