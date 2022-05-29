@@ -29,10 +29,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" />
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" FontSize="25" FontWeight="DemiBold"> Izmena i brisanje rasporeda vožnji </TextBlock>
+
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Rows}" 
@@ -65,7 +69,7 @@
 
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Delete"  Width="*">
+                    <DataGridTemplateColumn Header="Brisanje"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="#E8F0F2">
@@ -89,11 +93,11 @@
                 </DataGrid.Resources>
             </DataGrid>
 
-            <Label Content="Unesite novo vreme:" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" FontSize="15"  Foreground="White" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
+            <Label x:Name="editLabel" Content="Unesite novo vreme:" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" FontSize="15"  Foreground="White" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
             <TextBox Grid.Column="1" x:Name="newTime" HorizontalAlignment="Center" Height="23" Grid.ColumnSpan="2" Grid.Row="2" Width="Auto" MinWidth="150" VerticalAlignment="Bottom" Margin="0, 0, 0, 15" />
-            <Button Grid.Column="2" Grid.Row="7" Click="AddTime_Handler" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#204060" Margin="0, 0, 0, 15">
+            <Button x:Name="iconButton" Grid.Column="2" Grid.Row="7" Click="AddRow_Handler" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#204060" Margin="0, 0, 0, 15">
                 <StackPanel>
-                    <Image Source="/images/add_icon.png" Width="20" Height="20"></Image>
+                    <Image x:Name="editIcon" Source="/images/add_icon.png" Width="20" Height="20"></Image>
                 </StackPanel>
             </Button>
 
@@ -120,21 +124,21 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Odaberite raspored:" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" FontSize="15"  Foreground="White" FontStyle="Italic"  VerticalAlignment="Bottom" HorizontalAlignment="Left"></Label>
-                <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="True"></ComboBox>
+                <Label Content="Odaberite raspored:" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="15"  Foreground="White" FontStyle="Italic"  VerticalAlignment="Bottom" HorizontalAlignment="Left"></Label>
+                <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="True"></ComboBox>
 
-                <Button Content="Kreiraj raspored" Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="AddTime_Handler" FontSize="17">
+                <Button Content="Kreiraj raspored" Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="AddRow_Handler" FontSize="17">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5" />
+                            <Setter Property="CornerRadius" Value="15" />
                         </Style>
                     </Button.Resources>
                 </Button>
 
-                <Button Content="Obriši raspored" HorizontalAlignment="Center" Click="DeleteSchedule_Handler"  Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="8" VerticalAlignment="Center" Background="#141C61" Foreground="White" FontSize="17">
+                <Button x:Name="deleteScheduleButton" Content="Obriši raspored" HorizontalAlignment="Center" Click="DeleteSchedule_Handler"  Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="7" VerticalAlignment="Center" Background="#141C61" Foreground="White" FontSize="17">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5" />
+                            <Setter Property="CornerRadius" Value="15" />
                         </Style>
                     </Button.Resources>
                 </Button>
@@ -142,7 +146,6 @@
         </Grid>
 
         <Grid x:Name="AddPage" Grid.Row="1" Grid.Column="1" >
-    
 
         </Grid>
 

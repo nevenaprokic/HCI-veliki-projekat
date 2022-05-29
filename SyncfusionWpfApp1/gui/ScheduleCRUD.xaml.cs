@@ -38,21 +38,42 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             frame = f;
+            setBackground();
             Schedules = new ObservableCollection<Schedule>(MainRepository.Schedules);
             DataContext = this;
             SelectedSchedule = MainRepository.Schedules[0];
             comboSchedule.ItemsSource = Schedules;
+            
             Rows = new ObservableCollection<RowDataSchedule>();
             drawTable();
+            comboSchedule.SelectedIndex = 0;
+        }
+
+        private void setBackground()
+        {
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+            this.Background = myBrush;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedSchedule = (Schedule)comboSchedule.SelectedItem;
+            CheckSelection();
             drawTable();
         }
 
-        private void AddTime_Handler(object sender, RoutedEventArgs e)
+        private void CheckSelection()
+        {
+            bool check = true;
+            if (comboSchedule.SelectedItem == null)
+                check = false;
+            deleteScheduleButton.IsEnabled = check;
+            iconButton.IsEnabled = check;
+            newTime.IsEnabled = check;
+        }
+
+        private void AddRow_Handler(object sender, RoutedEventArgs e)
         {
             SelectedSchedule.Times.Add(newTime.Text);
             SelectedSchedule.Times = sortTimes();
@@ -65,13 +86,31 @@ namespace SyncfusionWpfApp1.gui
             int forRemove = dataGrid.SelectedIndex;
             SelectedSchedule.Times.RemoveAt(forRemove);
             drawTable();
+            insertMode();
+        }
+
+        private void EditRow_Handler(object sender, RoutedEventArgs e)
+        {
+            int selectedIndex = dataGrid.SelectedIndex;
+            if (selectedIndex == -1) return;
+            string newValue = newTime.Text;
+
+            SelectedSchedule.Times[selectedIndex] = newValue;
+            SelectedSchedule.Times = sortTimes();
+            drawTable();
+            insertMode();
         }
 
         private void DeleteSchedule_Handler(object sender, RoutedEventArgs e)
         {
-            Schedules.Remove(SelectedSchedule);
-            MainRepository.Schedules.Remove(SelectedSchedule);
-            comboSchedule.SelectedItem = null;
+            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši raspored?");
+            if ((bool)cofirmDialog.ShowDialog())
+            {
+                Schedules.Remove(SelectedSchedule);
+                MainRepository.Schedules.Remove(SelectedSchedule);
+                comboSchedule.SelectedItem = null;
+                insertMode();
+            } 
         }
 
         private List<String> sortTimes()
@@ -94,11 +133,31 @@ namespace SyncfusionWpfApp1.gui
             return sorted;
         }
 
+        private void insertMode() 
+        {
+            editLabel.Content = "Unesite novo vreme:";
+            Uri uri = new Uri("../../../images/add_icon.png", UriKind.RelativeOrAbsolute);
+            newTime.Text = "";
+            editIcon.Source = BitmapFrame.Create(uri);
+            iconButton.Click += AddRow_Handler;
+            iconButton.Click -= EditRow_Handler;
+        }
+
+        private void editMode()
+        {
+            editLabel.Content = "Unesite izmenu:";
+            Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
+            editIcon.Source = BitmapFrame.Create(uri);
+            iconButton.Click -= AddRow_Handler;
+            iconButton.Click += EditRow_Handler;
+        }
+
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             int selectedIndex = dataGrid.SelectedIndex;
-            Console.WriteLine(selectedIndex);
+            if (selectedIndex == -1) return;
             newTime.Text = Rows[selectedIndex].Time;
+            editMode();
         }
 
         private void drawTable()
