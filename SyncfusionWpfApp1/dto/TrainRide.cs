@@ -15,10 +15,11 @@ namespace SyncfusionWpfApp1.dto
         public Train train { get; set; }
         public WagonClass wagonClass { get; set;}
         public DateTime start { get; set; }
+        public DateTime backTime { get; set; }
         public int travelDuration { get; set; }
         public double price { get; set; }
 
-        public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start, int travelDuration, double price)
+        public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start, DateTime end, int travelDuration, double price)
         {
             this.startStation = startStation;
             this.endStation = endStation;
@@ -28,6 +29,7 @@ namespace SyncfusionWpfApp1.dto
             this.start = start;
             this.travelDuration = travelDuration;
             this.price = price;
+            this.backTime = end;
         }
     }
 }

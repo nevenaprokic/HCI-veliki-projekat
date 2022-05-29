@@ -8,6 +8,7 @@ using SyncfusionWpfApp1.Model;
 using Syncfusion.Data.Extensions;
 using SyncfusionWpfApp1.dto;
 using System.Collections;
+using SyncfusionWpfApp1.service;
 
 namespace SyncfusionWpfApp1.repo
 {
@@ -38,9 +39,9 @@ namespace SyncfusionWpfApp1.repo
             Managers = new List<User> { manager1, manager2 };
             Users = new List<User> { client1, client2, manager1, manager2 };
 
-            Wagon w1 = new Wagon(1, 12, WagonClass.FIRST);
-            Wagon w2 = new Wagon(2, 15, WagonClass.SECOND);
-            Wagon w3 = new Wagon(3, 20, WagonClass.SECOND);
+            Wagon w1 = new Wagon(1, 12, WagonClass.FIRST, 1);
+            Wagon w2 = new Wagon(2, 15, WagonClass.SECOND, 2);
+            Wagon w3 = new Wagon(3, 20, WagonClass.SECOND, 1);
             List<Wagon> wagons = new List<Wagon> { w1, w2, w3 };
 
             // wagon1 seats
@@ -55,8 +56,8 @@ namespace SyncfusionWpfApp1.repo
 
             //trains
             List<Train> trains = new List<Train>();
-            Train t1 = new Train("5432", new List<Wagon> { w1, w2 });
-            Train t2 = new Train("5432", new List<Wagon> { w3 });
+            Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2 });
+            Train t2 = new Train("5000 Voz Srbija", new List<Wagon> { w3 });
             trains.Add(t1);
             trains.Add(t2);
 
@@ -128,6 +129,9 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info10 = new TrainStationInfo(20, 1500);
             OrderedDictionary dictTL3 = new OrderedDictionary
             {
+                 { ts2, info1 },
+                { ts3, info2 },
+                { ts6, info5 },
                 { ts11, info8 },
                 { ts16, info10 },
                 { ts12, info9 }
@@ -162,7 +166,7 @@ namespace SyncfusionWpfApp1.repo
             return lines.ToList();
         }
 
-        private static int GetIndex(TrainStation station, TrainLine line)
+        public static int GetIndex(TrainStation station, TrainLine line)
         {
             int index = 0;
             foreach (TrainStation s in line.Map.Keys)
@@ -241,7 +245,7 @@ namespace SyncfusionWpfApp1.repo
             {
                 foreach(Train train in line.Trains)
                 {
-                    List<Seat> awailableSeats = getLineAwailableSeats(line, train, startStation, startDateTime);
+                    List<Seat> awailableSeats = SeatService.getLineAwailableSeats(line, train, startStation, startDateTime);
                     if (awailableSeats.Count > 0)
                     {
                         List<WagonClass> trainWagonClasses = getTrainWagonClasses(train);
@@ -257,7 +261,7 @@ namespace SyncfusionWpfApp1.repo
                             int travelDuration = calculateDepartureTime(line, startStation, endStation);
                             price = classPercent * price;
 
-                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, travelDuration, price);
+                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, backDateTime, travelDuration, price);
                             trainRides.Add(ride);
 
                         }
@@ -267,7 +271,7 @@ namespace SyncfusionWpfApp1.repo
             return trainRides;
         }
 
-        private static double calculateRidePrice(TrainLine line, TrainStation startStation, TrainStation endStation)
+        public static double calculateRidePrice(TrainLine line, TrainStation startStation, TrainStation endStation)
         {
             //gledati po vrednosti uz kljuc stanice u recniku, treba da se uzmu one stanice koje su izmedju, gledati po indeksu
             int index = 0;
@@ -290,7 +294,7 @@ namespace SyncfusionWpfApp1.repo
             
         }
 
-        private static int calculateDepartureTime(TrainLine line, TrainStation startStation, TrainStation endStation)
+        public static int calculateDepartureTime(TrainLine line, TrainStation startStation, TrainStation endStation)
         {
             //gledati po vrednosti uz kljuc stanice u recniku, treba da se uzmu one stanice koje su izmedju, gledati po indeksu
             int index = 0;
@@ -328,30 +332,7 @@ namespace SyncfusionWpfApp1.repo
             return wagonClasses;
         }
 
-        public static List<Seat> getLineAwailableSeats(TrainLine selectedLine, Train selectedTrain, TrainStation startStation, DateTime departureTime)
-        {
-            IEnumerable<Seat> allTrainSeats = from seat in seats
-                                              where (selectedTrain.Wagons.Contains(seat.Wagon))
-                                              select seat;
-
-            IEnumerable<Ticket> lineTickets = from ticket in Tickets
-                                              where (ticket.Line.Id == selectedLine.Id && allTrainSeats.Contains(ticket.Seat) && departureTime == ticket.DepartureTime)
-                                              select ticket;
-
-            IEnumerable<Seat> takenSeats = from ticket in lineTickets
-                                           select ticket.Seat;
-
-            IEnumerable<Seat> freeSeats = from seat in allTrainSeats
-                                          where !takenSeats.Contains(seat)
-                                          select seat;
-
-            IEnumerable<Seat> laterFreeLineSeats = from ticket in lineTickets
-                                              where (!takenSeats.Contains(ticket.Seat) || (GetIndex(startStation, selectedLine) >= GetIndex(ticket.To, selectedLine)))
-                                              select ticket.Seat;
-
-            IEnumerable<Seat> allAwailableSeats = freeSeats.Concat(laterFreeLineSeats);
-            return allAwailableSeats.ToList();
-        }
+        
     }
 
 
