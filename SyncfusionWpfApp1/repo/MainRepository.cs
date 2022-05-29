@@ -42,6 +42,8 @@ namespace SyncfusionWpfApp1.repo
             Wagon w1 = new Wagon(1, 12, WagonClass.FIRST, 1);
             Wagon w2 = new Wagon(2, 15, WagonClass.SECOND, 2);
             Wagon w3 = new Wagon(3, 20, WagonClass.SECOND, 1);
+            Wagon w4 = new Wagon(4, 24, WagonClass.FIRST, 3);
+            Wagon w5 = new Wagon(5, 27, WagonClass.FIRST, 4);
             List<Wagon> wagons = new List<Wagon> { w1, w2, w3 };
 
             // wagon1 seats
@@ -54,9 +56,15 @@ namespace SyncfusionWpfApp1.repo
             // wagon3 seats
             for (int i = 0; i < w3.NumberOfSeats; i++) seats.Add(new Seat(w3, i + 1));
 
+            // wagon4 seats
+            for (int i = 0; i < w4.NumberOfSeats; i++) seats.Add(new Seat(w4, i + 1));
+
+            // wagon5 seats
+            for (int i = 0; i < w5.NumberOfSeats; i++) seats.Add(new Seat(w5, i + 1));
+
             //trains
             List<Train> trains = new List<Train>();
-            Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2 });
+            Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2, w4, w5 });
             Train t2 = new Train("5000 Voz Srbija", new List<Wagon> { w3 });
             trains.Add(t1);
             trains.Add(t2);
@@ -141,10 +149,10 @@ namespace SyncfusionWpfApp1.repo
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 25), seats[0], null, t1, ts1, ts6); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
-            Ticket ticket2 = new Ticket(client2, false, tl2, new DateTime(2022, 05, 25), seats[20], null, t2, ts6, ts6);
-            Ticket ticket3 = new Ticket(client1, false, tl3, new DateTime(2022, 05, 25), seats[30], null, t1, ts1, ts6);
-            Ticket ticket4 = new Ticket(client2, true, tl3, new DateTime(2022, 05, 26), seats[20], seats[21], t2, ts1, ts6);
+            Ticket ticket1 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[0], null, t1, ts1, ts6); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            Ticket ticket2 = new Ticket(client2, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[10], null, t2, ts6, ts6);
+            Ticket ticket3 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[11], null, t1, ts1, ts6);
+            Ticket ticket4 = new Ticket(client2, true, tl3, new DateTime(2022, 05, 31, 11, 0, 0), seats[20], seats[21], t2, ts1, ts6);
             Tickets = new List<Ticket>();
             Tickets.Add(ticket1);
             Tickets.Add(ticket2);

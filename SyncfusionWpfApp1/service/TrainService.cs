@@ -21,5 +21,13 @@ namespace SyncfusionWpfApp1.service
             }
             return trains;
         }
+
+        public static List<Wagon> getTrainWagonsByClass(WagonClass wagonClass, Train train)
+        {
+            IEnumerable<Wagon> wagons = from wagon in train.Wagons
+                                        where wagon.Class == wagonClass
+                                        select wagon;
+            return wagons.ToList();
+        }
     }
 }

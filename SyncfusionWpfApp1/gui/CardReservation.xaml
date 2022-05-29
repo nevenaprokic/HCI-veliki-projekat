@@ -43,7 +43,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1"  Visibility="Hidden">
+        <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1"  Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
@@ -390,13 +390,13 @@
                         <Label Content="Polazište:"  FontSize="20" Foreground="White"></Label>
                     </Viewbox>
                     <Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
-                        <Label Content="{Binding startStation.Name}" FontSize="15" Foreground="White"></Label>
+                        <Label Content="{Binding StartStation.Name}" FontSize="15" Foreground="White"></Label>
                     </Viewbox>
                     <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
                         <Label Content="Odredište:"  FontSize="15" Foreground="White"></Label>
                     </Viewbox>
                     <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
-                        <Label Content="{Binding endStation.Name}" FontSize="15" Foreground="White"></Label>
+                        <Label Content="{Binding EndStation.Name}" FontSize="15" Foreground="White"></Label>
                     </Viewbox>
                     <Viewbox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">
                         <Label Content="Vreme polaska:"  FontSize="15" Foreground="White"></Label>
@@ -427,6 +427,7 @@
                                    RowSelectionBrush="#b3d9ff"
                                    HeaderStyle="{StaticResource customHeaderStyle}"
                                    x:Name="TrainRidesDataGrid"
+                                   SelectionChanged="TrainRidesDataGrid_SelectionChanged"
                                    >
                 <syncfusion:SfDataGrid.Columns>
 
@@ -462,8 +463,13 @@
                 </syncfusion:SfDataGrid.Columns>
                
            </syncfusion:SfDataGrid>
-
-            <Label x:Name="SecondPageErrorLabel" Grid.Row="13" Grid.Column="1" Foreground="Red" Background="White" Visibility="Hidden"></Label>
+            <Border  x:Name="SecondPageErrorBox" Grid.Row="13" Grid.Column="1" Background="White" CornerRadius="15" Visibility="Hidden" >
+                <Viewbox  HorizontalAlignment="Left" >
+                    <Label x:Name="SecondPageErrorLabel" Foreground="Red" FontSize="14" FontWeight="Bold" FontStyle="Italic" ></Label>
+                </Viewbox>
+            </Border>
+            
+            
             <Grid Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="3" Margin="77,0,38,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
@@ -479,7 +485,7 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="ThirdPage" Visibility="Visible" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="ThirdPage" Visibility="Hidden" Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="1*"/>
@@ -603,8 +609,8 @@
                
 
             </Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="9">
-                <Grid  x:Name="SeatsGrid"  Background="White" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.ColumnSpan="2" Background="White" Grid.Row="3" Grid.RowSpan="9" >
+                <Grid  x:Name="SeatsGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.2*"/>
                         <ColumnDefinition Width="0.2*"/>
@@ -614,37 +620,43 @@
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ScrollViewer>
+            
 
-            <Viewbox Grid.Row="3" Grid.Column="1">
-                <Label Content="Prvo izaberite vagon, pa sedište" HorizontalAlignment="Left" FontSize="10" Foreground="White"></Label>
+            <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+                <Label Content="*napomena: Prvo izaberite vagon, pa sedište"  FontSize="8" Foreground="Wheat"></Label>
             </Viewbox>
-            <Viewbox Grid.Row="4" Grid.Column="1">
-                <Label Content="Vagon" HorizontalAlignment="Left" FontSize="10" Foreground="White"></Label>
-            </Viewbox>
-            <Viewbox Grid.Row="5" Grid.Column="1">
-                <ComboBox FontSize="13" ItemsSource="{Binding SelectedTrainWagons}" SelectionChanged="wagonSelectionChanged" ></ComboBox>
-            </Viewbox>
-
-            <Grid Grid.Row="6"  Grid.Column="1" Grid.RowSpan="2">
+            
+            <Grid Grid.Row="5"  Grid.Column="1" Grid.RowSpan="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Viewbox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
+                    <Label Content="Vagon:"  FontSize="15" Foreground="White"></Label>
+                </Viewbox>
+
+                <ComboBox Grid.Row="1" Grid.Column="0" FontSize="13" ItemsSource="{Binding SelectedTrainWagons}" SelectionChanged="wagonSelectionChanged" DisplayMemberPath="OrderdNumber"></ComboBox>
+
+
+                <Viewbox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left">
                     <Label Content="Izabrani vagon:"  FontSize="15" Foreground="White"></Label>
                 </Viewbox>
-                <Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+                <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="{Binding WagonOrder}" FontSize="15" Foreground="White"></Label>
                 </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left">
+                <Viewbox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">
                     <Label Content="Izabrano sedište:"  FontSize="15" Foreground="White"></Label>
                 </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="{Binding SeatNumber}" FontSize="15" Foreground="White"></Label>
+                <Viewbox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="{Binding Seat.SeatNumber}" FontSize="15" Foreground="White"></Label>
                 </Viewbox>
 
             </Grid>

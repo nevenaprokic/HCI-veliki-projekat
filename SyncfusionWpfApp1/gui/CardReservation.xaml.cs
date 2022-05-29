@@ -42,8 +42,8 @@ namespace SyncfusionWpfApp1.gui
 
         private List<TrainRide> _trainRides;
 
-        private TrainStation startStation;
-        private TrainStation endStation;
+        private TrainStation _startStation;
+        private TrainStation _endStation;
         private DateTime _startDate;
         private DateTime _backDate;
         private String _startTime;
@@ -51,12 +51,64 @@ namespace SyncfusionWpfApp1.gui
         private TrainLine _trainLine;
         private Train _train;
         private Wagon _wagon;
-        public String WagonOrder;
-        private int seat;
-        public String SeatNumber;
+        public string WagonOrder { get; set; }
+        private Seat _seat;
+        public string SeatNumber { get; set; }
         private List<Train> _awailableTrains;
         private List<Seat> _awailableSeats;
         private List<Wagon> _selectedTrainWagons;
+        private TrainRide _selectedRide;
+
+        public Seat Seat
+        {
+            get { return _seat; }
+            set
+            {
+                if(_seat != value)
+                {
+                    _seat = value;
+                    RaisePropertyChanged(nameof(Seat));
+                }
+            }
+        }
+        public TrainStation StartStation
+        {
+            get { return _startStation; }
+            set
+            {
+                if(_startStation != value)
+                {
+                    _startStation = value;
+                    RaisePropertyChanged(nameof(StartStation));
+                }
+            }
+        }
+
+        public TrainStation EndStation
+        {
+            get { return _endStation; }
+            set
+            {
+                if (_endStation != value)
+                {
+                    _endStation = value;
+                    RaisePropertyChanged(nameof(EndStation));
+                }
+            }
+        }
+
+        public TrainRide SelectedRide
+        {
+            get { return _selectedRide; }
+            set
+            {
+                if(_selectedRide != value)
+                {
+                    _selectedRide = value;
+                    RaisePropertyChanged(nameof(SelectedRide));
+                }
+            }
+        }
 
         public List<Wagon> SelectedTrainWagons
         {
@@ -274,7 +326,6 @@ namespace SyncfusionWpfApp1.gui
             arrow6.Source = BitmapFrame.Create(iconUriArrow);
             arrow7.Source = BitmapFrame.Create(iconUriArrow);
             arrow8.Source = BitmapFrame.Create(iconUriArrow);
-            //arrow4.Source = BitmapFrame.Create(iconUriArrow);
             frame = f;
             trainStations = MainRepository.trainStations;
             tickets = MainRepository.Tickets;
@@ -282,7 +333,6 @@ namespace SyncfusionWpfApp1.gui
             generateStationsNames();
             SortedStartTimes = MainRepository.getTimeList(MainRepository.trainLines, DateTime.Now);
             SortedBackTimes = MainRepository.getTimeList(MainRepository.trainLines, DateTime.Now);
-
 
             DataContext = this;
         }
@@ -311,8 +361,8 @@ namespace SyncfusionWpfApp1.gui
                         this.FirstPage.Visibility = Visibility.Hidden;
                         this.SecondPage.Visibility = Visibility.Visible;
 
-                        TrainRides = MainRepository.filterSelectedLines(startStation, endStation, startDateTime, backDateTime);
-                        AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(startStation, endStation));
+                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, startDateTime, backDateTime);
+                        AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
 
                     }
                    
@@ -352,7 +402,7 @@ namespace SyncfusionWpfApp1.gui
         {
             int emptyFieldsNum = 0;
 
-            if (startStation == null)
+            if (StartStation == null)
             {
                 startStationLabel.Content = "Obavezno polje";
                 startStationSelection.BorderBrush = Brushes.Red;
@@ -360,7 +410,7 @@ namespace SyncfusionWpfApp1.gui
                 emptyFieldsNum++;
             }
 
-            if (endStation == null)
+            if (EndStation == null)
             {
                 endStationLabel.Content = "Obavezno polje";
                 endStationSelection.BorderBrush = Brushes.Red;
@@ -415,7 +465,7 @@ namespace SyncfusionWpfApp1.gui
             startStationSelection.BorderBrush = Brushes.Transparent;
             startStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
-            startStation = (TrainStation)cmb.SelectedItem;
+            StartStation = (TrainStation)cmb.SelectedItem;
         }
 
         private void EndStationChanged(object sender, SelectionChangedEventArgs e)
@@ -424,7 +474,7 @@ namespace SyncfusionWpfApp1.gui
             endStationSelection.BorderBrush = Brushes.Transparent;
             endStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
-            endStation = (TrainStation) cmb.SelectedItem;
+            EndStation = (TrainStation) cmb.SelectedItem;
         }
 
         private void startDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -436,7 +486,7 @@ namespace SyncfusionWpfApp1.gui
             StartDate = (DateTime)picker.SelectedDate;
             //selekotvanje vremena polaska
             //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
-            selectedLines = MainRepository.selectMatchingTrainLine(startStation, endStation);
+            selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
             SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
         }
 
@@ -447,7 +497,7 @@ namespace SyncfusionWpfApp1.gui
             backDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
             DatePicker picker = sender as DatePicker;
             BackDate = (DateTime)picker.SelectedDate;
-            selectedLines = MainRepository.selectMatchingTrainLine(startStation, endStation);
+            selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
             SortedBackTimes = MainRepository.getTimeList(selectedLines, BackDate);
         }
 
@@ -475,61 +525,47 @@ namespace SyncfusionWpfApp1.gui
 
         private void SecondPageNextBtnClicked(object sender, RoutedEventArgs e)
         {
-            TrainRide selectedRide = (TrainRide)TrainRidesDataGrid.SelectedItem;
-            AwailableSeats = SeatService.getLineAwailableSeats(selectedRide.line, selectedRide.train, selectedRide.startStation, selectedRide.start);
-            if(selectedRide == null)
+            SelectedRide = (TrainRide)TrainRidesDataGrid.SelectedItem;
+            
+            if(SelectedRide == null)
             {
                 SecondPageErrorLabel.Content = "Niste odabrali nijednu vožnju";
                 SecondPageErrorLabel.Visibility = Visibility.Visible;
+                SecondPageErrorBox.Visibility = Visibility.Visible;
             }
             else
             {
+                AwailableSeats = SeatService.getLineAwailableSeats(SelectedRide.line, SelectedRide.train, SelectedRide.startStation, SelectedRide.start);
+                SelectedTrainWagons = TrainService.getTrainWagonsByClass(SelectedRide.wagonClass, SelectedRide.train);
                 SecondPage.Visibility = Visibility.Hidden;
                 ThirdPage.Visibility = Visibility.Visible;
-                double padding = 2;
-
-                for(int i=0; i < 5; i++)
-                {
-                    if (i == 2) continue;
-                    for (int j=0; j<6; j++)
-                    {
-                        Button b = addImageBtn(i);
-                        RowDefinition r = new RowDefinition();
-                        //b.Background = Brushes.Red;
-                        double heigh = SeatsGrid.ActualHeight / 6 - padding;
-                        r.Height = new GridLength(heigh);
-                        SeatsGrid.RowDefinitions.Add(r);
-                        SeatsGrid.Children.Add(b);
-                        Grid.SetRow(b, j);
-                        Grid.SetColumn(b, i);
-
-                    }
-                   
-                }
+                
             }
             
         }
 
-        private Button addImageBtn(int i)
+        private Button addImageBtn(Seat seat)
         {
+            Button btn = new Button();
+            StackPanel stackPnl = new StackPanel();
             Image img = new Image();
-            Uri seatIcon = new Uri("../../../images/blue_seat.png", UriKind.RelativeOrAbsolute);
-            if (i % 2 == 0)
+            Uri seatIcon = new Uri("../../../images/red_seat.png", UriKind.RelativeOrAbsolute);
+
+            if (AwailableSeats.Contains(seat))
             {
-                seatIcon = new Uri("../../../images/red_seat.png", UriKind.RelativeOrAbsolute);
+                seatIcon = new Uri("../../../images/blue_seat.png", UriKind.RelativeOrAbsolute);
+                btn.Click += SeatBtnClicked;
             }
             
             img.Source = BitmapFrame.Create(seatIcon);
             Label l = new Label();
-            l.Content = i;
-
-            StackPanel stackPnl = new StackPanel();
+            l.Content = seat.SeatNumber;
+                        
             stackPnl.Orientation = Orientation.Horizontal;
             stackPnl.Background = Brushes.Transparent;
             stackPnl.Children.Add(img);
             stackPnl.Children.Add(l);
 
-            Button btn = new Button();
             btn.Content = stackPnl;
             btn.Background = Brushes.White;
             return btn;
@@ -539,8 +575,92 @@ namespace SyncfusionWpfApp1.gui
         {
             ComboBox box = sender as ComboBox;
             Wagon = (Wagon)box.SelectedItem;
-            AwailableSeats = SeatService.getWagonAwailableSeats(AwailableSeats, Wagon);
-            //drawSeats();
+            Seat = null;
+            List<Seat> lineAwailableSeats = SeatService.getLineAwailableSeats(SelectedRide.line, SelectedRide.train, SelectedRide.startStation, SelectedRide.start);
+            AwailableSeats = SeatService.getWagonAwailableSeats(lineAwailableSeats, Wagon);
+            drawSeats();
+        }
+
+        private void drawSeats()
+        {
+            
+            if(SeatsGrid.RowDefinitions.Count > 0)
+            {
+                SeatsGrid.RowDefinitions.RemoveRange(0, SeatsGrid.RowDefinitions.Count);
+                SeatsGrid.Children.RemoveRange(0, SeatsGrid.Children.Count);
+            }
+
+            
+            double padding = 2;
+            List<Seat> allWagonSeats = SeatService.allWagonSeats(Wagon);
+            int seatsPerColumn = allWagonSeats.Count / 4;
+            int seatsCounter = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == 2) continue;
+                for (int j = 0; j < seatsPerColumn; j++)
+                {
+                    Button b = addImageBtn(allWagonSeats[seatsCounter]);
+                    seatsCounter++;
+                    RowDefinition r = new RowDefinition();
+                    //b.Background = Brushes.Red;
+                    double heigh = 50 - padding;
+                    r.Height = new GridLength(heigh);
+                    SeatsGrid.RowDefinitions.Add(r);
+                    SeatsGrid.Children.Add(b);
+                    Grid.SetRow(b, j);
+                    Grid.SetColumn(b, i);
+
+                }
+
+            }
+            if(seatsPerColumn * 4 < allWagonSeats.Count)
+            {
+                int remainingSeats = allWagonSeats.Count - seatsPerColumn * 4;
+                for (int i =0; i<remainingSeats; i++)
+                {
+                    RowDefinition r = new RowDefinition();
+                    //b.Background = Brushes.Red;
+                    double heigh = 50 - padding;
+                    r.Height = new GridLength(heigh);
+                    SeatsGrid.RowDefinitions.Add(r);
+                    Button b = addImageBtn(allWagonSeats[seatsCounter]);
+                    seatsCounter++;
+                    SeatsGrid.Children.Add(b);
+                    Grid.SetRow(b, 6);
+                    if (i >= 2)
+                    {
+                        Grid.SetColumn(b, i+1);
+                    }
+                    else
+                    {
+                        Grid.SetColumn(b, i);
+                    }
+                   
+                }
+            }
+        }
+
+        private void SeatBtnClicked(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            StackPanel p = (StackPanel)btn.Content;
+            int count = p.Children.Count;
+            for (int itr = 0; itr < count; itr++)
+            {
+                if (p.Children[itr] is Label)
+                {
+                    Label l = (Label)p.Children[itr];
+                    Seat = new Seat(Wagon, (int)l.Content);
+                }
+            }
+        }
+
+        private void TrainRidesDataGrid_SelectionChanged(object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e)
+        {
+            SecondPageErrorLabel.Content = "";
+            SecondPageErrorLabel.Visibility = Visibility.Hidden;
+            SecondPageErrorBox.Visibility = Visibility.Hidden;
         }
     }
 }

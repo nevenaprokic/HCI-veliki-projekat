@@ -55,5 +55,14 @@ namespace SyncfusionWpfApp1.service
             IEnumerable<Seat> allAwailableSeats = freeSeats.Concat(laterFreeLineSeats);
             return allAwailableSeats.ToList();
         }
+
+        public static List<Seat> allWagonSeats(Wagon w)
+        {
+            IEnumerable<Seat> wagonSeats = from seat in MainRepository.seats
+                                           where seat.Wagon.Id == w.Id
+                                           select seat;
+            return wagonSeats.ToList();
+        }
     }
+
 }
