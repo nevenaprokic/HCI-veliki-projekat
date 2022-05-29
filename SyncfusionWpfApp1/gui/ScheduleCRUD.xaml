@@ -18,10 +18,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="UpdateDeletePage" Background="#204060" Grid.Row="1" Grid.Column="1" >
+        <Grid x:Name="UpdateDeletePage" Grid.Row="1" Grid.Column="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="3*"/>
@@ -29,14 +29,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="8*"/>
-                <RowDefinition Height="2*" />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" />
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" FontSize="25" FontWeight="DemiBold"> Izmena i brisanje rasporeda vožnji </TextBlock>
-
+            <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
+                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Izmena i brisanje rasporeda vožnje</TextBlock>
+            </Viewbox>
+           
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Rows}" 
@@ -93,61 +95,88 @@
                 </DataGrid.Resources>
             </DataGrid>
 
-            <Label x:Name="editLabel" Content="Unesite novo vreme:" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" FontSize="15"  Foreground="White" FontStyle="Italic" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
-            <TextBox Grid.Column="1" x:Name="newTime" HorizontalAlignment="Center" Height="23" Grid.ColumnSpan="2" Grid.Row="2" Width="Auto" MinWidth="150" VerticalAlignment="Bottom" Margin="0, 0, 0, 15" />
-            <Button x:Name="iconButton" Grid.Column="2" Grid.Row="7" Click="AddRow_Handler" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#204060" Margin="0, 0, 0, 15">
-                <StackPanel>
-                    <Image x:Name="editIcon" Source="/images/add_icon.png" Width="20" Height="20"></Image>
-                </StackPanel>
-            </Button>
+            <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center">
+                    <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="White" FontStyle="Italic" VerticalAlignment="Center" />
+                </Viewbox>
+                <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center" />
+                </Viewbox>
+                <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
+                    <Label x:Name="messageLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
+                </Viewbox>
+                <Viewbox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">
+                    <Button x:Name="iconButton" Grid.Column="2" Grid.Row="1" Click="AddRow_Handler"  VerticalAlignment="Center" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
+                        </StackPanel>
+                    </Button>
+                </Viewbox>
+
+            </Grid>
 
             <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1.3*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Odaberite raspored:" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="15"  Foreground="White" FontStyle="Italic"  VerticalAlignment="Bottom" HorizontalAlignment="Left"></Label>
+                <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
+                    <Label Content="Odaberite raspored:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                </Viewbox>
                 <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="True"></ComboBox>
 
-                <Button Content="Kreiraj raspored" Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="AddRow_Handler" FontSize="17">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8">
+                    <Button Content="Kreiraj raspored"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="AddRow_Handler">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Viewbox>
 
-                <Button x:Name="deleteScheduleButton" Content="Obriši raspored" HorizontalAlignment="Center" Click="DeleteSchedule_Handler"  Grid.Column="1" Grid.ColumnSpan="3" Width="200" Grid.Row="7" VerticalAlignment="Center" Background="#141C61" Foreground="White" FontSize="17">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
+                <Viewbox  Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7">
+                    <Button x:Name="deleteScheduleButton" Content="Obriši raspored" HorizontalAlignment="Center" Click="DeleteSchedule_Handler" VerticalAlignment="Center" Background="#141C61" Foreground="White">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Viewbox>
             </Grid>
         </Grid>
 
-        <Grid x:Name="AddPage" Grid.Row="1" Grid.Column="1" >
-
-        </Grid>
+       
 
     </Grid>
 </Page>
