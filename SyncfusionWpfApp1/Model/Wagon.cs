@@ -23,7 +23,7 @@ namespace SyncfusionWpfApp1.Model
             Class = wagonClass;
         }
 
-        private int Id { get; set; }
+        public int Id { get; set; }
         public int NumberOfSeats { get; set; }
         public Train Train { get; set; }
         public WagonClass Class { get; set; }

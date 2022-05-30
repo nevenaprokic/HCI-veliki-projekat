@@ -18,5 +18,10 @@ namespace SyncfusionWpfApp1.Model
 
         public string Name { get; set; }
         public List<Wagon> Wagons { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
