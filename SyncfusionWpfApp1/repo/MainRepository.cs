@@ -19,6 +19,8 @@ namespace SyncfusionWpfApp1.repo
         public static List<User> Managers { get; set; }
         public static List<User> Users { get; set; }
         public static List<Schedule> Schedules { get; set; }
+        public static List<Wagon> Wagons { get; set; }
+        public static List<Train> Trains { get; set; }
 
         public static List<TrainStation> trainStations { get; set; }
 
@@ -45,7 +47,6 @@ namespace SyncfusionWpfApp1.repo
             Wagon w3 = new Wagon(3, 20, WagonClass.SECOND, 1);
             Wagon w4 = new Wagon(4, 24, WagonClass.FIRST, 3);
             Wagon w5 = new Wagon(5, 27, WagonClass.FIRST, 4);
-            List<Wagon> wagons = new List<Wagon> { w1, w2, w3 };
 
             // wagon1 seats
             seats = new List<Seat>();
@@ -67,8 +68,13 @@ namespace SyncfusionWpfApp1.repo
             List<Train> trains = new List<Train>();
             Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2, w4, w5 });
             Train t2 = new Train("5000 Voz Srbija", new List<Wagon> { w3 });
+
+            Wagons = new List<Wagon> { w1, w2, w3, w4, w5 };
+
+            //trains
             trains.Add(t1);
             trains.Add(t2);
+            Trains = new List<Train> { t1, t2 };
 
             //train stations
             TrainStation ts1 = new TrainStation("Bulevar Jase Tomica", 4, "Srbija", "Novi Sad", 1);

@@ -152,7 +152,7 @@
                 <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
                     <Label Content="Odaberite raspored:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                 </Viewbox>
-                <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="True"></ComboBox>
+                <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="False" />
 
                 <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8">
                     <Button Content="Kreiraj raspored"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="Create_Handler">
