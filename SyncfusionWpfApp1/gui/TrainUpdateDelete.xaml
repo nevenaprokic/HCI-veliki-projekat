@@ -130,7 +130,7 @@
                     <Image x:Name="trainIcon" Source="/images/trian_station.png"/>
                 </Viewbox>
                 <Viewbox Grid.Row="1" Grid.Column="2">
-                    <TextBlock Text="Definisanje novog voza i njegovih vagona" Foreground="White" FontStyle="Italic" />
+                    <TextBlock Text="Izmena i brisanje vozova i njihovih vagona" Foreground="White" FontStyle="Italic" />
                 </Viewbox>
             </Grid>
 
@@ -215,14 +215,6 @@
                 </DataGrid.Resources>
             </DataGrid>
 
-
-
         </Grid>
-
-
-
-
-
-
     </Grid>
 </Page>

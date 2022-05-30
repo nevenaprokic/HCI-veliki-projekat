@@ -57,7 +57,8 @@ namespace SyncfusionWpfApp1.gui
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new TrainUpdateDelete(frame);
+                //frame.Content = new TrainUpdateDelete(frame);
+                frame.Content = new CreateTrain(frame);
             }
 
         }

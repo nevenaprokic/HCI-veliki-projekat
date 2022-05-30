@@ -162,6 +162,25 @@ namespace SyncfusionWpfApp1.gui
 
         private void AddWagon_Handler(object sender, RoutedEventArgs e)
         {
+            seatValidationLabel.Content = "";
+            wagonValidationLabel.Content = "";
+            classValidationLabel.Content = "";
+
+            if (NumberSeatsTextBox.Text == "")
+            {
+                seatValidationLabel.Content = "Broj sedišta je obavezan.";
+                return;
+            }
+            if (NumberWagonsTextBox.Text == "")
+            {
+                wagonValidationLabel.Content = "Broj vagona je obavezan.";
+                return;
+            }
+            if (comboClass.SelectedItem == null)
+            {
+                classValidationLabel.Content = "Razred vagona je obavezan.";
+                return;
+            }
             Rows.Add(new RowDataWagon(Int32.Parse(NumberSeatsTextBox.Text), Int32.Parse(NumberWagonsTextBox.Text), (WagonClass)comboClass.SelectedItem));
             ResetForm();
         }
