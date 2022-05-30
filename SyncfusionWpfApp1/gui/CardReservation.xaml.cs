@@ -312,11 +312,11 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-            Uri iconUriMail = new Uri("../../../images/trian_station.png", UriKind.RelativeOrAbsolute);
-            trainIcon.Source = BitmapFrame.Create(iconUriMail);
-            trainIcon1.Source = BitmapFrame.Create(iconUriMail);
-            trainIcon2.Source = BitmapFrame.Create(iconUriMail);
-            Uri iconUriArrow = new Uri("../../../images/arrow.png", UriKind.RelativeOrAbsolute);
+            Uri trainStationIcon = new Uri("../../../images/trian_station.png", UriKind.RelativeOrAbsolute);
+            trainIcon.Source = BitmapFrame.Create(trainStationIcon);
+            trainIcon1.Source = BitmapFrame.Create(trainStationIcon);
+            trainIcon2.Source = BitmapFrame.Create(trainStationIcon);
+            Uri iconUriArrow = new Uri("../../../images/blue_arrow.png", UriKind.RelativeOrAbsolute);
             arrow.Source = BitmapFrame.Create(iconUriArrow);
             arrow1.Source = BitmapFrame.Create(iconUriArrow);
             arrow2.Source = BitmapFrame.Create(iconUriArrow);
@@ -326,6 +326,22 @@ namespace SyncfusionWpfApp1.gui
             arrow6.Source = BitmapFrame.Create(iconUriArrow);
             arrow7.Source = BitmapFrame.Create(iconUriArrow);
             arrow8.Source = BitmapFrame.Create(iconUriArrow);
+            Uri appIcon = new Uri("../../../images/zeleznica.jpeg", UriKind.RelativeOrAbsolute);
+            AppIcon.Source = BitmapFrame.Create(appIcon);
+            Uri clockIcon = new Uri("../../../images/arrival-time-_1_ (1).png", UriKind.RelativeOrAbsolute);
+            ClockIcon1.Source = BitmapFrame.Create(clockIcon);
+            ClockIcon2.Source = BitmapFrame.Create(clockIcon);
+            Uri locationIcon = new Uri("../../../images/location.png", UriKind.RelativeOrAbsolute);
+            ClockIcon1.Source = BitmapFrame.Create(clockIcon);
+            startIcon.Source = BitmapFrame.Create(locationIcon);
+            endIcon.Source = BitmapFrame.Create(locationIcon);
+            cardArrow1.Source = BitmapFrame.Create(iconUriArrow);
+            cardArrow2.Source = BitmapFrame.Create(iconUriArrow);
+            arrow9.Source = BitmapFrame.Create(iconUriArrow);
+            arrow10.Source = BitmapFrame.Create(iconUriArrow);
+            arrow11.Source = BitmapFrame.Create(iconUriArrow);
+
+            trainIcon3.Source = BitmapFrame.Create(trainStationIcon);
             frame = f;
             trainStations = MainRepository.trainStations;
             tickets = MainRepository.Tickets;
@@ -374,25 +390,25 @@ namespace SyncfusionWpfApp1.gui
             catch(StartDateAfterBackDateException exception)
             {
                 backDateError.Content = exception.Message;
-                backDatePicker.BorderBrush = Brushes.Red;
+                backDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207,27,13));
                 backDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
             }
             catch (StartTimeAfterBackTimeException exception)
             {
                 backTimeError.Content = exception.Message;
-                backTimePicker.BorderBrush = Brushes.Red;
+                backTimePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 backTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
             }
             catch (PassedDateException exception)
             {
                 startDateError.Content = exception.Message;
-                startDatePicker.BorderBrush = Brushes.Red;
+                startDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 startDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
             }
             catch (TooEarlyReservationException exception)
             {
                 startDateError.Content = exception.Message;
-                startDatePicker.BorderBrush = Brushes.Red;
+                startDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 startDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
             }
 
@@ -405,7 +421,7 @@ namespace SyncfusionWpfApp1.gui
             if (StartStation == null)
             {
                 startStationLabel.Content = "Obavezno polje";
-                startStationSelection.BorderBrush = Brushes.Red;
+                startStationSelection.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 startStationSelection.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
@@ -413,14 +429,14 @@ namespace SyncfusionWpfApp1.gui
             if (EndStation == null)
             {
                 endStationLabel.Content = "Obavezno polje";
-                endStationSelection.BorderBrush = Brushes.Red;
+                endStationSelection.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 endStationSelection.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
             if (StartDate == DateTime.MinValue)
             {
                 startDateError.Content = "Obavezno polje";
-                startDatePicker.BorderBrush = Brushes.Red;
+                startDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 startDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
@@ -428,21 +444,21 @@ namespace SyncfusionWpfApp1.gui
             if (BackDate == DateTime.MinValue)
             {
                 backDateError.Content = "Obavezno polje";
-                backDatePicker.BorderBrush = Brushes.Red;
+                backDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 backDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
             if (StartTime == null)
             {
                 startTimeError.Content = "Obavezno polje";
-                startTimePicker.BorderBrush = Brushes.Red;
+                startTimePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 startTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
             if (BackTime == null)
             {
                 backTimeError.Content = "Obavezno polje";
-                backTimePicker.BorderBrush = Brushes.Red;
+                backTimePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
                 backTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
@@ -553,7 +569,7 @@ namespace SyncfusionWpfApp1.gui
 
             if (AwailableSeats.Contains(seat))
             {
-                seatIcon = new Uri("../../../images/blue_seat.png", UriKind.RelativeOrAbsolute);
+                seatIcon = new Uri("../../../images/green_seat.png", UriKind.RelativeOrAbsolute);
                 btn.Click += SeatBtnClicked;
             }
             
@@ -661,6 +677,22 @@ namespace SyncfusionWpfApp1.gui
             SecondPageErrorLabel.Content = "";
             SecondPageErrorLabel.Visibility = Visibility.Hidden;
             SecondPageErrorBox.Visibility = Visibility.Hidden;
+        }
+
+        private void ThirdPageBackBtnClicked(object sender, RoutedEventArgs e)
+        {
+            ThirdPage.Visibility = Visibility.Hidden;
+            SecondPage.Visibility = Visibility.Visible;
+            
+        }
+
+        private void ThirdPageNextBtnClicked(object sender, RoutedEventArgs e)
+        {
+            
+            ThirdPage.Visibility = Visibility.Hidden;
+            FourthPage.Visibility = Visibility.Visible;
+           
+
         }
     }
 }
