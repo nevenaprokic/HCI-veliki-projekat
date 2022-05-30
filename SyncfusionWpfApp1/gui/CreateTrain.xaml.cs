@@ -26,12 +26,20 @@ namespace SyncfusionWpfApp1.gui
         public WagonClass Class { get; set; }
         public int NumOfSeats { get; set; }
         public int NumOfWagons { get; set; }
+        public int OrderNumber { get; set; }
 
         public RowDataWagon(int numOfSeats, int numOfWagons, WagonClass wclass)
         {
             Class = wclass;
             NumOfSeats = numOfSeats;
             NumOfWagons = numOfWagons;
+        }
+
+        public RowDataWagon(int numOfSeats, WagonClass wclass, int order)
+        {
+            Class = wclass;
+            NumOfSeats = numOfSeats;
+            OrderNumber = order;
         }
     }
 
@@ -116,25 +124,40 @@ namespace SyncfusionWpfApp1.gui
                 nameValidationLabel.Content = "Naziv je obavezan.";
                 return;
             }
-            //BuildTrain();
+            BuildTrain();
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi voz i njegove vagone.");
             if ((bool)dialog.ShowDialog())
+            {
+                ResetForm();
+                Rows.Clear();
+                nameBox.Text = "";
                 return;
-            ResetForm();
+            }
+        }
 
+        private void GoBack_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainUpdateDelete(frame);
         }
 
         private void BuildTrain()
         {
             NewTrain.Name = TrainName;
-            int wagonId = NextWagonId();
+            NewTrain.Wagons = new List<Wagon>();
+            int wagonId = NextWagonId() + 1;
+            int order = 0;
+
             foreach (RowDataWagon r in Rows)
             {
                 for (int i = 0; i < r.NumOfWagons; i++)
                 {
-                    NewTrain.Wagons.Add(new Wagon());
+                    NewTrain.Wagons.Add(new Wagon(wagonId, r.NumOfSeats, r.Class, order));
+                    order++;
+                    wagonId++;
                 }
             }
+            MainRepository.Trains.Add(NewTrain);
+            Console.WriteLine(MainRepository.Trains.Count);
         }
 
         private int NextWagonId()

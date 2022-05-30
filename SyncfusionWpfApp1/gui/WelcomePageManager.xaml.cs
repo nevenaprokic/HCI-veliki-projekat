@@ -63,7 +63,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void Train_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new TrainUpdateDelete(frame);
         }
     }
 }

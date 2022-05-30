@@ -72,8 +72,13 @@ namespace SyncfusionWpfApp1.gui
         }
 
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
-        { 
-        
+        {
+            int index = comboSchedule.SelectedIndex;
+            if (index == -1) return;
+
+            Console.WriteLine(MainRepository.Trains.Count);
+            MainRepository.Trains.RemoveAt(index);
+            drawTable();
         }
 
         private void Save_Handler(object sender, RoutedEventArgs e)
@@ -91,6 +96,25 @@ namespace SyncfusionWpfApp1.gui
 
         private void AddWagon_Handler(object sender, RoutedEventArgs e)
         {
+            seatValidationLabel.Content = "";
+            wagonValidationLabel.Content = "";
+            classValidationLabel.Content = "";
+
+            if (NumberSeatsTextBox.Text == "")
+            {
+                seatValidationLabel.Content = "Broj sedišta je obavezan.";
+                return;
+            }
+            if (NumberWagonsTextBox.Text == "")
+            {
+                wagonValidationLabel.Content = "Broj vagona je obavezan.";
+                return;
+            }
+            if (comboClass.SelectedItem == null)
+            {
+                classValidationLabel.Content = "Razred vagona je obavezan.";
+                return;
+            }
             Rows.Add(new RowDataWagon(Int32.Parse(NumberSeatsTextBox.Text), Int32.Parse(NumberWagonsTextBox.Text), (WagonClass)comboClass.SelectedItem));
             ResetForm();
         }
@@ -99,6 +123,11 @@ namespace SyncfusionWpfApp1.gui
         {
             int forRemove = dataGrid.SelectedIndex;
             Rows.RemoveAt(forRemove);
+        }
+
+        private void CreateTrain_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CreateTrain(frame);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,7 +146,7 @@ namespace SyncfusionWpfApp1.gui
             if (SelectedTrain == null) return;
             foreach (Wagon w in SelectedTrain.Wagons)
             {
-                RowDataWagon r = new RowDataWagon(w.NumberOfSeats, 1, w.Class);
+                RowDataWagon r = new RowDataWagon(w.NumberOfSeats, w.Class, w.OrderdNumber);
                 Rows.Add(r);
             }
         }
