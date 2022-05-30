@@ -57,7 +57,7 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
-*.vs/SyncfusionWpfApp1/DesignTimeBuild/.dtbcache.v2
+*.v2
 
 # Chutzpah Test files
 _Chutzpah*
