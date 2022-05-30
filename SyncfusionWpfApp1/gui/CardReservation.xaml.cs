@@ -131,9 +131,8 @@ namespace SyncfusionWpfApp1.gui
                 if(_wagon != value)
                 {
                     _wagon = value;
-                    WagonOrder = _wagon.OrderdNumber.ToString();
                     RaisePropertyChanged(nameof(Wagon));
-                    RaisePropertyChanged(nameof(WagonOrder));
+                   
                 }
             }
         }
@@ -312,7 +311,7 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-            Uri trainStationIcon = new Uri("../../../images/trian_station.png", UriKind.RelativeOrAbsolute);
+            Uri trainStationIcon = new Uri("../../../images/ticketIcon.jpeg", UriKind.RelativeOrAbsolute);
             trainIcon.Source = BitmapFrame.Create(trainStationIcon);
             trainIcon1.Source = BitmapFrame.Create(trainStationIcon);
             trainIcon2.Source = BitmapFrame.Create(trainStationIcon);
@@ -591,22 +590,29 @@ namespace SyncfusionWpfApp1.gui
         {
             ComboBox box = sender as ComboBox;
             Wagon = (Wagon)box.SelectedItem;
-            Seat = null;
-            List<Seat> lineAwailableSeats = SeatService.getLineAwailableSeats(SelectedRide.line, SelectedRide.train, SelectedRide.startStation, SelectedRide.start);
-            AwailableSeats = SeatService.getWagonAwailableSeats(lineAwailableSeats, Wagon);
-            drawSeats();
+            if(Wagon != null)
+            {
+                Seat = null;
+                List<Seat> lineAwailableSeats = SeatService.getLineAwailableSeats(SelectedRide.line, SelectedRide.train, SelectedRide.startStation, SelectedRide.start);
+                AwailableSeats = SeatService.getWagonAwailableSeats(lineAwailableSeats, Wagon);
+                drawSeats();
+            }
+            
         }
 
-        private void drawSeats()
+        private void cleanSeatsGrid()
         {
-            
-            if(SeatsGrid.RowDefinitions.Count > 0)
+            if (SeatsGrid.RowDefinitions.Count > 0)
             {
                 SeatsGrid.RowDefinitions.RemoveRange(0, SeatsGrid.RowDefinitions.Count);
                 SeatsGrid.Children.RemoveRange(0, SeatsGrid.Children.Count);
             }
+        }
 
-            
+        private void drawSeats()
+        {
+
+            cleanSeatsGrid();
             double padding = 2;
             List<Seat> allWagonSeats = SeatService.allWagonSeats(Wagon);
             int seatsPerColumn = allWagonSeats.Count / 4;
@@ -681,16 +687,31 @@ namespace SyncfusionWpfApp1.gui
 
         private void ThirdPageBackBtnClicked(object sender, RoutedEventArgs e)
         {
+            cleanSeatsGrid();
             ThirdPage.Visibility = Visibility.Hidden;
             SecondPage.Visibility = Visibility.Visible;
             
         }
 
+        private bool checkSeatSelection()
+        {
+            if (Wagon != null && Seat != null) return true;
+            return false;
+        }
+
         private void ThirdPageNextBtnClicked(object sender, RoutedEventArgs e)
         {
-            
-            ThirdPage.Visibility = Visibility.Hidden;
-            FourthPage.Visibility = Visibility.Visible;
+            if (checkSeatSelection())
+            {
+                ThirdPage.Visibility = Visibility.Hidden;
+                FourthPage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ThirdPageErrorLabel.Content = "Niste izabrali vagon i sedište";
+                ThirdPageErrorBox.Visibility = Visibility.Visible;
+            }
+           
            
 
         }
