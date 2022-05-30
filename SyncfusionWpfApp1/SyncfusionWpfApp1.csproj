@@ -10,7 +10,9 @@
   <ItemGroup>
     <None Remove="App.ico" />
     <None Remove="images\add_icon.png" />
+    <None Remove="images\delete2.png" />
     <None Remove="images\delete_icon.png" />
+    <None Remove="images\edit_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +35,9 @@
   <ItemGroup>
     <Resource Include="App.ico" />
     <Resource Include="images\add_icon.png" />
+    <Resource Include="images\delete2.png" />
     <Resource Include="images\delete_icon.png" />
+    <Resource Include="images\edit_icon.png" />
   </ItemGroup>
 
 </Project>

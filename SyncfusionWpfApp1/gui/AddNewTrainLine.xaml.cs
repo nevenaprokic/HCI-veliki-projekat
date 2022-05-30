@@ -16,13 +16,12 @@ using System.Windows.Shapes;
 namespace SyncfusionWpfApp1.gui
 {
     /// <summary>
-    /// Interaction logic for WelcomePageClient.xaml
+    /// Interaction logic for AddNewTrainLine.xaml
     /// </summary>
-    public partial class WelcomePageClient : Page
+    public partial class AddNewTrainLine : Page
     {
         private Frame frame;
-
-        public WelcomePageClient(Frame f)
+        public AddNewTrainLine(Frame f)
         {
             InitializeComponent();
             frame = f;
@@ -31,19 +30,6 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-
         }
-        private void TicketCreate_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new CardReservation();
-        }
-        private void TicketReprt_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e) { }
-        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e) { }
-        private void TrainLine_Handler(object sender, RoutedEventArgs e) { }
-
     }
 }

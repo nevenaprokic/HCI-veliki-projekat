@@ -18,9 +18,6 @@ using SyncfusionWpfApp1.service;
 
 namespace SyncfusionWpfApp1.gui
 {
-    /// <summary>
-    /// Interaction logic for LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Page
     {
         private UserService userService;
@@ -30,7 +27,7 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/back.jpg", UriKind.Relative));
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
             Uri iconUriMail = new Uri("../../../images/mail.png", UriKind.RelativeOrAbsolute);
             mailIcon.Source = BitmapFrame.Create(iconUriMail);
@@ -52,12 +49,12 @@ namespace SyncfusionWpfApp1.gui
             else if (type == UserType.CLIENT)
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new CardReservation(frame);
+                frame.Content = new WelcomePageClient(frame);
             }
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new ScheduleUpdateDelete(frame);
+                frame.Content = new WelcomePageManager(frame);
             }
 
         }
