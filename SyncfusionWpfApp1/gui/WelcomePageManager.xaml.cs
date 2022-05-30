@@ -51,7 +51,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void Schedule_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new ScheduleCRUD(frame);
+            frame.Content = new ScheduleUpdateDelete(frame);
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
