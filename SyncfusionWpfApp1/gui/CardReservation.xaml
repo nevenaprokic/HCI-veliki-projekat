@@ -190,7 +190,7 @@
                 <Label Content="Datum polaska: *"  FontSize="15" Foreground="#204060"  ></Label>
             </Viewbox>
 
-            <DatePicker FontSize="13"  Grid.Column="1" Grid.Row="7"   Background="#e6f3ff" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged"/>
+            <DatePicker FontSize="13"  Grid.Column="1" Grid.Row="7"   Background="#e6f3ff" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged" RenderTransformOrigin="0.495,0.66"/>
             <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
                 <Label x:Name="startDateError"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -651,7 +651,7 @@
                     <Label Content="Izabrani vagon:"  FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="{Binding WagonOrder}" FontSize="15" Foreground="#204060"></Label>
+                    <Label Content="{Binding Wagon.OrderedNumber}" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">
                     <Label Content="Izabrano sedište:"  FontSize="15" Foreground="#204060"></Label>
@@ -661,6 +661,12 @@
                 </Viewbox>
 
             </Grid>
+
+            <Border  x:Name="ThirdPageErrorBox" Grid.Row="12" Grid.Column="1" Background="White" CornerRadius="15" Visibility="Hidden" >
+                <Viewbox  HorizontalAlignment="Left" >
+                    <Label x:Name="ThirdPageErrorLabel" Foreground="#CF1B0D" FontSize="14" FontWeight="Bold" FontStyle="Italic" ></Label>
+                </Viewbox>
+            </Border>
 
             <Grid Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="3" Margin="77,0,38,0">
                 <Grid.ColumnDefinitions>
