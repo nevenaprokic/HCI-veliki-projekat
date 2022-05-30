@@ -26,8 +26,24 @@ namespace SyncfusionWpfApp1.gui
         {
             InitializeComponent();
             frame = f;
+            Uri iconUriMail = new Uri("../../../images/proba.png", UriKind.RelativeOrAbsolute);
+            logoIcon.Source = BitmapFrame.Create(iconUriMail);
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+            this.Background = myBrush;
+
+        }
+        private void TicketCreate_Handler(object sender, RoutedEventArgs e)
+        {
             frame.Content = new CardReservation();
         }
+        private void TicketReprt_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e) { }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e) { }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e) { }
 
     }
 }

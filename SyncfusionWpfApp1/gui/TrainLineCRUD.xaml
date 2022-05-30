@@ -12,13 +12,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1.5*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="1.5*" />
             <RowDefinition Height="0.1*" />
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="14*" />
             <RowDefinition Height="0.3*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.6*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*" />
@@ -36,20 +36,20 @@
         <Label Content="Železnica Srbije" Grid.Column="3" HorizontalAlignment="Left"  Grid.Row="1" VerticalAlignment="Top"  Foreground="#141C61" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
         <Menu Grid.Column="4" Grid.Row="1" Background="#E8F0F2" VerticalAlignment="Center"  HorizontalAlignment="Center">
             <MenuItem Header=" Karte  " Foreground="#141C61" FontSize="20">
-                <MenuItem Header="Pregled kupljenih" Background="#E8F0F2" Foreground="#141C61"/>
-                <MenuItem Header="Pregled rezervisanih" Background="#E8F0F2" Foreground="#141C61"/>
-                <MenuItem Header="Izveštaj na mesečnom nivou" Background="#E8F0F2" Foreground="#141C61"/>
-                <MenuItem Header="Izveštaj za jednu božnju"  Background="#E8F0F2" Foreground="#141C61"/>
+                <MenuItem Header="Pregled kupljenih" Background="#E8F0F2" Foreground="#141C61" Click="TicketReport_Handler"/>
+                <MenuItem Header="Pregled rezervisanih" Background="#E8F0F2" Foreground="#141C61" Click="TicketReservation_Handler"/>
+                <MenuItem Header="Izveštaj na mesečnom nivou" Background="#E8F0F2" Foreground="#141C61" Click="MonthlyReport_Handler"/>
+                <MenuItem Header="Izveštaj za jednu božnju"  Background="#E8F0F2" Foreground="#141C61" Click="TrainLineReport_Handler"/>
             </MenuItem>
             <MenuItem Header=" Red vožnje  " Foreground="#141C61" FontSize="20">
-                <MenuItem Header="CRUD" Background="#E8F0F2" Foreground="#141C61"/>
+                <MenuItem Header="CRUD" Background="#E8F0F2" Foreground="#141C61" Click="Schedule_Handler"/>
             </MenuItem>
             <MenuItem Header=" Vozne linije  " Foreground="#141C61" FontSize="20">
-                <MenuItem Header="Mrežni pregled" Background="#E8F0F2" Foreground="#141C61"/>
-                <MenuItem Header="CRUD"  Background="#E8F0F2" Foreground="#141C61"/>
+                <MenuItem Header="Mrežni pregled" Background="#E8F0F2" Foreground="#141C61" Click="NetworkTrainLine_Handler"/>
+                <MenuItem Header="CRUD"  Background="#E8F0F2" Foreground="#141C61" Click="TrainLine_Handler"/>
             </MenuItem>
             <MenuItem Header=" Voz " Foreground="#141C61" FontSize="20">
-                <MenuItem Header="CRUD" Background="#E8F0F2" Foreground="#141C61"/>
+                <MenuItem Header="CRUD" Background="#E8F0F2" Foreground="#141C61" Click="Train_Handler"/>
             </MenuItem>
         </Menu>
         <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="#E8F0F2" BorderThickness="1" CornerRadius="8"/>

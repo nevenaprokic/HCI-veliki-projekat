@@ -18,9 +18,6 @@ using SyncfusionWpfApp1.service;
 
 namespace SyncfusionWpfApp1.gui
 {
-    /// <summary>
-    /// Interaction logic for LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Page
     {
         private UserService userService;
@@ -52,14 +49,12 @@ namespace SyncfusionWpfApp1.gui
             else if (type == UserType.CLIENT)
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new CardReservation(frame);
+                frame.Content = new WelcomePageClient(frame);
             }
             else
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new AddNewTrainLine(frame);
-                //frame.Content = new TrainLineCRUD(frame);
-                // frame.Content = new ScheduleCRUD(frame);
+                frame.Content = new WelcomePageManager(frame);
             }
 
         }

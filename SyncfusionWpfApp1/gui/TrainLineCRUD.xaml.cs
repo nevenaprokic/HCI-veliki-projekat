@@ -90,6 +90,38 @@ namespace SyncfusionWpfApp1.gui
             TrainLines.RemoveAt(forRemove);
             drawTable();
         }
+        private void TicketReport_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new MonthlyReport(frame);
+        }
+        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineReport(frame);
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new ScheduleCRUD(frame);
+        }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineCRUD(frame);
+        }
+        private void Train_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
 
     }
 }
