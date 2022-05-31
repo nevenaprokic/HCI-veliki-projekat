@@ -71,22 +71,22 @@ namespace SyncfusionWpfApp1.gui
 
             if (Tg_Btn.IsChecked == true)
             {
-                tt_home.Visibility = Visibility.Collapsed;
-                tt_contacts.Visibility = Visibility.Collapsed;
-                tt_messages.Visibility = Visibility.Collapsed;
+                tt_ticket.Visibility = Visibility.Collapsed;
+                tt_schedule.Visibility = Visibility.Collapsed;
+                tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                tt_settings.Visibility = Visibility.Collapsed;
+                tt_trainLineReport.Visibility = Visibility.Collapsed;
                 tt_train.Visibility = Visibility.Collapsed;
                 tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
             }
             else
             {
-                tt_home.Visibility = Visibility.Visible;
-                tt_contacts.Visibility = Visibility.Visible;
-                tt_messages.Visibility = Visibility.Visible;
+                tt_ticket.Visibility = Visibility.Visible;
+                tt_schedule.Visibility = Visibility.Visible;
+                tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-                tt_settings.Visibility = Visibility.Visible;
+                tt_trainLineReport.Visibility = Visibility.Visible;
                 tt_train.Visibility = Visibility.Visible;
                 tt_report_monthly.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
@@ -108,10 +108,10 @@ namespace SyncfusionWpfApp1.gui
             Tg_Btn.IsChecked = false;
         }
 
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        /*private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             //Close();
-        }
+        }*/
     
     }
 }

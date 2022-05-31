@@ -151,51 +151,35 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="1.5*" />
-            <RowDefinition Height="0.1*" />
-            <RowDefinition Height="14*" />
-            <RowDefinition Height="0.3*" />
-            <RowDefinition Height="1.6*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="1.3*" />
-            <ColumnDefinition Width="2.5*" />
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
 
-        <!--// Navigation Panel //-->
-
         <Grid   x:Name="nav_pnl"
-                HorizontalAlignment="Left"
-                Width="65"
-                Background="#E8F0F2" Grid.Row="0" Grid.Column="0" Grid.RowSpan="8">
+                    HorizontalAlignment="Left"
+                    Width="65"
+                    Background="#E8F0F2" Grid.Column="0">
 
             <StackPanel x:Name="st_pnl">
 
                 <!--// Grid for the Menu Toggle Button //-->
 
-                <Grid>
+                <Grid Height="90">
 
                     <!--// Menu title text //-->
 
                     <TextBlock  Grid.Row="1"
-                                Grid.Column="0"
-                                Margin="73,40,0,0"
-                                Text="M E N I"
-                                Foreground="#141C61"
-                                FontSize="20"
-                                Background="Transparent"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource font_style}">
+                                    Grid.Column="0"
+                                    Margin="73,-20,0,0"
+                                    Text="M E N I"
+                                    Foreground="#141C61"
+                                    FontSize="20"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource font_style}">
 
 
                     </TextBlock>
@@ -203,21 +187,21 @@
                     <!--// Toggle Button //-->
 
                     <ToggleButton x:Name="Tg_Btn"
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Margin="18,-20,0,0"
-                                    Height="30"
-                                    Width="30"
-                                    BorderThickness="0"
-                                    Style="{StaticResource tb_style}" Unchecked="Tg_Btn_Unchecked" Checked="Tg_Btn_Checked">
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="18,-20,0,0"
+                                      Height="30"
+                                      Width="30"
+                                      BorderThickness="0"
+                                      Style="{StaticResource tb_style}" Unchecked="Tg_Btn_Unchecked" Checked="Tg_Btn_Checked">
 
                         <!--// Toggle button default background image //-->
 
                         <ToggleButton.Background>
 
                             <ImageBrush ImageSource="/images/tgBtn_default.png"
-                                        Stretch="None"/>
+                                            Stretch="None"/>
 
                         </ToggleButton.Background>
 
@@ -233,11 +217,11 @@
 
                                         <DoubleAnimation    
                                                 
-                                            Storyboard.TargetName="nav_pnl"
-                                            Storyboard.TargetProperty="Width"
-                                            BeginTime="0:0:0"
-                                            From="280" To="65"
-                                            Duration="0:0:0.2">
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="280" To="65"
+                                                Duration="0:0:0.2">
 
                                         </DoubleAnimation>
 
@@ -255,11 +239,11 @@
 
                                         <DoubleAnimation
                                                 
-                                            Storyboard.TargetName="nav_pnl"
-                                            Storyboard.TargetProperty="Width"
-                                            BeginTime="0:0:0"
-                                            From="65" To="280"
-                                            Duration="0:0:0.3">
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="65" To="280"
+                                                Duration="0:0:0.3">
 
                                         </DoubleAnimation>
 
@@ -279,26 +263,26 @@
                 <!--// ListView with menu list items //-->
 
                 <ListView  x:Name="LV"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/t.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Karte"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -306,10 +290,10 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_home"
-                                        Content="Karte"
-                                        Style="{StaticResource tt_style}"
-                                        />
+                            <ToolTip x:Name="tt_ticket"
+                                         Content="Karte"
+                                         Style="{StaticResource tt_style}"
+                                         />
 
                         </ListViewItem.ToolTip>
 
@@ -318,19 +302,19 @@
                     <!--// Contacts //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/s.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Red vožnje"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -338,9 +322,9 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_contacts"
-                                        Content="Red vožnje"
-                                        Style="{StaticResource tt_style}"/>
+                            <ToolTip x:Name="tt_schedule"
+                                         Content="Red vožnje"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
@@ -349,19 +333,19 @@
                     <!--// Messages //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLine_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/m.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Vozne linije"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -369,9 +353,9 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_messages"
-                                        Content="Tabelarni pregled voznih linija"
-                                        Style="{StaticResource tt_style}"/>
+                            <ToolTip x:Name="tt_trainLine"
+                                         Content="Tabelarni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
@@ -380,19 +364,19 @@
                     <!--// Maps //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="NetworkTrainLine_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/mape.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Mrežni pregled"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -401,8 +385,8 @@
                         <ListViewItem.ToolTip>
 
                             <ToolTip x:Name="tt_maps"
-                                        Content="Mrežni pregled voznih linija"
-                                        Style="{StaticResource tt_style}"/>
+                                         Content="Mrežni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
@@ -411,19 +395,19 @@
                     <!--// Settings //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/stat.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Izveštaj vožnji"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -431,27 +415,27 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_settings"
-                                        Content="Pregled jedne vozne linije"
-                                        Style="{StaticResource tt_style}"/>
+                            <ToolTip x:Name="tt_trainLineReport"
+                                         Content="Pregled jedne vozne linije"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/iz.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
-                            <TextBlock Text="Izveštaj mesečni nivo"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                            <TextBlock Text="Mesečni izveštaj"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -460,27 +444,27 @@
                         <ListViewItem.ToolTip>
 
                             <ToolTip x:Name="tt_report_monthly"
-                                        Content="Pregled izveštaja na mesečnom nivou"
-                                        Style="{StaticResource tt_style}"/>
+                                         Content="Pregled izveštaja na mesečnom nivou"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/v.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Voz"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -489,8 +473,8 @@
                         <ListViewItem.ToolTip>
 
                             <ToolTip x:Name="tt_train"
-                                        Content="Pregled vozova"
-                                        Style="{StaticResource tt_style}"/>
+                                         Content="Pregled vozova"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
@@ -499,19 +483,19 @@
                     <!--// Sign Out //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                    Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
-                                    >
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      >
 
                         <StackPanel Orientation="Horizontal"
-                                    Width="280">
+                                        Width="280">
 
                             <Image Source="/images/logout.png"
-                                    Stretch="None"
-                                    Margin="12,0,0,0"/>
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
 
                             <TextBlock Text="Odjava"
-                                        Margin="25,0,0,0"
-                                        Style="{StaticResource font_style}"/>
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
 
                         </StackPanel>
 
@@ -520,8 +504,8 @@
                         <ListViewItem.ToolTip>
 
                             <ToolTip x:Name="tt_signout"
-                                        Content="Odjavi se"
-                                        Style="{StaticResource tt_style}"/>
+                                         Content="Odjavi se"
+                                         Style="{StaticResource tt_style}"/>
 
                         </ListViewItem.ToolTip>
 
@@ -540,16 +524,16 @@
                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
 
                                         <Border x:Name="Bd"
-                                                Height="50"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                Background="{TemplateBinding Background}"
-                                                Padding="{TemplateBinding Padding}"
-                                                SnapsToDevicePixels="True">
+                                                    Height="50"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    Background="{TemplateBinding Background}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    SnapsToDevicePixels="True">
 
                                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
                                         </Border>
 
@@ -564,12 +548,12 @@
                                                 </MultiTrigger.Conditions>
 
                                                 <Setter Property="Background"
-                                                        TargetName="Bd"
-                                                        Value="#8db5bf"/>
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
 
                                                 <Setter Property="BorderBrush"
-                                                        TargetName="Bd"
-                                                        Value="#8db5bf"/>
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
 
                                             </MultiTrigger>
 
@@ -589,9 +573,33 @@
 
             </StackPanel>
 
+
         </Grid>
-        <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="#E8F0F2" BorderThickness="1" CornerRadius="8"/>
-        <Label Content="Pregled voznih linija" Grid.Column="3" HorizontalAlignment="Left"  Grid.Row="3" VerticalAlignment="Center"  Foreground="#141C61" FontSize="18" FontStyle="Italic" FontWeight="Bold"/>
+        <Grid Grid.Column="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="14*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="1.6*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2.7*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+        <Label Content="Pregled voznih linija" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center"  Foreground="#141C61" FontSize="25" FontStyle="Italic" FontWeight="Bold"/>
         <Button x:Name="delete"  Grid.Column="5" Width="80" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#BB6464">
             <Button.Content>
                 <StackPanel VerticalAlignment="Center" 
@@ -694,7 +702,7 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        
 
+        </Grid>
     </Grid>
 </Page>

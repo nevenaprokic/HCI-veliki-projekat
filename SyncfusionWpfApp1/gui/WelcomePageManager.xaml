@@ -176,17 +176,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource font_style}">
-                            
-                            <!--// Shadow Effect //-->
-
-                            <!--<TextBlock.Effect>
-
-                                <DropShadowEffect  BlurRadius="10"
-                                                   ShadowDepth="1"
-                                                   Direction="-90"
-                                                   Color="White"/>
-
-                            </TextBlock.Effect>-->
+                           
 
                 </TextBlock>
 
@@ -276,7 +266,7 @@
                 <!--// Home //-->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
@@ -296,7 +286,7 @@
 
                     <ListViewItem.ToolTip>
 
-                        <ToolTip x:Name="tt_home"
+                        <ToolTip x:Name="tt_ticket"
                                          Content="Karte"
                                          Style="{StaticResource tt_style}"
                                          />
@@ -308,7 +298,7 @@
                 <!--// Contacts //-->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
@@ -328,7 +318,7 @@
 
                     <ListViewItem.ToolTip>
 
-                        <ToolTip x:Name="tt_contacts"
+                        <ToolTip x:Name="tt_schedule"
                                          Content="Red vožnje"
                                          Style="{StaticResource tt_style}"/>
 
@@ -359,7 +349,7 @@
 
                     <ListViewItem.ToolTip>
 
-                        <ToolTip x:Name="tt_messages"
+                        <ToolTip x:Name="tt_trainLine"
                                          Content="Tabelarni pregled voznih linija"
                                          Style="{StaticResource tt_style}"/>
 
@@ -370,7 +360,7 @@
                 <!--// Maps //-->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="NetworkTrainLine_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
@@ -401,7 +391,7 @@
                 <!--// Settings //-->
 
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
@@ -421,7 +411,7 @@
 
                     <ListViewItem.ToolTip>
 
-                        <ToolTip x:Name="tt_settings"
+                        <ToolTip x:Name="tt_trainLineReport"
                                          Content="Pregled jedne vozne linije"
                                          Style="{StaticResource tt_style}"/>
 
@@ -429,7 +419,7 @@
 
                 </ListViewItem>
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
@@ -439,7 +429,7 @@
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                        <TextBlock Text="Izveštaj mesečni nivo"
+                        <TextBlock Text="Mesečni izveštaj"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -458,7 +448,7 @@
                 </ListViewItem>
 
                 <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
                                       >
 
                     <StackPanel Orientation="Horizontal"
