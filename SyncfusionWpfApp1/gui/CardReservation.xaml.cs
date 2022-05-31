@@ -21,6 +21,8 @@ using SyncfusionWpfApp1.validators;
 using SyncfusionWpfApp1.expetion;
 using SyncfusionWpfApp1.service;
 using Syncfusion.Windows.Shared;
+using System.Globalization;
+using System.Threading;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -58,7 +60,38 @@ namespace SyncfusionWpfApp1.gui
         private List<Seat> _awailableSeats;
         private List<Wagon> _selectedTrainWagons;
         private TrainRide _selectedRide;
-
+        private DateTime _startDateTime;
+        private DateTime _backDateTime;
+        public DateTime StartDateTime
+        {
+            get
+            {
+                return _startDateTime;
+            }
+            set
+            {
+                if (_startDateTime != value)
+                {
+                    _startDateTime = value;
+                    RaisePropertyChanged(nameof(StartDateTime));
+                }
+            }
+        }
+        public DateTime BackDateTime
+        {
+            get
+            {
+                return _backDateTime;
+            }
+            set
+            {
+                if (_backDateTime != value)
+                {
+                    _backDateTime = value;
+                    RaisePropertyChanged(nameof(BackDateTime));
+                }
+            }
+        }
         public Seat Seat
         {
             get { return _seat; }
@@ -341,6 +374,14 @@ namespace SyncfusionWpfApp1.gui
             arrow11.Source = BitmapFrame.Create(iconUriArrow);
 
             trainIcon3.Source = BitmapFrame.Create(trainStationIcon);
+            Uri nextIcon = new Uri("../../../images/next.png", UriKind.RelativeOrAbsolute);
+            FirstPageNextBtn.Source = BitmapFrame.Create(nextIcon);
+            SecondPageNextBtn.Source = BitmapFrame.Create(nextIcon);
+            ThirdPageNextBtn.Source = BitmapFrame.Create(nextIcon);
+            Uri backIcon = new Uri("../../../images/back.png", UriKind.RelativeOrAbsolute);
+            SecondPageBackBtn.Source = BitmapFrame.Create(backIcon);
+            ThirdPageBackBtn.Source = BitmapFrame.Create(backIcon);
+
             frame = f;
             trainStations = MainRepository.trainStations;
             tickets = MainRepository.Tickets;
@@ -348,6 +389,12 @@ namespace SyncfusionWpfApp1.gui
             generateStationsNames();
             SortedStartTimes = MainRepository.getTimeList(MainRepository.trainLines, DateTime.Now);
             SortedBackTimes = MainRepository.getTimeList(MainRepository.trainLines, DateTime.Now);
+
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
+            var txt = 
 
             DataContext = this;
         }
@@ -369,14 +416,16 @@ namespace SyncfusionWpfApp1.gui
             {
                 if (checkFullFields())
                 {
-                    DateTime startDateTime = convertToFullDateTime(StartDate, StartTime);
-                    DateTime backDateTime = convertToFullDateTime(BackDate, BackTime);
-                    if (DateTimeValidator.validateDates(startDateTime, backDateTime))
+                    StartDateTime = convertToFullDateTime(StartDate, StartTime);
+                    BackDateTime = convertToFullDateTime(BackDate, BackTime);
+                    if (DateTimeValidator.validateDates(StartDateTime, BackDateTime))
                     {
+                        
+                        StartDateTime.Date.ToShortDateString();
                         this.FirstPage.Visibility = Visibility.Hidden;
                         this.SecondPage.Visibility = Visibility.Visible;
 
-                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, startDateTime, backDateTime);
+                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, BackDateTime);
                         AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
 
                     }
@@ -481,6 +530,16 @@ namespace SyncfusionWpfApp1.gui
             startStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
             StartStation = (TrainStation)cmb.SelectedItem;
+            if(EndStation != null)
+            {
+                startDatePicker.IsEnabled = true;
+                backDatePicker.IsEnabled = true;
+            }
+            if(StartStation == null)
+            {
+                startDatePicker.IsEnabled = false;
+                backDatePicker.IsEnabled = false;
+            }
         }
 
         private void EndStationChanged(object sender, SelectionChangedEventArgs e)
@@ -490,10 +549,21 @@ namespace SyncfusionWpfApp1.gui
             endStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
             EndStation = (TrainStation) cmb.SelectedItem;
+            if (StartStation != null)
+            {
+                startDatePicker.IsEnabled = true;
+                backDatePicker.IsEnabled = true;
+            }
+            if (EndStation == null)
+            {
+                startDatePicker.IsEnabled = false;
+                backDatePicker.IsEnabled = false;
+            }
         }
 
         private void startDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            startDatePicker.SelectedDate.Value.Date.ToShortDateString();
             startDateError.Content = "";
             startDatePicker.BorderBrush = Brushes.Transparent;
             startDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
@@ -501,12 +571,26 @@ namespace SyncfusionWpfApp1.gui
             StartDate = (DateTime)picker.SelectedDate;
             //selekotvanje vremena polaska
             //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
+            
             selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
             SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
-        }
+
+            if(BackDate != DateTime.MinValue)
+            {
+                startTimePicker.IsEnabled = true;
+                backTimePicker.IsEnabled = true;
+            }
+            if(StartDate == DateTime.MinValue)
+            {
+                startTimePicker.IsEnabled = false;
+                backTimePicker.IsEnabled = false;
+            }
+
+        } 
 
         private void endDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            backDatePicker.SelectedDate.Value.Date.ToShortDateString();
             backDateError.Content = "";
             backDatePicker.BorderBrush = Brushes.Transparent;
             backDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
@@ -514,6 +598,17 @@ namespace SyncfusionWpfApp1.gui
             BackDate = (DateTime)picker.SelectedDate;
             selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
             SortedBackTimes = MainRepository.getTimeList(selectedLines, BackDate);
+
+            if (StartDate != DateTime.MinValue)
+            {
+                startTimePicker.IsEnabled = true;
+                backTimePicker.IsEnabled = true;
+            }
+            if (BackDate == DateTime.MinValue)
+            {
+                startTimePicker.IsEnabled = false;
+                backTimePicker.IsEnabled = false;
+            }
         }
 
         private void SecondPageBackBtnClicked(object sender, RoutedEventArgs e)
@@ -526,16 +621,20 @@ namespace SyncfusionWpfApp1.gui
         {
             ComboBox cmb = sender as ComboBox;
             Train = (Train)cmb.SelectedItem;
+            TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, BackDateTime);
             TrainRides = TrainLineService.filterTrainRidesByTrain(TrainRides, Train);
 
         }
 
         private void maxPriceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DoubleTextBox doubleTextBox = d as DoubleTextBox;
-            double price = (double) e.NewValue;
-            TrainRides = TrainLineService.filterTrainRidesByMaxPrice(TrainRides, price);
-
+            if (TrainRides != null)
+            {
+                DoubleTextBox doubleTextBox = d as DoubleTextBox;
+                double price = (double)e.NewValue;
+                TrainRides = TrainLineService.filterTrainRidesByMaxPrice(TrainRides, price);
+            }
+            
         }
 
         private void SecondPageNextBtnClicked(object sender, RoutedEventArgs e)
@@ -571,6 +670,10 @@ namespace SyncfusionWpfApp1.gui
                 seatIcon = new Uri("../../../images/green_seat.png", UriKind.RelativeOrAbsolute);
                 btn.Click += SeatBtnClicked;
             }
+            else
+            {
+                btn.Click += takenSeatClick;
+            }
             
             img.Source = BitmapFrame.Create(seatIcon);
             Label l = new Label();
@@ -584,6 +687,13 @@ namespace SyncfusionWpfApp1.gui
             btn.Content = stackPnl;
             btn.Background = Brushes.White;
             return btn;
+        }
+
+        private void takenSeatClick(object sender, RoutedEventArgs e)
+        {
+            SecondPageErrorLabel.Content = "Ne možete izabrati zauzeto sedište";
+            SecondPageErrorLabel.Visibility = Visibility.Visible;
+            SecondPageErrorBox.Visibility = Visibility.Visible;
         }
 
         private void wagonSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -665,6 +775,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void SeatBtnClicked(object sender, RoutedEventArgs e)
         {
+            ThirdPageErrorLabel.Content = "";
             Button btn = sender as Button;
             StackPanel p = (StackPanel)btn.Content;
             int count = p.Children.Count;
@@ -715,5 +826,7 @@ namespace SyncfusionWpfApp1.gui
            
 
         }
+
+        
     }
 }

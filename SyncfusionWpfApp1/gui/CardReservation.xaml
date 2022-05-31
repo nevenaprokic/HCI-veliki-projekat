@@ -53,7 +53,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.7*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
@@ -95,7 +95,7 @@
                 Width="45"
                 Height="45"
                 Margin="0 0 10 0"
-                Background="#b3d9ff"
+                Background="#e6f3ff"
                 BorderBrush="#204060"
                 BorderThickness="1"
                  HorizontalAlignment="Right">
@@ -172,7 +172,7 @@
                 <Label Content="Polazište: *" FontSize="15" Foreground="#204060"></Label>
             </Viewbox>
 
-            <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="1" Background="#e6f3ff" IsEditable="True"  x:Name="startStationSelection" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name"></ComboBox>
+            <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="1" Background="#e6f3ff" IsEditable="True"  x:Name="startStationSelection" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name" ></ComboBox>
             <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                 <Label x:Name="startStationLabel"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -181,7 +181,7 @@
                 <Label Content="Odredište: *" FontSize="15" Foreground="#204060"></Label>
             </Viewbox>
 
-            <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="3" Background="#e6f3ff" IsEditable="True" x:Name="endStationSelection"  ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name"/>
+            <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="3" Background="#e6f3ff" IsEditable="True" x:Name="endStationSelection"  ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name" />
             <Viewbox Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left">
                 <Label x:Name="endStationLabel"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -190,7 +190,7 @@
                 <Label Content="Datum polaska: *"  FontSize="15" Foreground="#204060"  ></Label>
             </Viewbox>
 
-            <DatePicker FontSize="13"  Grid.Column="1" Grid.Row="7"   Background="#e6f3ff" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged" RenderTransformOrigin="0.495,0.66"/>
+            <DatePicker  IsEnabled ="False" FontSize="13" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7"   Background="#e6f3ff" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged" />
             <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
                 <Label x:Name="startDateError"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -199,7 +199,9 @@
                 <Label Content="Datum povratka: *" FontSize="15" Foreground="#204060" ></Label>
             </Viewbox>
 
-            <DatePicker FontSize="17"  Grid.Column="3" Grid.Row="7"  Background="#e6f3ff" x:Name="backDatePicker" SelectedDateChanged="endDate_SelectedDateChanged"/>
+            <DatePicker IsEnabled ="False"  VerticalAlignment="Center" FontSize="17"  Grid.Column="3" Grid.Row="7"  Background="#e6f3ff" x:Name="backDatePicker" SelectedDateChanged="endDate_SelectedDateChanged">
+         
+            </DatePicker>
             <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
                 <Label x:Name="backDateError"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -208,7 +210,7 @@
                 <Label Content="Satnica polaska: *" FontSize="15" Foreground="#204060"></Label>
             </Viewbox>
 
-            <ComboBox FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="10" Grid.Column="1" Background="#e6f3ff" IsEditable="True"></ComboBox>
+            <ComboBox  IsEnabled ="False" FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="10" Grid.Column="1" Background="#e6f3ff" IsEditable="True"></ComboBox>
             <Viewbox Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" >
                 <Label x:Name="startTimeError" Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -217,7 +219,7 @@
                 <Label Content="Satnica povratka: *"  FontSize="15" Foreground="#204060"></Label>
             </Viewbox>
 
-            <ComboBox  FontSize="13"  ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackTime}" x:Name="backTimePicker" Grid.Row="10" Grid.Column="3" Background="#e6f3ff" IsEditable="True"></ComboBox>
+            <ComboBox  IsEnabled ="False" FontSize="13"  ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackTime}" x:Name="backTimePicker" Grid.Row="10" Grid.Column="3" Background="#e6f3ff" IsEditable="True"></ComboBox>
             <Viewbox Grid.Row="11" Grid.Column="3" HorizontalAlignment="Left">
                 <Label x:Name="backTimeError"  Foreground="#CF1B0D"></Label>
             </Viewbox>
@@ -234,7 +236,18 @@
                 </Grid.RowDefinitions>
 
                 <Button Grid.Column="0" Content="Back" Visibility="Hidden" />
-                <Button Grid.Column="2" Content="Next" Background="#86b069" FontWeight="Bold" Foreground="White" Click="FistPageNextBtnClicked"/>
+                <Button Grid.Column="2" FontSize="5" Background="#86b069" FontWeight="Bold" Foreground="White" Click="FistPageNextBtnClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="29">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Sledeće" Background="Transparent" Foreground="White" FontSize="18" FontWeight="SemiBold"/>
+                            </Viewbox>
+                            <Image x:Name="FirstPageNextBtn" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
 
@@ -306,7 +319,7 @@
                Grid.Row="1" Grid.Column="2"
                 Width="45"
                 Height="45"
-                Background="#b3d9ff"
+                Background="#e6f3ff"
                 BorderBrush="#204060"
                 BorderThickness="1"
                 HorizontalAlignment="Center">
@@ -402,7 +415,7 @@
                         <Label Content="Vreme polaska:"  FontSize="15" Foreground="#204060"></Label>
                     </Viewbox>
                     <Viewbox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left">
-                        <Label Content="{Binding StartDate}" FontSize="15" Foreground="#204060"></Label>
+                        <Label Content="{Binding StartDateTime}" FontSize="15" Foreground="#204060"></Label>
                     </Viewbox>
                 </Grid>
 
@@ -416,7 +429,8 @@
                     <Label Content="Maksimalna cena:"  FontSize="10" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <syncfusion:DoubleTextBox Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1"/>
+                <syncfusion:DoubleTextBox 
+                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" ValueChanged="maxPriceChanged"/>
 
             </Grid>
 
@@ -481,8 +495,30 @@
                 </Grid.RowDefinitions>
 
 
-                <Button Grid.Column="0" Content="Back" Background="#FFA881"  Foreground="White" FontWeight="Bold" Click="SecondPageBackBtnClicked"/>
-                <Button Grid.Column="2" Content="Next" Background="#86b069"  Foreground="White" FontWeight="Bold" Click="SecondPageNextBtnClicked"/>
+                <Button Grid.Column="0" FontSize="5" Background="#FFA881" FontWeight="Bold" Foreground="White" Click="SecondPageBackBtnClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="29">
+                            <Image x:Name="SecondPageBackBtn" HorizontalAlignment="Right"/>
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Prethodno" Background="Transparent" Foreground="White" FontSize="18" FontWeight="SemiBold"/>
+                            </Viewbox>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="2" FontSize="5" Background="#86b069" FontWeight="Bold" Foreground="White" Click="SecondPageNextBtnClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="29">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Sledeće" Background="Transparent" Foreground="White" FontSize="18" FontWeight="SemiBold"/>
+                            </Viewbox>
+                            <Image x:Name="SecondPageNextBtn" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Grid>
 
@@ -568,7 +604,7 @@
                Grid.Row="0" Grid.Column="4"
                 Width="45"
                 Height="45"
-                Background="#b3d9ff"
+                Background="#e6f3ff"
                 BorderBrush="#204060"
                 BorderThickness="1"
                 HorizontalAlignment="Center">
@@ -651,7 +687,7 @@
                     <Label Content="Izabrani vagon:"  FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="{Binding Wagon.OrderedNumber}" FontSize="15" Foreground="#204060"></Label>
+                    <Label Content="{Binding Wagon.OrderdNumber}" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left">
                     <Label Content="Izabrano sedište:"  FontSize="15" Foreground="#204060"></Label>
@@ -662,9 +698,9 @@
 
             </Grid>
 
-            <Border  x:Name="ThirdPageErrorBox" Grid.Row="12" Grid.Column="1" Background="White" CornerRadius="15" Visibility="Hidden" >
+            <Border  x:Name="ThirdPageErrorBox" Grid.Row="11" Grid.Column="1" Grid.RowSpan="2" Background="White" CornerRadius="15" Visibility="Hidden" >
                 <Viewbox  HorizontalAlignment="Left" >
-                    <Label x:Name="ThirdPageErrorLabel" Foreground="#CF1B0D" FontSize="14" FontWeight="Bold" FontStyle="Italic" ></Label>
+                    <Label x:Name="ThirdPageErrorLabel" Foreground="#CF1B0D" FontSize="5" FontWeight="Bold" FontStyle="Italic" ></Label>
                 </Viewbox>
             </Border>
 
@@ -678,8 +714,30 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" Content="Back" Background="#FFA881" Click="ThirdPageBackBtnClicked"/>
-                <Button Grid.Column="2" Content="Next" Background="#86b069" Click="ThirdPageNextBtnClicked"/>
+                <Button Grid.Column="0" FontSize="5" Background="#FFA881" FontWeight="Bold" Foreground="White" Click="ThirdPageBackBtnClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="29">
+                            <Image x:Name="ThirdPageBackBtn" HorizontalAlignment="Right"/>
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Prethodno" Background="Transparent" Foreground="White" FontSize="18" FontWeight="SemiBold"/>
+                            </Viewbox>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="2" FontSize="5" Background="#86b069" FontWeight="Bold" Foreground="White" Click="ThirdPageNextBtnClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="29">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Sledeće" Background="Transparent" Foreground="White" FontSize="18" FontWeight="SemiBold"/>
+                            </Viewbox>
+                            <Image x:Name="ThirdPageNextBtn" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
         </Grid>
@@ -780,7 +838,7 @@
                Grid.Row="0" Grid.Column="6"
                 Width="45"
                 Height="45"
-                Background="#b3d9ff"
+                Background="#e6f3ff"
                 BorderBrush="#204060"
                 BorderThickness="1"
                 HorizontalAlignment="Center">
