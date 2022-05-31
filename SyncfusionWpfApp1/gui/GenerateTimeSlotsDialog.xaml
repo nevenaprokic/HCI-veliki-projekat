@@ -1,0 +1,81 @@
+﻿<Window x:Class="SyncfusionWpfApp1.gui.GenerateTimeSlotsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+        mc:Ignorable="d"
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" Background="Transparent"
+        Title="GenerateTimeSlotsDialog" Height="350" Width="600">
+    <Border BorderThickness="2" BorderBrush="Black" 
+    CornerRadius="20" Background="#E8F0F2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Top" >
+                <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Automatsko generisanje rasporeda" />
+            </Viewbox>
+
+            <Viewbox Grid.Row="3" Grid.Column="1">
+                <Label Content="Od:" ></Label>
+            </Viewbox>
+            <ComboBox x:Name="comboStart" Grid.Row="4" Grid.Column="1" Background="White" IsEditable="False" />
+
+            <Viewbox Grid.Row="3" Grid.Column="3">
+                <Label Content="Do:" ></Label>
+            </Viewbox>
+            <ComboBox x:Name="comboEnd" Grid.Row="4" Grid.Column="3" Background="White" IsEditable="False" />
+
+            <Viewbox Grid.Row="3" Grid.Column="5">
+                <Label Content="Interval:" ></Label>
+            </Viewbox>
+
+            <Viewbox Grid.Row="4" Grid.Column="5">
+                <TextBox Name="intervalTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80"/>
+            </Viewbox>
+
+
+            <Viewbox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Generiši" x:Name="Yes" Margin="0, 0, 30, 5" HorizontalAlignment="Left" Background="#141C61" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="45" 
+                            Click="Yes_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="Odustani" x:Name="No" Margin="0, 0, 0, 5" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#141C61" Foreground="White" 
+                            Click="No_Click" IsCancel="True">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+            </Viewbox>
+
+        </Grid>
+    </Border>
+</Window>
