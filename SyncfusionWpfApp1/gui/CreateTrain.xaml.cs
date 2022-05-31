@@ -114,16 +114,24 @@ namespace SyncfusionWpfApp1.gui
 
         private bool ValidInput()
         {
-            return nameBox.Text != "";
+            IEnumerable<Train> trains = MainRepository.Trains.Where(r => r.Name == nameBox.Text);
+            if (trains.Any())
+            {
+                nameValidationLabel.Content = "Naziv vec postoji.";
+                return false;
+            }
+            if (nameBox.Text == "")
+            {
+                nameValidationLabel.Content = "Naziv je obavezan.";
+                return false;
+            }
+            return true;
         }
 
         private void Save_Handler(object sender, RoutedEventArgs e)
         {
-            if (!ValidInput())
-            {
-                nameValidationLabel.Content = "Naziv je obavezan.";
-                return;
-            }
+            if (!ValidInput()) return;
+            
             BuildTrain();
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi voz i njegove vagone.");
             if ((bool)dialog.ShowDialog())
@@ -145,7 +153,7 @@ namespace SyncfusionWpfApp1.gui
             NewTrain.Name = TrainName;
             NewTrain.Wagons = new List<Wagon>();
             int wagonId = NextWagonId() + 1;
-            int order = 0;
+            int order = 1;
 
             foreach (RowDataWagon r in Rows)
             {
@@ -157,7 +165,6 @@ namespace SyncfusionWpfApp1.gui
                 }
             }
             MainRepository.Trains.Add(NewTrain);
-            Console.WriteLine(MainRepository.Trains.Count);
         }
 
         private int NextWagonId()

@@ -78,7 +78,7 @@
                 </Viewbox>
                 <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Trains}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="5" Background="White" IsEditable="False" />
 
-                <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="1" HorizontalAlignment="Center">
+                <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" HorizontalAlignment="Center">
                     <Label x:Name="nameValidationLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
 
@@ -117,7 +117,7 @@
                     <ComboBox Height="23" Name="comboClass" MinWidth="100" />
                 </Viewbox>
 
-                <Viewbox Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+                <Viewbox Grid.Column="5" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     <Button x:Name="iconButton"  Click="AddWagon_Handler"  VerticalAlignment="Center" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
@@ -172,7 +172,7 @@
 
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding Rows}" 
+                  ItemsSource="{Binding Rows, Mode=TwoWay}" 
                   Background="#E8F0F2"
                   Grid.Row="3"
                   Grid.RowSpan="4"
@@ -195,8 +195,8 @@
                 </DataGrid.CellStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding OrderNumber}"
-                                    Header="Redni broj"
+                    <DataGridTextColumn Binding="{Binding NumOfWagons}"
+                                    Header="Količina"
                                     Width="2*" />
 
                     <DataGridTextColumn Binding="{Binding NumOfSeats}"

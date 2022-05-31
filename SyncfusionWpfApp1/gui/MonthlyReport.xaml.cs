@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.service;
+using SyncfusionWpfApp1.repo;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -97,7 +98,17 @@ namespace SyncfusionWpfApp1.gui
 
         private RowData makeRow(Ticket t)
         {
-            return new RowData($"{t.Client.FirstName} {t.Client.LastName}", $"{t.Line.Start.Street} - {t.Line.End.Street}", $"{t.From.Street} - {t.To.Street}", t.DepartureTime, $"{t.Price} €", t.ReturnTicket);
+            return new RowData($"{t.Client.FirstName} {t.Client.LastName}", $"{t.Line.Start.Street}, {t.Line.Start.City} - {t.Line.End.Street}, {t.Line.End.City}", $"{t.From.Street}, {t.From.City} - {t.To.Street}, {t.To.City}", t.DepartureTime, $"{t.Price} din.", t.ReturnTicket);
+        }
+
+        private void DetailView_Handler(object sender, RoutedEventArgs e)
+        {
+            int toShow = dataGrid.SelectedIndex;
+
+            // TODO
+            TicketDetailsDialog dialog = new TicketDetailsDialog(MainRepository.Tickets[0]);
+            if ((bool)dialog.ShowDialog())
+                return;
         }
 
     }

@@ -138,7 +138,7 @@
                     <ComboBox Height="23" Name="comboClass" MinWidth="100" />
                 </Viewbox>
 
-                <Viewbox Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+                <Viewbox Grid.Column="5" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     <Button x:Name="iconButton"  Click="AddWagon_Handler"  VerticalAlignment="Center" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
@@ -213,7 +213,7 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding NumOfWagons}"
-                                    Header="Broj vagona"
+                                    Header="Količina"
                                     Width="2*" />
 
                     <DataGridTextColumn Binding="{Binding NumOfSeats}"
