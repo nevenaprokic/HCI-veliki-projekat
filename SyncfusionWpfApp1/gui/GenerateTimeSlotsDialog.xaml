@@ -8,7 +8,7 @@
         WindowStyle="None" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent"
-        Title="GenerateTimeSlotsDialog" Height="350" Width="600">
+        Title="GenerateTimeSlotsDialog" Height="300" Width="500">
     <Border BorderThickness="2" BorderBrush="Black" 
     CornerRadius="20" Background="#E8F0F2">
         <Grid>
@@ -17,9 +17,10 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -50,9 +51,12 @@
             </Viewbox>
 
             <Viewbox Grid.Row="4" Grid.Column="5">
-                <TextBox Name="intervalTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80"/>
+                <TextBox Name="intervalTextBox" MinWidth="50" PreviewTextInput="NumberValidationTextBox" />
             </Viewbox>
 
+            <Viewbox Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" VerticalAlignment="Top">
+                <Label x:Name="intervalValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+            </Viewbox>
 
             <Viewbox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5">
                 <StackPanel Orientation="Horizontal">

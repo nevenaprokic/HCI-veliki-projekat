@@ -27,13 +27,22 @@ namespace SyncfusionWpfApp1.gui
         public GenerateTimeSlotsDialog(CreateSchedule createSchedule)
         {
             InitializeComponent();
-            comboStart.ItemsSource = GenerateTimesForComboBox("00:00", "23:00", 60);
-            comboEnd.ItemsSource = GenerateTimesForComboBox("00:00", "23:00", 60);
+            List<string> times = GenerateTimesForComboBox("00:00", "23:00", 60);
+            comboStart.ItemsSource = times;
+            comboEnd.ItemsSource = times;
+            comboStart.SelectedItem = times[0];
+            comboEnd.SelectedItem = times[0];
             Parent = createSchedule;
         }
 
         private void Yes_Click(object sender, RoutedEventArgs e)
         {
+            if (intervalTextBox.Text == "")
+            {
+                intervalValidationLabel.Content = "Interval je obavezen.";
+                return;
+            }
+
             DialogResult = true;
             someDelegate p = null;
             p = Parent.GenerateTimeSlots;
