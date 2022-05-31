@@ -10,13 +10,39 @@
   <ItemGroup>
     <None Remove="App.ico" />
     <None Remove="images\add_icon.png" />
+    <None Remove="images\closeBtn_default.png" />
+    <None Remove="images\closeBtn_MouseOver.png" />
     <None Remove="images\delete2.png" />
     <None Remove="images\delete_icon.png" />
     <None Remove="images\detail_view_ticket.png" />
     <None Remove="images\edit_icon.png" />
+    <None Remove="images\img_contact.png" />
+    <None Remove="images\img_home.png" />
+    <None Remove="images\img_map.png" />
+    <None Remove="images\img_message.png" />
+    <None Remove="images\img_setting.png" />
+    <None Remove="images\img_signout.png" />
+    <None Remove="images\iz.png" />
+    <None Remove="images\logout.png" />
+    <None Remove="images\m.png" />
+    <None Remove="images\mape.png" />
+    <None Remove="images\s.png" />
+    <None Remove="images\stat.png" />
+    <None Remove="images\t.png" />
+    <None Remove="images\tgBtn_default.png" />
+    <None Remove="images\tgBtn_MouseOver.png" />
+    <None Remove="images\ticket.png" />
+    <None Remove="images\ticketIcon.jpeg" />
+    <None Remove="images\v.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\closeBtn_default.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+<PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
 
 <PackageReference Include="Syncfusion.Shared.WPF" Version="20.1.0.55" />
 <PackageReference Include="Syncfusion.Tools.WPF" Version="20.1.0.55" />
@@ -36,10 +62,29 @@
   <ItemGroup>
     <Resource Include="App.ico" />
     <Resource Include="images\add_icon.png" />
+    <Resource Include="images\closeBtn_MouseOver.png" />
     <Resource Include="images\delete2.png" />
     <Resource Include="images\delete_icon.png" />
     <Resource Include="images\detail_view_ticket.png" />
     <Resource Include="images\edit_icon.png" />
+    <Resource Include="images\img_contact.png" />
+    <Resource Include="images\img_home.png" />
+    <Resource Include="images\img_map.png" />
+    <Resource Include="images\img_message.png" />
+    <Resource Include="images\img_setting.png" />
+    <Resource Include="images\img_signout.png" />
+    <Resource Include="images\iz.png" />
+    <Resource Include="images\logout.png" />
+    <Resource Include="images\m.png" />
+    <Resource Include="images\mape.png" />
+    <Resource Include="images\s.png" />
+    <Resource Include="images\stat.png" />
+    <Resource Include="images\t.png" />
+    <Resource Include="images\tgBtn_default.png" />
+    <Resource Include="images\tgBtn_MouseOver.png" />
+    <Resource Include="images\ticket.png" />
+    <Resource Include="images\ticketIcon.jpeg" />
+    <Resource Include="images\v.png" />
   </ItemGroup>
 
 </Project>

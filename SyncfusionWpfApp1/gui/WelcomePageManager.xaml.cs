@@ -28,7 +28,7 @@ namespace SyncfusionWpfApp1.gui
             InitializeComponent();
             frame = f;
             Uri iconUriMail = new Uri("../../../images/proba.png", UriKind.RelativeOrAbsolute);
-            logoIcon.Source = BitmapFrame.Create(iconUriMail);
+            //logoIcon.Source = BitmapFrame.Create(iconUriMail);
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
@@ -55,7 +55,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new NetworkTrainLine(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
@@ -64,6 +64,56 @@ namespace SyncfusionWpfApp1.gui
         private void Train_Handler(object sender, RoutedEventArgs e)
         {
             frame.Content = new TrainUpdateDelete(frame);
+
         }
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_home.Visibility = Visibility.Collapsed;
+                tt_contacts.Visibility = Visibility.Collapsed;
+                tt_messages.Visibility = Visibility.Collapsed;
+                tt_maps.Visibility = Visibility.Collapsed;
+                tt_settings.Visibility = Visibility.Collapsed;
+                tt_train.Visibility = Visibility.Collapsed;
+                tt_report_monthly.Visibility = Visibility.Collapsed;
+                tt_signout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_home.Visibility = Visibility.Visible;
+                tt_contacts.Visibility = Visibility.Visible;
+                tt_messages.Visibility = Visibility.Visible;
+                tt_maps.Visibility = Visibility.Visible;
+                tt_settings.Visibility = Visibility.Visible;
+                tt_train.Visibility = Visibility.Visible;
+                tt_report_monthly.Visibility = Visibility.Visible;
+                tt_signout.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+           // img_bg.Opacity = 1;
+        }
+
+        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+            //img_bg.Opacity = 0.3;
+        }
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //Close();
+
+        }
+    
     }
 }
