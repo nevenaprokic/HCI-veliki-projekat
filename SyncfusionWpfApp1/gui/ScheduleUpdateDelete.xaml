@@ -603,7 +603,7 @@
                 <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" />
 
                 <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
-                    <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Izmena i brisanje rasporeda vožnje</TextBlock>
+                    <TextBlock FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Izmena i brisanje rasporeda vožnje</TextBlock>
                 </Viewbox>
 
                 <DataGrid Name="dataGrid"

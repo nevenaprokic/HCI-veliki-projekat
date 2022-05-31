@@ -14,6 +14,7 @@
     <None Remove="images\closeBtn_MouseOver.png" />
     <None Remove="images\delete2.png" />
     <None Remove="images\delete_icon.png" />
+    <None Remove="images\detail_view_ticket.png" />
     <None Remove="images\edit_icon.png" />
     <None Remove="images\img_contact.png" />
     <None Remove="images\img_home.png" />
@@ -64,6 +65,7 @@
     <Resource Include="images\closeBtn_MouseOver.png" />
     <Resource Include="images\delete2.png" />
     <Resource Include="images\delete_icon.png" />
+    <Resource Include="images\detail_view_ticket.png" />
     <Resource Include="images\edit_icon.png" />
     <Resource Include="images\img_contact.png" />
     <Resource Include="images\img_home.png" />

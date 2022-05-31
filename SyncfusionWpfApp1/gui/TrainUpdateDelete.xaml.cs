@@ -30,6 +30,7 @@ namespace SyncfusionWpfApp1.gui
         public ObservableCollection<Train> Trains { get; set; }
         public Train SelectedTrain { get; set; }
         public List<Wagon> Wagons { get; set; }
+        public bool AlreadyInInsertMode { get; set; }
 
         public TrainUpdateDelete(Frame f)
         {
@@ -38,6 +39,7 @@ namespace SyncfusionWpfApp1.gui
             DataContext = this;
             Trains = new ObservableCollection<Train>(MainRepository.Trains);
             Rows = new ObservableCollection<RowDataWagon>();
+            AlreadyInInsertMode = true;
             SetBackground();
             InitForm();
         }
@@ -72,43 +74,169 @@ namespace SyncfusionWpfApp1.gui
         }
 
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
-        { 
-        
+        {
+            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši voz i njegove vagone?");
+            if ((bool)cofirmDialog.ShowDialog())
+            {
+                int index = comboSchedule.SelectedIndex;
+                if (index == -1) return;
+
+                Train t = MainRepository.Trains[index];
+                foreach (Wagon w in t.Wagons)
+                {
+                    MainRepository.Wagons.RemoveAll(p => p.Id == w.Id);
+                }
+                Trains.Remove(SelectedTrain);
+                MainRepository.Trains.RemoveAt(index);
+                comboSchedule.SelectedItem = null;
+                drawTable();
+                NotificationDialog dialog = new NotificationDialog("Uspešno ste obrisali izabrani voz i njegove vagone.");
+                if ((bool)dialog.ShowDialog())
+                {
+                    return;
+                }
+            }           
         }
 
         private void Save_Handler(object sender, RoutedEventArgs e)
         {
+            int index = comboSchedule.SelectedIndex;
+            if (index == -1) return;
 
+            Train t = MainRepository.Trains[index];
+            foreach (Wagon w in t.Wagons)
+            {
+                MainRepository.Wagons.RemoveAll(p => p.Id == w.Id);
+            }
+            MainRepository.Trains.RemoveAt(index);
+
+            MainRepository.Trains.Add(SelectedTrain);
+            NotificationDialog dialog = new NotificationDialog("Uspešno ste izmenili izabrani voz i njegove vagone.");
+            if ((bool)dialog.ShowDialog())
+            {
+                return;
+            }
+        }
+
+        private void insertMode()
+        {
+            Uri uri = new Uri("../../../images/add_icon.png", UriKind.RelativeOrAbsolute);
+            editIcon.Source = BitmapFrame.Create(uri);
+            NumberSeatsTextBox.Text = "";
+            NumberWagonsTextBox.Text = "1";
+            comboClass.SelectedItem = WagonClass.FIRST;
+
+            if (!AlreadyInInsertMode)
+            {
+                iconButton.Click += AddWagon_Handler;
+                iconButton.Click -= EditWagon_Handler;
+            }
+            AlreadyInInsertMode = true;
+        }
+
+        private void editMode()
+        {
+            Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
+            editIcon.Source = BitmapFrame.Create(uri);
+
+            if (AlreadyInInsertMode)
+            {
+                iconButton.Click -= AddWagon_Handler;
+                iconButton.Click += EditWagon_Handler;
+            }
+            AlreadyInInsertMode = false;
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             int selectedIndex = dataGrid.SelectedIndex;
             if (selectedIndex == -1) return;
-            //newTime.Text = Rows[selectedIndex].Time;
-            //editMode();
+
+            NumberSeatsTextBox.Text = Rows[selectedIndex].NumOfSeats.ToString();
+            NumberWagonsTextBox.Text = Rows[selectedIndex].NumOfWagons.ToString();
+            comboClass.SelectedItem = Rows[selectedIndex].Class;
+            editMode();
         }
 
         private void AddWagon_Handler(object sender, RoutedEventArgs e)
         {
+            seatValidationLabel.Content = "";
+            wagonValidationLabel.Content = "";
+            classValidationLabel.Content = "";
+
+            if (NumberSeatsTextBox.Text == "")
+            {
+                seatValidationLabel.Content = "Broj sedišta je obavezan.";
+                return;
+            }
+            if (NumberWagonsTextBox.Text == "")
+            {
+                wagonValidationLabel.Content = "Broj vagona je obavezan.";
+                return;
+            }
+            if (comboClass.SelectedItem == null)
+            {
+                classValidationLabel.Content = "Razred vagona je obavezan.";
+                return;
+            }
             Rows.Add(new RowDataWagon(Int32.Parse(NumberSeatsTextBox.Text), Int32.Parse(NumberWagonsTextBox.Text), (WagonClass)comboClass.SelectedItem));
             ResetForm();
+        }
+
+        private void EditWagon_Handler(object sender, RoutedEventArgs e)
+        {
+            seatValidationLabel.Content = "";
+            wagonValidationLabel.Content = "";
+
+            if (NumberSeatsTextBox.Text == "")
+            {
+                seatValidationLabel.Content = "Broj sedišta je obavezan.";
+                return;
+            }
+            if (NumberWagonsTextBox.Text == "")
+            {
+                wagonValidationLabel.Content = "Broj vagona je obavezan.";
+                return;
+            }
+            int selectedIndex = dataGrid.SelectedIndex;
+            if (selectedIndex == -1) return;
+
+            SelectedTrain.Wagons[selectedIndex].NumberOfSeats = Int32.Parse(NumberSeatsTextBox.Text);
+            if (NumberWagonsTextBox.Text != "1") NumberOfWagonsChanged();
+            SelectedTrain.Wagons[selectedIndex].Class = (WagonClass)comboClass.SelectedItem;
+            drawTable();
+            insertMode();
+        }
+
+        private void NumberOfWagonsChanged()
+        {
+            int nextOrderNumber = SelectedTrain.Wagons.OrderByDescending(item => item.OrderdNumber).First().OrderdNumber + 1;
+            int nextId = SelectedTrain.Wagons.OrderByDescending(item => item.Id).First().Id + 1;
+
+            for (int i = 0; i < Int32.Parse(NumberWagonsTextBox.Text) - 1; i++)
+            {
+                SelectedTrain.Wagons.Add(new Wagon(nextId, Int32.Parse(NumberSeatsTextBox.Text), (WagonClass)comboClass.SelectedItem, nextOrderNumber));
+                nextOrderNumber++;
+                nextId++;
+            }
         }
 
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
         {
             int forRemove = dataGrid.SelectedIndex;
             Rows.RemoveAt(forRemove);
+            SelectedTrain.Wagons.RemoveAt(forRemove);
+        }
+
+        private void CreateTrain_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CreateTrain(frame);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //editLabel.Content = "Unesite novo vreme za: " + comboSchedule.SelectedItem?.ToString();
             SelectedTrain = (Train)comboSchedule.SelectedItem;
             drawTable();
-            //CheckSelection();
-            //insertMode();
-            //drawTable();
         }
 
         private void drawTable()
