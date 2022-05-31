@@ -26,12 +26,20 @@ namespace SyncfusionWpfApp1.gui
         public WagonClass Class { get; set; }
         public int NumOfSeats { get; set; }
         public int NumOfWagons { get; set; }
+        public int OrderNumber { get; set; }
 
         public RowDataWagon(int numOfSeats, int numOfWagons, WagonClass wclass)
         {
             Class = wclass;
             NumOfSeats = numOfSeats;
             NumOfWagons = numOfWagons;
+        }
+
+        public RowDataWagon(int numOfSeats, WagonClass wclass, int order)
+        {
+            Class = wclass;
+            NumOfSeats = numOfSeats;
+            OrderNumber = order;
         }
     }
 
@@ -106,35 +114,57 @@ namespace SyncfusionWpfApp1.gui
 
         private bool ValidInput()
         {
-            return nameBox.Text != "";
+            IEnumerable<Train> trains = MainRepository.Trains.Where(r => r.Name == nameBox.Text);
+            if (trains.Any())
+            {
+                nameValidationLabel.Content = "Naziv vec postoji.";
+                return false;
+            }
+            if (nameBox.Text == "")
+            {
+                nameValidationLabel.Content = "Naziv je obavezan.";
+                return false;
+            }
+            return true;
         }
 
         private void Save_Handler(object sender, RoutedEventArgs e)
         {
-            if (!ValidInput())
-            {
-                nameValidationLabel.Content = "Naziv je obavezan.";
-                return;
-            }
-            //BuildTrain();
+            if (!ValidInput()) return;
+            
+            BuildTrain();
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi voz i njegove vagone.");
             if ((bool)dialog.ShowDialog())
+            {
+                ResetForm();
+                Rows.Clear();
+                nameBox.Text = "";
                 return;
-            ResetForm();
+            }
+        }
 
+        private void GoBack_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainUpdateDelete(frame);
         }
 
         private void BuildTrain()
         {
             NewTrain.Name = TrainName;
-            int wagonId = NextWagonId();
+            NewTrain.Wagons = new List<Wagon>();
+            int wagonId = NextWagonId() + 1;
+            int order = 1;
+
             foreach (RowDataWagon r in Rows)
             {
                 for (int i = 0; i < r.NumOfWagons; i++)
                 {
-                    NewTrain.Wagons.Add(new Wagon());
+                    NewTrain.Wagons.Add(new Wagon(wagonId, r.NumOfSeats, r.Class, order));
+                    order++;
+                    wagonId++;
                 }
             }
+            MainRepository.Trains.Add(NewTrain);
         }
 
         private int NextWagonId()

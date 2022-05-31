@@ -18,5 +18,10 @@ namespace SyncfusionWpfApp1.Model
 
         public Wagon Wagon { get; set; }
         public int SeatNumber { get; set; }
+
+        public override string ToString()
+        {
+            return SeatNumber.ToString();
+        }
     }
 }

@@ -5,18 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -47,6 +40,8 @@ namespace SyncfusionWpfApp1.gui
                 }
             }
         }
+
+        public CreateSchedule(){ }
 
         public CreateSchedule(Frame f)
         {
@@ -83,6 +78,15 @@ namespace SyncfusionWpfApp1.gui
             else
             {
                 messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
+            }
+        }
+
+        private void GenerateRows_Handler(object sender, RoutedEventArgs e)
+        {
+            GenerateTimeSlotsDialog dialog = new GenerateTimeSlotsDialog(this);
+            if ((bool)dialog.ShowDialog())
+            {
+                drawTable();
             }
         }
 
@@ -138,6 +142,21 @@ namespace SyncfusionWpfApp1.gui
             }
 
             return sorted;
+        }
+
+        public void GenerateTimeSlots(string startTime, string endTime, int interval)
+        {
+            List<string> slots = new List<string>();
+            TimeSpan t1 = TimeSpan.Parse(startTime);
+            TimeSpan t2 = TimeSpan.Parse(endTime);
+
+            while (t1 <= t2)
+            {
+                slots.Add(t1.ToString().Substring(0, 5));
+                t1 += TimeSpan.FromMinutes(interval);
+            }
+            SelectedSchedule.Times = slots;
+            drawTable();
         }
 
         private void insertMode()

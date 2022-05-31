@@ -22,6 +22,8 @@ namespace SyncfusionWpfApp1.Model
             Price = calculatePrice();
             From = from;
             To = to;
+            Class = Seat.Wagon.Class;
+            WagonNumber = Seat.Wagon.OrderdNumber;
         }
 
         public override string ToString()
@@ -38,6 +40,8 @@ namespace SyncfusionWpfApp1.Model
         public User Client { get; set; }
         public TrainStation From { get; set; }
         public TrainStation To { get; set; }
+        public WagonClass Class { get; set; }
+        public int WagonNumber { get; set; }
 
         private double _price;
         public double Price

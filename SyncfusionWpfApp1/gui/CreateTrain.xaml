@@ -62,7 +62,7 @@
 
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
-            <Viewbox Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Viewbox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Label x:Name="classValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
             </Viewbox>
 
@@ -95,7 +95,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBox x:Name="nameBox" Text="{Binding Path=ScheduleName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" MinWidth="100" FontStyle="Italic" />
+                    <TextBox x:Name="nameBox" Text="{Binding Path=TrainName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" MinWidth="100" FontStyle="Italic" />
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" HorizontalAlignment="Center">
@@ -107,7 +107,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-                    <Label Content="Broj sedišta" Foreground="White" />
+                    <Label Content="Broj sedišta: *" Foreground="White" />
                 </Viewbox>
 
                 <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
@@ -119,7 +119,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3">
-                    <Label Content="Broj vagona" Foreground="White" />
+                    <Label Content="Broj vagona: *" Foreground="White" />
                 </Viewbox>
                 
                 <Viewbox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3">
@@ -138,7 +138,7 @@
                     <ComboBox Height="23" Name="comboClass" MinWidth="100" />
                 </Viewbox>
 
-                <Viewbox Grid.Column="6" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Viewbox Grid.Column="5" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     <Button x:Name="iconButton"  Click="AddWagon_Handler"  VerticalAlignment="Center" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
@@ -178,7 +178,10 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" Content="Nazad" Visibility="Hidden" />
+                <Viewbox Grid.Column="0" Grid.Row="0">
+                    <Button Grid.Column="0" Content="Nazad" MinWidth="80" Click="GoBack_Handler" Background="#b3d9ff"  />
+                </Viewbox>
+                
                 <Viewbox Grid.Column="2" Grid.Row="0">
                     <Button Content="Sačuvaj" MinWidth="80" Click="Save_Handler" Background="#b3d9ff" />
                 </Viewbox>
@@ -210,7 +213,7 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding NumOfWagons}"
-                                    Header="Broj vagona"
+                                    Header="Količina"
                                     Width="2*" />
 
                     <DataGridTextColumn Binding="{Binding NumOfSeats}"
