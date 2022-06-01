@@ -430,7 +430,7 @@
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/iz.png"
+                            <Image Source="/images/monthly.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
@@ -610,10 +610,10 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
             
             <Viewbox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label x:Name="classValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+                    <Label x:Name="classValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
             </Viewbox>
             
             <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="4">
@@ -654,10 +654,10 @@
                     </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-                    <Label Content="Broj sedišta: *" Foreground="White" />
+                        <Label Content="Broj sedišta: *" Foreground="#00264d" />
                 </Viewbox>
                 <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Label x:Name="seatValidationLabel" Content="" Foreground="Red" FontStyle="Italic"  />
+                        <Label x:Name="seatValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic"  />
                 </Viewbox>
 
                     <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
@@ -665,11 +665,11 @@
                     </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3">
-                    <Label Content="Broj vagona: *" Foreground="White" />
+                        <Label Content="Broj vagona: *" Foreground="#00264d" />
                 </Viewbox>
 
                 <Viewbox Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Label x:Name="wagonValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+                        <Label x:Name="wagonValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
                 </Viewbox>
 
                 <Viewbox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3">
@@ -677,7 +677,7 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
-                    <Label Content="Razred vagona: *" Foreground="White" />
+                        <Label Content="Razred vagona: *" Foreground="#00264d" />
                 </Viewbox>
 
                 <Viewbox Grid.ColumnSpan="4" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
@@ -709,7 +709,7 @@
                         <Image x:Name="trainIcon" Source="/images/trian_station.png"/>
                     </Viewbox>
                     <Viewbox Grid.Row="1" Grid.Column="2">
-                        <TextBlock Text="Izmena i brisanje vozova i njihovih vagona" Foreground="#141C61" FontStyle="Italic" />
+                        <Label Content="Izmena i brisanje vozova i njihovih vagona" Foreground="#00264d" HorizontalAlignment="Left" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
                     </Viewbox>
                 </Grid>
 
@@ -727,14 +727,59 @@
                 </Grid.RowDefinitions>
 
                 <Viewbox Grid.Column="4" Grid.Row="0">
-                    <Button Content="Sačuvaj" MinWidth="80" Click="Save_Handler" Background="#b3d9ff" />
-                </Viewbox>
+                        <Button  MinWidth="80" Click="Save_Handler" Background="#00264d" Foreground="White">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                    <Image Source="/images/save.png" />
+                                    <Label Content="Sačuvaj" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#00264d"  Foreground="White" FontSize="15"/>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Viewbox>
                 <Viewbox Grid.Column="2" Grid.Row="0">
-                    <Button Content="Obriši voz" MinWidth="80" Click="DeleteTrain_Handler" Background="#b3d9ff" />
-                </Viewbox>
-                <Viewbox Grid.Column="0" Grid.Row="0">
-                    <Button Content="Kreiraj novi" MinWidth="80" Click="CreateTrain_Handler" Background="#b3d9ff" />
-                </Viewbox>
+                        <Button  MinWidth="80" Click="DeleteTrain_Handler" Background="#BB6464" Foreground="White">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                    <Image Source="/images/delete.png" />
+                                    <Label Content="Obriši voz" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#BB6464" Foreground="White" FontSize="15"/> 
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Viewbox>
+                    <Viewbox Grid.Column="0" Grid.Row="0">
+                        <Button  MinWidth="80" Click="CreateTrain_Handler" Background="#9FC088"  Foreground="White">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                        <Image Source="/images/add1.png" />
+                                    <Label Content="Kreiraj novi" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Viewbox>
             </Grid>
 
                 <DataGrid Name="dataGrid"
