@@ -52,9 +52,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock  Grid.Column="4" Grid.Row="9">
-            <Hyperlink Click="RegisterLinkCommand" FontSize="15">Registruj se</Hyperlink>
-        </TextBlock>
+        
 
         </Grid>
 </Page>
