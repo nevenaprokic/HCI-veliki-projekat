@@ -429,7 +429,7 @@
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/iz.png"
+                            <Image Source="/images/monthly.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
@@ -599,7 +599,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
-        <Label Content="Pregled voznih linija" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center"  Foreground="#141C61" FontSize="25" FontStyle="Italic" FontWeight="Bold"/>
+            <Label Content="Pregled voznih linija" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center"  Foreground="#00264d" FontSize="25" FontStyle="Italic" FontWeight="Bold"/>
         <Button x:Name="delete"  Grid.Column="5" Width="80" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#BB6464">
             <Button.Content>
                 <StackPanel VerticalAlignment="Center" 
@@ -620,7 +620,7 @@
             <Button.Content>
                 <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
-                    Background="Transparent" Height="27">
+                    Background="Transparent" Height="29">
                     <Image x:Name="iconAdd" />
                     <Label Content="Dodaj novu liniju" VerticalAlignment="Top" 
                    HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
@@ -645,7 +645,7 @@
                   >
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
-                    <Setter Property="Foreground" Value="DarkBlue"/>
+                    <Setter Property="Foreground" Value="#00264d"/>
                     <Setter Property="BorderThickness" Value="0.6"/>
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>

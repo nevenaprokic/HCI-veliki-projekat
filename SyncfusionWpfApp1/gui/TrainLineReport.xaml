@@ -430,7 +430,7 @@
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/iz.png"
+                            <Image Source="/images/monthly.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
@@ -717,13 +717,27 @@
 
                 <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
 
-                <Label Content="Polazište: *" Grid.Row="1" Grid.Column="1" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"></Label>
+                <Label Content="Polazište: *" Grid.Row="1" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
                 <ComboBox x:Name="comboStart" Grid.Row="2" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"></ComboBox>
 
-                <Label Content="Odredište: *" Grid.Row="4" Grid.Column="1" FontSize="15" Foreground="#141C61" VerticalAlignment="Bottom"></Label>
+                <Label Content="Odredište: *" Grid.Row="4" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
                 <ComboBox x:Name="comboEnd" Grid.Row="5" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
 
-                <Button Grid.Row="7" Grid.Column="1" Content="Prikaži" Background="#b3d9ff" Click="GenerateClicked"/>
+                <Button Grid.Row="7" Grid.Column="1" Background="#00264d" Click="GenerateClicked">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                    Background="Transparent" Height="29">
+                            <Label Content="Prikaži" VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                        </StackPanel>
+                    </Button.Content>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

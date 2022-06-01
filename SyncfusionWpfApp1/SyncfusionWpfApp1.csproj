@@ -9,9 +9,11 @@
 
   <ItemGroup>
     <None Remove="App.ico" />
+    <None Remove="images\add1.png" />
     <None Remove="images\add_icon.png" />
     <None Remove="images\closeBtn_default.png" />
     <None Remove="images\closeBtn_MouseOver.png" />
+    <None Remove="images\delete.png" />
     <None Remove="images\delete2.png" />
     <None Remove="images\delete_icon.png" />
     <None Remove="images\detail_view_ticket.png" />
@@ -26,7 +28,9 @@
     <None Remove="images\logout.png" />
     <None Remove="images\m.png" />
     <None Remove="images\mape.png" />
+    <None Remove="images\monthly.png" />
     <None Remove="images\s.png" />
+    <None Remove="images\save.png" />
     <None Remove="images\stat.png" />
     <None Remove="images\t.png" />
     <None Remove="images\tgBtn_default.png" />
@@ -37,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\add1.png" />
     <Resource Include="images\closeBtn_default.png" />
   </ItemGroup>
 
@@ -63,6 +68,7 @@
     <Resource Include="App.ico" />
     <Resource Include="images\add_icon.png" />
     <Resource Include="images\closeBtn_MouseOver.png" />
+    <Resource Include="images\delete.png" />
     <Resource Include="images\delete2.png" />
     <Resource Include="images\delete_icon.png" />
     <Resource Include="images\detail_view_ticket.png" />
@@ -77,7 +83,9 @@
     <Resource Include="images\logout.png" />
     <Resource Include="images\m.png" />
     <Resource Include="images\mape.png" />
+    <Resource Include="images\monthly.png" />
     <Resource Include="images\s.png" />
+    <Resource Include="images\save.png" />
     <Resource Include="images\stat.png" />
     <Resource Include="images\t.png" />
     <Resource Include="images\tgBtn_default.png" />

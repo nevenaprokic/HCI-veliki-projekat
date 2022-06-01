@@ -430,7 +430,7 @@
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/iz.png"
+                            <Image Source="/images/monthly.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
