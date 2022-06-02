@@ -118,7 +118,10 @@ namespace SyncfusionWpfApp1.gui
 
             if (waypoints.Count < 2)
             {
-                MessageBox.Show("Need a minimum of 2 waypoints to calculate a route.");
+                NotificationDialog dialog = new NotificationDialog("Potrebno je minimalno dva pina kako bi se ruta nacrtala!");
+                if ((bool)dialog.ShowDialog())
+                    return;
+                
                 return;
             }
 
@@ -164,7 +167,9 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
+                if ((bool)dialog.ShowDialog())
+                    return;
             }
 
             LoadingBar.Visibility = Visibility.Collapsed;
