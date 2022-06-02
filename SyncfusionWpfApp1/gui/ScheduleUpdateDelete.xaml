@@ -6,173 +6,802 @@
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ScheduleCRUD">
 
+    <Page.Resources>
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="../images/tgBtn_MouseOver.png"/>
+
+        <Style x:Key="font_style" TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                    Value="Fonts/Roboto-Light.ttf #Roboto"/>
+
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+            <Setter Property="Foreground"
+                    Value="#141C61"/>
+
+            <Setter Property="FontSize"
+                    Value="20"/>
+
+        </Style>
+
+        <!--// Tooltip Style Template //-->
+
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
+
+        <!--// App Close Button Style Template //-->
+
+        <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="/images/closeBtn_MouseOver.png"/>
+
+        <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource CloseBtn_MouseOver}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+
+
+        <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                        <Border  x:Name="border"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 Background="{TemplateBinding Background}"
+                                 SnapsToDevicePixels="True">
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="true">
+
+                                <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                                <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Page.Resources>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="8*"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
 
-        <Grid x:Name="UpdateDeletePage" Grid.Row="1" Grid.Column="1" >
+        <Grid   x:Name="nav_pnl"
+                    HorizontalAlignment="Left"
+                    Width="65"
+                    Background="#E8F0F2" Grid.Column="0">
+
+            <StackPanel x:Name="st_pnl">
+
+                <!--// Grid for the Menu Toggle Button //-->
+
+                <Grid Height="90">
+
+                    <!--// Menu title text //-->
+
+                    <TextBlock  Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="73,-20,0,0"
+                                    Text="M E N I"
+                                    Foreground="#141C61"
+                                    FontSize="20"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource font_style}">
+
+
+                    </TextBlock>
+
+                    <!--// Toggle Button //-->
+
+                    <ToggleButton x:Name="Tg_Btn"
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="18,-20,0,0"
+                                      Height="30"
+                                      Width="30"
+                                      BorderThickness="0"
+                                      Style="{StaticResource tb_style}" Unchecked="Tg_Btn_Unchecked" Checked="Tg_Btn_Checked">
+
+                        <!--// Toggle button default background image //-->
+
+                        <ToggleButton.Background>
+
+                            <ImageBrush ImageSource="/images/tgBtn_default.png"
+                                            Stretch="None"/>
+
+                        </ToggleButton.Background>
+
+                        <!--// Toggle Button - Checked, Unchecked events //-->
+
+                        <ToggleButton.Triggers>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard x:Name="HideStackPanel">
+
+                                        <DoubleAnimation    
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="280" To="65"
+                                                Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard x:Name="ShowStackPanel">
+
+                                        <DoubleAnimation
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="65" To="280"
+                                                Duration="0:0:0.3">
+
+                                        </DoubleAnimation>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                        </ToggleButton.Triggers>
+
+
+                    </ToggleButton>
+
+                </Grid>
+
+                <!--// ListView with menu list items //-->
+
+                <ListView  x:Name="LV"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <!--// Home //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/t.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Karte"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_ticket"
+                                         Content="Karte"
+                                         Style="{StaticResource tt_style}"
+                                         />
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Contacts //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/s.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Red vožnje"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_schedule"
+                                         Content="Red vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Messages //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLine_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/m.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Vozne linije"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_trainLine"
+                                         Content="Tabelarni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Maps //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="NetworkTrainLine_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/mape.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Mrežni pregled"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_maps"
+                                         Content="Mrežni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Settings //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/stat.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Izveštaj vožnji"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_trainLineReport"
+                                         Content="Pregled jedne vozne linije"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/monthly.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Mesečni izveštaj"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_report_monthly"
+                                         Content="Pregled izveštaja na mesečnom nivou"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/v.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Voz"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_train"
+                                         Content="Pregled vozova"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Sign Out //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/logout.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Odjava"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_signout"
+                                         Content="Odjavi se"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Listview items style template //-->
+
+                    <ListView.ItemContainerStyle>
+
+                        <Style TargetType="ListViewItem">
+
+                            <Setter Property="Template">
+
+                                <Setter.Value>
+
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                        <Border x:Name="Bd"
+                                                    Height="50"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    Background="{TemplateBinding Background}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    SnapsToDevicePixels="True">
+
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+
+                                            <MultiTrigger>
+
+                                                <MultiTrigger.Conditions>
+
+                                                    <Condition Property="IsMouseOver" Value="True"/>
+
+                                                </MultiTrigger.Conditions>
+
+                                                <Setter Property="Background"
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
+
+                                                <Setter Property="BorderBrush"
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
+
+                                            </MultiTrigger>
+
+                                        </ControlTemplate.Triggers>
+
+                                    </ControlTemplate>
+
+                                </Setter.Value>
+
+                            </Setter>
+
+                        </Style>
+
+                    </ListView.ItemContainerStyle>
+
+                </ListView>
+
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Grid.Column="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="8*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="8*"/>
-                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
-            <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
-                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Izmena i brisanje rasporeda vožnje</TextBlock>
-            </Viewbox>
+            <Grid x:Name="UpdateDeletePage" Grid.Row="1" Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" />
 
-            <DataGrid Name="dataGrid"
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12" HorizontalAlignment="Left">
+                    <Label FontSize="20" Content="Izmena i brisanje reda vožnje" Foreground="#00264d" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                </Viewbox>
+
+                <Button Grid.Row="0" Grid.Column="4" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                    <StackPanel Background="Transparent">
+                        <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
+
+                <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding Rows}" 
                   Background="#E8F0F2"
-                  Grid.Row="1"
+                  Grid.Row="3"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   FontSize="14" 
                   CanUserSortColumns="False"
                   SelectionChanged="DataGrid_SelectionChanged"
                   >
-                <DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
-                        <Setter Property="BorderBrush" Value="DarkBlue" />
-                        <Setter Property="Foreground" Value="DarkBlue"/>
-                        <Setter Property="BorderThickness" Value="0.6"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
+                            <Setter Property="BorderBrush" Value="#00264d" />
+                            <Setter Property="Foreground" Value="#00264d"/>
+                            <Setter Property="BorderThickness" Value="0.6"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
-                    </Style>
-                </DataGrid.CellStyle>
+                        </Style>
+                    </DataGrid.CellStyle>
 
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Time}"
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Time}"
                                     Header="Polazak"
                                     Width="3*" 
                  >
 
-                    </DataGridTextColumn>
+                        </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Brisanje"  Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="#E8F0F2">
-                                    <StackPanel>
-                                        <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
-                                    </StackPanel>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Brisanje"  Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="#E8F0F2" >
+                                        <StackPanel>
+                                            <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
+                                        </StackPanel>
+                                        <Button.ToolTip>
 
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="Height" Value="30"/>
-                        <Setter Property="FontWeight"  Value="DemiBold"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                            <ToolTip 
+                                         Content="Brisanje odabranog polaska iz selektovanog reda vožnje"
+                                         Style="{StaticResource tt_style}"/>
 
-                    </Style>
-                </DataGrid.Resources>
-            </DataGrid>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
 
-            <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="3*" />
-                    <RowDefinition Height="3*" />
-                </Grid.RowDefinitions>
-                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center">
-                    <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="White" FontStyle="Italic" VerticalAlignment="Center" />
-                </Viewbox>
-                <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center" />
-                </Viewbox>
-                <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
-                    <Label x:Name="messageLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
-                </Viewbox>
-                <Viewbox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">
-                    <Button x:Name="iconButton" Grid.Column="2" Grid.Row="1" Click="AddRow_Handler"  VerticalAlignment="Center" Background="Transparent">
-                        <StackPanel Background="Transparent">
-                            <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
-                        </StackPanel>
-                    </Button>
-                </Viewbox>
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="FontWeight"  Value="DemiBold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
 
-            </Grid>
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
 
-            <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1.3*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
+                <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                        <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" />
+                    </Viewbox>
+                    <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+                        <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center">
+                            <TextBox.ToolTip>
+                                <ToolTip 
+                                         Content="Format za vreme je 'HH:mm'"
+                                         Style="{StaticResource tt_style}"/>
+                            </TextBox.ToolTip>
+                        </TextBox>
+                    </Viewbox>
+                    <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">
+                        <Label x:Name="messageLabel" Content="" Foreground="#BB6464" FontStyle="Italic" VerticalAlignment="Center" />
+                    </Viewbox>
+                    <Viewbox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">
+                        <Button x:Name="iconButton" Grid.Column="2" Grid.Row="1" Click="AddRow_Handler" VerticalAlignment="Center" Background="Transparent">
+                            <StackPanel Background="Transparent">
+                                <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
+                            </StackPanel>
+                            <Button.ToolTip>
+                                <ToolTip 
+                                         Content="Dodavanje novog vremena polaska za selektovani red vožnje"
+                                         Style="{StaticResource tt_style}"/>
 
-                <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
-                    <Label Content="Odaberite raspored:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                </Viewbox>
-                <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="White" IsEditable="True"></ComboBox>
+                            </Button.ToolTip>
+                        </Button>
+                    </Viewbox>
 
-                <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8">
-                    <Button Content="Kreiraj raspored"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="#141C61" Foreground="White" Click="Create_Handler">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15" />
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </Viewbox>
+                </Grid>
 
-                <Viewbox  Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7">
-                    <Button x:Name="deleteScheduleButton" Content="Obriši raspored" HorizontalAlignment="Center" Click="DeleteSchedule_Handler" VerticalAlignment="Center" Background="#141C61" Foreground="White">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15" />
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </Viewbox>
+                <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+
+                    <Viewbox Grid.Row="0" Grid.Column="0">
+                        <Label Content="Odaberite red vožnje:" FontSize="35" Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                    </Viewbox>
+                    <ComboBox x:Name="comboSchedule" ItemsSource="{Binding Schedules}" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="1" Grid.Column="0"  Background="White" IsEditable="False">
+                        <ComboBox.ToolTip>
+
+                            <ToolTip 
+                                         Content="Odaberite red vožnje koji želite da izmenite/obrišete"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ComboBox.ToolTip>
+                    </ComboBox>
+
+                    <Viewbox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" Height="35">
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="#9FC088" Foreground="White" Click="Create_Handler">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                    <Image Source="/images/add1.png" />
+                                    <Label Content="Kreiraj red vožnje" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip 
+                                         Content="Otvorite formu za kreiranje novog reda vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                            </Button.ToolTip>
+                        </Button>
+                    </Viewbox>
+
+                    <Viewbox  Grid.Column="2" Grid.Row="1" Height="35" HorizontalAlignment="Right">
+                        <Button x:Name="deleteScheduleButton" HorizontalAlignment="Right" Click="DeleteSchedule_Handler" VerticalAlignment="Center" Background="#BB6464" Foreground="White">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                    <Image Source="/images/delete.png"/>
+                                    <Label Content="Obriši red vožnje" VerticalAlignment="Top" 
+                                        HorizontalAlignment="Center" Background="#BB6464" Foreground="White" FontSize="15"/>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip 
+                                         Content="Brisanje reda vožnje koji se trenutno prikazuje"
+                                         Style="{StaticResource tt_style}"/>
+                            </Button.ToolTip>
+                        </Button>
+                    </Viewbox>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

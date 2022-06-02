@@ -5,18 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -48,6 +41,8 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
+        public CreateSchedule(){ }
+
         public CreateSchedule(Frame f)
         {
             InitializeComponent();
@@ -74,6 +69,11 @@ namespace SyncfusionWpfApp1.gui
         {
             if (validInput())
             {
+                if (TimeAlreadyExists())
+                {
+                    messageLabel.Content = "Time already exists!";
+                    return;
+                }
                 SelectedSchedule.Times.Add(newTime.Text);
                 SelectedSchedule.Times = sortTimes();
                 drawTable();
@@ -83,6 +83,25 @@ namespace SyncfusionWpfApp1.gui
             else
             {
                 messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
+            }
+        }
+
+        private bool TimeAlreadyExists()
+        {
+            foreach (string s in SelectedSchedule.Times)
+            {
+                if (newTime.Text == s)
+                    return true;
+            }
+            return false;
+        }
+
+        private void GenerateRows_Handler(object sender, RoutedEventArgs e)
+        {
+            GenerateTimeSlotsDialog dialog = new GenerateTimeSlotsDialog(this);
+            if ((bool)dialog.ShowDialog())
+            {
+                drawTable();
             }
         }
 
@@ -138,6 +157,21 @@ namespace SyncfusionWpfApp1.gui
             }
 
             return sorted;
+        }
+
+        public void GenerateTimeSlots(string startTime, string endTime, int interval)
+        {
+            List<string> slots = new List<string>();
+            TimeSpan t1 = TimeSpan.Parse(startTime);
+            TimeSpan t2 = TimeSpan.Parse(endTime);
+
+            while (t1 <= t2)
+            {
+                slots.Add(t1.ToString().Substring(0, 5));
+                t1 += TimeSpan.FromMinutes(interval);
+            }
+            SelectedSchedule.Times = slots;
+            drawTable();
         }
 
         private void insertMode()
@@ -218,5 +252,6 @@ namespace SyncfusionWpfApp1.gui
         {
             frame.Content = new ScheduleUpdateDelete(frame);
         }
+
     }
 }

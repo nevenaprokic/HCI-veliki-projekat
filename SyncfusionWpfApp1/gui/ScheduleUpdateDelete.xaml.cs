@@ -82,6 +82,11 @@ namespace SyncfusionWpfApp1.gui
         {
             if (validInput())
             {
+                if (TimeAlreadyExists())
+                {
+                    messageLabel.Content = "Time already exists!";
+                    return;
+                }
                 SelectedSchedule.Times.Add(newTime.Text);
                 SelectedSchedule.Times = sortTimes();
                 drawTable();
@@ -92,6 +97,16 @@ namespace SyncfusionWpfApp1.gui
             {
                 messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
             }
+        }
+
+        private bool TimeAlreadyExists()
+        {
+            foreach (string s in SelectedSchedule.Times)
+            {
+                if (newTime.Text == s)
+                    return true;
+            }
+            return false;
         }
 
         private bool validInput()
@@ -130,7 +145,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void DeleteSchedule_Handler(object sender, RoutedEventArgs e)
         {
-            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši raspored?");
+            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši red vožnje?");
             if ((bool)cofirmDialog.ShowDialog())
             {
                 Schedules.Remove(SelectedSchedule);
@@ -214,5 +229,81 @@ namespace SyncfusionWpfApp1.gui
                 Rows.Add(r);
             }
         }
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_ticket.Visibility = Visibility.Collapsed;
+                tt_schedule.Visibility = Visibility.Collapsed;
+                tt_trainLine.Visibility = Visibility.Collapsed;
+                tt_maps.Visibility = Visibility.Collapsed;
+                tt_trainLineReport.Visibility = Visibility.Collapsed;
+                tt_train.Visibility = Visibility.Collapsed;
+                tt_report_monthly.Visibility = Visibility.Collapsed;
+                tt_signout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_ticket.Visibility = Visibility.Visible;
+                tt_schedule.Visibility = Visibility.Visible;
+                tt_trainLine.Visibility = Visibility.Visible;
+                tt_maps.Visibility = Visibility.Visible;
+                tt_trainLineReport.Visibility = Visibility.Visible;
+                tt_train.Visibility = Visibility.Visible;
+                tt_report_monthly.Visibility = Visibility.Visible;
+                tt_signout.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void TicketReport_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new MonthlyReport(frame);
+        }
+        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineReport(frame);
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new ScheduleUpdateDelete(frame);
+        }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new NetworkTrainLine(frame);
+        }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineCRUD(frame);
+        }
+        private void Train_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainUpdateDelete(frame);
+        }
+
+        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // img_bg.Opacity = 1;
+        }
+
+        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+            //img_bg.Opacity = 0.3;
+        }
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
+
     }
 }

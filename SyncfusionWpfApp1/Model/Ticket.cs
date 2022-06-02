@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SyncfusionWpfApp1.dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,22 @@ namespace SyncfusionWpfApp1.Model
             Price = calculatePrice();
             From = from;
             To = to;
+            Class = Seat.Wagon.Class;
+            WagonNumber = Seat.Wagon.OrderdNumber;
+        }
+
+        public Ticket(User client, TrainRide selectedRide, Seat seat)
+        {
+            Client = client;
+            Train = selectedRide.train;
+            ReturnTicket = selectedRide.backTicket;
+            Line = selectedRide.line;
+            DepartureTime = selectedRide.start;
+            Seat = seat;
+            Price = selectedRide.price;
+            From = selectedRide.startStation;
+            To = selectedRide.endStation;
+
         }
 
         public override string ToString()
@@ -38,8 +55,13 @@ namespace SyncfusionWpfApp1.Model
         public User Client { get; set; }
         public TrainStation From { get; set; }
         public TrainStation To { get; set; }
+        public WagonClass Class { get; set; }
+        public int WagonNumber { get; set; }
 
         private double _price;
+       
+        public bool bought { get; set; }
+
         public double Price
         {
             get { return _price; }

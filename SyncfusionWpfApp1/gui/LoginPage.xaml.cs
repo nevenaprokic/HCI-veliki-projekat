@@ -49,7 +49,7 @@ namespace SyncfusionWpfApp1.gui
             else if (type == UserType.CLIENT)
             {
                 MainRepository.setLoggedUser(name);
-                frame.Content = new WelcomePageClient(frame);
+                frame.Content = new CardReservation(frame);
             }
             else
             {
