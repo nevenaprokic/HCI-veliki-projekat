@@ -82,7 +82,7 @@ namespace SyncfusionWpfApp1.gui
                     trains += train.Name + ", ";
                 }
                 RowDataTrainLine r = new RowDataTrainLine(t.Id, t.Start.Name, t.End.Name, trains.Substring(0, trains.Length - 2), t.Price);
-                Rows.Add(r);
+                Rows?.Add(r);
             }
         }
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
@@ -91,6 +91,13 @@ namespace SyncfusionWpfApp1.gui
             Console.WriteLine(forRemove);
             TrainLines.RemoveAt(forRemove);
             drawTable();
+        }
+        private void EditRow_Handler(object sender, RoutedEventArgs e)
+        {
+            int forRemove = dataGrid.SelectedIndex;
+            RowDataTrainLine t = dataGrid.SelectedItem as RowDataTrainLine;
+            EditTrainLine line = new EditTrainLine(t);
+            line.Show();
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {

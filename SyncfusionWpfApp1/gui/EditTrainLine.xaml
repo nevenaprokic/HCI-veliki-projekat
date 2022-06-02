@@ -1,0 +1,189 @@
+﻿<Window x:Class="SyncfusionWpfApp1.gui.EditTrainLine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+        mc:Ignorable="d"
+         WindowStyle="None" ResizeMode="NoResize"
+        Title="Izmena vozne linije" Height="500" Width="700"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" Background="Transparent">
+    <Border BorderThickness="2" BorderBrush="#00264d" 
+    CornerRadius="20" Background="#E8F0F2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" >
+                <TextBlock x:Name="txtMessage" 
+                FontSize="18" TextWrapping="Wrap" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                TextAlignment="Center" Text="Izmena vozne linije" FontWeight="Bold" FontStyle="Italic"/>
+            </Viewbox>
+
+            <Viewbox Grid.Column="1" Grid.Row="2"  >
+                <Label x:Name="lblTrainLine" 
+                FontSize="29" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                 Content="Cena: " />
+            </Viewbox>
+            <Viewbox Grid.Column="2" Grid.Row="2"  >
+                <TextBox x:Name="price" 
+                    FontSize="18" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" />
+            </Viewbox>
+
+            <DataGrid Name="dataGrid"
+                  AutoGenerateColumns="False"
+                  Grid.Row="4"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Grid.RowSpan="3"
+                  FontSize="14" 
+                  ItemsSource="{Binding Rows}" 
+                  
+                  
+                  >
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Foreground" Value="#00264d"/>
+                        <Setter Property="BorderThickness" Value="0.6"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                    </Style>
+                </DataGrid.CellStyle>
+
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Ime vozne linije"  Width="*" />
+                    <DataGridTemplateColumn Header="Obriši"  Width="0.6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteRowButton" Height="30" Background="White">
+                                    <StackPanel>
+                                        <Image x:Name="deleteIcon" Source="/images/delete2.png"  Width="20" Height="20"></Image>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="FontWeight"  Value="DemiBold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+            
+            <DataGrid Name="dataGridTrain"
+                  AutoGenerateColumns="False"
+                  Grid.Row="4"
+                  Grid.Column="4"
+                  Grid.ColumnSpan="2"
+                  Grid.RowSpan="3"
+                  FontSize="14" 
+                  ItemsSource="{Binding Rows}" 
+                  
+                  
+                  >
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Foreground" Value="#00264d"/>
+                        <Setter Property="BorderThickness" Value="0.6"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                    </Style>
+                </DataGrid.CellStyle>
+
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Ime voza"  Width="*" />
+                    <DataGridTemplateColumn Header="Obriši"  Width="0.6*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="deleteRowButton" Height="30" Background="White">
+                                    <StackPanel>
+                                        <Image x:Name="deleteIconTable" Source="/images/delete2.png"  Width="20" Height="20"></Image>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="FontWeight"  Value="DemiBold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+
+
+            <Button x:Name="delete"  Grid.Column="5" MinWidth="80" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Close_Handler" Background="#00264d">
+                <Button.Content>
+                    <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                    Background="Transparent" Height="29">
+                        
+                        <Label Content="Odustani" VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                    </StackPanel>
+                </Button.Content>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="4" MinWidth="110" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9FC088" Foreground="White"  FontSize="15">
+                <Button.Content>
+                    <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                    Background="Transparent" Height="29">
+                       
+                        <Label Content="Sačuvaj izmene" VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                    </StackPanel>
+                </Button.Content>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+    </Border>
+</Window>
