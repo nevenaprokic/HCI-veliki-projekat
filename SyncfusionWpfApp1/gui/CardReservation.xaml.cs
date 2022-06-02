@@ -521,6 +521,10 @@ namespace SyncfusionWpfApp1.gui
             //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
             
             selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
+            if(selectedLines.Count == 0)
+            {
+                offerNotDirectlyTravel();
+            }
             SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
             startTimePicker.IsEnabled = true;
             if (StartDate == DateTime.MinValue)
@@ -536,6 +540,11 @@ namespace SyncfusionWpfApp1.gui
             {
                 restoreReservationOption();
             }
+        }
+
+        private void offerNotDirectlyTravel()
+        {
+            frame.Content = new NotDirectlyTranferOptions(StartStation, EndStation, StartDateTime);
         }
 
         private void disableReservationOption()

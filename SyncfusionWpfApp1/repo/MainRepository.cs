@@ -126,7 +126,8 @@ namespace SyncfusionWpfApp1.repo
                 { ts3, info2 },
                 { ts4, info3 },
                 { ts5, info4 },
-                { ts6, info5 }
+                { ts6, info5 },
+                { ts8, info5 },
             };
             TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1 }, schedule1, schedule2, 300, dictTL1, 0);
 
@@ -135,8 +136,9 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info7 = new TrainStationInfo(20, 200);
             OrderedDictionary dictTL2 = new OrderedDictionary
             {
-                { ts8, info6 },
-                { ts9, info7 }
+                { ts6, info6 },
+                { ts9, info7 },
+                { ts10, info7 }
             };
             TrainLine tl2 = new TrainLine(ts7, ts6, new List<Train> { t2 }, schedule3, schedule2, 300, dictTL2, 1);
 
@@ -146,9 +148,10 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info10 = new TrainStationInfo(20, 1500);
             OrderedDictionary dictTL3 = new OrderedDictionary
             {
-                 { ts2, info1 },
+                 
                 { ts3, info2 },
                 { ts6, info5 },
+                { ts10, info7 },
                 { ts11, info8 },
                 { ts16, info10 },
                 { ts12, info9 }
