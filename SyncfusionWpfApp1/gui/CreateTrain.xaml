@@ -23,7 +23,28 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
+
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
     </Page.Resources>
+    
+    
 
     <Grid>
 
@@ -95,7 +116,13 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBox x:Name="nameBox" Text="{Binding Path=TrainName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" MinWidth="100" FontStyle="Italic" />
+                    <TextBox x:Name="nameBox" Text="{Binding Path=TrainName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" MinWidth="100" FontStyle="Italic">
+                        <TextBox.ToolTip>
+                            <ToolTip 
+                                         Content="Naziv je obavezan"
+                                         Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" HorizontalAlignment="Center">
@@ -111,7 +138,13 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-                    <TextBox Name="NumberSeatsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80"/>
+                    <TextBox Name="NumberSeatsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80">
+                        <TextBox.ToolTip>
+                            <ToolTip 
+                                         Content="Broj sedišta u novom vagonu. Numerička vrednost"
+                                         Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
 
                 <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -123,7 +156,13 @@
                 </Viewbox>
                 
                 <Viewbox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3">
-                    <TextBox Name="NumberWagonsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80"/>
+                    <TextBox Name="NumberWagonsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80">
+                        <TextBox.ToolTip>
+                            <ToolTip 
+                                         Content="Količina novih vagona. Numerička vrednost"
+                                         Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
 
                 <Viewbox Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -135,7 +174,14 @@
                 </Viewbox>
 
                 <Viewbox Grid.ColumnSpan="4" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
-                    <ComboBox Height="23" Name="comboClass" MinWidth="100" />
+                    <ComboBox Height="23" Name="comboClass" MinWidth="100">
+                        <ComboBox.ToolTip>
+                            <ToolTip 
+                                         Content="Odabir razreda novog vagona za voz"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ComboBox.ToolTip>
+                    </ComboBox>
                 </Viewbox>
 
                 <Viewbox Grid.Column="5" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
@@ -143,6 +189,11 @@
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
                         </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Dodavanje novog/novih vagona za voz"
+                                         Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
                     </Button>
                 </Viewbox>
 
@@ -179,11 +230,25 @@
                 </Grid.RowDefinitions>
 
                 <Viewbox Grid.Column="0" Grid.Row="0">
-                    <Button Grid.Column="0" Content="Nazad" MinWidth="80" Click="GoBack_Handler" Background="#b3d9ff"  />
+                    <Button Grid.Column="0" Content="Nazad" MinWidth="80" Click="GoBack_Handler" Background="#b3d9ff">
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Nazad na izmenu/brisanje vozova. Voz neće biti sačuvan"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </Button.ToolTip>
+                    </Button>
                 </Viewbox>
                 
                 <Viewbox Grid.Column="2" Grid.Row="0">
-                    <Button Content="Sačuvaj" MinWidth="80" Click="Save_Handler" Background="#b3d9ff" />
+                    <Button Content="Sačuvaj" MinWidth="80" Click="Save_Handler" Background="#b3d9ff">
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Trajno čuvanje novokreiranog voza"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </Button.ToolTip>
+                    </Button>
                 </Viewbox>
             </Grid>
 
@@ -231,6 +296,12 @@
                                     <StackPanel>
                                         <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
                                     </StackPanel>
+                                    <Button.ToolTip>
+                                        <ToolTip 
+                                         Content="Brisanje odabranog/odabranih vagona iz voza"
+                                         Style="{StaticResource tt_style}"/>
+
+                                    </Button.ToolTip>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

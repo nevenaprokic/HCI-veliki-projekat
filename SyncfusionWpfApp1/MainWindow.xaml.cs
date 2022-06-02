@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syncfusion.SfSkinManager;
 using SyncfusionWpfApp1.gui;
+using SyncfusionWpfApp1.help;
 using SyncfusionWpfApp1.repo;
 using SyncfusionWpfApp1.service;
 
@@ -76,7 +77,43 @@ namespace SyncfusionWpfApp1
             userService = new UserService();
             frame.Content = new LoginPage(frame);
         }
-		/// <summary>
+
+        public IEnumerable<T> FindVisualChilds<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) yield return (T)Enumerable.Empty<T>();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject ithChild = VisualTreeHelper.GetChild(depObj, i);
+                if (ithChild == null) continue;
+                if (ithChild is T t) yield return t;
+                foreach (T childOfChild in FindVisualChilds<T>(ithChild)) yield return childOfChild;
+            }
+        }
+
+        public void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Button b = null;
+            var windows = Application.Current.Windows;
+            foreach (var window in windows)
+            {
+                IEnumerable<Button> buttons = FindVisualChilds<Button>((DependencyObject)window);
+                if (buttons != null)
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button.Name.Equals("helpButton"))
+                        {
+                            b = button;
+                        }
+                    }
+                }
+            }
+            string path = HelpProvider.GetHelpKey((DependencyObject)b);
+            HelpProvider.ShowHelp(path, this);
+        }
+               
+
+        /// <summary>
         /// Called when [loaded].
         /// </summary>
         /// <param name="sender">The sender.</param>
