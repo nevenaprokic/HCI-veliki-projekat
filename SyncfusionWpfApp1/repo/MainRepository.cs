@@ -158,10 +158,10 @@ namespace SyncfusionWpfApp1.repo
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[0], null, t1, ts1, ts6); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
-            Ticket ticket2 = new Ticket(client2, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[10], null, t2, ts6, ts6);
-            Ticket ticket3 = new Ticket(client1, false, tl1, new DateTime(2022, 05, 31, 11, 0, 0), seats[11], null, t1, ts1, ts6);
-            Ticket ticket4 = new Ticket(client2, true, tl3, new DateTime(2022, 05, 31, 11, 0, 0), seats[20], seats[21], t2, ts1, ts6);
+            Ticket ticket1 = new Ticket(client1, false, tl1, new DateTime(2022, 06, 2, 11, 0, 0), seats[0], null, t1, ts1, ts6); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            Ticket ticket2 = new Ticket(client2, false, tl1, new DateTime(2022, 06, 2, 11, 0, 0), seats[10], null, t2, ts6, ts6);
+            Ticket ticket3 = new Ticket(client1, false, tl1, new DateTime(2022, 06, 2, 11, 0, 0), seats[11], null, t1, ts1, ts6);
+            Ticket ticket4 = new Ticket(client2, true, tl3, new DateTime(2022, 06, 2, 11, 0, 0), seats[20], seats[21], t2, ts1, ts6);
             Tickets = new List<Ticket>();
             Tickets.Add(ticket1);
             Tickets.Add(ticket2);
@@ -252,7 +252,7 @@ namespace SyncfusionWpfApp1.repo
             return sortedTimes;
         }
 
-        public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, DateTime backDateTime)
+        public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, bool backTicket)
         {
             IEnumerable<TrainLine> matchingLines = selectMatchingTrainLine(startStation, endStation);
 
@@ -273,12 +273,14 @@ namespace SyncfusionWpfApp1.repo
                             {
                                 classPercent = 1.2;
                             }
+                            
 
                             double price = calculateRidePrice(line, startStation, endStation);
+                            if (backTicket) price = price * 1.5;
                             int travelDuration = calculateDepartureTime(line, startStation, endStation);
                             price = classPercent * price;
 
-                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, backDateTime, travelDuration, price);
+                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, travelDuration, price, backTicket);
                             trainRides.Add(ride);
 
                         }

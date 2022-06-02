@@ -24,5 +24,17 @@ namespace SyncfusionWpfApp1.service
   
 
         }
+
+        public static User findByEmail(string email)
+        {
+            IEnumerable<User> users = from user in MainRepository.Users
+                                      where user.Email == email
+                                      select user;
+            if(users.Count() > 0)
+            {
+                return users.ElementAt(0);
+            }
+            return null;
+        }
     }
 }

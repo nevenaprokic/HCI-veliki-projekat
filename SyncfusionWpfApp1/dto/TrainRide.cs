@@ -15,21 +15,27 @@ namespace SyncfusionWpfApp1.dto
         public Train train { get; set; }
         public WagonClass wagonClass { get; set;}
         public DateTime start { get; set; }
-        public DateTime backTime { get; set; }
         public int travelDuration { get; set; }
         public double price { get; set; }
 
-        public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start, DateTime end, int travelDuration, double price)
+        public bool backTicket { get; set; }
+        public int ClassNumber { get; set; }
+        public string priceStr { get; set; }
+       
+
+        public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start,int travelDuration, double price, bool backTicket)
         {
             this.startStation = startStation;
             this.endStation = endStation;
             this.line = line;
-            this.train = train;
+            this.train = train; 
             this.wagonClass = wagonClass;
             this.start = start;
             this.travelDuration = travelDuration;
             this.price = price;
-            this.backTime = end;
+            this.backTicket = backTicket;
+            ClassNumber = (int) wagonClass + 1;
+            priceStr = price.ToString() + ".00" + " din";
         }
     }
 }
