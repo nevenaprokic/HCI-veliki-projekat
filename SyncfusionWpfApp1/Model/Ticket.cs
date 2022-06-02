@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SyncfusionWpfApp1.dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,20 @@ namespace SyncfusionWpfApp1.Model
             To = to;
         }
 
+        public Ticket(User client, TrainRide selectedRide, Seat seat)
+        {
+            Client = client;
+            Train = selectedRide.train;
+            ReturnTicket = selectedRide.backTicket;
+            Line = selectedRide.line;
+            DepartureTime = selectedRide.start;
+            Seat = seat;
+            Price = selectedRide.price;
+            From = selectedRide.startStation;
+            To = selectedRide.endStation;
+
+        }
+
         public override string ToString()
         {
             return $"Ticket: {Train.Name}, returning: {ReturnTicket}, line: {Line.Start.Street} - {Line.End.Street}, departure time: {DepartureTime}, seat: {Seat.SeatNumber}.";
@@ -40,6 +55,9 @@ namespace SyncfusionWpfApp1.Model
         public TrainStation To { get; set; }
 
         private double _price;
+       
+        public bool bought { get; set; }
+
         public double Price
         {
             get { return _price; }

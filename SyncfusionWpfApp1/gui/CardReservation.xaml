@@ -53,7 +53,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
@@ -196,34 +196,18 @@
             </Viewbox>
 
             <Viewbox  Grid.Row="6" Grid.Column="3" HorizontalAlignment="Left">
-                <Label Content="Datum povratka: *" FontSize="15" Foreground="#204060" ></Label>
+                <Label Content="Satnica polaska (h): *" FontSize="15" Foreground="#204060" ></Label>
             </Viewbox>
 
-            <DatePicker IsEnabled ="False"  VerticalAlignment="Center" FontSize="17"  Grid.Column="3" Grid.Row="7"  Background="#e6f3ff" x:Name="backDatePicker" SelectedDateChanged="endDate_SelectedDateChanged">
-         
-            </DatePicker>
-            <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
-                <Label x:Name="backDateError"  Foreground="#CF1B0D"></Label>
-            </Viewbox>
-
-            <Viewbox  Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left">
-                <Label Content="Satnica polaska: *" FontSize="15" Foreground="#204060"></Label>
-            </Viewbox>
-
-            <ComboBox  IsEnabled ="False" FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="10" Grid.Column="1" Background="#e6f3ff" IsEditable="True"></ComboBox>
-            <Viewbox Grid.Row="11" Grid.Column="1" HorizontalAlignment="Left" >
+            <ComboBox  IsEnabled ="False" FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="7" Grid.Column="3" Background="#e6f3ff" IsEditable="True"></ComboBox>
+            <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" >
                 <Label x:Name="startTimeError" Foreground="#CF1B0D"></Label>
             </Viewbox>
 
-            <Viewbox Grid.Row="9" Grid.Column="3" HorizontalAlignment="Left">
-                <Label Content="Satnica povratka: *"  FontSize="15" Foreground="#204060"></Label>
+            <Viewbox  Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left">
+                <CheckBox x:Name="backTicketCheckBox" Content="Povratna karta"  FontSize="9" IsChecked="{Binding Path=backTicket, Mode=TwoWay}"/>
             </Viewbox>
-
-            <ComboBox  IsEnabled ="False" FontSize="13"  ItemsSource="{Binding SortedBackTimes}" SelectedItem="{Binding BackTime}" x:Name="backTimePicker" Grid.Row="10" Grid.Column="3" Background="#e6f3ff" IsEditable="True"></ComboBox>
-            <Viewbox Grid.Row="11" Grid.Column="3" HorizontalAlignment="Left">
-                <Label x:Name="backTimeError"  Foreground="#CF1B0D"></Label>
-            </Viewbox>
-
+           
 
             <Grid Grid.Column="3" Grid.Row="13">
                 <Grid.ColumnDefinitions>
@@ -378,10 +362,12 @@
 
             <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.7*" />
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition Width="0.05*"/>
-                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.55*" />
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="0.15*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="0.15*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -390,7 +376,7 @@
 
                 <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition Width="0.6*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -423,15 +409,19 @@
                     <Label Content="Voz:"  FontSize="10" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox  Grid.Row="1" Grid.Column="1" Background="#e6f3ff" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name" SelectionChanged="trainSelectionChanged" FontSize="14"></ComboBox>
+                <ComboBox x:Name="TrainCombobox" Grid.Row="1" Grid.Column="1" Background="#e6f3ff" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name"  FontSize="14"></ComboBox>
 
                 <Viewbox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left">
                     <Label Content="Maksimalna cena:"  FontSize="10" Foreground="#204060"></Label>
                 </Viewbox>
 
                 <syncfusion:DoubleTextBox 
-                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" ValueChanged="maxPriceChanged"/>
+                    x:Name="priceFilter"
+                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" />
 
+                <Button Content="Filtriraj" Grid.Row="1" Grid.Column="5" Background="Bisque" Click="filterTrainRidesClicked">
+                    
+                </Button>
             </Grid>
 
 
@@ -458,7 +448,7 @@
                                    
                    >
                     </syncfusion:GridTextColumn>
-                    <syncfusion:GridTextColumn MappingName="wagonClass"
+                    <syncfusion:GridTextColumn MappingName="ClassNumber"
                                    HeaderText="Razred vagona"
                                    IsReadOnly="True"
                                                ColumnSizer="Star"
@@ -539,6 +529,7 @@
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -760,6 +751,7 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -879,7 +871,7 @@
                     <RowDefinition Height="0.3*"/>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="0.4*"/>
@@ -904,53 +896,67 @@
                     <Label Content="Vozna karta" FontStyle="Italic" FontWeight="Bold" Foreground="DarkBlue" FontSize="17"></Label>
                 </Viewbox>
 
-                <Viewbox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="11" Content="Polazisna stanica" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
-                </Viewbox>
-                <Viewbox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="11" Content="Odredišna stanica" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
-                </Viewbox>
+                <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Border>
+                <Label Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left">
+                    <TextBlock FontSize="15" TextWrapping="WrapWithOverflow" Foreground="DarkBlue" Text="{Binding StartStation.Name}"/>
+                </Label>
+
+                <Border Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Border>
+                    <Label Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left" Foreground="DarkBlue" FontSize="11" VerticalAlignment="Stretch" >
+                        <TextBlock FontSize="15" TextWrapping="WrapWithOverflow" Foreground="DarkBlue" Text="{Binding EndStation.Name}"/>
+                    </Label>
+                
                 <Viewbox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="11" Content="12.5.2022. 11:00" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
+                    <Label Foreground="DarkBlue" FontSize="7" Content="{Binding StartDateTime}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="11" Content="12.5.2022. 11:00" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
+                    <Label Foreground="DarkBlue" FontSize="7" Content="{Binding ArrivalDateTime}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
                 </Viewbox>
 
+                <Viewbox x:Name="returnTicketLabel" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Visibility="Hidden">
+                    <Label Foreground="DarkBlue" FontSize="10" Content="Povrtna karta: da" ></Label>
+                </Viewbox>
+                <Viewbox  x:Name="returnTicketExpireLabel" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Visibility="Hidden">
+                    <Label Foreground="DarkBlue" FontSize="10" Content="Povrtna karta važi do" ></Label>
+                </Viewbox>
+                <Viewbox x:Name="returnTicketExpireDate" Grid.Row="6" Grid.Column="6" HorizontalAlignment="Left" Visibility="Hidden">
+                    <Label Foreground="DarkBlue" FontSize="10" Content="{Binding ExpireDate}" ></Label>
+                </Viewbox>
                 <Viewbox Grid.Row="7" Grid.Column="1"  HorizontalAlignment="Left">
                     <Label Foreground="DarkBlue" FontSize="10" Content="Voz:" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="7" Grid.Column="2"  HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="10" Content="Naziv voza" ></Label>
+                    <Label Foreground="DarkBlue" FontSize="10" Content="{Binding SelectedRide.train.Name}" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="8" Grid.Column="1"  HorizontalAlignment="Left">
                     <Label Foreground="DarkBlue" FontSize="10" Content="Razred:" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="8" Grid.Column="2"  HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="10" Content="Prvi (I)" ></Label>
+                    <Label Foreground="DarkBlue" FontSize="10" Content="{Binding SelectedRide.ClassNumber}" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="7" Grid.Column="4"  HorizontalAlignment="Left">
                     <Label Foreground="DarkBlue" FontSize="10" Content="Vagon:" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="7" Grid.Column="5"  HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="10" Content="1" ></Label>
+                    <Label Foreground="DarkBlue" FontSize="10" Content="{Binding Wagon.OrderdNumber}" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="8" Grid.Column="4"  HorizontalAlignment="Left">
                     <Label Foreground="DarkBlue" FontSize="10" Content="Sediste:" ></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="8" Grid.Column="5"  HorizontalAlignment="Left">
-                    <Label Foreground="DarkBlue" FontSize="10" Content="10" ></Label>
+                    <Label Foreground="DarkBlue" FontSize="10" Content="{Binding Seat.SeatNumber}" ></Label>
                 </Viewbox>
 
                 <Border Background="#E8F0F2" BorderBrush="#204060" BorderThickness="1.5,0,1.5,1.5" CornerRadius="0,0,15,15" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="8"></Border>
 
                 <Border CornerRadius="10" Background="Bisque" Grid.Row="7" Grid.Column="6"/>
                 <Viewbox Grid.Row="7" Grid.Column="6">
-                    <Label Content="1200.00 din" FontWeight="Bold" FontSize="10" Foreground="DarkBlue"></Label>
+                    <Label Content="{Binding SelectedRide.priceStr}" FontWeight="Bold" FontSize="10" Foreground="DarkBlue"></Label>
                 </Viewbox>
             </Grid>
-            <Grid Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="3" Margin="77,0,38,0">
+            <Grid Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="6" Margin="77,0,38,0">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.1*"/>
                     <ColumnDefinition Width="0.5*"/>
@@ -961,10 +967,17 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Column="0" Content="Odustani" Background="#BB6464" Foreground="White" FontWeight="Bold" Click="SecondPageBackBtnClicked"/>
-                <Button Grid.Column="2" Content="Kupi" Background="#86b069" Foreground="White" FontWeight="Bold" Click="SecondPageNextBtnClicked"/>
-                <Button Grid.Column="4" Content="Rezerviši" Background="#204060" Foreground="White" FontWeight="Bold" Click="SecondPageNextBtnClicked"/>
+                <Button Grid.Column="1" Content="Odustani" Background="#BB6464" Foreground="White" FontWeight="Bold" Click="cancleClicked" x:Name="CancelBtnFirst" Visibility="Hidden" />
+                <Button Grid.Column="3" Content="Odustani" Background="#BB6464" Foreground="White" FontWeight="Bold" Click="cancleClicked" x:Name="CancelBtnSecond" />
+                <Button Grid.Column="3" Content="Rezerviši" Background="#FFA881" Foreground="White" FontWeight="Bold" Click="reservationTicketClicked" x:Name="ReservBtn" Visibility="Hidden"></Button>
+                <Button Grid.Column="5" Content="Kupi" Background="#86b069" Foreground="White" FontWeight="Bold" Click="buyTicketClicked" x:Name="BoughtBtn"/>
+                
+
             </Grid>
+            <Viewbox Margin="15,0,0,0" x:Name="ReservationMessageLabel" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="13" HorizontalAlignment="Right" Visibility="Hidden">
+                <Label HorizontalAlignment="Right" Content="*Rezervacija nije dozvoljena u poslednja 24h pred polazak!" Foreground="#CF1B0D" FontSize="14" VerticalAlignment="Center"></Label>
+            </Viewbox>
+
         </Grid>
     </Grid>
 </Page>

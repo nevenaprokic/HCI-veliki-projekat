@@ -47,10 +47,7 @@ namespace SyncfusionWpfApp1.gui
         private TrainStation _startStation;
         private TrainStation _endStation;
         private DateTime _startDate;
-        private DateTime _backDate;
         private String _startTime;
-        private String _backTime;
-        private TrainLine _trainLine;
         private Train _train;
         private Wagon _wagon;
         public string WagonOrder { get; set; }
@@ -61,7 +58,10 @@ namespace SyncfusionWpfApp1.gui
         private List<Wagon> _selectedTrainWagons;
         private TrainRide _selectedRide;
         private DateTime _startDateTime;
-        private DateTime _backDateTime;
+        private DateTime _arrivalDateTime;
+        public DateTime ExpireDate { get; set; }
+        public bool backTicket { get; set; }
+
         public DateTime StartDateTime
         {
             get
@@ -77,18 +77,18 @@ namespace SyncfusionWpfApp1.gui
                 }
             }
         }
-        public DateTime BackDateTime
+        public DateTime ArrivalDateTime
         {
             get
             {
-                return _backDateTime;
+                return _arrivalDateTime;
             }
             set
             {
-                if (_backDateTime != value)
+                if (_arrivalDateTime != value)
                 {
-                    _backDateTime = value;
-                    RaisePropertyChanged(nameof(BackDateTime));
+                    _arrivalDateTime = value;
+                    RaisePropertyChanged(nameof(ArrivalDateTime));
                 }
             }
         }
@@ -265,22 +265,6 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
-        public String BackTime
-        {
-            get { return _backTime; }
-
-            set
-            {
-                if (_backTime != value)
-                {
-                    _backTime = value;
-                    RaisePropertyChanged("BackTime");
-                    backTimeError.Content = "";
-                    backTimePicker.BorderBrush = Brushes.Transparent;
-                    backTimePicker.BorderThickness = new Thickness(1, 1, 1, 1);
-                }
-            }
-        }
 
         public DateTime StartDate
         {
@@ -292,25 +276,15 @@ namespace SyncfusionWpfApp1.gui
                 if (_startDate != value)
                 {
                     _startDate = value;
+                    ExpireDate = StartDate.AddDays(30);
                     RaisePropertyChanged(nameof(StartDate));
+                    RaisePropertyChanged(nameof(ExpireDate));
                     
                 }
             }
         }
 
-        public DateTime BackDate
-        {
-            get { return _backDate; }
-
-            set
-            {
-                if (_backDate != value)
-                {
-                    _backDate = value;
-                    RaisePropertyChanged(nameof(BackDate));
-                }
-            }
-        }
+     
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -417,15 +391,15 @@ namespace SyncfusionWpfApp1.gui
                 if (checkFullFields())
                 {
                     StartDateTime = convertToFullDateTime(StartDate, StartTime);
-                    BackDateTime = convertToFullDateTime(BackDate, BackTime);
-                    if (DateTimeValidator.validateDates(StartDateTime, BackDateTime))
+                   
+                    if (DateTimeValidator.validateDates(StartDateTime))
                     {
                         
                         StartDateTime.Date.ToShortDateString();
                         this.FirstPage.Visibility = Visibility.Hidden;
                         this.SecondPage.Visibility = Visibility.Visible;
 
-                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, BackDateTime);
+                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, backTicket);
                         AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
 
                     }
@@ -434,18 +408,6 @@ namespace SyncfusionWpfApp1.gui
                 }
 
 
-            }
-            catch(StartDateAfterBackDateException exception)
-            {
-                backDateError.Content = exception.Message;
-                backDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207,27,13));
-                backDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
-            }
-            catch (StartTimeAfterBackTimeException exception)
-            {
-                backTimeError.Content = exception.Message;
-                backTimePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
-                backTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
             }
             catch (PassedDateException exception)
             {
@@ -489,13 +451,7 @@ namespace SyncfusionWpfApp1.gui
                 emptyFieldsNum++;
             }
 
-            if (BackDate == DateTime.MinValue)
-            {
-                backDateError.Content = "Obavezno polje";
-                backDatePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
-                backDatePicker.BorderThickness = new Thickness(2, 2, 2, 2);
-                emptyFieldsNum++;
-            }
+           
             if (StartTime == null)
             {
                 startTimeError.Content = "Obavezno polje";
@@ -503,14 +459,7 @@ namespace SyncfusionWpfApp1.gui
                 startTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
                 emptyFieldsNum++;
             }
-            if (BackTime == null)
-            {
-                backTimeError.Content = "Obavezno polje";
-                backTimePicker.BorderBrush = new SolidColorBrush(Color.FromRgb(207, 27, 13));
-                backTimePicker.BorderThickness = new Thickness(2, 2, 2, 2);
-                emptyFieldsNum++;
-            }
-
+           
             if (emptyFieldsNum > 0) return false;
             return true;
         
@@ -533,12 +482,12 @@ namespace SyncfusionWpfApp1.gui
             if(EndStation != null)
             {
                 startDatePicker.IsEnabled = true;
-                backDatePicker.IsEnabled = true;
+               
             }
             if(StartStation == null)
             {
                 startDatePicker.IsEnabled = false;
-                backDatePicker.IsEnabled = false;
+                
             }
         }
 
@@ -552,12 +501,12 @@ namespace SyncfusionWpfApp1.gui
             if (StartStation != null)
             {
                 startDatePicker.IsEnabled = true;
-                backDatePicker.IsEnabled = true;
+                
             }
             if (EndStation == null)
             {
                 startDatePicker.IsEnabled = false;
-                backDatePicker.IsEnabled = false;
+                
             }
         }
 
@@ -574,67 +523,42 @@ namespace SyncfusionWpfApp1.gui
             
             selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
             SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
-
-            if(BackDate != DateTime.MinValue)
-            {
-                startTimePicker.IsEnabled = true;
-                backTimePicker.IsEnabled = true;
-            }
-            if(StartDate == DateTime.MinValue)
+            startTimePicker.IsEnabled = true;
+            if (StartDate == DateTime.MinValue)
             {
                 startTimePicker.IsEnabled = false;
-                backTimePicker.IsEnabled = false;
+
             }
+            else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
+            {
+                disableReservationOption();
+            }
+            else
+            {
+                restoreReservationOption();
+            }
+        }
 
-        } 
-
-        private void endDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void disableReservationOption()
         {
-            backDatePicker.SelectedDate.Value.Date.ToShortDateString();
-            backDateError.Content = "";
-            backDatePicker.BorderBrush = Brushes.Transparent;
-            backDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
-            DatePicker picker = sender as DatePicker;
-            BackDate = (DateTime)picker.SelectedDate;
-            selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
-            SortedBackTimes = MainRepository.getTimeList(selectedLines, BackDate);
+            ReservBtn.Visibility = Visibility.Hidden;
+            CancelBtnFirst.Visibility = Visibility.Hidden;
+            CancelBtnSecond.Visibility = Visibility.Visible;
+            ReservationMessageLabel.Visibility = Visibility.Visible;
+        }
 
-            if (StartDate != DateTime.MinValue)
-            {
-                startTimePicker.IsEnabled = true;
-                backTimePicker.IsEnabled = true;
-            }
-            if (BackDate == DateTime.MinValue)
-            {
-                startTimePicker.IsEnabled = false;
-                backTimePicker.IsEnabled = false;
-            }
+        private void restoreReservationOption()
+        {
+            ReservBtn.Visibility = Visibility.Visible;
+            CancelBtnFirst.Visibility = Visibility.Visible;
+            CancelBtnSecond.Visibility = Visibility.Hidden;
+            ReservationMessageLabel.Visibility = Visibility.Hidden;
         }
 
         private void SecondPageBackBtnClicked(object sender, RoutedEventArgs e)
         {
             this.FirstPage.Visibility = Visibility.Visible;
             this.SecondPage.Visibility = Visibility.Hidden;
-        }
-
-        private void trainSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmb = sender as ComboBox;
-            Train = (Train)cmb.SelectedItem;
-            TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, BackDateTime);
-            TrainRides = TrainLineService.filterTrainRidesByTrain(TrainRides, Train);
-
-        }
-
-        private void maxPriceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (TrainRides != null)
-            {
-                DoubleTextBox doubleTextBox = d as DoubleTextBox;
-                double price = (double)e.NewValue;
-                TrainRides = TrainLineService.filterTrainRidesByMaxPrice(TrainRides, price);
-            }
-            
         }
 
         private void SecondPageNextBtnClicked(object sender, RoutedEventArgs e)
@@ -649,6 +573,7 @@ namespace SyncfusionWpfApp1.gui
             }
             else
             {
+                ArrivalDateTime = StartDateTime.AddMinutes(SelectedRide.travelDuration);
                 AwailableSeats = SeatService.getLineAwailableSeats(SelectedRide.line, SelectedRide.train, SelectedRide.startStation, SelectedRide.start);
                 SelectedTrainWagons = TrainService.getTrainWagonsByClass(SelectedRide.wagonClass, SelectedRide.train);
                 SecondPage.Visibility = Visibility.Hidden;
@@ -691,9 +616,9 @@ namespace SyncfusionWpfApp1.gui
 
         private void takenSeatClick(object sender, RoutedEventArgs e)
         {
-            SecondPageErrorLabel.Content = "Ne možete izabrati zauzeto sedište";
-            SecondPageErrorLabel.Visibility = Visibility.Visible;
-            SecondPageErrorBox.Visibility = Visibility.Visible;
+            ThirdPageErrorLabel.Content = "Ne možete izabrati zauzeto sedište";
+            ThirdPageErrorLabel.Visibility = Visibility.Visible;
+            ThirdPageErrorBox.Visibility = Visibility.Visible;
         }
 
         private void wagonSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -816,6 +741,20 @@ namespace SyncfusionWpfApp1.gui
             {
                 ThirdPage.Visibility = Visibility.Hidden;
                 FourthPage.Visibility = Visibility.Visible;
+                if (backTicket)
+                {
+                    returnTicketLabel.Visibility = Visibility.Visible;
+                    returnTicketExpireLabel.Visibility = Visibility.Visible;
+                    returnTicketExpireDate.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    returnTicketLabel.Visibility = Visibility.Hidden;
+                    returnTicketExpireLabel.Visibility = Visibility.Hidden;
+                    returnTicketExpireDate.Visibility = Visibility.Hidden;
+                }
+               
+                    
             }
             else
             {
@@ -827,6 +766,60 @@ namespace SyncfusionWpfApp1.gui
 
         }
 
-        
+        private void filterTrainRidesClicked(object sender, RoutedEventArgs e)
+        {
+            Train = (Train)TrainCombobox.SelectedItem;
+            double price = (double)priceFilter.Value;
+            TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, backTicket);
+
+            if (Train != null)
+            {
+                TrainRides = TrainLineService.filterTrainRidesByTrain(TrainRides, Train);
+            }
+            if(price != double.MinValue)
+            {
+                TrainRides = TrainLineService.filterTrainRidesByMaxPrice(TrainRides, price);
+            }
+            
+
+        }
+
+        private void cancleClicked(object sender, RoutedEventArgs e)
+        {
+            //povratak na pocetnu stranicu
+            //sve bindinge skloniti
+            frame.Content = new WelcomePageClient(frame);
+        }
+
+        private void removeBindings() { 
+
+        }
+
+        private void reservationTicketClicked(object sender, RoutedEventArgs e)
+        {
+            //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train, TrainStation from, TrainStation to
+            User client = UserService.findByEmail(MainRepository.CurrentUser);
+            Ticket ticket = new Ticket(client, SelectedRide, Seat);
+            ticket.bought = false;
+            MainRepository.Tickets.Add(ticket);
+            String message = "Karta je uspešno rezervisana. Neophodno je da izvršiti kupovinu karte do dan pred polazak. U suprotnom karta ne važi.";
+            MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
+            messageBox.Show();
+            frame.Content = new WelcomePageClient(frame);
+        }
+        private void buyTicketClicked(object sender, RoutedEventArgs e)
+        {
+            //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train, TrainStation from, TrainStation to
+            User client = UserService.findByEmail(MainRepository.CurrentUser);
+            Ticket ticket = new Ticket(client, SelectedRide, Seat);
+            MainRepository.Tickets.Add(ticket);
+            ticket.bought = true;
+            String message = "Karta je uspešno kupljena!";
+            MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
+            messageBox.Show();
+            frame.Content = new WelcomePageClient(frame);
+        }
+
+
     }
 }

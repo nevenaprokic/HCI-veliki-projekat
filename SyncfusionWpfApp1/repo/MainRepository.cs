@@ -246,7 +246,7 @@ namespace SyncfusionWpfApp1.repo
             return sortedTimes;
         }
 
-        public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, DateTime backDateTime)
+        public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, bool backTicket)
         {
             IEnumerable<TrainLine> matchingLines = selectMatchingTrainLine(startStation, endStation);
 
@@ -267,12 +267,14 @@ namespace SyncfusionWpfApp1.repo
                             {
                                 classPercent = 1.2;
                             }
+                            
 
                             double price = calculateRidePrice(line, startStation, endStation);
+                            if (backTicket) price = price * 1.5;
                             int travelDuration = calculateDepartureTime(line, startStation, endStation);
                             price = classPercent * price;
 
-                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, backDateTime, travelDuration, price);
+                            TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, travelDuration, price, backTicket);
                             trainRides.Add(ride);
 
                         }

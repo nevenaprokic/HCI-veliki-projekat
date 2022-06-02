@@ -1,0 +1,49 @@
+﻿<Window x:Class="SyncfusionWpfApp1.gui.MessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+        mc:Ignorable="d"
+        WindowStyle="None" ResizeMode="NoResize"
+        Title="Obaveštenje" Height="150" Width="350"
+        AllowsTransparency="True" Background="Transparent">
+    <Border BorderThickness="2" BorderBrush="Black" 
+    CornerRadius="20" Background="#E8F0F2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                <TextBlock x:Name="txtMessage" Width="420" 
+                FontSize="18" TextWrapping="Wrap" 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                TextAlignment="Center" />
+            </Viewbox>
+
+            <Viewbox Grid.Row="1" Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="ОК" x:Name="Ok" Margin="0, 0, 0, 5" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="Bisque" Foreground="#204060" 
+                            Click="Ok_clicked" IsCancel="True"
+                            FontWeight="SemiBold">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+            </Viewbox>
+        </Grid>
+    </Border>
+</Window>
