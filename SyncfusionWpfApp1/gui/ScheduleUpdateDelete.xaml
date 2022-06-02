@@ -610,7 +610,15 @@
                     <Label FontSize="20" Content="Izmena i brisanje reda vožnje" Foreground="#00264d" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 </Viewbox>
 
-                <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" l:HelpProvider.HelpKey="index" Command="ApplicationCommands.Help">x</Button>
+                <Button Grid.Row="0" Grid.Column="4" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                    <StackPanel Background="Transparent">
+                        <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
 
                 <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"

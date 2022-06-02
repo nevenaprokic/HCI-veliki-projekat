@@ -54,13 +54,21 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
             <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
                 <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Definisanje novog reda vožnje</TextBlock>
             </Viewbox>
 
-            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" l:HelpProvider.HelpKey="error" Command="ApplicationCommands.Help">x</Button>
+            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
 
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
