@@ -35,11 +35,11 @@ namespace SyncfusionWpfApp1.gui
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new NetworkLine(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new NetworkLine(frame);
         }
         private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
         {
