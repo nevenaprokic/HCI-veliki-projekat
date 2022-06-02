@@ -72,8 +72,9 @@ namespace SyncfusionWpfApp1.gui
 
             if (waypoints.Count < 2)
             {
-                MessageBox.Show("Need a minimum of 2 waypoints to calculate a route.");
-                return;
+                NotificationDialog dialog = new NotificationDialog("Potrebno je minimalno dva pina kako bi se ruta nacrtala!");
+                if ((bool)dialog.ShowDialog())
+                    return;
             }
 
             var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)("Walking"));
@@ -118,7 +119,10 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+
+                NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
+                if ((bool)dialog.ShowDialog())
+                    return;
             }
 
             LoadingBar.Visibility = Visibility.Collapsed;
