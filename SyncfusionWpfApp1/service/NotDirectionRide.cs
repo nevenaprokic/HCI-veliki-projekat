@@ -20,35 +20,26 @@ namespace SyncfusionWpfApp1.service
             directions = new List<DirectionItem>();
         }
 
-        public  List<List<TrainRide>> getNotDirectionsRide(TrainStation startStation, TrainStation endStation, DateTime startDateTime)
+        public  void getNotDirectionsRide(TrainStation startStation, TrainStation endStation, DateTime startDateTime)
         {
-           
-            List<List<TrainRide>> rides = new List<List<TrainRide>>();
-            List<DirectionItem> matchingDirections = new List<DirectionItem>();
             List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(startStation);
             
             foreach(TrainLine line in linesContainsStartStation)
             {
-                //Directions dir = new Directions();
-                /*dir.allStations = new List<TrainStation>();
-                dir.allStations.Add(startStation);
-                dir.directionItems = new List<DirectionItem>();*/
-
-                /* getDirections(line, startStation, endStation, dir);
-                 if (dir.allStations.ElementAt(dir.allStations.Count - 1).Id == endStation.Id)
-                 {
-                     matchingDirections.Add(dir);
-                 }*/
 
                 DirectionItem dir = new DirectionItem(line, startStation, null, 0, 0);
                 dir.parentStation = null;
-                dir.allStations = new List<TrainStation>();
-                dir.allStations.Add(startStation);
+                OrderedDictionary dictionary = new OrderedDictionary
+                {
+                    { startStation, new TrainStationInfo(0, 0)},
+                };
+                dir.allStations = new List<OrderedDictionary>();
+                dir.startStation = startStation;
+                dir.allStations.Add(dictionary);
                 findDirections(line, startStation, endStation, dir);
                 
             }
             filterUniqueDirections();
-            return rides;
         }
 
         private void filterUniqueDirections()
@@ -73,11 +64,11 @@ namespace SyncfusionWpfApp1.service
             if (first.allStations.Count != second.allStations.Count) return false;
 
             for (int i= 0; i < first.allStations.Count; i++) 
-            {
-                if(first.allStations.ElementAt(i).Id != second.allStations.ElementAt(i).Id)
+            {/*
+                if(first.allStations.ElementAt(i). != second.allStations.ElementAt(i).Id)
                 {
                     return false;
-                }
+                }*/
             }
             return true;
         }
@@ -97,11 +88,16 @@ namespace SyncfusionWpfApp1.service
             while (myEnumerator.MoveNext())
             {
                 nextTrainStation = (TrainStation)myEnumerator.Key;
-                dir.endStation = nextTrainStation;
-                if (!dir.allStations.Contains(nextTrainStation))
+                info = (TrainStationInfo)myEnumerator.Value;
+                OrderedDictionary d = new OrderedDictionary
                 {
-                    dir.allStations.Add(nextTrainStation);
-                    info = (TrainStationInfo)myEnumerator.Value;
+                    {nextTrainStation, info }
+                };
+                dir.endStation = nextTrainStation;
+                if (!dir.allStations.Contains(d))
+                {
+                    dir.allStations.Add(d);
+                    
                     dir.price = dir.price + info.Price;
                     dir.travelDuration = dir.travelDuration + info.FromDeparture;
 
@@ -130,15 +126,19 @@ namespace SyncfusionWpfApp1.service
 
         private void generateParentStations(DirectionItem currentDir)
         {
-            currentDir.allStations = new List<TrainStation>();
+            currentDir.allStations = new List<OrderedDictionary>();
             if(currentDir.parentStation != null)
             {
-                foreach (TrainStation station in currentDir.parentStation.allStations)
+
+                foreach (OrderedDictionary station in currentDir.parentStation.allStations)
                 {
+                    
                     if (!currentDir.allStations.Contains(station))
                     {
                         currentDir.allStations.Add(station);
                     }
+                    
+                    
                 }
             }
         }

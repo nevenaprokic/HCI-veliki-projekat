@@ -234,6 +234,10 @@
                 </Button>
             </Grid>
 
+            <Viewbox Grid.Row="13" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Left">
+                <Label x:Name="firstPageErrorLabel" Foreground="#CF1B0D" FontSize="15" Visibility="Hidden"></Label>
+            </Viewbox>
+
 
         </Grid>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace SyncfusionWpfApp1.dto
 
         public DirectionItem parentStation { get; set; }
 
-        public List<TrainStation> allStations { get; set; }
+        public List<OrderedDictionary> allStations { get; set; }
         public double price { get; set; }
 
         public DirectionItem(TrainLine line, TrainStation startStation, TrainStation endStation, int travelDuration, double price)

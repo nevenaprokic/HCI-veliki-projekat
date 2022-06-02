@@ -4,15 +4,36 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NotDirectlyTranferOptions">
 
+    <Page.Resources>
+        <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
+            <Setter Property="Background" Value="#E8F0F2" />
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#204060"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+        <Style TargetType="syncfusion:GridCell" x:Key="customCellStyle">
+            <Setter Property="BorderBrush" Value="#204060"/>
+            <Setter Property="BorderThickness" Value="0.4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="customTextBoxStyle">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#204060"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -24,8 +45,10 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
@@ -34,9 +57,9 @@
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -47,8 +70,188 @@
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
-            
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="17" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+
+            <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
+                <Label Content="Za izabrane stanice ne postoji direktna linija, ovo su ponude sa presedanjem" Foreground="#204060"></Label>
+            </Viewbox>
+
+            <Grid Grid.Column="3" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Background="Bisque" Foreground="#204060" FontWeight="SemiBold" x:Name="PrevoiusBtn">
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="27">
+                            <Image x:Name="BackArrow" HorizontalAlignment="Right"/>
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Prethodna ponuda" Background="Transparent" Foreground="#204060" FontSize="14" FontWeight="SemiBold"/>
+                            </Viewbox>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="3" Background="Bisque" Foreground="#204060" FontWeight="SemiBold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                    <Button.Content>
+                        <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" Orientation="Horizontal" 
+                        Background="Transparent" Height="27">
+                            <Viewbox HorizontalAlignment="Left">
+                                <Label Content="Naredna ponuda" Background="Transparent" Foreground="#204060" FontSize="14" FontWeight="SemiBold"/>
+                            </Viewbox>
+                            <Image x:Name="NextArrow" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="8" Background="White" 
+                                   ItemsSource="{Binding TrainRides}" 
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#9FC088"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   x:Name="TrainRidesDataGrid"
+                                  
+                                   >
+                <syncfusion:SfDataGrid.Columns>
+
+                    <syncfusion:GridTextColumn 
+                                    HeaderText="Polazište"
+                                    IsReadOnly="True"
+                                    ColumnSizer="Star"
+                                    >
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Odredište"
+                                   IsReadOnly="True"
+                                               ColumnSizer="AutoWithLastColumnFill"
+                                   
+                   >
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Vreme polaska"
+                                   IsReadOnly="True"
+                                   ColumnSizer="Star"
+                   >
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Vreme dolaska"
+                                   IsReadOnly="True"
+                                   ColumnSizer="Star"
+                   >
+
+                    </syncfusion:GridTextColumn>
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Voz"
+                                   IsReadOnly="True"
+                                   ColumnSizer="Star"
+                   ></syncfusion:GridTextColumn>
+                    
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Vagon"
+                                   IsReadOnly="True"
+                                   Width="70"
+                   ></syncfusion:GridTextColumn>
+                    
+                    <syncfusion:GridTextColumn 
+                                   HeaderText="Sedište"
+                                   IsReadOnly="True"
+                                   Width="70"
+                   ></syncfusion:GridTextColumn>
+
+
+                </syncfusion:SfDataGrid.Columns>
+
+            </syncfusion:SfDataGrid>
+
+            <Grid Grid.Row="15" Grid.Column="2" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" FontSize="15" Content="Odustani" x:Name="CancelBtnFirst" Background="#BB6464" Foreground="White" FontWeight="SemiBold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Grid.Column="3" FontSize="15" Content="Odustani" x:Name="CancelBtnSecond" Background="#BB6464" Foreground="White" FontWeight="SemiBold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Grid.Column="3" FontSize="15" Content="Rezerviši" Background="#FFA881" Foreground="White" FontWeight="SemiBold" x:Name="ReservBtn">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button Grid.Column="5" FontSize="15" Content="Kupi" Background="#9FC088"  x:Name="BoughtBtn" Foreground="White" FontWeight="SemiBold">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid >
+
+            <Grid Grid.Row="3" Grid.Column="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Row="0" Grid.Column="0" x:Name="TravelDurationIcon"></Image>
+                <Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Foreground="#204060" FontWeight="SemiBold" Content="Ukupno trjanaje putovanja: " FontSize="13"></Label>
+                </Viewbox>
+                <Viewbox Grid.Column="2" HorizontalAlignment="Left">
+                    <Label Content="2h 45 min" FontSize="13" Foreground="#204060" FontWeight="SemiBold"></Label> 
+                </Viewbox>
+            </Grid>
+
+            <Grid Grid.Row="14" Grid.RowSpan="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox HorizontalAlignment="Left">
+                    <Label Foreground="#204060" FontWeight="SemiBold" Content="Cena jednosmerne karte: " FontSize="13"></Label>
+                </Viewbox>
+                <Viewbox Grid.Column="1" HorizontalAlignment="Left">
+                    <Label  Foreground="#204060" FontWeight="SemiBold" Content="1200.00 din" FontSize="13"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="1" HorizontalAlignment="Left">
+                    <Label Foreground="#204060" FontWeight="SemiBold" Content="Cena povratne karte: " FontSize="13"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Foreground="#204060" FontWeight="SemiBold" Content="1500.00 din: " FontSize="13"></Label>
+                </Viewbox>
+            </Grid>
         </Grid>
+
+       
     </Grid>
 </Page>
