@@ -33,10 +33,16 @@ namespace SyncfusionWpfApp1.gui
         private List<DirectionItem> _allIndirectionRides;
 
         private DateTime _startDateTime;
+        private List<TrainRide> _ridesOnDirection;
+        private String _travelDurationMessage;
+        private double _oneWayPrice;
+        private double _twoWaysPrice;
 
         private Train _train { get; set; }
         private Seat _seat { get; set; }
         private Wagon _wagon { get; set; }
+
+
 
         public int SelectedRideIndex
         {
@@ -90,6 +96,58 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
+        public List<TrainRide> RidesOnDirection
+        {
+            get { return _ridesOnDirection; }
+            set
+            {
+                if(_ridesOnDirection != value)
+                {
+                    _ridesOnDirection = value;
+                    RaisePropertyChanged(nameof(RidesOnDirection));
+                }
+            }
+        }
+
+        public String TravelDuratonMessage
+        {
+            get { return _travelDurationMessage; }
+            set
+            {
+                if (_travelDurationMessage != value)
+                {
+                    _travelDurationMessage = value;
+                    RaisePropertyChanged(nameof(_travelDurationMessage));
+                }
+            }
+        }
+
+        public double OneWayPrice
+        {
+            get { return _oneWayPrice; }
+            set
+            {
+                if (_oneWayPrice != value)
+                {
+                    _oneWayPrice= value;
+                    RaisePropertyChanged(nameof(OneWayPrice));
+                }
+            }
+        }
+
+        public double TwoWaysPrice
+        {
+            get { return _twoWaysPrice; }
+            set
+            {
+                if (_twoWaysPrice != value)
+                {
+                    _twoWaysPrice = value;
+                    RaisePropertyChanged(nameof(TwoWaysPrice));
+                }
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -109,18 +167,24 @@ namespace SyncfusionWpfApp1.gui
 
         public NotDirectlyTranferOptions(TrainStation startStation, TrainStation endStation, DateTime startDateTime)
         {
-            InitializeComponent();
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
-            this.Background = myBrush;
             NotDirectionRideService service = new NotDirectionRideService();
             service.getNotDirectionsRide(startStation, endStation, startDateTime);
             AllIndirectionRides = service.directions;
             SelectedRideIndex = 0;
             StartDateTime = startDateTime;
+            SelectedRide = AllIndirectionRides.ElementAt(0);
+            RidesOnDirection = BindSelectedDirectionData();
+
+            InitializeComponent();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+            this.Background = myBrush;
             
             drawIcons();
             setButtons();
+
+            DataContext = this;
+           
         }
 
         private void drawIcons()
@@ -170,11 +234,11 @@ namespace SyncfusionWpfApp1.gui
             //ReservationMessageLabel.Visibility = Visibility.Hidden;
         }
 
-        private void BindSelectedDirectionData()
+        private List<TrainRide> BindSelectedDirectionData()
         {
-            List<TrainRide> ridesOnDirection = new List<TrainRide>();
+            List<TrainRide> rides = new List<TrainRide>();
             int index = 1;
-            while (index <= SelectedRide.allStations.Count)
+            while (index < SelectedRide.allStations.Count)
             {
                 OrderedDictionary d1 = SelectedRide.allStations.ElementAt(index - 1);
                 OrderedDictionary d2 = SelectedRide.allStations.ElementAt(index);
@@ -206,38 +270,74 @@ namespace SyncfusionWpfApp1.gui
                 ride.seat = _seat;
                 ride.price = endInfo.Price;
                 ride.travelDuration = endInfo.FromDeparture;
-                ride.arrivalTime = calculateTravelTime(index); //proveriti ovo 
-                ride.start = calculateSTartTime();
-            }
-        }
 
-        private DateTime calculateSTartTime()
-        {
-            //racunati preko pocetnog datuma i trajanja putovanja, pa naci najblize vreme u rasporedu
-            throw new NotImplementedException();
-        }
-
-        private DateTime calculateTravelTime(int index)
-        {
-            int minutes = 0;
-            int position = 1;
-            while (position <= index)
-            {
-                OrderedDictionary d1 = SelectedRide.allStations.ElementAt(position);
-                IDictionaryEnumerator d1Enumerator = d1.GetEnumerator();
-               
-                TrainStation start = null;
-                TrainStationInfo startInfo = null;
-                while (d1Enumerator.MoveNext())
+                if(index == 1)
                 {
-                    startInfo = (TrainStationInfo)d1Enumerator.Value;
-                    minutes += startInfo.FromDeparture;
+                    ride.start = calculateSTartTime(StartDateTime, start, end);
+                }
+                else
+                {
+                    TrainRide lastTrainLide = rides.Last();
+                    ride.start = calculateSTartTime(lastTrainLide.arrivalTime, start, end);
+                }
+               
+                ride.arrivalTime = ride.start.AddMinutes(endInfo.FromDeparture);
+                
+                rides.Add(ride);
+                index++;
+            }
+            calculateTravelDuration(rides);
+            calculatePrice(rides);
+            return rides;
+        }
 
+        private void calculateTravelDuration(List<TrainRide> rides)
+        {
+            TrainRide startRide = rides.First();
+            TrainRide lastRide = rides.Last();
+            double duration = (lastRide.arrivalTime - startRide.start).TotalMinutes;
+            double hours = duration / 60;
+            string[] hourTokens = hours.ToString().Split(".");
+            double minutes = duration - int.Parse(hourTokens[0]) * 60;
+            string[] minutesTokens = minutes.ToString().Split(".");
+            TravelDuratonMessage = hourTokens[0] + "h " + minutesTokens[0] + "min";
+        }
 
+        private DateTime calculateSTartTime(DateTime arrivalTime, TrainStation startStation, TrainStation endStation)
+        {
+            TrainLine matchingLine = TrainLineService.findMatchingLine(startStation, endStation);
+            //racunati preko pocetnog datuma i trajanja putovanja, pa naci najblize vreme u rasporedu
+            if(matchingLine != null)
+            {
+                List<DateTime> schedual = MainRepository.sortedDatesFromString(matchingLine.TimeSlots, arrivalTime);
+                DateTime closestTime = findNearestTime(arrivalTime, schedual);
+                return closestTime;
+            }
+            return arrivalTime.AddMinutes(15);
+            
+        }
+
+        private DateTime findNearestTime(DateTime arrivalTime, List<DateTime> schedual)
+        {
+            long min = long.MaxValue;
+            DateTime closestTime = schedual.ElementAt(0);
+
+            foreach (DateTime date in schedual)
+            {
+
+                if ((arrivalTime.Ticks - date.Ticks) < 0)
+                {
+                    if ((arrivalTime.Ticks - date.Ticks) < min)
+                    {
+                        min = arrivalTime.Ticks - date.Ticks;
+                        closestTime = date;
+                    }
                 }
             }
-            return StartDateTime.AddMinutes(minutes);
+            return closestTime;
+
         }
+
 
         private void findFirstTrainWithAwailableSeats(DirectionItem selectedRide, TrainStation start, TrainStation end, DateTime startDateTime)
         {
@@ -256,5 +356,17 @@ namespace SyncfusionWpfApp1.gui
                 }
             }
         }
+
+        private void calculatePrice(List<TrainRide> rides)
+        {
+            double price = 0;
+            foreach(TrainRide ride in rides)
+            {
+                price += ride.price;
+            }
+            OneWayPrice = price;
+            TwoWaysPrice = price * 1.5;
+
+        } 
     }
 }

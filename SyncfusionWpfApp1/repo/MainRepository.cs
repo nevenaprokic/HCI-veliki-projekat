@@ -233,7 +233,21 @@ namespace SyncfusionWpfApp1.repo
             return sortTime(times, date);
         }
 
-        private static List<String> sortTime(List<String> times, DateTime selectedDate)
+        public static List<String> sortTime(List<String> times, DateTime selectedDate)
+        {
+            List<DateTime> dates = sortedDatesFromString(times, selectedDate);
+
+            List<String> sortedTimes = new List<string>();
+            foreach (DateTime date in dates)
+            {
+                String time = date.TimeOfDay.ToString();
+                sortedTimes.Add(time);
+            }
+
+            return sortedTimes;
+        }
+
+        public static List<DateTime> sortedDatesFromString(List<String> times, DateTime selectedDate)
         {
             List<DateTime> dates = new List<DateTime>();
             foreach (String time in times)
@@ -245,14 +259,7 @@ namespace SyncfusionWpfApp1.repo
             }
             dates.Sort((x, y) => x.CompareTo(y));
 
-            List<String> sortedTimes = new List<string>();
-            foreach (DateTime date in dates)
-            {
-                String time = date.TimeOfDay.ToString();
-                sortedTimes.Add(time);
-            }
-
-            return sortedTimes;
+            return dates;
         }
 
         public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, bool backTicket)

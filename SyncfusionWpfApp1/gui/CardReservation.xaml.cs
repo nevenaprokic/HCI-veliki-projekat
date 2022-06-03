@@ -545,7 +545,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void offerNotDirectlyTravel()
         {
-            frame.Content = new NotDirectlyTranferOptions(StartStation, EndStation, StartDateTime);
+            frame.Content = new NotDirectlyTranferOptions(StartStation, EndStation, StartDate);
         }
 
         private void disableReservationOption()

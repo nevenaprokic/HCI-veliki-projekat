@@ -76,7 +76,21 @@ namespace SyncfusionWpfApp1.service
             return null;
         }
 
+        //funkcija koja pronalazi liniju u kojoj su prosledjene stanice susedne
+        public static TrainLine findMatchingLine(TrainStation startStation, TrainStation endStation)
+        {
+            IEnumerable<TrainLine> matchingLines = MainRepository.selectMatchingTrainLine(startStation, endStation);
+            foreach (TrainLine line in matchingLines)
+            {
+                if(MainRepository.GetIndex(startStation, line) - MainRepository.GetIndex(endStation, line) == 1)
+                {
+                    return line;
+                }
+            }
+            return null;
+        }
     }
+
 
     
 }

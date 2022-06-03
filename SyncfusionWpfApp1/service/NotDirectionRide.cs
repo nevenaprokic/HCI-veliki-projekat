@@ -43,7 +43,7 @@ namespace SyncfusionWpfApp1.service
         }
 
         private void filterUniqueDirections()
-        {
+        {/*
             for (int i= 0; i<directions.Count; i++)
             {
                 for (int j =0; j<directions.Count; j++)
@@ -56,7 +56,7 @@ namespace SyncfusionWpfApp1.service
                         }
                     }
                 }
-            }
+            }*/
         }
 
         private bool compareDirectionItems(DirectionItem first, DirectionItem second)
