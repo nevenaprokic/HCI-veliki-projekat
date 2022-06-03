@@ -96,7 +96,7 @@ namespace SyncfusionWpfApp1.gui
         {
             int forRemove = dataGrid.SelectedIndex;
             RowDataTrainLine t = dataGrid.SelectedItem as RowDataTrainLine;
-            EditTrainLine line = new EditTrainLine(t);
+            EditTrainLine line = new EditTrainLine(t.Id, frame);
             line.Show();
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)

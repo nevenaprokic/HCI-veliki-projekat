@@ -96,7 +96,7 @@ namespace SyncfusionWpfApp1.repo
             TrainStation ts14 = new TrainStation("Zeleznicka bb", 8, "Srbija", "Ripanj", 14);
             TrainStation ts15 = new TrainStation("Put za Kolarusu", 7, "Srbija", "Ripanj-tunel", 15);
             TrainStation ts16 = new TrainStation("Veliki Crljeni", 148, "Srbija", "Stepojevac", 16);
-            TrainStation ts17 = new TrainStation("Zeleznica stanice Bar", 1, "Srbija", "Bar", 17);
+            TrainStation ts17 = new TrainStation("Željeznicka Stanica Bar", 46, "Crna Gora", "Bar", 17);
 
             trainStations = new List<TrainStation> { ts1, ts2, ts3, ts4, ts5, ts6,
                 ts7, ts8, ts9, ts10, ts11, ts12, ts13, ts14, ts15, ts16};
@@ -120,13 +120,13 @@ namespace SyncfusionWpfApp1.repo
 
 
             // trainline1
+            //Dictionary<TrainStation, TrainStationInfo> dictTL34 = new Dictionary<TrainStation, TrainStationInfo>();
             OrderedDictionary dictTL1 = new OrderedDictionary
             {
                 { ts2, info1 },
                 { ts3, info2 },
                 { ts4, info3 },
-                { ts5, info4 },
-                { ts6, info5 }
+                { ts5, info4 }
             };
             TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1 }, schedule1, schedule2, 300, dictTL1, 0);
 
@@ -146,12 +146,10 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info10 = new TrainStationInfo(20, 1500);
             OrderedDictionary dictTL3 = new OrderedDictionary
             {
-                 { ts2, info1 },
-                { ts3, info2 },
-                { ts6, info5 },
                 { ts11, info8 },
-                { ts16, info10 },
-                { ts12, info9 }
+                { ts12, info9 },
+                { ts16, info10 }
+               
             };
             TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t1, t2 }, schedule1, schedule2, 2000, dictTL3, 2);
             trainLines = new List<TrainLine> { tl1, tl2, tl3 };
