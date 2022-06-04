@@ -16,31 +16,29 @@ using System.Windows.Shapes;
 namespace SyncfusionWpfApp1.gui
 {
     /// <summary>
-    /// Interaction logic for WelcomePageClient.xaml
+    /// Interaction logic for TicketsOverview.xaml
     /// </summary>
-    public partial class WelcomePageClient : Page
+    public partial class TicketsOverview : Page
     {
-        private Frame frame;
-
-        public WelcomePageClient(Frame f)
+        Frame frame { get; set; }
+        public TicketsOverview(Frame f)
         {
             InitializeComponent();
             frame = f;
             Uri iconUriMail = new Uri("../../../images/proba.png", UriKind.RelativeOrAbsolute);
-            //logoIcon.Source = BitmapFrame.Create(iconUriMail);
+            
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-
         }
+
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            //frame.Content = new CardReservation(frame);
-            frame.Content = new TicketsOverview(frame);
+            frame.Content = new CardReservation(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TicketsOverview(frame);
+
         }
         private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
         {
@@ -48,23 +46,23 @@ namespace SyncfusionWpfApp1.gui
         }
         private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void Schedule_Handler(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            
+
         }
         private void Train_Handler(object sender, RoutedEventArgs e)
         {
-           
+
 
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
@@ -108,6 +106,11 @@ namespace SyncfusionWpfApp1.gui
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;
+        }
+
+        private void TicketDetailsClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
