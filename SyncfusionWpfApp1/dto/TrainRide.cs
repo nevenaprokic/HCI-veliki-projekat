@@ -24,7 +24,10 @@ namespace SyncfusionWpfApp1.dto
 
         public Seat seat { get; set; }
 
+        //potrebni podaci za iscrtavanje voznje sa presedanjems
         public DateTime arrivalTime {get; set;}
+        
+        public String RowColor { get; set; }
        
 
         public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start,int travelDuration, double price, bool backTicket)

@@ -18,6 +18,7 @@ namespace SyncfusionWpfApp1.service
             IEnumerable<TrainRide> filterdRides = from ride in rides
                                                   where ride.train == train
                                                   select ride;
+            
             return filterdRides.ToList();
         }
 
@@ -26,14 +27,18 @@ namespace SyncfusionWpfApp1.service
             IEnumerable<TrainRide> filterdRides = from ride in rides
                                                   where ride.price <= maxPrice
                                                   select ride;
+
             return filterdRides.ToList();
         }
 
         public static List<TrainLine> getLinesWhichContainesStation(TrainStation startStation)
         {
             IEnumerable<TrainLine> lines = from line in MainRepository.trainLines
-                                           where line.Map.Contains(startStation)
+                                           where (line.Map.Contains(startStation) 
+                                                   || line.Start.Id == startStation.Id 
+                                                   || line.End.Id == startStation.Id)
                                            select line;
+      
             return lines.ToList();
         }
 
@@ -82,12 +87,24 @@ namespace SyncfusionWpfApp1.service
             IEnumerable<TrainLine> matchingLines = MainRepository.selectMatchingTrainLine(startStation, endStation);
             foreach (TrainLine line in matchingLines)
             {
-                if(MainRepository.GetIndex(startStation, line) - MainRepository.GetIndex(endStation, line) == 1)
+                if(MainRepository.GetIndex(endStation, line) - MainRepository.GetIndex(startStation, line) == 1)
                 {
                     return line;
                 }
             }
             return null;
+        }
+
+        public static List<TrainLine> combileListOfTrainLines(List<TrainLine> first, List<TrainLine> second)
+        {
+            foreach(TrainLine line in second)
+            {
+                if (!first.Contains(line))
+                {
+                    first.Add(line);
+                }
+            }
+            return first;
         }
     }
 

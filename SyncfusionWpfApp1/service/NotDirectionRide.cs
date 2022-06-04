@@ -14,6 +14,7 @@ namespace SyncfusionWpfApp1.service
     public class NotDirectionRideService
     {
         public  List<DirectionItem> directions { get; set; }
+        private List<OrderedDictionary> stations { get; set; }
 
         public NotDirectionRideService()
         {
@@ -43,20 +44,20 @@ namespace SyncfusionWpfApp1.service
         }
 
         private void filterUniqueDirections()
-        {/*
-            for (int i= 0; i<directions.Count; i++)
+        {
+            for (int i = 0; i < directions.Count; i++)
             {
-                for (int j =0; j<directions.Count; j++)
+                for (int j = 0; j < directions.Count; j++)
                 {
-                    if(i != j)
+                    if (i != j)
                     {
-                        if(compareDirectionItems(directions.ElementAt(i), directions.ElementAt(j)))
+                        if (compareDirectionItems(directions.ElementAt(i), directions.ElementAt(j)))
                         {
                             directions.RemoveAt(j);
                         }
                     }
                 }
-            }*/
+            }
         }
 
         private bool compareDirectionItems(DirectionItem first, DirectionItem second)
@@ -64,11 +65,9 @@ namespace SyncfusionWpfApp1.service
             if (first.allStations.Count != second.allStations.Count) return false;
 
             for (int i= 0; i < first.allStations.Count; i++) 
-            {/*
-                if(first.allStations.ElementAt(i). != second.allStations.ElementAt(i).Id)
-                {
-                    return false;
-                }*/
+            {
+                return (first.allStations.ElementAt(i).Count == second.allStations.ElementAt(i).Count
+                    && first.allStations.ElementAt(i).Equals(second.allStations.ElementAt(i)));
             }
             return true;
         }
@@ -103,6 +102,11 @@ namespace SyncfusionWpfApp1.service
 
                     if (nextTrainStation.Id == endStation.Id)
                     {
+                        /*stations = new List<OrderedDictionary>();
+                        saveGoalRide(dir);
+                        stations.Reverse();
+                        dir.allStations = stations;
+                        dir.allStations.Add(d);*/
                         directions.Add(dir);
                         return;
                     }
@@ -122,6 +126,28 @@ namespace SyncfusionWpfApp1.service
             }
             
            
+        }
+
+        private void saveGoalRide(DirectionItem dir)
+        {
+            if (dir.parentStation == null)
+            {
+                OrderedDictionary dictionary = new OrderedDictionary
+                {
+                    { dir.startStation, new TrainStationInfo(dir.travelDuration, dir.price)}
+                };
+                stations.Add(dictionary);
+                return;
+            }
+            else
+            {
+                OrderedDictionary dictionary = new OrderedDictionary
+                {
+                    { dir.parentStation.endStation, new TrainStationInfo(dir.travelDuration, dir.price)}
+                };
+                stations.Add(dictionary);
+                saveGoalRide(dir.parentStation);
+            }
         }
 
         private void generateParentStations(DirectionItem currentDir)

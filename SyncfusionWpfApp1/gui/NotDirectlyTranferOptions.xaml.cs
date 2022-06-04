@@ -27,8 +27,12 @@ namespace SyncfusionWpfApp1.gui
     /// </summary>
     public partial class NotDirectlyTranferOptions : Page, INotifyPropertyChanged
     {
+        public Frame frame { get; set; }
+        private String[] RowColors = { "#CDE6D8", "#F6EBDA", "#DEDAF6", "#DAF6EB", "#DEDAF6", "#DEDAF6" };
+        private int colorIndex = 0;
         private int _selectedRideIndex;
         private DirectionItem _selectedRide;
+        private DateTime travelStart { get; set; }
 
         private List<DirectionItem> _allIndirectionRides;
 
@@ -37,19 +41,45 @@ namespace SyncfusionWpfApp1.gui
         private String _travelDurationMessage;
         private double _oneWayPrice;
         private double _twoWaysPrice;
+        private Brush _rowBackgound;
+        private bool _selectedTwoWays;
 
         private Train _train { get; set; }
         private Seat _seat { get; set; }
         private Wagon _wagon { get; set; }
 
+        public bool SelectedTwoWays
+        {
+            get { return _selectedTwoWays; }
+            set
+            {
+                if (_selectedTwoWays != value)
+                {
+                    _selectedTwoWays = value;
+                    RaisePropertyChanged(nameof(SelectedTwoWays));
+                }
+            }
+        }
 
+        public Brush RowBackground
+        {
+            get { return _rowBackgound; }
+            set
+            {
+                if (_rowBackgound != value)
+                {
+                    _rowBackgound = value;
+                    RaisePropertyChanged(nameof(RowBackground));
+                }
+            }
+        }
 
         public int SelectedRideIndex
         {
-            get { return _selectedRideIndex;  }
+            get { return _selectedRideIndex; }
             set
             {
-                if(_selectedRideIndex != value)
+                if (_selectedRideIndex != value)
                 {
                     _selectedRideIndex = value;
                     RaisePropertyChanged(nameof(SelectedRideIndex));
@@ -101,7 +131,7 @@ namespace SyncfusionWpfApp1.gui
             get { return _ridesOnDirection; }
             set
             {
-                if(_ridesOnDirection != value)
+                if (_ridesOnDirection != value)
                 {
                     _ridesOnDirection = value;
                     RaisePropertyChanged(nameof(RidesOnDirection));
@@ -129,7 +159,7 @@ namespace SyncfusionWpfApp1.gui
             {
                 if (_oneWayPrice != value)
                 {
-                    _oneWayPrice= value;
+                    _oneWayPrice = value;
                     RaisePropertyChanged(nameof(OneWayPrice));
                 }
             }
@@ -165,7 +195,7 @@ namespace SyncfusionWpfApp1.gui
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
-        public NotDirectlyTranferOptions(TrainStation startStation, TrainStation endStation, DateTime startDateTime)
+        public NotDirectlyTranferOptions(Frame frame, TrainStation startStation, TrainStation endStation, DateTime startDateTime, bool backTicket)
         {
             NotDirectionRideService service = new NotDirectionRideService();
             service.getNotDirectionsRide(startStation, endStation, startDateTime);
@@ -179,12 +209,34 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-            
+            this.frame = frame;
+            this.SelectedTwoWays = backTicket;
+
+            setPriceLabels();
+
             drawIcons();
             setButtons();
 
             DataContext = this;
-           
+
+        }
+
+        private void setPriceLabels()
+        {
+            if (SelectedTwoWays)
+            {
+                BackTicketLabel.Visibility = Visibility.Visible;
+                BackTicketPrice.Visibility = Visibility.Visible;
+                OneWayTicketLabel.Visibility = Visibility.Hidden;
+                OneWayTicketPrice.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                BackTicketLabel.Visibility = Visibility.Hidden;
+                BackTicketPrice.Visibility = Visibility.Hidden;
+                OneWayTicketLabel.Visibility = Visibility.Visible;
+                OneWayTicketPrice.Visibility = Visibility.Visible;
+            }
         }
 
         private void drawIcons()
@@ -199,7 +251,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void setButtons()
         {
-            if(SelectedRideIndex == 0)
+            if (SelectedRideIndex == 0)
             {
                 PrevoiusBtn.Visibility = Visibility.Hidden;
             }
@@ -236,6 +288,7 @@ namespace SyncfusionWpfApp1.gui
 
         private List<TrainRide> BindSelectedDirectionData()
         {
+            colorIndex = 0;
             List<TrainRide> rides = new List<TrainRide>();
             int index = 1;
             while (index < SelectedRide.allStations.Count)
@@ -271,24 +324,47 @@ namespace SyncfusionWpfApp1.gui
                 ride.price = endInfo.Price;
                 ride.travelDuration = endInfo.FromDeparture;
 
-                if(index == 1)
+                if (index == 1)
                 {
-                    ride.start = calculateSTartTime(StartDateTime, start, end);
+                    TrainLine line = TrainLineService.findMatchingLine(start, end);
+                    List<DateTime> schedual = MainRepository.sortedDatesFromString(line.TimeSlots, StartDateTime);
+                    DateTime startTime = findNearestTime(StartDateTime, schedual);
+                    ride.start = startTime;
+                    travelStart = startTime;
+                    ride.RowColor = RowColors[0];
+                    
                 }
                 else
                 {
                     TrainRide lastTrainLide = rides.Last();
-                    ride.start = calculateSTartTime(lastTrainLide.arrivalTime, start, end);
+                    ride.start = calculateSTartTime(lastTrainLide.arrivalTime, lastTrainLide, ride);
+                    ride.RowColor = generateRowColor(rides.Last(), ride);
+                   
                 }
-               
+
                 ride.arrivalTime = ride.start.AddMinutes(endInfo.FromDeparture);
-                
+
                 rides.Add(ride);
                 index++;
             }
             calculateTravelDuration(rides);
             calculatePrice(rides);
             return rides;
+        }
+
+        private String generateRowColor(TrainRide prevodiusRide, TrainRide currentRide)
+        {
+            TrainLine firstLine = TrainLineService.findMatchingLine(prevodiusRide.startStation, prevodiusRide.endStation);
+            TrainLine secondLine = TrainLineService.findMatchingLine(currentRide.startStation, currentRide.endStation);
+            if (firstLine == null || secondLine == null)
+            {
+                colorIndex++;
+            }
+            else if (firstLine.Id != secondLine.Id)
+            {
+                colorIndex++;
+            }
+            return RowColors[colorIndex];
         }
 
         private void calculateTravelDuration(List<TrainRide> rides)
@@ -303,18 +379,36 @@ namespace SyncfusionWpfApp1.gui
             TravelDuratonMessage = hourTokens[0] + "h " + minutesTokens[0] + "min";
         }
 
-        private DateTime calculateSTartTime(DateTime arrivalTime, TrainStation startStation, TrainStation endStation)
+        private DateTime calculateSTartTime(DateTime arrivalTime, TrainRide prevodiusRide, TrainRide currentRide)
         {
-            TrainLine matchingLine = TrainLineService.findMatchingLine(startStation, endStation);
+            //TrainLine matchingLine = TrainLineService.findMatchingLine(startStation, endStation);
+            TrainLine firstLine = TrainLineService.findMatchingLine(prevodiusRide.startStation, prevodiusRide.endStation);
+            TrainLine secondLine = TrainLineService.findMatchingLine(currentRide.startStation, currentRide.endStation);
+            //ako su razlicite linije, doslo je do presedanja i trazi se prvi polazak nakon dolaska
+            if (firstLine == null || secondLine == null)
+            {
+                return arrivalTime.AddMinutes(15);
+            }
+            else if (firstLine.Id != secondLine.Id)
+            {
+                List<DateTime> schedual = MainRepository.sortedDatesFromString(secondLine.TimeSlots, arrivalTime);
+                DateTime closestTime = findNearestTime(arrivalTime, schedual);
+                return closestTime;
+            }
+            else
+            {
+                //ako je ista linija onda je preme stizanja jednako vremenu polaska
+                return arrivalTime;
+            }
             //racunati preko pocetnog datuma i trajanja putovanja, pa naci najblize vreme u rasporedu
-            if(matchingLine != null)
+         /*   if (matchingLine != null)
             {
                 List<DateTime> schedual = MainRepository.sortedDatesFromString(matchingLine.TimeSlots, arrivalTime);
                 DateTime closestTime = findNearestTime(arrivalTime, schedual);
                 return closestTime;
             }
-            return arrivalTime.AddMinutes(15);
-            
+            return arrivalTime.AddMinutes(15);*/
+
         }
 
         private DateTime findNearestTime(DateTime arrivalTime, List<DateTime> schedual)
@@ -325,13 +419,15 @@ namespace SyncfusionWpfApp1.gui
             foreach (DateTime date in schedual)
             {
 
-                if ((arrivalTime.Ticks - date.Ticks) < 0)
+                if ((arrivalTime.Ticks - date.Ticks) <= 0)
                 {
-                    if ((arrivalTime.Ticks - date.Ticks) < min)
+                    if (Math.Abs(arrivalTime.Ticks - date.Ticks) < min)
                     {
-                        min = arrivalTime.Ticks - date.Ticks;
+                        min = Math.Abs(arrivalTime.Ticks - date.Ticks);
                         closestTime = date;
+                        
                     }
+                        
                 }
             }
             return closestTime;
@@ -347,7 +443,7 @@ namespace SyncfusionWpfApp1.gui
                 foreach (Train train in line.Trains)
                 {
                     List<Seat> awailableSeats = SeatService.getLineAwailableSeats(line, train, start, startDateTime);
-                    if(awailableSeats.Count > 0)
+                    if (awailableSeats.Count > 0)
                     {
                         _train = train;
                         _seat = awailableSeats.ElementAt(0);
@@ -360,13 +456,171 @@ namespace SyncfusionWpfApp1.gui
         private void calculatePrice(List<TrainRide> rides)
         {
             double price = 0;
-            foreach(TrainRide ride in rides)
+            foreach (TrainRide ride in rides)
             {
                 price += ride.price;
             }
             OneWayPrice = price;
             TwoWaysPrice = price * 1.5;
 
-        } 
+        }
+
+        public void PrevoiusBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            SelectedRideIndex--;
+            SelectedRide = AllIndirectionRides.ElementAt(SelectedRideIndex);
+            RidesOnDirection = BindSelectedDirectionData();
+            if (SelectedRideIndex == 0)
+            {
+                PrevoiusBtn.Visibility = Visibility.Hidden;
+                NextBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PrevoiusBtn.Visibility = Visibility.Visible;
+                NextBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void NextBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            SelectedRideIndex++;
+            SelectedRide = AllIndirectionRides.ElementAt(SelectedRideIndex);
+            RidesOnDirection = BindSelectedDirectionData();
+            if(SelectedRideIndex == AllIndirectionRides.Count - 1)
+            {
+                NextBtn.Visibility = Visibility.Hidden;
+                PrevoiusBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PrevoiusBtn.Visibility = Visibility.Visible;
+                NextBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void cancleClicked(object sender, RoutedEventArgs e)
+        {
+            //povratak na pocetnu stranicu
+            //sve bindinge skloniti
+            frame.Content = new WelcomePageClient(frame);
+        }
+
+        private void removeBindings()
+        {
+
+        }
+
+        private void reservationTicketClicked(object sender, RoutedEventArgs e)
+        {
+            //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train, TrainStation from, TrainStation to
+            User client = UserService.findByEmail(MainRepository.CurrentUser);
+            double price = OneWayPrice;
+            if (SelectedTwoWays)
+            {
+                price = TwoWaysPrice;
+            }
+            SelectedRide.selectedReturnDirection = SelectedTwoWays;
+            Ticket ticket = new Ticket(client, SelectedRide, price, travelStart);
+            ticket.bought = false;
+            MainRepository.Tickets.Add(ticket);
+            String message = "Karta je uspešno rezervisana. Neophodno je da izvršiti kupovinu karte do dan pred polazak. U suprotnom karta ne važi.";
+            MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
+            messageBox.Show();
+            frame.Content = new WelcomePageClient(frame);
+        }
+        private void buyTicketClicked(object sender, RoutedEventArgs e)
+        {
+            //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train, TrainStation from, TrainStation to
+            User client = UserService.findByEmail(MainRepository.CurrentUser);
+            double price = OneWayPrice;
+            if (SelectedTwoWays)
+            {
+                price = TwoWaysPrice;
+            }
+            SelectedRide.selectedReturnDirection = SelectedTwoWays;
+            Ticket ticket = new Ticket(client, SelectedRide, price, travelStart);
+            MainRepository.Tickets.Add(ticket);
+            ticket.bought = true;
+            String message = "Karta je uspešno kupljena!";
+            MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
+            messageBox.Show();
+            frame.Content = new WelcomePageClient(frame);
+        }
+        private void TicketReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CardReservation(frame);
+        }
+        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Train_Handler(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_ticket.Visibility = Visibility.Collapsed;
+                tt_schedule.Visibility = Visibility.Collapsed;
+                tt_trainLine.Visibility = Visibility.Collapsed;
+                tt_maps.Visibility = Visibility.Collapsed;
+                tt_trainLineReport.Visibility = Visibility.Collapsed;
+                tt_train.Visibility = Visibility.Collapsed;
+                tt_report_monthly.Visibility = Visibility.Collapsed;
+                tt_signout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_ticket.Visibility = Visibility.Visible;
+                tt_schedule.Visibility = Visibility.Visible;
+                tt_trainLine.Visibility = Visibility.Visible;
+                tt_maps.Visibility = Visibility.Visible;
+                tt_trainLineReport.Visibility = Visibility.Visible;
+                tt_train.Visibility = Visibility.Visible;
+                tt_report_monthly.Visibility = Visibility.Visible;
+                tt_signout.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // img_bg.Opacity = 1;
+        }
+
+        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+            //img_bg.Opacity = 0.3;
+        }
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
     }
 }
