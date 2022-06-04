@@ -47,6 +47,10 @@ namespace SyncfusionWpfApp1.repo
             Wagon w3 = new Wagon(3, 20, WagonClass.SECOND, 1);
             Wagon w4 = new Wagon(4, 24, WagonClass.FIRST, 3);
             Wagon w5 = new Wagon(5, 27, WagonClass.FIRST, 4);
+            Wagon w6 = new Wagon(6, 27, WagonClass.FIRST, 1);
+            Wagon w7 = new Wagon(7, 27, WagonClass.FIRST, 2);
+            Wagon w8 = new Wagon(8, 27, WagonClass.SECOND, 1);
+            Wagon w9 = new Wagon(9, 27, WagonClass.FIRST, 1);
 
             // wagon1 seats
             seats = new List<Seat>();
@@ -64,17 +68,36 @@ namespace SyncfusionWpfApp1.repo
             // wagon5 seats
             for (int i = 0; i < w5.NumberOfSeats; i++) seats.Add(new Seat(w5, i + 1));
 
+            // wagon6 seats
+            for (int i = 0; i < w6.NumberOfSeats; i++) seats.Add(new Seat(w6, i + 1));
+
+            // wagon7 seats
+            for (int i = 0; i < w7.NumberOfSeats; i++) seats.Add(new Seat(w7, i + 1));
+
+            // wagon8 seats
+            for (int i = 0; i < w8.NumberOfSeats; i++) seats.Add(new Seat(w8, i + 1));
+
+            // wagon9 seats
+            for (int i = 0; i < w9.NumberOfSeats; i++) seats.Add(new Seat(w9, i + 1));
+
             //trains
             List<Train> trains = new List<Train>();
-            Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2, w4, w5 });
-            Train t2 = new Train("5000 Voz Srbija", new List<Wagon> { w3 });
+            Train t1 = new Train("5432 Soko", new List<Wagon> { w1, w2, w4, w5 }, true);
+            Train t2 = new Train("5000 Voz Srbija", new List<Wagon> { w3 }, true);
+            Train t3 = new Train("5023 Voz Srbija", new List<Wagon> { w6,w7 }, true);
+            Train t4 = new Train("5055 Voz Srbija", new List<Wagon> { w8 }, false);
+            Train t5 = new Train("5053 Voz Srbija", new List<Wagon> { w9 }, false);
 
-            Wagons = new List<Wagon> { w1, w2, w3, w4, w5 };
+
+            Wagons = new List<Wagon> { w1, w2, w3, w4, w5, w6, w7, w8, w9 };
 
             //trains
             trains.Add(t1);
             trains.Add(t2);
-            Trains = new List<Train> { t1, t2 };
+            trains.Add(t3);
+            trains.Add(t4);
+            trains.Add(t5);
+            Trains = new List<Train> { t1, t2, t3, t4, t5 };
 
             //train stations
             TrainStation ts1 = new TrainStation("Bulevar Jase Tomica", 4, "Srbija", "Novi Sad", 1);
@@ -151,7 +174,7 @@ namespace SyncfusionWpfApp1.repo
                 { ts16, info10 }
                
             };
-            TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t1, t2 }, schedule1, schedule2, 2000, dictTL3, 2);
+            TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t3 }, schedule1, schedule2, 2000, dictTL3, 2);
             trainLines = new List<TrainLine> { tl1, tl2, tl3 };
 
             //tickets

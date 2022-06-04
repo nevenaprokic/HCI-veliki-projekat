@@ -33,7 +33,12 @@ namespace SyncfusionWpfApp1.Model
 
         public int Id { get; set; }
 
+        public TrainLine DeepCopy()
+        {
 
-        
+            TrainLine deepcopyTrainLine = new TrainLine( this.Start,  this.End, this.Trains, this.TimeSlots, this.TimeSlotsWeekend, this.Price, this.Map, this.Id);
+            return deepcopyTrainLine;
+        }
+
     }
 }

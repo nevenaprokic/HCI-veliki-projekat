@@ -38,5 +38,10 @@ namespace SyncfusionWpfApp1.Model
             TrainStation ts = (TrainStation)obj;
             return Name.Equals(ts.Name);
         }
+        public TrainStation DeepCopy()
+        {
+            TrainStation deepcopyTrainStation = new TrainStation(this.Street, this.Number, this.Country, this.City, this.Id);
+            return deepcopyTrainStation;
+        }
     }
 }
