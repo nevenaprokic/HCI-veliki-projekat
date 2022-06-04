@@ -69,6 +69,11 @@ namespace SyncfusionWpfApp1.gui
         {
             if (validInput())
             {
+                if (TimeAlreadyExists())
+                {
+                    messageLabel.Content = "Time already exists!";
+                    return;
+                }
                 SelectedSchedule.Times.Add(newTime.Text);
                 SelectedSchedule.Times = sortTimes();
                 drawTable();
@@ -79,6 +84,16 @@ namespace SyncfusionWpfApp1.gui
             {
                 messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
             }
+        }
+
+        private bool TimeAlreadyExists()
+        {
+            foreach (string s in SelectedSchedule.Times)
+            {
+                if (newTime.Text == s)
+                    return true;
+            }
+            return false;
         }
 
         private void GenerateRows_Handler(object sender, RoutedEventArgs e)
@@ -237,5 +252,6 @@ namespace SyncfusionWpfApp1.gui
         {
             frame.Content = new ScheduleUpdateDelete(frame);
         }
+
     }
 }

@@ -82,6 +82,11 @@ namespace SyncfusionWpfApp1.gui
         {
             if (validInput())
             {
+                if (TimeAlreadyExists())
+                {
+                    messageLabel.Content = "Time already exists!";
+                    return;
+                }
                 SelectedSchedule.Times.Add(newTime.Text);
                 SelectedSchedule.Times = sortTimes();
                 drawTable();
@@ -92,6 +97,16 @@ namespace SyncfusionWpfApp1.gui
             {
                 messageLabel.Content = "Neispravan format. Probajte 'HH:mm'!";
             }
+        }
+
+        private bool TimeAlreadyExists()
+        {
+            foreach (string s in SelectedSchedule.Times)
+            {
+                if (newTime.Text == s)
+                    return true;
+            }
+            return false;
         }
 
         private bool validInput()
@@ -130,7 +145,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void DeleteSchedule_Handler(object sender, RoutedEventArgs e)
         {
-            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši raspored?");
+            ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši red vožnje?");
             if ((bool)cofirmDialog.ShowDialog())
             {
                 Schedules.Remove(SelectedSchedule);

@@ -3,7 +3,6 @@ using BingMapsRESTToolkit.Extensions;
 using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,59 +15,41 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SyncfusionWpfApp1.Model;
-using SyncfusionWpfApp1.repo;
-using System.Collections;
 
 namespace SyncfusionWpfApp1.gui
 {
-    public partial class NetworkTrainLine : Page
+    /// <summary>
+    /// Interaction logic for Page1.xaml
+    /// </summary>
+    public partial class Page1 : Page
     {
-        private Frame frame;
+        #region Private Properties
+
         private string BingMapsKey = "AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6";
 
         private string SessionKey;
-        private List<SimpleWaypoint> waypoints = new List<SimpleWaypoint>();
-        public ObservableCollection<TrainLine> TrainLines { get; set; }
+        private Frame frame;
+        #endregion
 
-        public NetworkTrainLine(Frame f)
+        public Page1(Frame f)
         {
             InitializeComponent();
             frame = f;
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
-            this.Background = myBrush;
-
-            TrainLines = new ObservableCollection<TrainLine>(MainRepository.trainLines);
-            foreach(TrainLine t in TrainLines)
-            {
-                comboLines.Items.Add(t.Start.Name + " - " + t.End.Name);
-            }
-            comboLines.SelectedItem = 0;
-
-            DataContext = this;
-
-            MainMap.Mode = new RoadMode();
-            MainMap.Focus();
-            MainMap.Culture = "sr-Latn-RS";
-            MainMap.CredentialsProvider = new ApplicationIdCredentialsProvider(BingMapsKey);
-            MainMap.CredentialsProvider.GetCredentials((c) =>
+            MyMap.CredentialsProvider = new ApplicationIdCredentialsProvider(BingMapsKey);
+            MyMap.CredentialsProvider.GetCredentials((c) =>
             {
                 SessionKey = c.ApplicationId;
             });
-           
+
         }
-        
 
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            MainMap.Children.Clear();
-            int index = comboLines.SelectedIndex;
-            if (index == -1) return;
-
+            MyMap.Children.Clear();
+            OutputTbx.Text = string.Empty;
             LoadingBar.Visibility = Visibility.Visible;
 
-            var waypoints = GetWaypoints(index);
+            var waypoints = GetWaypoints();
 
             if (waypoints.Count < 2)
             {
@@ -77,8 +58,8 @@ namespace SyncfusionWpfApp1.gui
                     return;
             }
 
-            var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)("Walking"));
-            var tspOptimization = (TspOptimizationType)Enum.Parse(typeof(TspOptimizationType), (string)("StraightLineDistance"));
+            var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)(TravelModeTypeCbx.SelectedItem as ComboBoxItem).Content);
+            var tspOptimization = (TspOptimizationType)Enum.Parse(typeof(TspOptimizationType), (string)(TspOptimizationTypeCbx.SelectedItem as ComboBoxItem).Tag);
             try
             {
                 //Calculate a route between the waypoints so we can draw the path on the map. 
@@ -119,7 +100,6 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
-
                 NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
                 if ((bool)dialog.ShowDialog())
                     return;
@@ -127,19 +107,9 @@ namespace SyncfusionWpfApp1.gui
 
             LoadingBar.Visibility = Visibility.Collapsed;
         }
-        private List<SimpleWaypoint> GetWaypoints(int index)
-        {
-            waypoints.Clear();
-            TrainLine line = TrainLines[index];
-            waypoints.Add(new SimpleWaypoint(line.Start.Name));
-            foreach (DictionaryEntry kvp in line.Map)
-            {
-                waypoints.Add(new SimpleWaypoint(kvp.Key.ToString()));
-            }
-            waypoints.Add(new SimpleWaypoint(line.End.Name));
 
-            return waypoints;
-        }
+        #region Private Methods
+
         private void RenderRouteResponse(RouteRequest routeRequest, Response response)
         {
             //Render the route on the map.
@@ -148,6 +118,17 @@ namespace SyncfusionWpfApp1.gui
                && response.ResourceSets[0].Resources[0] is Route)
             {
                 var route = response.ResourceSets[0].Resources[0] as Route;
+
+                var timeSpan = new TimeSpan(0, 0, (int)Math.Round(route.TravelDurationTraffic));
+
+                if (timeSpan.Days > 0)
+                {
+                    OutputTbx.Text = string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days);
+                }
+                else
+                {
+                    OutputTbx.Text = string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                }
 
                 var routeLine = route.RoutePath.Line.Coordinates;
                 var routePath = new LocationCollection();
@@ -164,7 +145,7 @@ namespace SyncfusionWpfApp1.gui
                     StrokeThickness = 3
                 };
 
-                MainMap.Children.Add(routePolyline);
+                MyMap.Children.Add(routePolyline);
 
                 var locs = new List<Microsoft.Maps.MapControl.WPF.Location>();
 
@@ -177,7 +158,7 @@ namespace SyncfusionWpfApp1.gui
                     //Only render the last waypoint when it is not a round trip.
                     if (i < routeRequest.Waypoints.Count - 1)
                     {
-                        MainMap.Children.Add(new Pushpin()
+                        MyMap.Children.Add(new Pushpin()
                         {
                             Location = loc,
                             Content = i
@@ -187,7 +168,7 @@ namespace SyncfusionWpfApp1.gui
                     locs.Add(loc);
                 }
 
-                MainMap.SetView(locs, new Thickness(50), 0);
+                MyMap.SetView(locs, new Thickness(50), 0);
             }
             else if (response != null && response.ErrorDetails != null && response.ErrorDetails.Length > 0)
             {
@@ -195,6 +176,23 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
+        private List<SimpleWaypoint> GetWaypoints()
+        {
+            var places = InputTbx.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var waypoints = new List<SimpleWaypoint>();
+
+            foreach (var p in places)
+            {
+                if (!string.IsNullOrWhiteSpace(p))
+                {
+                    waypoints.Add(new SimpleWaypoint(p));
+                }
+            }
+
+            return waypoints;
+        }
+
+        #endregion
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             // Set tooltip visibility
@@ -270,6 +268,5 @@ namespace SyncfusionWpfApp1.gui
         {
             Tg_Btn.IsChecked = false;
         }
-
     }
 }

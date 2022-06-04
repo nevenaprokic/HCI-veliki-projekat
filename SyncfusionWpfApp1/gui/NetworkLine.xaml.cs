@@ -3,7 +3,6 @@ using BingMapsRESTToolkit.Extensions;
 using Microsoft.Maps.MapControl.WPF;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,38 +15,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SyncfusionWpfApp1.Model;
-using SyncfusionWpfApp1.repo;
-using System.Collections;
 
 namespace SyncfusionWpfApp1.gui
 {
-    public partial class NetworkTrainLine : Page
+    public partial class NetworkLine : Page
     {
         private Frame frame;
+        System.Windows.Point startPoint = new System.Windows.Point();
         private string BingMapsKey = "AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6";
 
         private string SessionKey;
         private List<SimpleWaypoint> waypoints = new List<SimpleWaypoint>();
-        public ObservableCollection<TrainLine> TrainLines { get; set; }
 
-        public NetworkTrainLine(Frame f)
+        public NetworkLine(Frame f)
         {
             InitializeComponent();
             frame = f;
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
-
-            TrainLines = new ObservableCollection<TrainLine>(MainRepository.trainLines);
-            foreach(TrainLine t in TrainLines)
-            {
-                comboLines.Items.Add(t.Start.Name + " - " + t.End.Name);
-            }
-            comboLines.SelectedItem = 0;
-
-            DataContext = this;
-
             MainMap.Mode = new RoadMode();
             MainMap.Focus();
             MainMap.Culture = "sr-Latn-RS";
@@ -56,25 +42,87 @@ namespace SyncfusionWpfApp1.gui
             {
                 SessionKey = c.ApplicationId;
             });
-           
+            //waypoints.Add(new SimpleWaypoint("Novi Sad, Srbija"));
+            //waypoints.Add(new SimpleWaypoint("Beograd, Srbija"));
+
+            //MainMap.MouseDoubleClick += new MouseButtonEventHandler(MapWithPushpins_MouseDoubleClick);
         }
-        
+        private void MapWithPushpins_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+
+            System.Windows.Point mousePosition = e.GetPosition(this);
+            Microsoft.Maps.MapControl.WPF.Location pinLocation = MainMap.ViewportPointToLocation(mousePosition);
+
+            Pushpin pin = new Pushpin();
+            pin.Location = pinLocation;
+
+
+            Coordinates.Text = pinLocation.Longitude.ToString();
+            Coordinates1.Text = pinLocation.Latitude.ToString();
+            MainMap.Children.Add(pin);
+
+        }
+        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            System.Windows.Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                Image image = e.Source as Image;
+                DataObject data = new DataObject(typeof(ImageSource), image.Source);
+                DragDrop.DoDragDrop(image, data, DragDropEffects.Move);
+            }
+        }
+        private void ListView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("myFormat") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+
+            System.Windows.Point mousePosition = e.GetPosition(MainMap);
+            Microsoft.Maps.MapControl.WPF.Location pinLocation = MainMap.ViewportPointToLocation(mousePosition);
+
+            Pushpin pin = new Pushpin();
+            pin.Location = pinLocation;
+
+
+            Coordinates.Text = pinLocation.Longitude.ToString();
+            Coordinates1.Text = pinLocation.Latitude.ToString();
+            MainMap.Children.Add(pin);
+            //add waitpoints
+            waypoints.Add(new SimpleWaypoint(pinLocation.Latitude.ToString() + "," + pinLocation.Longitude.ToString()));
+
+        }
 
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
         {
             MainMap.Children.Clear();
-            int index = comboLines.SelectedIndex;
-            if (index == -1) return;
-
+            //OutputTbx.Text = string.Empty;
             LoadingBar.Visibility = Visibility.Visible;
 
-            var waypoints = GetWaypoints(index);
+            var waypoints = GetWaypoints();
 
             if (waypoints.Count < 2)
             {
                 NotificationDialog dialog = new NotificationDialog("Potrebno je minimalno dva pina kako bi se ruta nacrtala!");
                 if ((bool)dialog.ShowDialog())
                     return;
+                
+                return;
             }
 
             var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)("Walking"));
@@ -119,7 +167,6 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
-
                 NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
                 if ((bool)dialog.ShowDialog())
                     return;
@@ -127,16 +174,18 @@ namespace SyncfusionWpfApp1.gui
 
             LoadingBar.Visibility = Visibility.Collapsed;
         }
-        private List<SimpleWaypoint> GetWaypoints(int index)
+        private List<SimpleWaypoint> GetWaypoints()
         {
-            waypoints.Clear();
-            TrainLine line = TrainLines[index];
-            waypoints.Add(new SimpleWaypoint(line.Start.Name));
-            foreach (DictionaryEntry kvp in line.Map)
+
+            // waypoints = new List<SimpleWaypoint>();
+
+            /*foreach (var p in places)
             {
-                waypoints.Add(new SimpleWaypoint(kvp.Key.ToString()));
-            }
-            waypoints.Add(new SimpleWaypoint(line.End.Name));
+                if (!string.IsNullOrWhiteSpace(p))
+                {
+                    waypoints.Add(new SimpleWaypoint(p));
+                }
+            }*/
 
             return waypoints;
         }
@@ -148,6 +197,19 @@ namespace SyncfusionWpfApp1.gui
                && response.ResourceSets[0].Resources[0] is Route)
             {
                 var route = response.ResourceSets[0].Resources[0] as Route;
+
+                var timeSpan = new TimeSpan(0, 0, (int)Math.Round(route.TravelDurationTraffic));
+
+                if (timeSpan.Days > 0)
+                {
+                    Console.WriteLine(string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days));
+                    //OutputTbx.Text = string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days);
+                }
+                else
+                {
+                    Console.WriteLine(string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds));
+                    //OutputTbx.Text = string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                }
 
                 var routeLine = route.RoutePath.Line.Coordinates;
                 var routePath = new LocationCollection();

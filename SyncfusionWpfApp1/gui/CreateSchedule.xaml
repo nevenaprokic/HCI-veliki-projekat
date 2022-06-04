@@ -4,9 +4,31 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+      xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateSchedule">
+
+    <Page.Resources>
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,11 +54,21 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
             <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
-                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Definisanje novog rasporeda vožnje</TextBlock>
+                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Definisanje novog reda vožnje</TextBlock>
             </Viewbox>
+
+            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
 
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
@@ -77,6 +109,12 @@
                                     <StackPanel>
                                         <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
                                     </StackPanel>
+                                    <Button.ToolTip>
+                                        <ToolTip 
+                                         Content="Brisanje odabranog polaska iz selektovanog reda vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                                    </Button.ToolTip>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -110,7 +148,13 @@
                     <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="White" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
                 <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center" />
+                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center">
+                        <TextBox.ToolTip>
+                            <ToolTip 
+                                         Content="Format za vreme je 'HH:mm'"
+                                         Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
                 <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
                     <Label x:Name="messageLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
@@ -120,13 +164,25 @@
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
                         </StackPanel>
+                        <Button.ToolTip>
+
+                            <ToolTip 
+                                         Content="Dodavanje novog vremena polaska za red vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </Button.ToolTip>
                     </Button>
                 </Viewbox>
-                <Viewbox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right">
-                    <Button x:Name="generateButton" Grid.Column="2" Grid.Row="1" Click="GenerateRows_Handler"  VerticalAlignment="Center" Background="#204060">
+                <Viewbox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
+                    <Button x:Name="generateButton" Grid.Column="2" Grid.Row="1" Click="GenerateRows_Handler" VerticalAlignment="Center" Background="#204060">
                         <StackPanel Background="Transparent">
-                            <Image x:Name="generateIcon" Source="/images/automatic_icon.png"></Image>
+                            <Image x:Name="generateIcon" Source="/images/img_setting.png"></Image>
                         </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Automatsko generisanje vremena polazaka"
+                                         Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
                     </Button>
                 </Viewbox>
 
@@ -156,22 +212,34 @@
                 </Grid.RowDefinitions>
 
                 <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
-                    <Label Content="Naziv rasporeda:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                    <Label Content="Naziv reda vožnje:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                 </Viewbox>
                 <Viewbox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                    <TextBox x:Name="nameBox" MinWidth="100" VerticalAlignment="Center" Text="{Binding Path=ScheduleName}" TextChanged="TextBoxName_Changed"/>
+                    <TextBox x:Name="nameBox" MinWidth="100" VerticalAlignment="Center" Text="{Binding Path=ScheduleName}" TextChanged="TextBoxName_Changed">
+                        <TextBox.ToolTip>
+                            <ToolTip 
+                                         Content="Naziv je obavezan"
+                                         Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
                 <Viewbox Grid.ColumnSpan="3" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center">
                     <Label x:Name="nameValidationLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
 
                 <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8">
-                    <Button Content="Odustani" Click="Cancel_Handler" HorizontalAlignment="Center" MinWidth="80" VerticalAlignment="Center" Background="#141C61" Foreground="White">
+                    <Button Content="Nazad" Click="Cancel_Handler" HorizontalAlignment="Center" MinWidth="80" VerticalAlignment="Center" Background="#141C61" Foreground="White">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5" />
                             </Style>
                         </Button.Resources>
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Nazad na izmenu/brisanje redova vožnje. Red vožnje neće biti sačuvan"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </Button.ToolTip>
                     </Button>
                 </Viewbox>
 
@@ -182,6 +250,12 @@
                                 <Setter Property="CornerRadius" Value="5" />
                             </Style>
                         </Button.Resources>
+                        <Button.ToolTip>
+                            <ToolTip 
+                                         Content="Trajno čuvanje novokreiranog reda vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </Button.ToolTip>
                     </Button>
                 </Viewbox>
             </Grid>

@@ -670,7 +670,7 @@
                 <DataGridTemplateColumn Header="Izmeni"  Width="0.6*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="deleteRowButton" Height="30" Background="White">
+                                <Button x:Name="deleteRowButton" Height="30" Background="White" Click="EditRow_Handler">
                                 <StackPanel>
                                     <Image Source="/images/edit_icon.png" Width="20" Height="20"></Image>
                                 </StackPanel>

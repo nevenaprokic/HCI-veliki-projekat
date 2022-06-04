@@ -43,6 +43,8 @@ namespace SyncfusionWpfApp1.gui
         public TrainLine TrainLine { get; set; }
         public ObservableCollection<TrainLine> TrainLines { get; set; }
         public ObservableCollection<RowDataTrainLine> Rows { get; set; }
+       
+       // public event someDelegate someEvent;
 
         public TrainLineCRUD(Frame f)
         {
@@ -71,7 +73,7 @@ namespace SyncfusionWpfApp1.gui
             Uri iconUriEdit = new Uri("../../../images/edit.png", UriKind.RelativeOrAbsolute);
             
         }
-        private void drawTable()
+        public void drawTable()
         {
             Rows.Clear();
             foreach (TrainLine t in TrainLines)
@@ -82,15 +84,26 @@ namespace SyncfusionWpfApp1.gui
                     trains += train.Name + ", ";
                 }
                 RowDataTrainLine r = new RowDataTrainLine(t.Id, t.Start.Name, t.End.Name, trains.Substring(0, trains.Length - 2), t.Price);
-                Rows.Add(r);
+                Rows?.Add(r);
             }
         }
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
         {
             int forRemove = dataGrid.SelectedIndex;
-            Console.WriteLine(forRemove);
+            RowDataTrainLine tl = dataGrid.SelectedItem as RowDataTrainLine;
+            MainRepository.trainLines.Remove(MainRepository.trainLines.FirstOrDefault(t => t.Id == tl.Id));
             TrainLines.RemoveAt(forRemove);
             drawTable();
+        }
+        private void EditRow_Handler(object sender, RoutedEventArgs e)
+        {
+            RowDataTrainLine t = dataGrid.SelectedItem as RowDataTrainLine;
+            EditTrainLine line = new EditTrainLine(t.Id, frame, this);
+            if ((bool)line.ShowDialog())
+            {
+                drawTable();
+            }
+                
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
