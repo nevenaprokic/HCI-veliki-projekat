@@ -578,32 +578,48 @@
         </Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.5*" />
-                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="19*" />
+                <RowDefinition Height="0.5*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="16.5*" />
-                <RowDefinition Height="*" />
-                <!--visina ostatka ekrana koji je na raspolaganju-->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1.3*" />
-                <!--sirina slicice (odnosi sa na gore)-->
-                <ColumnDefinition Width="2.5*" />
-                <!--sirina naslova (odnosi sa na gore)-->
-                <ColumnDefinition Width="5*" />
-                <!--sirina menija (odnosi sa na gore)-->
-                <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="2.4*" />
+                <ColumnDefinition Width="7*" />
                 <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.3*" />
+                
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="img1" Grid.Column="2" Grid.Row="3" Source="/images/edit_icon.png" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown"  MouseMove="Image_MouseMove"/>
-            <m:Map x:Name="myMap" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="4" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road"  ZoomLevel="10" Center="45.255001, 19.844723" AllowDrop="True" DragEnter="ListView_DragEnter" Drop="ListView_Drop">
-                <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
-            </m:Map>
+            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="7" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+            <Viewbox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                <Label x:Name="title" Content="Mrežni pregled voznih linija " Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" FontWeight="Bold"/>
+            </Viewbox>
+            <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                <Label x:Name="choseLabel" Content="Izaberite voznu liniju: " FontSize="6" Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" FontWeight="Bold"/>
+            </Viewbox>
+            <ComboBox Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" Height="30" Name="comboLines" MinWidth="200" FontSize="15" />
+            <Button Content="Nacrtaj rutu" Width="100" Height="25" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" Click="CalculateRouteBtn_Clicked"  Foreground="White" Background="#00264d" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2">
+                <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="10" Center="45.255001, 19.844723">
+                    <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
+                </m:Map>
+            </Grid>
+
+            <ProgressBar Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" Name="LoadingBar" Foreground="#E8F0F2" IsIndeterminate="True" Height="25" Width="250" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Page>

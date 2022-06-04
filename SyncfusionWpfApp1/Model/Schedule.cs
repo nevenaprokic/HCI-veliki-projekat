@@ -30,7 +30,7 @@ namespace SyncfusionWpfApp1.Model
 
         public override string ToString()
         {
-            return string.Format("Raspored {0}", Name);
+            return string.Format("Red vožnje {0}", Name);
         }
     }
 }

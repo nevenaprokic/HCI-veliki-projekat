@@ -18,6 +18,7 @@
     <None Remove="images\delete_icon.png" />
     <None Remove="images\detail_view_ticket.png" />
     <None Remove="images\edit_icon.png" />
+    <None Remove="images\help_icon.jpg" />
     <None Remove="images\img_contact.png" />
     <None Remove="images\img_home.png" />
     <None Remove="images\img_map.png" />
@@ -29,6 +30,8 @@
     <None Remove="images\m.png" />
     <None Remove="images\mape.png" />
     <None Remove="images\monthly.png" />
+    <None Remove="images\pinBlue.png" />
+    <None Remove="images\pinRed.png" />
     <None Remove="images\s.png" />
     <None Remove="images\save.png" />
     <None Remove="images\stat.png" />
@@ -46,6 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
+
+<PackageReference Include="BingMapsRESTToolkit" Version="1.1.4" />
 
 <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
 
@@ -73,6 +78,7 @@
     <Resource Include="images\delete_icon.png" />
     <Resource Include="images\detail_view_ticket.png" />
     <Resource Include="images\edit_icon.png" />
+    <Resource Include="images\help_icon.jpg" />
     <Resource Include="images\img_contact.png" />
     <Resource Include="images\img_home.png" />
     <Resource Include="images\img_map.png" />
@@ -84,6 +90,8 @@
     <Resource Include="images\m.png" />
     <Resource Include="images\mape.png" />
     <Resource Include="images\monthly.png" />
+    <Resource Include="images\pinBlue.png" />
+    <Resource Include="images\pinRed.png" />
     <Resource Include="images\s.png" />
     <Resource Include="images\save.png" />
     <Resource Include="images\stat.png" />
