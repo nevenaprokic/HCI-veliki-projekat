@@ -41,8 +41,6 @@ namespace SyncfusionWpfApp1.gui
                 SessionKey = c.ApplicationId;
             });
 
-            //Add some sample locations to the input panel.
-            InputTbx.Text = "Seattle, WA\r\nRedmond, WA\r\nBellevue, WA\r\n47.532122, -122.042934\r\nEverett, WA\r\nTacoma, WA\r\nKirkland, WA\r\nSammamish, WA\r\nLynnwood, WA\r\nRenton, WA\r\nDuvall, WA\r\nMonroe, WA\r\nSummer, WA";
         }
 
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
@@ -112,9 +110,6 @@ namespace SyncfusionWpfApp1.gui
 
         #region Private Methods
 
-        /// <summary>
-        /// Renders a route response on the map.
-        /// </summary>
         private void RenderRouteResponse(RouteRequest routeRequest, Response response)
         {
             //Render the route on the map.
@@ -181,9 +176,6 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
-        /// <summary>
-        /// Gets the inputted waypoints.
-        /// </summary>
         private List<SimpleWaypoint> GetWaypoints()
         {
             var places = InputTbx.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);

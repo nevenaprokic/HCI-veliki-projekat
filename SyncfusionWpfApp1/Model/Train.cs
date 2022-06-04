@@ -14,11 +14,18 @@ namespace SyncfusionWpfApp1.Model
         {
             Name = name;
             Wagons = wagons;
+            HasTrain = false;
+        }
+        public Train(string name, List<Wagon> wagons, bool hasTrain)
+        {
+            Name = name;
+            Wagons = wagons;
+            HasTrain = hasTrain;
         }
 
         public string Name { get; set; }
         public List<Wagon> Wagons { get; set; }
-
+        public bool HasTrain { get; set; }
         public override string ToString()
         {
             return Name;
