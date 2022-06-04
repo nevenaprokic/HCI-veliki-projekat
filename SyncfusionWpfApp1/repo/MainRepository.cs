@@ -149,7 +149,9 @@ namespace SyncfusionWpfApp1.repo
                 { ts2, info1 },
                 { ts3, info2 },
                 { ts4, info3 },
-                { ts5, info4 }
+                { ts5, info4 },
+                { ts6, info5 },
+                { ts8, info5 },
             };
             TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1 }, schedule1, schedule2, 300, dictTL1, 0);
 
@@ -158,8 +160,9 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info7 = new TrainStationInfo(20, 200);
             OrderedDictionary dictTL2 = new OrderedDictionary
             {
-                { ts8, info6 },
-                { ts9, info7 }
+                { ts6, info6 },
+                { ts9, info7 },
+                { ts10, info7 }
             };
             TrainLine tl2 = new TrainLine(ts7, ts6, new List<Train> { t2 }, schedule3, schedule2, 300, dictTL2, 1);
 
@@ -169,6 +172,10 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info10 = new TrainStationInfo(20, 1500);
             OrderedDictionary dictTL3 = new OrderedDictionary
             {
+                 
+                { ts3, info2 },
+                { ts6, info5 },
+                { ts10, info7 },
                 { ts11, info8 },
                 { ts12, info9 },
                 { ts16, info10 }
@@ -251,7 +258,21 @@ namespace SyncfusionWpfApp1.repo
             return sortTime(times, date);
         }
 
-        private static List<String> sortTime(List<String> times, DateTime selectedDate)
+        public static List<String> sortTime(List<String> times, DateTime selectedDate)
+        {
+            List<DateTime> dates = sortedDatesFromString(times, selectedDate);
+
+            List<String> sortedTimes = new List<string>();
+            foreach (DateTime date in dates)
+            {
+                String time = date.TimeOfDay.ToString();
+                sortedTimes.Add(time);
+            }
+
+            return sortedTimes;
+        }
+
+        public static List<DateTime> sortedDatesFromString(List<String> times, DateTime selectedDate)
         {
             List<DateTime> dates = new List<DateTime>();
             foreach (String time in times)
@@ -263,14 +284,7 @@ namespace SyncfusionWpfApp1.repo
             }
             dates.Sort((x, y) => x.CompareTo(y));
 
-            List<String> sortedTimes = new List<string>();
-            foreach (DateTime date in dates)
-            {
-                String time = date.TimeOfDay.ToString();
-                sortedTimes.Add(time);
-            }
-
-            return sortedTimes;
+            return dates;
         }
 
         public static List<TrainRide> filterSelectedLines(TrainStation startStation, TrainStation endStation, DateTime startDateTime, bool backTicket)
