@@ -33,34 +33,34 @@
             </Grid.ColumnDefinitions>
 
             <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Top" >
-                <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Automatsko generisanje rasporeda" />
+                <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Automatsko generisanje rasporeda" Foreground="#00264d"/>
             </Viewbox>
 
             <Viewbox Grid.Row="3" Grid.Column="1">
-                <Label Content="Od:" ></Label>
+                <Label Content="Od:"  Foreground="#00264d"></Label>
             </Viewbox>
-            <ComboBox x:Name="comboStart" Grid.Row="4" Grid.Column="1" Background="White" IsEditable="False" />
+            <ComboBox x:Name="comboStart" Grid.Row="4" Grid.Column="1" BorderBrush="#00264d" Background="White" IsEditable="False" />
 
             <Viewbox Grid.Row="3" Grid.Column="3">
-                <Label Content="Do:" ></Label>
+                <Label Content="Do:" Foreground="#00264d"></Label>
             </Viewbox>
-            <ComboBox x:Name="comboEnd" Grid.Row="4" Grid.Column="3" Background="White" IsEditable="False" />
+            <ComboBox x:Name="comboEnd" Grid.Row="4" Grid.Column="3" BorderBrush="#00264d" Background="White" IsEditable="False" />
 
             <Viewbox Grid.Row="3" Grid.Column="5">
-                <Label Content="Interval:" ></Label>
+                <Label Content="Interval:" Foreground="#00264d"></Label>
             </Viewbox>
 
             <Viewbox Grid.Row="4" Grid.Column="5">
-                <TextBox Name="intervalTextBox" MinWidth="50" PreviewTextInput="NumberValidationTextBox" />
+                <TextBox Name="intervalTextBox" Foreground="#00264d" BorderBrush="#00264d" MinWidth="50" PreviewTextInput="NumberValidationTextBox" />
             </Viewbox>
 
             <Viewbox Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" VerticalAlignment="Top">
-                <Label x:Name="intervalValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+                <Label x:Name="intervalValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
             </Viewbox>
 
             <Viewbox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Generiši" x:Name="Yes" Margin="0, 0, 30, 5" HorizontalAlignment="Left" Background="#141C61" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="45" 
+                    <Button Content="Generiši" x:Name="Yes" Margin="0, 0, 30, 5" HorizontalAlignment="Left" Background="#00264d" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="45" 
                             Click="Yes_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -68,7 +68,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Odustani" x:Name="No" Margin="0, 0, 0, 5" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#141C61" Foreground="White" 
+                    <Button Content="Odustani" x:Name="No" Margin="0, 0, 0, 5" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#00264d" Foreground="White" 
                             Click="No_Click" IsCancel="True">
                         <Button.Resources>
                             <Style TargetType="Border">

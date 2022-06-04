@@ -19,6 +19,7 @@
     <None Remove="images\detail_view_ticket.png" />
     <None Remove="images\edit_icon.png" />
     <None Remove="images\help_icon.jpg" />
+    <None Remove="images\help_icon.png" />
     <None Remove="images\img_contact.png" />
     <None Remove="images\img_home.png" />
     <None Remove="images\img_map.png" />
@@ -79,6 +80,7 @@
     <Resource Include="images\detail_view_ticket.png" />
     <Resource Include="images\edit_icon.png" />
     <Resource Include="images\help_icon.jpg" />
+    <Resource Include="images\help_icon.png" />
     <Resource Include="images\img_contact.png" />
     <Resource Include="images\img_home.png" />
     <Resource Include="images\img_map.png" />
