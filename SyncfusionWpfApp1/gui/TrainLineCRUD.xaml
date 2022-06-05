@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TrainLineCRUD">
     <Page.Resources>
@@ -589,18 +590,28 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*" />
-            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2.7*" />
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="0.6*" />
             <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="5" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
-            <Label Content="Pregled voznih linija" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center"  Foreground="#00264d" FontSize="25" FontStyle="Italic" FontWeight="Bold"/>
+        <Label Content="Pregled voznih linija" Grid.Column="2" Grid.ColumnSpan="3"  HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center"  Foreground="#00264d" FontSize="25" FontStyle="Italic" FontWeight="Bold"/>
+
+        <Button Grid.Row="2" Grid.Column="7" x:Name="helpButton" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="Help" Background="Transparent" HorizontalAlignment="Left">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+        </Button>
         <Button x:Name="delete"  Grid.Column="5" Width="80" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#BB6464">
             <Button.Content>
                 <StackPanel VerticalAlignment="Center" 

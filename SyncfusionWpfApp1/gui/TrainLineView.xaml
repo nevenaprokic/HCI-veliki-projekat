@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       mc:Ignorable="d" 
+      xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TrainLineView">
     <Page.Resources>
@@ -500,17 +501,26 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.7*" />
                 <ColumnDefinition Width="1.3*" />
                 <ColumnDefinition Width="2.5*" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.7*" />
                 <ColumnDefinition Width="0.5*" />
             </Grid.ColumnDefinitions>
 
             <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="4" Background="#E8F0F2" BorderThickness="1" CornerRadius="8"/>
+            <Button Grid.Row="3" Grid.Column="7" x:Name="helpButton" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+                    Command="Help" Background="Transparent" HorizontalAlignment="Left">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
             <Viewbox Grid.Column="2" Grid.ColumnSpan="2"  Grid.Row="3" HorizontalAlignment="Left">
                 <Label Content="Pregled voznih linija"  HorizontalAlignment="Left"  VerticalAlignment="Center"  Foreground="#00264d" FontSize="18" FontStyle="Italic" FontWeight="Bold"/>
             </Viewbox>
