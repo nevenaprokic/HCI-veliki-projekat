@@ -41,30 +41,17 @@ namespace SyncfusionWpfApp1.gui
         {
 
         }
-        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
-        {
-            
-        }
         private void Schedule_Handler(object sender, RoutedEventArgs e)
         {
             
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            
+            frame.Content = new NetworkLineClient(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            
-        }
-        private void Train_Handler(object sender, RoutedEventArgs e)
-        {
-           
-
+            frame.Content = new TrainLineView(frame);
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -76,9 +63,6 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                tt_trainLineReport.Visibility = Visibility.Collapsed;
-                tt_train.Visibility = Visibility.Collapsed;
-                tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
             }
             else
@@ -87,9 +71,6 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-                tt_trainLineReport.Visibility = Visibility.Visible;
-                tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
             }
         }

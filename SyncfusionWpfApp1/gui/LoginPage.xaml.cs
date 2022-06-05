@@ -59,9 +59,5 @@ namespace SyncfusionWpfApp1.gui
 
         }
 
-        private void RegisterLinkCommand(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new RegisterPage(frame);
-        }
     }
 }

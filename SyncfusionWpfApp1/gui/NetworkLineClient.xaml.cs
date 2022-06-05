@@ -1,7 +1,4 @@
-﻿using BingMapsRESTToolkit;
-using BingMapsRESTToolkit.Extensions;
-using Microsoft.Maps.MapControl.WPF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,41 +12,66 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BingMapsRESTToolkit;
+using BingMapsRESTToolkit.Extensions;
+using Microsoft.Maps.MapControl.WPF;
+using SyncfusionWpfApp1.Model;
+using SyncfusionWpfApp1.repo;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace SyncfusionWpfApp1.gui
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for NetworkLineClient.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class NetworkLineClient : Page
     {
-        #region Private Properties
-
+        private Frame frame;
         private string BingMapsKey = "AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6";
 
         private string SessionKey;
-        private Frame frame;
-        #endregion
+        private List<SimpleWaypoint> waypoints = new List<SimpleWaypoint>();
+        public ObservableCollection<TrainLine> TrainLines { get; set; }
 
-        public Page1(Frame f)
+        public NetworkLineClient(Frame f)
         {
             InitializeComponent();
             frame = f;
-            MyMap.CredentialsProvider = new ApplicationIdCredentialsProvider(BingMapsKey);
-            MyMap.CredentialsProvider.GetCredentials((c) =>
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+            this.Background = myBrush;
+
+            TrainLines = new ObservableCollection<TrainLine>(MainRepository.trainLines);
+            foreach (TrainLine t in TrainLines)
+            {
+                comboLines.Items.Add(t.Start.Name + " - " + t.End.Name);
+            }
+            comboLines.SelectedItem = 0;
+
+            DataContext = this;
+
+            MainMap.Mode = new RoadMode();
+            MainMap.Focus();
+            MainMap.Culture = "sr-Latn-RS";
+            MainMap.CredentialsProvider = new ApplicationIdCredentialsProvider(BingMapsKey);
+            MainMap.CredentialsProvider.GetCredentials((c) =>
             {
                 SessionKey = c.ApplicationId;
             });
 
         }
 
+
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            MyMap.Children.Clear();
-            OutputTbx.Text = string.Empty;
+            MainMap.Children.Clear();
+            int index = comboLines.SelectedIndex;
+            if (index == -1) return;
+
             LoadingBar.Visibility = Visibility.Visible;
 
-            var waypoints = GetWaypoints();
+            var waypoints = GetWaypoints(index);
 
             if (waypoints.Count < 2)
             {
@@ -58,8 +80,8 @@ namespace SyncfusionWpfApp1.gui
                     return;
             }
 
-            var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)(TravelModeTypeCbx.SelectedItem as ComboBoxItem).Content);
-            var tspOptimization = (TspOptimizationType)Enum.Parse(typeof(TspOptimizationType), (string)(TspOptimizationTypeCbx.SelectedItem as ComboBoxItem).Tag);
+            var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)("Walking"));
+            var tspOptimization = (TspOptimizationType)Enum.Parse(typeof(TspOptimizationType), (string)("StraightLineDistance"));
             try
             {
                 //Calculate a route between the waypoints so we can draw the path on the map. 
@@ -100,6 +122,7 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
+
                 NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
                 if ((bool)dialog.ShowDialog())
                     return;
@@ -107,9 +130,19 @@ namespace SyncfusionWpfApp1.gui
 
             LoadingBar.Visibility = Visibility.Collapsed;
         }
+        private List<SimpleWaypoint> GetWaypoints(int index)
+        {
+            waypoints.Clear();
+            TrainLine line = TrainLines[index];
+            waypoints.Add(new SimpleWaypoint(line.Start.Name));
+            foreach (DictionaryEntry kvp in line.Map)
+            {
+                waypoints.Add(new SimpleWaypoint(kvp.Key.ToString()));
+            }
+            waypoints.Add(new SimpleWaypoint(line.End.Name));
 
-        #region Private Methods
-
+            return waypoints;
+        }
         private void RenderRouteResponse(RouteRequest routeRequest, Response response)
         {
             //Render the route on the map.
@@ -118,17 +151,6 @@ namespace SyncfusionWpfApp1.gui
                && response.ResourceSets[0].Resources[0] is Route)
             {
                 var route = response.ResourceSets[0].Resources[0] as Route;
-
-                var timeSpan = new TimeSpan(0, 0, (int)Math.Round(route.TravelDurationTraffic));
-
-                if (timeSpan.Days > 0)
-                {
-                    OutputTbx.Text = string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days);
-                }
-                else
-                {
-                    OutputTbx.Text = string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-                }
 
                 var routeLine = route.RoutePath.Line.Coordinates;
                 var routePath = new LocationCollection();
@@ -145,7 +167,7 @@ namespace SyncfusionWpfApp1.gui
                     StrokeThickness = 3
                 };
 
-                MyMap.Children.Add(routePolyline);
+                MainMap.Children.Add(routePolyline);
 
                 var locs = new List<Microsoft.Maps.MapControl.WPF.Location>();
 
@@ -158,7 +180,7 @@ namespace SyncfusionWpfApp1.gui
                     //Only render the last waypoint when it is not a round trip.
                     if (i < routeRequest.Waypoints.Count - 1)
                     {
-                        MyMap.Children.Add(new Pushpin()
+                        MainMap.Children.Add(new Pushpin()
                         {
                             Location = loc,
                             Content = i
@@ -168,7 +190,7 @@ namespace SyncfusionWpfApp1.gui
                     locs.Add(loc);
                 }
 
-                MyMap.SetView(locs, new Thickness(50), 0);
+                MainMap.SetView(locs, new Thickness(50), 0);
             }
             else if (response != null && response.ErrorDetails != null && response.ErrorDetails.Length > 0)
             {
@@ -176,23 +198,26 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
-        private List<SimpleWaypoint> GetWaypoints()
+        private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            var places = InputTbx.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            var waypoints = new List<SimpleWaypoint>();
-
-            foreach (var p in places)
-            {
-                if (!string.IsNullOrWhiteSpace(p))
-                {
-                    waypoints.Add(new SimpleWaypoint(p));
-                }
-            }
-
-            return waypoints;
+            frame.Content = new CardReservation(frame);
         }
+        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
+        {
 
-        #endregion
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new NetworkTrainLine(frame);
+        }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineView(frame);
+        }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             // Set tooltip visibility
@@ -203,9 +228,6 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                tt_trainLineReport.Visibility = Visibility.Collapsed;
-                tt_train.Visibility = Visibility.Collapsed;
-                tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
             }
             else
@@ -214,46 +236,9 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-                tt_trainLineReport.Visibility = Visibility.Visible;
-                tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
-
-        private void TicketReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new MonthlyReport(frame);
-        }
-        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new TrainLineReport(frame);
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new ScheduleUpdateDelete(frame);
-        }
-        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new NetworkTrainLine(frame);
-        }
-        private void TrainLine_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new TrainLineCRUD(frame);
-        }
-        private void Train_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new TrainUpdateDelete(frame);
-        }
-
         private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
         {
             // img_bg.Opacity = 1;
