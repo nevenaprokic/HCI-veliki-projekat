@@ -105,6 +105,10 @@ namespace SyncfusionWpfApp1.gui
             }
                 
         }
+        private void AddNew_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new AddNewTrainLine(frame);
+        }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
 
