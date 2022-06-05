@@ -1,4 +1,5 @@
 ﻿using SyncfusionWpfApp1.dto;
+using SyncfusionWpfApp1.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,7 @@ namespace SyncfusionWpfApp1.Model
             DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
             ClassNumber = (int)Class + 1;
             this.ArrivalTime = selectedRide.ArrivalTime;
+            this.From = TicketService.getStartStation(selectedRide);
         }
 
         public override string ToString()

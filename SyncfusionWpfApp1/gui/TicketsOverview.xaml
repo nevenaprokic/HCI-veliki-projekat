@@ -289,7 +289,7 @@
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReservation_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -311,6 +311,38 @@
 
                             <ToolTip x:Name="tt_ticket"
                                          Content="Karte"
+                                         Style="{StaticResource tt_style}"
+                                         />
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                              
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/tickets_history.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Istorija karata"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="history_ticket"
+                                         Content="Istorija karata"
                                          Style="{StaticResource tt_style}"
                                          />
 
@@ -410,95 +442,6 @@
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
-
-                    <!--// Settings //-->
-
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/stat.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Izveštaj vožnji"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_trainLineReport"
-                                         Content="Pregled jedne vozne linije"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/monthly.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Mesečni izveštaj"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_report_monthly"
-                                         Content="Pregled izveštaja na mesečnom nivou"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/v.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Voz"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_train"
-                                         Content="Pregled vozova"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-
                     <!--// Sign Out //-->
 
                     <ListViewItem HorizontalAlignment="Left"
@@ -589,6 +532,7 @@
                     </ListView.ItemContainerStyle>
 
                 </ListView>
+
 
             </StackPanel>
 

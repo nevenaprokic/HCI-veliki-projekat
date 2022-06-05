@@ -840,11 +840,11 @@ namespace SyncfusionWpfApp1.gui
 
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new CardReservation(frame);
+            frame.Content = new TicketsOverview(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new CardReservation(frame);
         }
         private void Schedule_Handler(object sender, RoutedEventArgs e)
         {

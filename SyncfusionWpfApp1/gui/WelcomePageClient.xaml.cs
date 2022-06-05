@@ -35,12 +35,16 @@ namespace SyncfusionWpfApp1.gui
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            //frame.Content = new CardReservation(frame);
             frame.Content = new TicketsOverview(frame);
+        }
+        private void TicketHistory_Handler(object sender, RoutedEventArgs e)
+        {
+            //frame.Content = new CardReservation(frame);
+            
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TicketsOverview(frame);
+            frame.Content = new CardReservation(frame);
         }
         private void Schedule_Handler(object sender, RoutedEventArgs e)
         {
@@ -65,6 +69,7 @@ namespace SyncfusionWpfApp1.gui
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+                
             }
             else
             {
@@ -90,5 +95,6 @@ namespace SyncfusionWpfApp1.gui
         {
             Tg_Btn.IsChecked = false;
         }
+
     }
 }

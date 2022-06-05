@@ -281,7 +281,6 @@
                 </Grid>
 
                 <!--// ListView with menu list items //-->
-
                 <ListView  x:Name="LV"
                                Background="Transparent"
                                BorderBrush="Transparent"
@@ -290,7 +289,7 @@
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReservation_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -312,6 +311,38 @@
 
                             <ToolTip x:Name="tt_ticket"
                                          Content="Karte"
+                                         Style="{StaticResource tt_style}"
+                                         />
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                              
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/tickets_history.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Istorija karata"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="history_ticket"
+                                         Content="Istorija karata"
                                          Style="{StaticResource tt_style}"
                                          />
 
@@ -501,6 +532,7 @@
                     </ListView.ItemContainerStyle>
 
                 </ListView>
+
 
             </StackPanel>
 

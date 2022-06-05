@@ -42,6 +42,7 @@
     <None Remove="images\tgBtn_MouseOver.png" />
     <None Remove="images\ticket.png" />
     <None Remove="images\ticketIcon.jpeg" />
+    <None Remove="images\tickets_history.png" />
     <None Remove="images\v.png" />
     <None Remove="images\view.png" />
   </ItemGroup>
@@ -105,6 +106,7 @@
     <Resource Include="images\tgBtn_MouseOver.png" />
     <Resource Include="images\ticket.png" />
     <Resource Include="images\ticketIcon.jpeg" />
+    <Resource Include="images\tickets_history.png" />
     <Resource Include="images\v.png" />
     <Resource Include="images\view.png" />
   </ItemGroup>

@@ -2,7 +2,9 @@
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +64,17 @@ namespace SyncfusionWpfApp1.service
         {
             MainRepository.Tickets.Sort((x, y) => y.Id.CompareTo(x.Id));
             return MainRepository.Tickets.First().Id;
+        }
+
+         public static TrainStation getStartStation(DirectionItem direction)
+        {
+            OrderedDictionary dictionary = direction.allStations.First();
+            IDictionaryEnumerator myEnumerator = dictionary.GetEnumerator();
+            while (myEnumerator.MoveNext())
+            {
+                return (TrainStation)myEnumerator.Key;
+            }
+            return null;
         }
 
  /*       internal static DateTime calculateArrivalTime(Ticket ticket)

@@ -124,9 +124,9 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                tt_trainLineReport.Visibility = Visibility.Collapsed;
-                tt_train.Visibility = Visibility.Collapsed;
-                tt_report_monthly.Visibility = Visibility.Collapsed;
+                //tt_trainLineReport.Visibility = Visibility.Collapsed;
+                //tt_train.Visibility = Visibility.Collapsed;
+                //tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
             }
             else
@@ -135,9 +135,9 @@ namespace SyncfusionWpfApp1.gui
                 tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-                tt_trainLineReport.Visibility = Visibility.Visible;
+               /* tt_trainLineReport.Visibility = Visibility.Visible;
                 tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;
+                tt_report_monthly.Visibility = Visibility.Visible;*/
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
