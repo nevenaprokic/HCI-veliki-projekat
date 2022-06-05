@@ -20,11 +20,12 @@ namespace SyncfusionWpfApp1.Model
             Seat = seat;
             ReturnSeat = returnSeat;
             Client = client;
-            Price = calculatePrice();
             From = from;
             To = to;
             Class = Seat.Wagon.Class;
             WagonNumber = Seat.Wagon.OrderdNumber;
+            ClassNumber = (int)Class + 1;
+            
         }
 
         public Ticket(User client, TrainRide selectedRide, Seat seat)
@@ -38,6 +39,10 @@ namespace SyncfusionWpfApp1.Model
             Price = selectedRide.price;
             From = selectedRide.startStation;
             To = selectedRide.endStation;
+            PriceStr = Price.ToString() + ",00 din";
+            DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
+            ClassNumber = (int)Class + 1;
+            this.ArrivalTime = selectedRide.start.AddMinutes(selectedRide.travelDuration);
 
         }
 
@@ -50,6 +55,10 @@ namespace SyncfusionWpfApp1.Model
             this.DepartureTime = startTime;
             this.ReturnTicket = selectedRide.selectedReturnDirection;
             this.SelectedRide = selectedRide;
+            PriceStr = price.ToString() + ",00 din";
+            DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
+            ClassNumber = (int)Class + 1;
+            this.ArrivalTime = selectedRide.ArrivalTime;
         }
 
         public override string ToString()
@@ -57,6 +66,28 @@ namespace SyncfusionWpfApp1.Model
             return $"Ticket: {Train.Name}, returning: {ReturnTicket}, line: {Line.Start.Street} - {Line.End.Street}, departure time: {DepartureTime}, seat: {Seat.SeatNumber}.";
         }
 
+        public Ticket(int id, User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat, Train train, TrainStation from, TrainStation to, double price, DateTime arrivalTime)
+        {
+            this.Id = id;
+            Train = train;
+            ReturnTicket = returnTicket;
+            Line = line;
+            DepartureTime = departureTime;
+            Seat = seat;
+            ReturnSeat = returnSeat;
+            Client = client;
+            From = from;
+            To = to;
+            Class = Seat.Wagon.Class;
+            ClassNumber = (int)Class + 1;
+            WagonNumber = Seat.Wagon.OrderdNumber;
+            Price = price;
+            PriceStr = price.ToString() + ",00 din";
+            DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
+            this.ArrivalTime = arrivalTime;
+        }
+
+        public int Id { get; set; }
         public Train Train { get; set; }
         public Boolean ReturnTicket { get; set; }
         public TrainLine Line { get; set; }
@@ -70,11 +101,18 @@ namespace SyncfusionWpfApp1.Model
         public int WagonNumber { get; set; }
 
         private double _price;
-       
+        public string PriceStr { get; set; }
+        public string DepartureTimeStr { get; set; }
+
+        public int ClassNumber { get; set; }
+
+        public DateTime ArrivalTime { get; set; }
+
         public bool bought { get; set; }
 
         //koristi se kad ima presedanja
         public DirectionItem SelectedRide { get; set; }
+        public bool IndirectRide { get; set; }
 
         public double Price
         {
@@ -85,9 +123,5 @@ namespace SyncfusionWpfApp1.Model
             }
         }
 
-        private double calculatePrice()
-        {
-            return 5;
-        }
     }
 }

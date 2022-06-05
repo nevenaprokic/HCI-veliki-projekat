@@ -1,0 +1,771 @@
+﻿<Page x:Class="SyncfusionWpfApp1.gui.TicketsOverview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TicketsOverview">
+
+    <Page.Resources>
+        <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
+            <Setter Property="Background" Value="Bisque" />
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#204060"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+        <Style TargetType="syncfusion:GridCell" x:Key="customCellStyle">
+            <Setter Property="BorderBrush" Value="#204060"/>
+            <Setter Property="BorderThickness" Value="0.4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="customTextBoxStyle">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#204060"/>
+        </Style>
+        <ImageBrush x:Key="tb_mouse_over"
+                    ImageSource="../images/tgBtn_MouseOver.png"/>
+
+    <Style x:Key="font_style" TargetType="TextBlock">
+
+        <Setter Property="FontFamily"
+                    Value="Fonts/Roboto-Light.ttf #Roboto"/>
+
+        <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+
+        <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+
+        <Setter Property="Foreground"
+                    Value="#141C61"/>
+
+        <Setter Property="FontSize"
+                    Value="20"/>
+
+    </Style>
+
+    <!--// Tooltip Style Template //-->
+
+    <Style TargetType="ToolTip" x:Key="tt_style">
+
+        <Setter Property="Placement" Value="Right"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Margin" Value="20,0,0,0"/>
+        <Setter Property="Background" Value="#E8F0F2"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#141C61"/>
+        <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+        <Setter Property="HorizontalOffset" Value="15"/>
+        <Setter Property="VerticalOffset" Value="6"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+    </Style>
+
+    <!--// App Close Button Style Template //-->
+
+    <ImageBrush x:Key="CloseBtn_MouseOver" ImageSource="/images/closeBtn_MouseOver.png"/>
+
+    <Style x:Key="Close_btn" TargetType="{x:Type Button}">
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="button"
+                                BorderThickness="0"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True">
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                            <Setter Property="Background"
+                                        TargetName="button"
+                                        Value="{StaticResource CloseBtn_MouseOver}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+
+
+
+    <Style x:Key="tb_style" TargetType="{x:Type ToggleButton}">
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+
+                    <Border  x:Name="border"
+                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                 Background="{TemplateBinding Background}"
+                                 SnapsToDevicePixels="True">
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+
+                            <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="true">
+
+                            <Setter Property="Background"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                            <Setter Property="BorderBrush"
+                                        TargetName="border"
+                                        Value="{StaticResource tb_mouse_over}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid   x:Name="nav_pnl"
+                    HorizontalAlignment="Left"
+                    Width="65"
+                    Background="#E8F0F2"
+                Grid.Column="0">
+
+
+            <StackPanel x:Name="st_pnl">
+
+                <!--// Grid for the Menu Toggle Button //-->
+
+                <Grid Height="90">
+
+                    <!--// Menu title text //-->
+
+                    <TextBlock  Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="73,-20,0,0"
+                                    Text="M E N I"
+                                    Foreground="#141C61"
+                                    FontSize="20"
+                                    Background="Transparent"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource font_style}">
+
+
+                    </TextBlock>
+
+                    <!--// Toggle Button //-->
+
+                    <ToggleButton x:Name="Tg_Btn"
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Margin="18,-20,0,0"
+                                      Height="30"
+                                      Width="30"
+                                      BorderThickness="0"
+                                      Style="{StaticResource tb_style}" Unchecked="Tg_Btn_Unchecked" Checked="Tg_Btn_Checked">
+
+                        <!--// Toggle button default background image //-->
+
+                        <ToggleButton.Background>
+
+                            <ImageBrush ImageSource="/images/tgBtn_default.png"
+                                            Stretch="None"/>
+
+                        </ToggleButton.Background>
+
+                        <!--// Toggle Button - Checked, Unchecked events //-->
+
+                        <ToggleButton.Triggers>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard x:Name="HideStackPanel">
+
+                                        <DoubleAnimation    
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="280" To="65"
+                                                Duration="0:0:0.2">
+
+                                        </DoubleAnimation>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="ToggleButton.Checked">
+
+                                <BeginStoryboard>
+
+                                    <Storyboard x:Name="ShowStackPanel">
+
+                                        <DoubleAnimation
+                                                
+                                                Storyboard.TargetName="nav_pnl"
+                                                Storyboard.TargetProperty="Width"
+                                                BeginTime="0:0:0"
+                                                From="65" To="280"
+                                                Duration="0:0:0.3">
+
+                                        </DoubleAnimation>
+
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+
+                            </EventTrigger>
+
+                        </ToggleButton.Triggers>
+
+
+                    </ToggleButton>
+
+                </Grid>
+
+                <!--// ListView with menu list items //-->
+
+                <ListView  x:Name="LV"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <!--// Home //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/t.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Karte"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_ticket"
+                                         Content="Karte"
+                                         Style="{StaticResource tt_style}"
+                                         />
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Contacts //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/s.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Red vožnje"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_schedule"
+                                         Content="Red vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Messages //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLine_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/m.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Vozne linije"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_trainLine"
+                                         Content="Tabelarni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Maps //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="NetworkTrainLine_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/mape.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Mrežni pregled"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_maps"
+                                         Content="Mrežni pregled voznih linija"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Settings //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/stat.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Izveštaj vožnji"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_trainLineReport"
+                                         Content="Pregled jedne vozne linije"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/monthly.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Mesečni izveštaj"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_report_monthly"
+                                         Content="Pregled izveštaja na mesečnom nivou"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/v.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Voz"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_train"
+                                         Content="Pregled vozova"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Sign Out //-->
+
+                    <ListViewItem HorizontalAlignment="Left"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      >
+
+                        <StackPanel Orientation="Horizontal"
+                                        Width="280">
+
+                            <Image Source="/images/logout.png"
+                                       Stretch="None"
+                                       Margin="12,0,0,0"/>
+
+                            <TextBlock Text="Odjava"
+                                           Margin="25,0,0,0"
+                                           Style="{StaticResource font_style}"/>
+
+                        </StackPanel>
+
+                        <!--// Tooltip //-->
+
+                        <ListViewItem.ToolTip>
+
+                            <ToolTip x:Name="tt_signout"
+                                         Content="Odjavi se"
+                                         Style="{StaticResource tt_style}"/>
+
+                        </ListViewItem.ToolTip>
+
+                    </ListViewItem>
+
+                    <!--// Listview items style template //-->
+
+                    <ListView.ItemContainerStyle>
+
+                        <Style TargetType="ListViewItem">
+
+                            <Setter Property="Template">
+
+                                <Setter.Value>
+
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                                        <Border x:Name="Bd"
+                                                    Height="50"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    Background="{TemplateBinding Background}"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    SnapsToDevicePixels="True">
+
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+
+                                            <MultiTrigger>
+
+                                                <MultiTrigger.Conditions>
+
+                                                    <Condition Property="IsMouseOver" Value="True"/>
+
+                                                </MultiTrigger.Conditions>
+
+                                                <Setter Property="Background"
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
+
+                                                <Setter Property="BorderBrush"
+                                                            TargetName="Bd"
+                                                            Value="#8db5bf"/>
+
+                                            </MultiTrigger>
+
+                                        </ControlTemplate.Triggers>
+
+                                    </ControlTemplate>
+
+                                </Setter.Value>
+
+                            </Setter>
+
+                        </Style>
+
+                    </ListView.ItemContainerStyle>
+
+                </ListView>
+
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8.1*"/>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="3.5*"/>
+                    <RowDefinition Height="1*"/> 
+                </Grid.RowDefinitions>
+
+                <Border Background="White" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="13"
+                        BorderThickness="1" CornerRadius="10"></Border>
+
+                <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalAlignment="Left">
+                    <Label Content="Pregled rezervisanih i kupljenih karata" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Filter" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox Grid.Row="7" Grid.Column="1"  IsEditable="true" Background="#e6f3ff" x:Name="CardType" >
+                    <ComboBoxItem Content="Rezervisane" ></ComboBoxItem>
+                    <ComboBoxItem Content="Kupljene" ></ComboBoxItem>
+                    <ComboBoxItem Content="Sve" ></ComboBoxItem>
+                </ComboBox>
+                
+                <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
+                    <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+                <syncfusion:DoubleTextBox 
+                    x:Name="priceFilter"
+                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" CornerRadius="3"/>
+                
+                <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
+                    <Label Content="Maksimalna cena" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <Button Content="Filtriraj" Grid.Row="7" Grid.Column="5" 
+                        Background="Bisque" FontWeight="SemiBold" 
+                        Foreground="#204060"
+                        x:Name="Filter"
+                        Click="Filter_Click"
+                        FontSize="14">
+                    
+                </Button>
+                
+                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="12" Grid.RowSpan="2" Background="White" 
+                                    ItemsSource="{Binding ClientTickets}"
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#ebebe0"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   x:Name="TrainRidesDataGrid"
+                                   
+                                   >
+                    <syncfusion:SfDataGrid.Columns>
+
+                        <syncfusion:GridTextColumn 
+                                    MappingName="From.Name"
+                                    HeaderText="Polazište"
+                                    IsReadOnly="True"
+                                    ColumnSizer="AutoLastColumnFill"
+                                    >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                            MappingName="To.Name"
+                                   HeaderText="Odredište"
+                                   IsReadOnly="True"
+                                               ColumnSizer="SizeToCells"
+                                   
+                   >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                            MappingName="DepartureTime"
+                                   HeaderText="Polazak"
+                                   IsReadOnly="True"
+                                   ColumnSizer="SizeToCells"                            
+                   >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridCheckBoxColumn 
+                            MappingName="ReturnTicket"
+                                   HeaderText="Povratna"
+                                   IsReadOnly="True"
+                                   Width="70"
+                                   
+                   >
+
+                        </syncfusion:GridCheckBoxColumn>
+                        <syncfusion:GridCheckBoxColumn 
+                            MappingName="IndirectRide"
+                                   HeaderText="Presedanje"
+                                   IsReadOnly="True"
+                                   Width="70"
+                   >
+
+                        </syncfusion:GridCheckBoxColumn>
+                        <syncfusion:GridNumericColumn 
+                            MappingName="Price"
+                                   HeaderText="Cena"
+                                   IsReadOnly="True"
+                                   Width="80"
+                   >
+
+                        </syncfusion:GridNumericColumn>
+                        <syncfusion:GridTemplateColumn HeaderText=""  Width="110">
+                            <syncfusion:GridTemplateColumn.CellTemplate> 
+                                <DataTemplate>
+                                    <Button Content="Detalji"
+                                            Click="TicketDetailsClick" 
+                                            Margin="5,1,5,1" 
+                                            Background="#86b069" 
+                                            Foreground="White" 
+                                            FontWeight="SemiBold"
+                                            Width="90px"
+                                            HorizontalContentAlignment="Center"
+                                            
+                                            >
+                                    </Button>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridTemplateColumn>
+
+
+                    </syncfusion:SfDataGrid.Columns>
+
+                </syncfusion:SfDataGrid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

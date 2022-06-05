@@ -20,6 +20,8 @@ namespace SyncfusionWpfApp1.dto
         public List<OrderedDictionary> allStations { get; set; }
         public double price { get; set; }
 
+        public DateTime ArrivalTime { get; set; }
+
         public bool selectedReturnDirection { get; set; }
         public DirectionItem(TrainLine line, TrainStation startStation, TrainStation endStation, int travelDuration, double price)
         {
