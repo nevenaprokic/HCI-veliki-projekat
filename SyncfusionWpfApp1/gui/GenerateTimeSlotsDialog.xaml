@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Top" >
-                <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Automatsko generisanje rasporeda" Foreground="#00264d"/>
+                <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Automatsko generisanje rasporeda" Foreground="#00264d" FontWeight="Bold"/>
             </Viewbox>
 
             <Viewbox Grid.Row="3" Grid.Column="1">
@@ -68,7 +68,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Odustani" x:Name="No" Margin="0, 0, 0, 5" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#00264d" Foreground="White" 
+                    <Button Content="Odustani" x:Name="No" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#00264d" Foreground="White" 
                             Click="No_Click" IsCancel="True">
                         <Button.Resources>
                             <Style TargetType="Border">

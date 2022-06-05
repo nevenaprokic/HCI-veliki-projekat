@@ -66,8 +66,8 @@ namespace SyncfusionWpfApp1.gui
             drawTable();
             ticketsCounter = Tickets.Count;
             totalCost = CalculateTotalPrice();
-            numberTextblock.Text = string.Format("Ukupno je prodato {0} karata", ticketsCounter);
-            totalTextblock.Text = string.Format("Ukupna dobit je {0}", totalCost);
+            numberTextblock.Text = string.Format("- Ukupno je prodato {0} karata", ticketsCounter);
+            totalTextblock.Text = string.Format("- Ukupna dobit je {0}", totalCost);
 
         }
 
