@@ -1,5 +1,9 @@
-﻿using System;
+﻿using SyncfusionWpfApp1.Model;
+using SyncfusionWpfApp1.repo;
+using SyncfusionWpfApp1.service;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +22,47 @@ namespace SyncfusionWpfApp1.gui
     /// <summary>
     /// Interaction logic for TicketsOverview.xaml
     /// </summary>
-    public partial class TicketsOverview : Page
+    public partial class TicketsOverview : Page, INotifyPropertyChanged
     {
         Frame frame { get; set; }
+        private List<Ticket> _clientTickets;
+        public List<TrainStation> trainStations { get; set; }
+
+        public List<Ticket> ClientTickets
+        {
+            get { return _clientTickets; }
+            set
+            {
+                if(_clientTickets != value)
+                {
+                    _clientTickets = value;
+                    RaisePropertyChanged(nameof(ClientTickets));
+                }
+            }
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected void RaisePropertyChanged(String propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
         public TicketsOverview(Frame f)
         {
+            bindingTicketsData();
+
             InitializeComponent();
             frame = f;
             Uri iconUriMail = new Uri("../../../images/proba.png", UriKind.RelativeOrAbsolute);
@@ -30,6 +70,15 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
+
+            trainStations = MainRepository.trainStations;
+
+            DataContext = this;
+        }
+
+        private void bindingTicketsData()
+        {
+            ClientTickets = TicketService.getCurrentClientTickets();
         }
 
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
@@ -110,7 +159,43 @@ namespace SyncfusionWpfApp1.gui
 
         private void TicketDetailsClick(object sender, RoutedEventArgs e)
         {
+            var v = (Button)e.OriginalSource;
+            Ticket t = (Ticket)v.DataContext;
+            TicketDetailsDialog ticketDetails = new TicketDetailsDialog(t);
+            ticketDetails.Show();
 
         }
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            //reset filtera
+            ClientTickets = TicketService.getCurrentClientTickets();
+            //preuzimanje svih selectovanih vrednsoti
+            TrainStation start =(TrainStation) StartStation.SelectedItem; 
+            TrainStation end = (TrainStation)endStation.SelectedItem;
+            double maxPrice = (Double)priceFilter.Value;
+            ComboBoxItem ticketType = (ComboBoxItem)CardType.SelectedItem;
+            string s = (string)ticketType.Content;
+            bool bought = false;
+            bool all = false;
+            if (maxPrice == 0.00) maxPrice = 100000;
+            if (s.Equals("Kupljene")) bought = true;
+            if (s.Equals("Sve")) all = true;
+            ClientTickets = TicketService.filterTickets(ClientTickets, start, end, maxPrice, bought, all);
+        }
+
+
+      /*  private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           *//* ComboBoxItem sortParam = (ComboBoxItem)Sort.SelectedItem;
+            string param = (string)sortParam.Content;
+            if (param.Equals("Cena"))
+            {
+                ClientTickets = TicketService.sortTicketsByPrice(ClientTickets);
+            }
+            else
+            {
+                ClientTickets = TicketService.sortTicketsByDate(ClientTickets);
+            }*//*
+        }*/
     }
 }

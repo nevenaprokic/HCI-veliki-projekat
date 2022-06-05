@@ -43,7 +43,6 @@ namespace SyncfusionWpfApp1.gui
         private double _twoWaysPrice;
         private Brush _rowBackgound;
         private bool _selectedTwoWays;
-
         private Train _train { get; set; }
         private Seat _seat { get; set; }
         private Wagon _wagon { get; set; }
@@ -372,6 +371,7 @@ namespace SyncfusionWpfApp1.gui
             TrainRide startRide = rides.First();
             TrainRide lastRide = rides.Last();
             double duration = (lastRide.arrivalTime - startRide.start).TotalMinutes;
+            SelectedRide.ArrivalTime = travelStart.AddMinutes(duration);
             double hours = duration / 60;
             string[] hourTokens = hours.ToString().Split(".");
             double minutes = duration - int.Parse(hourTokens[0]) * 60;
@@ -498,7 +498,6 @@ namespace SyncfusionWpfApp1.gui
                 NextBtn.Visibility = Visibility.Visible;
             }
         }
-
         private void cancleClicked(object sender, RoutedEventArgs e)
         {
             //povratak na pocetnu stranicu
@@ -523,6 +522,8 @@ namespace SyncfusionWpfApp1.gui
             SelectedRide.selectedReturnDirection = SelectedTwoWays;
             Ticket ticket = new Ticket(client, SelectedRide, price, travelStart);
             ticket.bought = false;
+            ticket.IndirectRide = true;
+            ticket.Id = TicketService.getNextId();
             MainRepository.Tickets.Add(ticket);
             String message = "Karta je uspešno rezervisana. Neophodno je da izvršiti kupovinu karte do dan pred polazak. U suprotnom karta ne važi.";
             MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
@@ -542,6 +543,9 @@ namespace SyncfusionWpfApp1.gui
             Ticket ticket = new Ticket(client, SelectedRide, price, travelStart);
             MainRepository.Tickets.Add(ticket);
             ticket.bought = true;
+            ticket.IndirectRide = true;
+            ticket.Id = TicketService.getNextId();
+            
             String message = "Karta je uspešno kupljena!";
             MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
             messageBox.Show();

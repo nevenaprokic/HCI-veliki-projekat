@@ -1,6 +1,8 @@
 ﻿using SyncfusionWpfApp1.Model;
+using SyncfusionWpfApp1.service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +20,41 @@ namespace SyncfusionWpfApp1.gui
     /// <summary>
     /// Interaction logic for TicketDetailsDialog.xaml
     /// </summary>
-    public partial class TicketDetailsDialog : Window
+    public partial class TicketDetailsDialog : Window, INotifyPropertyChanged
     {
         public Ticket Ticket { get; set; }
+        private DateTime _arrivalTime;
+        public DateTime ArrivalTime
+        {
+            get { return _arrivalTime; }
+            set
+            {
+                if(_arrivalTime != value)
+                {
+                    _arrivalTime = value;
+
+                }
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected void RaisePropertyChanged(String propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+
 
         public TicketDetailsDialog(Ticket ticket)
         {
@@ -36,12 +70,34 @@ namespace SyncfusionWpfApp1.gui
             Ticket = ticket;
             DataContext = Ticket;
             priceLabel.Content = Ticket.Price + " din.";
+            
+            retRerunLabelsVisibilty();
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            //DialogResult = true;
             this.Close();
+        }
+
+        private void retRerunLabelsVisibilty()
+        {
+            if (Ticket.ReturnTicket)
+            {
+                returnTicketLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                returnTicketLabel.Visibility = Visibility.Hidden;
+            }
+            if (Ticket.IndirectRide)
+            {
+                inidrectRideLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                inidrectRideLabel.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

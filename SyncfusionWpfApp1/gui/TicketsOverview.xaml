@@ -597,9 +597,9 @@
         <Grid Grid.Column="1">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="8*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -610,65 +610,85 @@
             <Grid Grid.Column="1" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*"/>
-                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.1*"/>
-                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.1*"/>
-                    <ColumnDefinition Width="0.6*"/>
-                    <ColumnDefinition Width="0.1*"/>
-                    <ColumnDefinition Width="0.6*"/>
-                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.6*"/>
                     <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.4*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.35*"/>
                     <RowDefinition Height="0.3*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="3.5*"/>
                     <RowDefinition Height="1*"/> 
                 </Grid.RowDefinitions>
 
-                <Border Background="#e6f3ff" Grid.Column="0" Grid.ColumnSpan="12" Grid.Row="0" Grid.RowSpan="10"
+                <Border Background="White" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="13"
                         BorderThickness="1" CornerRadius="10"></Border>
 
                 <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalAlignment="Left">
                     <Label Content="Pregled rezervisanih i kupljenih karata" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                    <Label Content="Filter" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
-                <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="true" Background="White"></ComboBox>
-                <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
-                </Viewbox>
+
+                <ComboBox Grid.Row="7" Grid.Column="1"  IsEditable="true" Background="#e6f3ff" x:Name="CardType" >
+                    <ComboBoxItem Content="Rezervisane" ></ComboBoxItem>
+                    <ComboBoxItem Content="Kupljene" ></ComboBoxItem>
+                    <ComboBoxItem Content="Sve" ></ComboBoxItem>
+                </ComboBox>
                 
-                <ComboBox Grid.Row="4" Grid.Column="3" IsEditable="true" Background="White"></ComboBox>
-                <Viewbox Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left">
+                <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
-                <ComboBox Grid.Row="4" Grid.Column="5" IsEditable="true" Background="White"></ComboBox>
+
+                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
                     <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
-                <ComboBox Grid.Row="4" Grid.Column="7" IsEditable="true" Background="White"></ComboBox>
-                <Viewbox Grid.Row="5" Grid.Column="7" HorizontalAlignment="Left">
-                    <Label Content="Maksimalna cena" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
-                </Viewbox>
-                <ComboBox Grid.Row="4" Grid.Column="9" IsEditable="true" Background="White"></ComboBox>
-                <Viewbox Grid.Row="5" Grid.Column="9" HorizontalAlignment="Left">
-                    <Label Content="Sortiraj" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                <syncfusion:DoubleTextBox 
+                    x:Name="priceFilter"
+                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" CornerRadius="3"/>
+                
+                <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
+                    <Label Content="Maksimalna cena" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="10" Grid.RowSpan="2" Background="White" 
-                                    
+                <Button Content="Filtriraj" Grid.Row="7" Grid.Column="5" 
+                        Background="Bisque" FontWeight="SemiBold" 
+                        Foreground="#204060"
+                        x:Name="Filter"
+                        Click="Filter_Click"
+                        FontSize="14">
+                    
+                </Button>
+                
+                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="12" Grid.RowSpan="2" Background="White" 
+                                    ItemsSource="{Binding ClientTickets}"
                                    Margin="0,0,38,0"
-                                   RowSelectionBrush="#9FC088"
+                                   RowSelectionBrush="#ebebe0"
                                    HeaderStyle="{StaticResource customHeaderStyle}"
                                    x:Name="TrainRidesDataGrid"
                                    
@@ -676,50 +696,65 @@
                     <syncfusion:SfDataGrid.Columns>
 
                         <syncfusion:GridTextColumn 
+                                    MappingName="From.Name"
                                     HeaderText="Polazište"
                                     IsReadOnly="True"
-                                    ColumnSizer="Star"
+                                    ColumnSizer="AutoLastColumnFill"
                                     >
                         </syncfusion:GridTextColumn>
                         <syncfusion:GridTextColumn 
+                            MappingName="To.Name"
                                    HeaderText="Odredište"
                                    IsReadOnly="True"
-                                               ColumnSizer="Star"
+                                               ColumnSizer="SizeToCells"
                                    
                    >
                         </syncfusion:GridTextColumn>
                         <syncfusion:GridTextColumn 
+                            MappingName="DepartureTime"
                                    HeaderText="Polazak"
                                    IsReadOnly="True"
-                                               ColumnSizer="Star"
+                                   ColumnSizer="SizeToCells"                            
                    >
-
                         </syncfusion:GridTextColumn>
-                        <syncfusion:GridTextColumn 
+                        <syncfusion:GridCheckBoxColumn 
+                            MappingName="ReturnTicket"
                                    HeaderText="Povratna"
                                    IsReadOnly="True"
-                                   ColumnSizer="Star"
+                                   Width="70"
+                                   
                    >
 
-                        </syncfusion:GridTextColumn>
-                        <syncfusion:GridTextColumn 
+                        </syncfusion:GridCheckBoxColumn>
+                        <syncfusion:GridCheckBoxColumn 
+                            MappingName="IndirectRide"
                                    HeaderText="Presedanje"
                                    IsReadOnly="True"
-                                   ColumnSizer="Star"
+                                   Width="70"
                    >
 
-                        </syncfusion:GridTextColumn>
-                        <syncfusion:GridTextColumn 
+                        </syncfusion:GridCheckBoxColumn>
+                        <syncfusion:GridNumericColumn 
+                            MappingName="Price"
                                    HeaderText="Cena"
                                    IsReadOnly="True"
-                                   ColumnSizer="Star"
+                                   Width="80"
                    >
 
-                        </syncfusion:GridTextColumn>
-                        <syncfusion:GridTemplateColumn HeaderText="" MappingName="EmployeeID" ColumnSizer="SizeToCells">
-                            <syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridNumericColumn>
+                        <syncfusion:GridTemplateColumn HeaderText=""  Width="110">
+                            <syncfusion:GridTemplateColumn.CellTemplate> 
                                 <DataTemplate>
-                                    <Button Content="{Binding EmployeeID}" Click="TicketDetailsClick">
+                                    <Button Content="Detalji"
+                                            Click="TicketDetailsClick" 
+                                            Margin="5,1,5,1" 
+                                            Background="#86b069" 
+                                            Foreground="White" 
+                                            FontWeight="SemiBold"
+                                            Width="90px"
+                                            HorizontalContentAlignment="Center"
+                                            
+                                            >
                                     </Button>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>

@@ -815,6 +815,8 @@ namespace SyncfusionWpfApp1.gui
             User client = UserService.findByEmail(MainRepository.CurrentUser);
             Ticket ticket = new Ticket(client, SelectedRide, Seat);
             ticket.bought = false;
+            ticket.IndirectRide = false;
+            ticket.Id = TicketService.getNextId();
             MainRepository.Tickets.Add(ticket);
             String message = "Karta je uspešno rezervisana. Neophodno je da izvršiti kupovinu karte do dan pred polazak. U suprotnom karta ne važi.";
             MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
@@ -828,6 +830,8 @@ namespace SyncfusionWpfApp1.gui
             Ticket ticket = new Ticket(client, SelectedRide, Seat);
             MainRepository.Tickets.Add(ticket);
             ticket.bought = true;
+            ticket.IndirectRide = false;
+            ticket.Id = TicketService.getNextId();
             String message = "Karta je uspešno kupljena!";
             MessageBox messageBox = new MessageBox(message, MainWindow.GetWindow(this));
             messageBox.Show();
