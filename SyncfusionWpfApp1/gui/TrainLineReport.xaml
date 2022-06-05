@@ -25,7 +25,7 @@
                     Value="Left"/>
 
             <Setter Property="Foreground"
-                    Value="#141C61"/>
+                    Value="#00264d"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
@@ -41,8 +41,8 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
@@ -175,7 +175,7 @@
                                     Grid.Column="0"
                                     Margin="73,-20,0,0"
                                     Text="M E N I"
-                                    Foreground="#141C61"
+                                    Foreground="#00264d"
                                     FontSize="20"
                                     Background="Transparent"
                                     HorizontalAlignment="Left"
@@ -628,7 +628,7 @@
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
-                            <Setter Property="BorderBrush" Value="#D66D6F"/>
+                            <Setter Property="BorderBrush" Value="#00264d"/>
                             <Setter Property="BorderThickness" Value="0.6"/>
                             <Setter Property="HorizontalAlignment" Value="Stretch"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -670,12 +670,12 @@
 
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="Detaljan prikaz"  Width="*">
+                        <DataGridTemplateColumn Header="Detaljan prikaz"  Width="1.1*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="detailViewButton" Click="DetailView_Handler" Height="30" Background="#E8F0F2">
+                                    <Button x:Name="detailViewButton" Click="DetailView_Handler" Height="30" Background="White">
                                         <StackPanel>
-                                            <Image Source="/images/detail_view_ticket.png" Width="20" Height="20"></Image>
+                                            <Image Source="/images/view.png" Width="20" Height="20"></Image>
                                         </StackPanel>
                                         <Button.ToolTip>
                                             <ToolTip 
@@ -734,13 +734,13 @@
                 <Label Content="Odredište: *" Grid.Row="5" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
                 <ComboBox x:Name="comboEnd" Grid.Row="6" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
 
-                <Button Grid.Row="8" Grid.Column="1" Background="#00264d" Click="GenerateClicked">
+                <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" MinWidth="100" MinHeight="50" Background="#00264d" Click="GenerateClicked">
                     <Button.Content>
                         <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
                             <Label Content="Prikaži" VerticalAlignment="Top" 
-                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="17"/>
                         </StackPanel>
                     </Button.Content>
                     <Button.Resources>
