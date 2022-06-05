@@ -25,7 +25,7 @@
                     Value="Left"/>
 
             <Setter Property="Foreground"
-                    Value="#141C61"/>
+                    Value="#00264d"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
@@ -41,8 +41,8 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
@@ -175,7 +175,7 @@
                                     Grid.Column="0"
                                     Margin="73,-20,0,0"
                                     Text="M E N I"
-                                    Foreground="#141C61"
+                                    Foreground="#00264d"
                                     FontSize="20"
                                     Background="Transparent"
                                     HorizontalAlignment="Left"
@@ -587,6 +587,7 @@
 
             <Grid Grid.Column="1"  >
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -597,34 +598,37 @@
                     <RowDefinition Height="0.1*" />
                     <RowDefinition Height="0.3*" />
                     <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.2*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="0.1*"/>
                     <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+                <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
 
-                <TextBlock Text="Pregled prodatih karata za jednu vožnju" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#141C61" FontSize="22" Padding="10" Margin="0, 0, 130, 0" />
+                <TextBlock Text="Pregled prodatih karata za jednu vožnju" FontWeight="Bold" FontStyle="Italic" TextWrapping="WrapWithOverflow" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="22"  />
 
-                <TextBlock x:Name="numberTextblock" TextWrapping="WrapWithOverflow" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#141C61" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <TextBlock x:Name="totalTextblock" TextWrapping="WrapWithOverflow" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#141C61" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-
+                <TextBlock x:Name="numberTextblock" TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="2" Grid.Column="1" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+                <TextBlock x:Name="totalTextblock" TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="3" Grid.Column="1" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
 
                 <DataGrid Name="dataGrid"
                   AutoGenerateColumns="True"
-                  
-                  Grid.RowSpan="3"
+                  Grid.Column="1"
+                  Grid.RowSpan="4"
                   Grid.ColumnSpan="1"
-                  Grid.Row="4"
+                  Grid.Row="5"
                   FontSize="14"                 
                   >
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
-                            <Setter Property="BorderBrush" Value="#D66D6F"/>
+                            <Setter Property="BorderBrush" Value="#00264d"/>
                             <Setter Property="BorderThickness" Value="0.6"/>
                             <Setter Property="HorizontalAlignment" Value="Stretch"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -666,12 +670,12 @@
 
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="Detaljan prikaz"  Width="*">
+                        <DataGridTemplateColumn Header="Detaljan prikaz"  Width="1.1*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button x:Name="detailViewButton" Click="DetailView_Handler" Height="30" Background="#E8F0F2">
+                                    <Button x:Name="detailViewButton" Click="DetailView_Handler" Height="30" Background="White">
                                         <StackPanel>
-                                            <Image Source="/images/detail_view_ticket.png" Width="20" Height="20"></Image>
+                                            <Image Source="/images/view.png" Width="20" Height="20"></Image>
                                         </StackPanel>
                                         <Button.ToolTip>
                                             <ToolTip 
@@ -687,8 +691,8 @@
 
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#141C61"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <!--<Setter Property="Background" Value="#00264d"/>
+                            <Setter Property="Foreground" Value="White"/>-->
                             <Setter Property="HorizontalAlignment" Value="Stretch"/>
                             <Setter Property="Height" Value="30"/>
                             <Setter Property="FontWeight"  Value="DemiBold"/>
@@ -697,21 +701,23 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
-                <TextBlock Text="Ne postoje prodate karte za odabrani mesec" Grid.Row="5" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
+                <TextBlock Text="Ne postoje prodate karte za odabranu vožnju" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
 
             </Grid>
 
             <Grid Grid.Column="0" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="0.5*" />
-                    <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="0.5*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="0.2*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -720,21 +726,21 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+                <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+                <Label Content="Izbor stanica" Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
+                <Label Content="Polazište: *" Grid.Row="2" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
+                <ComboBox x:Name="comboStart" Grid.Row="3" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"></ComboBox>
 
-                <Label Content="Polazište: *" Grid.Row="1" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
-                <ComboBox x:Name="comboStart" Grid.Row="2" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"></ComboBox>
+                <Label Content="Odredište: *" Grid.Row="5" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
+                <ComboBox x:Name="comboEnd" Grid.Row="6" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
 
-                <Label Content="Odredište: *" Grid.Row="4" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
-                <ComboBox x:Name="comboEnd" Grid.Row="5" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
-
-                <Button Grid.Row="7" Grid.Column="1" Background="#00264d" Click="GenerateClicked">
+                <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" MinWidth="100" MinHeight="50" Background="#00264d" Click="GenerateClicked">
                     <Button.Content>
                         <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
                             <Label Content="Prikaži" VerticalAlignment="Top" 
-                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="17"/>
                         </StackPanel>
                     </Button.Content>
                     <Button.Resources>

@@ -17,8 +17,8 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
@@ -26,6 +26,7 @@
             <Setter Property="VerticalOffset" Value="6"/>
             <Setter Property="HasDropShadow" Value="True"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
 
         </Style>
     </Page.Resources>
@@ -37,17 +38,18 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid x:Name="UpdateDeletePage" Grid.Row="1" Grid.Column="1" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -57,13 +59,13 @@
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
             <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
-                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="White" >Definisanje novog reda vožnje</TextBlock>
+                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Definisanje novog reda vožnje</TextBlock>
             </Viewbox>
 
-            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" Width="35" Height="35"
+            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" Click="AddRow_Handler" l:HelpProvider.HelpKey="error" HorizontalAlignment="Right" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                 <StackPanel Background="Transparent">
-                    <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                 </StackPanel>
                 <Button.ToolTip>
                     <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
@@ -84,8 +86,8 @@
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
-                        <Setter Property="BorderBrush" Value="DarkBlue" />
-                        <Setter Property="Foreground" Value="DarkBlue"/>
+                        <Setter Property="BorderBrush" Value="#00264d" />
+                        <Setter Property="Foreground" Value="#00264d"/>
                         <Setter Property="BorderThickness" Value="0.6"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -102,7 +104,7 @@
 
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Brisanje"  Width="*">
+                    <DataGridTemplateColumn Header="Obriši"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="#E8F0F2">
@@ -136,7 +138,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -144,11 +146,11 @@
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="3*" />
                 </Grid.RowDefinitions>
-                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center">
-                    <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="White" FontStyle="Italic" VerticalAlignment="Center" />
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                    <Label x:Name="editLabel" Content="Unesite novo vreme za: " Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
-                <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center">
+                <Viewbox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+                    <TextBox x:Name="newTime" MinWidth="100" VerticalAlignment="Center" Foreground="#00264d" BorderBrush="#00264d">
                         <TextBox.ToolTip>
                             <ToolTip 
                                          Content="Format za vreme je 'HH:mm'"
@@ -157,9 +159,9 @@
                     </TextBox>
                 </Viewbox>
                 <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">
-                    <Label x:Name="messageLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
+                    <Label x:Name="messageLabel" Content="" Foreground="#BB6464" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
-                <Viewbox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">
+                <Viewbox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left">
                     <Button x:Name="iconButton" Grid.Column="2" Grid.Row="1" Click="AddRow_Handler"  VerticalAlignment="Center" Background="#204060">
                         <StackPanel Background="Transparent">
                             <Image x:Name="editIcon" Source="/images/add_icon.png"></Image>
@@ -174,7 +176,7 @@
                     </Button>
                 </Viewbox>
                 <Viewbox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center">
-                    <Button x:Name="generateButton" Grid.Column="2" Grid.Row="1" Click="GenerateRows_Handler" VerticalAlignment="Center" Background="#204060">
+                    <Button x:Name="generateButton" Grid.Column="2" Grid.Row="1" Click="GenerateRows_Handler" VerticalAlignment="Center" Background="#E8F0F2">
                         <StackPanel Background="Transparent">
                             <Image x:Name="generateIcon" Source="/images/img_setting.png"></Image>
                         </StackPanel>
@@ -188,34 +190,29 @@
 
             </Grid>
 
-            <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="10">
+            <Grid Grid.Row="0" Grid.Column="3" Grid.RowSpan="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1.3*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="6.5*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
+                    
+                    
                 </Grid.RowDefinitions>
 
-                <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" >
-                    <Label Content="Naziv reda vožnje:" Foreground="White" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" >
+                    <Label Content="Naziv reda vožnje:" Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                 </Viewbox>
-                <Viewbox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                    <TextBox x:Name="nameBox" MinWidth="100" VerticalAlignment="Center" Text="{Binding Path=ScheduleName}" TextChanged="TextBoxName_Changed">
+                <Viewbox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                    <TextBox x:Name="nameBox" Foreground="#00264d" BorderBrush="#00264d"  MinWidth="100" VerticalAlignment="Center" Text="{Binding Path=ScheduleName}" TextChanged="TextBoxName_Changed">
                         <TextBox.ToolTip>
                             <ToolTip 
                                          Content="Naziv je obavezan"
@@ -223,12 +220,21 @@
                         </TextBox.ToolTip>
                     </TextBox>
                 </Viewbox>
-                <Viewbox Grid.ColumnSpan="3" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center">
-                    <Label x:Name="nameValidationLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
+                <Viewbox Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label x:Name="nameValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
 
-                <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="8">
-                    <Button Content="Nazad" Click="Cancel_Handler" HorizontalAlignment="Center" MinWidth="80" VerticalAlignment="Center" Background="#141C61" Foreground="White">
+                <Viewbox Grid.Column="2"  Grid.Row="5">
+                    <Button  Click="Cancel_Handler" HorizontalAlignment="Center" MinWidth="80" VerticalAlignment="Center" Background="#00264d" Foreground="White">
+                        <Button.Content>
+                            <StackPanel VerticalAlignment="Top" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+
+                                <Label Content="Odustani" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                            </StackPanel>
+                        </Button.Content>
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5" />
@@ -243,8 +249,17 @@
                     </Button>
                 </Viewbox>
 
-                <Viewbox  Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="7">
-                    <Button x:Name="deleteScheduleButton" Content="Sačuvaj" Click="Save_Handler" HorizontalAlignment="Center" MinWidth="80" VerticalAlignment="Center" Background="#141C61" Foreground="White">
+                <Viewbox  Grid.Column="1"  Grid.Row="5">
+                    <Button x:Name="deleteScheduleButton"  Click="Save_Handler" HorizontalAlignment="Center" MinWidth="70" VerticalAlignment="Center" Background="#9FC088" Foreground="White">
+                        <Button.Content>
+                            <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                
+                                <Label Content="Sačuvaj" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                            </StackPanel>
+                        </Button.Content>
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5" />

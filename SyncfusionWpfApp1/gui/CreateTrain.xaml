@@ -13,12 +13,12 @@
         <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
             <Setter Property="Background" Value="Bisque" />
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Foreground" Value="DarkBlue"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontWeight" Value="Bold"/>
 
         </Style>
         <Style TargetType="syncfusion:GridCell" x:Key="customCellStyle">
-            <Setter Property="BorderBrush" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
             <Setter Property="BorderThickness" Value="0.4"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -31,8 +31,8 @@
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
@@ -64,7 +64,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -81,10 +81,10 @@
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#204060" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="14" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
             <Viewbox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Label x:Name="classValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+                <Label x:Name="classValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
             </Viewbox>
 
             <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="4">
@@ -112,11 +112,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="5">
-                    <Label Content="Naziv voza: *" Foreground="White"></Label>
+                    <Label Content="Naziv voza: *" Foreground="#00264d"></Label>
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <TextBox x:Name="nameBox" Text="{Binding Path=TrainName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" MinWidth="100" FontStyle="Italic">
+                    <TextBox x:Name="nameBox" Text="{Binding Path=TrainName}" TextChanged="TextBoxName_Changed" TextWrapping="Wrap" BorderBrush="#00264d" MinWidth="100" FontStyle="Italic">
                         <TextBox.ToolTip>
                             <ToolTip 
                                          Content="Naziv je obavezan"
@@ -126,19 +126,19 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="2" HorizontalAlignment="Center">
-                    <Label x:Name="nameValidationLabel" Content="" Foreground="Red" FontStyle="Italic" VerticalAlignment="Center" />
+                    <Label x:Name="nameValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" VerticalAlignment="Center" />
                 </Viewbox>
 
                 <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7">
-                    <Label Content="Definisanje vagona" Foreground="White" FontStyle="Italic"></Label>
+                    <Label Content="Definisanje vagona" Foreground="#00264d" FontStyle="Italic"></Label>
                 </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-                    <Label Content="Broj sedišta: *" Foreground="White" />
+                    <Label Content="Broj sedišta: *" Foreground="#00264d" />
                 </Viewbox>
 
-                <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
-                    <TextBox Name="NumberSeatsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80">
+                <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
+                    <TextBox Name="NumberSeatsTextBox" Background="White" Foreground="#00264d" PreviewTextInput="NumberValidationTextBox" MinWidth="80" BorderBrush="#00264d">
                         <TextBox.ToolTip>
                             <ToolTip 
                                          Content="Broj sedišta u novom vagonu. Numerička vrednost"
@@ -148,15 +148,15 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Label x:Name="seatValidationLabel" Content="" Foreground="Red" FontStyle="Italic"  />
+                    <Label x:Name="seatValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic"  />
                 </Viewbox>
 
                 <Viewbox Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3">
-                    <Label Content="Broj vagona: *" Foreground="White" />
+                    <Label Content="Broj vagona: *" Foreground="#00264d" />
                 </Viewbox>
                 
                 <Viewbox Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3">
-                    <TextBox Name="NumberWagonsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80">
+                    <TextBox Name="NumberWagonsTextBox" PreviewTextInput="NumberValidationTextBox" MinWidth="80" BorderBrush="#00264d">
                         <TextBox.ToolTip>
                             <ToolTip 
                                          Content="Količina novih vagona. Numerička vrednost"
@@ -166,15 +166,15 @@
                 </Viewbox>
 
                 <Viewbox Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Label x:Name="wagonValidationLabel" Content="" Foreground="Red" FontStyle="Italic" />
+                    <Label x:Name="wagonValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
                 </Viewbox>
 
                 <Viewbox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
-                    <Label Content="Razred vagona: *" Foreground="White" />
+                    <Label Content="Razred vagona: *" Foreground="#00264d" />
                 </Viewbox>
 
                 <Viewbox Grid.ColumnSpan="4" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
-                    <ComboBox Height="23" Name="comboClass" MinWidth="100">
+                    <ComboBox Height="23" Name="comboClass" MinWidth="100" BorderBrush="#00264d">
                         <ComboBox.ToolTip>
                             <ToolTip 
                                          Content="Odabir razreda novog vagona za voz"
@@ -210,11 +210,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Viewbox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="10 0 0 0">
-                    <Image x:Name="trainIcon" Source="/images/trian_station.png"/>
-                </Viewbox>
+               
                 <Viewbox Grid.Row="1" Grid.Column="2">
-                    <TextBlock Text="Definisanje novog voza i njegovih vagona" Foreground="White" FontStyle="Italic" />
+                    <TextBlock Text="Definisanje novog voza i njegovih vagona" Foreground="#00264d" FontWeight="Bold" FontStyle="Italic" />
                 </Viewbox>
             </Grid>
 
@@ -229,8 +227,22 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Viewbox Grid.Column="0" Grid.Row="0">
-                    <Button Grid.Column="0" Content="Nazad" MinWidth="80" Click="GoBack_Handler" Background="#b3d9ff">
+                <Viewbox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left">
+                    <Button Grid.Column="0"  MinWidth="80" Click="GoBack_Handler" Background="#00264d" Foreground="White">
+                        <Button.Content>
+                            <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                    Background="Transparent" Height="29">
+
+                                <Label Content="Odustani" VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
                         <Button.ToolTip>
                             <ToolTip 
                                          Content="Nazad na izmenu/brisanje vozova. Voz neće biti sačuvan"
@@ -240,8 +252,23 @@
                     </Button>
                 </Viewbox>
                 
-                <Viewbox Grid.Column="2" Grid.Row="0">
-                    <Button Content="Sačuvaj" MinWidth="80" Click="Save_Handler" Background="#b3d9ff">
+                <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">
+                    <Button Click="Save_Handler" Background="#9FC088" HorizontalAlignment="Right">
+
+                        <Button.Content>
+                            <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                    Background="Transparent" Height="29">
+
+                                <Label Content="Sačuvaj" VerticalAlignment="Top" 
+                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                            </StackPanel>
+                        </Button.Content>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
                         <Button.ToolTip>
                             <ToolTip 
                                          Content="Trajno čuvanje novokreiranog voza"
@@ -267,8 +294,8 @@
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="Margin" Value="0,-1,-1,0"></Setter>
-                        <Setter Property="BorderBrush" Value="DarkBlue" />
-                        <Setter Property="Foreground" Value="DarkBlue"/>
+                        <Setter Property="BorderBrush" Value="#00264d" />
+                        <Setter Property="Foreground" Value="#00264d"/>
                         <Setter Property="BorderThickness" Value="0.6"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -292,7 +319,7 @@
                     <DataGridTemplateColumn Header="Brisanje"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="#E8F0F2">
+                                <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="White">
                                     <StackPanel>
                                         <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
                                     </StackPanel>

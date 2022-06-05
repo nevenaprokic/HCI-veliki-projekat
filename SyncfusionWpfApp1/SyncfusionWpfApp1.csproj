@@ -17,8 +17,10 @@
     <None Remove="images\delete2.png" />
     <None Remove="images\delete_icon.png" />
     <None Remove="images\detail_view_ticket.png" />
+    <None Remove="images\edit.png" />
     <None Remove="images\edit_icon.png" />
     <None Remove="images\help_icon.jpg" />
+    <None Remove="images\help_icon.png" />
     <None Remove="images\img_contact.png" />
     <None Remove="images\img_home.png" />
     <None Remove="images\img_map.png" />
@@ -41,6 +43,7 @@
     <None Remove="images\ticket.png" />
     <None Remove="images\ticketIcon.jpeg" />
     <None Remove="images\v.png" />
+    <None Remove="images\view.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,8 +80,10 @@
     <Resource Include="images\delete2.png" />
     <Resource Include="images\delete_icon.png" />
     <Resource Include="images\detail_view_ticket.png" />
+    <Resource Include="images\edit.png" />
     <Resource Include="images\edit_icon.png" />
     <Resource Include="images\help_icon.jpg" />
+    <Resource Include="images\help_icon.png" />
     <Resource Include="images\img_contact.png" />
     <Resource Include="images\img_home.png" />
     <Resource Include="images\img_map.png" />
@@ -101,6 +106,7 @@
     <Resource Include="images\ticket.png" />
     <Resource Include="images\ticketIcon.jpeg" />
     <Resource Include="images\v.png" />
+    <Resource Include="images\view.png" />
   </ItemGroup>
 
 </Project>
