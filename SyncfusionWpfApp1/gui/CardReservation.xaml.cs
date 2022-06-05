@@ -3,25 +3,18 @@ using SyncfusionWpfApp1.repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ComponentModel;
 using SyncfusionWpfApp1.dto;
 using SyncfusionWpfApp1.validators;
 using SyncfusionWpfApp1.expetion;
 using SyncfusionWpfApp1.service;
-using Syncfusion.Windows.Shared;
 using System.Globalization;
 using System.Threading;
+using System.Windows.Input;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -390,7 +383,13 @@ namespace SyncfusionWpfApp1.gui
                 if (checkFullFields())
                 {
                     StartDateTime = convertToFullDateTime(StartDate, StartTime);
-                   
+                    selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
+                    if (selectedLines.Count == 0)
+                    {
+
+                        offerNotDirectlyTravel();
+                    }
+
                     if (DateTimeValidator.validateDates(StartDateTime))
                     {
                         
@@ -521,6 +520,14 @@ namespace SyncfusionWpfApp1.gui
             //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
             
             selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
+            if(selectedLines.Count == 0)
+            {
+                List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(StartStation);
+                List<TrainLine> linesContainsEndStation = TrainLineService.getLinesWhichContainesStation(EndStation);
+                selectedLines = TrainLineService.combileListOfTrainLines(linesContainsEndStation, linesContainsStartStation);
+                
+            }
+            
             SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
             startTimePicker.IsEnabled = true;
             if (StartDate == DateTime.MinValue)
@@ -528,6 +535,7 @@ namespace SyncfusionWpfApp1.gui
                 startTimePicker.IsEnabled = false;
 
             }
+            //dodati event na satnicu  KOMENTAR
             else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
             {
                 disableReservationOption();
@@ -536,6 +544,13 @@ namespace SyncfusionWpfApp1.gui
             {
                 restoreReservationOption();
             }
+            
+            
+        }
+
+        private void offerNotDirectlyTravel()
+        {
+            frame.Content = new NotDirectlyTranferOptions(frame, StartStation, EndStation, StartDateTime, backTicket);
         }
 
         private void disableReservationOption()
@@ -819,6 +834,62 @@ namespace SyncfusionWpfApp1.gui
             frame.Content = new WelcomePageClient(frame);
         }
 
+        private void TicketReport_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new CardReservation(frame);
+        }
+        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
+        {
 
+        }
+        private void Schedule_Handler(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new NetworkLineClient(frame);
+        }
+        private void TrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineView(frame);
+        }
+        
+        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            // Set tooltip visibility
+
+            if (Tg_Btn.IsChecked == true)
+            {
+                tt_ticket.Visibility = Visibility.Collapsed;
+                tt_schedule.Visibility = Visibility.Collapsed;
+                tt_trainLine.Visibility = Visibility.Collapsed;
+                tt_maps.Visibility = Visibility.Collapsed;
+                tt_signout.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tt_ticket.Visibility = Visibility.Visible;
+                tt_schedule.Visibility = Visibility.Visible;
+                tt_trainLine.Visibility = Visibility.Visible;
+                tt_maps.Visibility = Visibility.Visible;
+                tt_signout.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // img_bg.Opacity = 1;
+        }
+
+        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
+        {
+            //img_bg.Opacity = 0.3;
+        }
+
+        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Tg_Btn.IsChecked = false;
+        }
     }
 }

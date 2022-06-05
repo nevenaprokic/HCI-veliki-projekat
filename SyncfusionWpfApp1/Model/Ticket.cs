@@ -41,6 +41,17 @@ namespace SyncfusionWpfApp1.Model
 
         }
 
+        public Ticket(User client, DirectionItem selectedRide, double price, DateTime startTime)
+        {
+            Client = client;
+            //From = selectedRide.allStations.ElementAt(0);
+            To = selectedRide.endStation;
+            this.Price = price;
+            this.DepartureTime = startTime;
+            this.ReturnTicket = selectedRide.selectedReturnDirection;
+            this.SelectedRide = selectedRide;
+        }
+
         public override string ToString()
         {
             return $"Ticket: {Train.Name}, returning: {ReturnTicket}, line: {Line.Start.Street} - {Line.End.Street}, departure time: {DepartureTime}, seat: {Seat.SeatNumber}.";
@@ -61,6 +72,9 @@ namespace SyncfusionWpfApp1.Model
         private double _price;
        
         public bool bought { get; set; }
+
+        //koristi se kad ima presedanja
+        public DirectionItem SelectedRide { get; set; }
 
         public double Price
         {

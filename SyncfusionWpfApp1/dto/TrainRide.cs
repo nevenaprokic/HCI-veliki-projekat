@@ -13,7 +13,7 @@ namespace SyncfusionWpfApp1.dto
         public TrainStation endStation { get; set; }
         public TrainLine line { get; set; }
         public Train train { get; set; }
-        public WagonClass wagonClass { get; set;}
+        public WagonClass wagonClass { get; set; }
         public DateTime start { get; set; }
         public int travelDuration { get; set; }
         public double price { get; set; }
@@ -21,6 +21,13 @@ namespace SyncfusionWpfApp1.dto
         public bool backTicket { get; set; }
         public int ClassNumber { get; set; }
         public string priceStr { get; set; }
+
+        public Seat seat { get; set; }
+
+        //potrebni podaci za iscrtavanje voznje sa presedanjems
+        public DateTime arrivalTime {get; set;}
+        
+        public String RowColor { get; set; }
        
 
         public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start,int travelDuration, double price, bool backTicket)
@@ -36,6 +43,10 @@ namespace SyncfusionWpfApp1.dto
             this.backTicket = backTicket;
             ClassNumber = (int) wagonClass + 1;
             priceStr = price.ToString() + ".00" + " din";
+        }
+
+        public TrainRide()
+        {
         }
     }
 }
