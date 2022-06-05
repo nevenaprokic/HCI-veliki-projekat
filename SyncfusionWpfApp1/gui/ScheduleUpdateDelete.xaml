@@ -26,7 +26,7 @@
                     Value="Left"/>
 
             <Setter Property="Foreground"
-                    Value="#141C61"/>
+                    Value="#00264d"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
@@ -176,7 +176,7 @@
                                     Grid.Column="0"
                                     Margin="73,-20,0,0"
                                     Text="M E N I"
-                                    Foreground="#141C61"
+                                    Foreground="#00264d"
                                     FontSize="20"
                                     Background="Transparent"
                                     HorizontalAlignment="Left"
@@ -652,7 +652,7 @@
 
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="Brisanje"  Width="*">
+                        <DataGridTemplateColumn Header="Obriši"  Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="White">

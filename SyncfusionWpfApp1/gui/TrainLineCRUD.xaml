@@ -24,7 +24,7 @@
                     Value="Left"/>
 
             <Setter Property="Foreground"
-                    Value="#141C61"/>
+                    Value="#00264d"/>
 
             <Setter Property="FontSize"
                     Value="20"/>
@@ -40,8 +40,8 @@
             <Setter Property="Width" Value="180"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#141C61"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
             <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
@@ -174,7 +174,7 @@
                                     Grid.Column="0"
                                     Margin="73,-20,0,0"
                                     Text="M E N I"
-                                    Foreground="#141C61"
+                                    Foreground="#00264d"
                                     FontSize="20"
                                     Background="Transparent"
                                     HorizontalAlignment="Left"
@@ -673,7 +673,7 @@
                         <DataTemplate>
                                 <Button x:Name="deleteRowButton" Height="30" Background="White" Click="EditRow_Handler">
                                 <StackPanel>
-                                    <Image Source="/images/edit_icon.png" Width="20" Height="20"></Image>
+                                    <Image Source="/images/edit.png" Width="20" Height="20"></Image>
                                 </StackPanel>
                             </Button>
                         </DataTemplate>
