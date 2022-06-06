@@ -538,7 +538,7 @@ namespace SyncfusionWpfApp1.gui
                 startTimePicker.IsEnabled = false;
 
             }
-            //dodati event na satnicu  KOMENTAR
+            
             else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
             {
                 disableReservationOption();

@@ -689,7 +689,7 @@
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.5*"/>
                     <RowDefinition Height="0.1*"/>
                     <RowDefinition Height="0.35*"/>
                     <RowDefinition Height="0.3*"/>
@@ -722,9 +722,9 @@
                            Foreground="#204060"></Label>
                 </Viewbox>
 
-                <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+                <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
                     <Label Content="Stanice" 
-                           FontSize="15" FontWeight="SemiBold" FontStyle="Italic"
+                           FontSize="17" FontWeight="SemiBold" FontStyle="Italic"
                            Foreground="#204060"></Label>
 
                 </Viewbox>
@@ -735,12 +735,12 @@
                            Foreground="#204060"></Label>
 
                 </Viewbox>
-                <Viewbox Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="8" HorizontalAlignment="Left">
-                    <Label Content="Cena i vreme se odnose na vožnju od prethodne to te stanice"
+                <Viewbox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="6" HorizontalAlignment="Left">
+                    <Label Content="(Cena i vreme se odnose na vožnju od prethodne to te stanice)"
                            FontStyle="Italic"
                            FontSize="14"
                            FontWeight="SemiBold"
-                           Foreground="#86b069"></Label>
+                           Foreground="#204060"></Label>
                 </Viewbox>
 
                 <Button Grid.Column="1" Grid.Row="15" 

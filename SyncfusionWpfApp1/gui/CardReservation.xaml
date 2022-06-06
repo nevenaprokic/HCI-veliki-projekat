@@ -1129,7 +1129,7 @@
 
 
                 </Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.ColumnSpan="2" Background="White" Grid.Row="3" Grid.RowSpan="9" >
+                <ScrollViewer Grid.Column="2" Grid.ColumnSpan="2" Background="White" Grid.Row="3" Grid.RowSpan="9" >
                     <Grid  x:Name="SeatsGrid" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*"/>
