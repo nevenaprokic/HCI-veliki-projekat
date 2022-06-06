@@ -553,7 +553,7 @@
             </Viewbox>
 
             <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2">
-                <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="10" Center="45.255001, 19.844723">
+                <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="7" Center="44.2108 , 20.9224">
                     <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
                 </m:Map>
             </Grid>

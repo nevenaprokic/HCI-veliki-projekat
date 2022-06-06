@@ -18,6 +18,7 @@ using BingMapsRESTToolkit.Extensions;
 using Microsoft.Maps.MapControl.WPF;
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
+using static SyncfusionWpfApp1.gui.EditTrainLine;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -42,6 +43,8 @@ namespace SyncfusionWpfApp1.gui
 
         public delegate void scheduleDelegate(Schedule schedule);
         public static event scheduleDelegate someEvent;
+        //public delegate void trainDelegate(List<Train> trains);
+        public static event trainDelegate trainEvent;
         public AddNewTrainLine(Frame f)
         {
             InitializeComponent();
@@ -257,7 +260,6 @@ namespace SyncfusionWpfApp1.gui
             newTrainStations.Add(station);
             TrainStationInfo stationInfo = new TrainStationInfo(minute,price);
             newTrainStationInfo.Add(stationInfo);
-            //MainRepository.trainStations.Add(station);
             MainMap.Children.Add(pin);
         }
         private void GoBack_Handler(object sender, RoutedEventArgs e)
@@ -274,9 +276,32 @@ namespace SyncfusionWpfApp1.gui
         public void CreateSchedule(Schedule schedule)
         {
             TimeSlots = schedule.Times;
+            TimeSlotsWeekend = schedule.Times;
+        }
+        private void AddTrain_Handler(object sender, RoutedEventArgs e)
+        {
+            trainEvent += AddNewTrain;
+            AddNewTrain add = new AddNewTrain(trainEvent);
+            add.Show();
+        }
+        public void AddNewTrain(List<Train> trains)
+        {
+            foreach (Train t in trains)
+            {
+                Trains.Add(t);
+            }
+            
         }
         private void Save_Handler(object sender, RoutedEventArgs e)
         {
+            if(newTrainStations.Count < 2)
+            {
+                NotificationDialog dialog = new NotificationDialog("Nije moguce kreirati novu liniju bez pocetne i krajnje stanice!");
+                if ((bool)dialog.ShowDialog())
+                    return;
+                    
+                 return;
+            }
             newTrainLine.Start = newTrainStations[0];
             newTrainLine.End = newTrainStations[newTrainStations.Count - 1];
             newTrainLine.Price = newTrainStationInfo[newTrainStationInfo.Count - 1].Price;

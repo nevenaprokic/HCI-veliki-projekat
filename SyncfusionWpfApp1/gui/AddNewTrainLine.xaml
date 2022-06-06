@@ -65,7 +65,7 @@
             </Button.ToolTip>
         </Button>
         <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="3" Grid.Row="2">
-            <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="10" Center="45.255001, 19.844723" AllowDrop="True" DragEnter="ListView_DragEnter" Drop="ListView_Drop">
+            <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="7" Center="44.2108 , 20.9224" AllowDrop="True" DragEnter="ListView_DragEnter" Drop="ListView_Drop">
                 <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
             </m:Map>
         </Grid>
@@ -105,7 +105,7 @@
                 </Button>
             </Viewbox>
             <Viewbox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                <Button Content="Dodaj voz" MinWidth="90" Height="29"  Click="CalculateRouteBtn_Clicked"  Foreground="White" Background="#00264d" >
+                <Button Content="Dodaj voz" MinWidth="90" Height="29"  Click="AddTrain_Handler"  Foreground="White" Background="#00264d" >
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
