@@ -281,6 +281,7 @@
 
                 <!--// ListView with menu list items //-->
 
+
                 <ListView  x:Name="LV"
                                Background="Transparent"
                                BorderBrush="Transparent"
@@ -289,7 +290,7 @@
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReservation_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -318,20 +319,20 @@
 
                     </ListViewItem>
 
-                    <!--// Contacts //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                              
                                       >
 
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/s.png"
+                            <Image Source="/images/tickets_history.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                            <TextBlock Text="Red vožnje"
+                            <TextBlock Text="Istorija karata"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -341,13 +342,16 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_schedule"
-                                         Content="Red vožnje"
-                                         Style="{StaticResource tt_style}"/>
+                            <ToolTip x:Name="history_ticket"
+                                         Content="Istorija karata"
+                                         Style="{StaticResource tt_style}"
+                                         />
 
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
+
+                    <!--// Contacts //-->
 
                     <!--// Messages //-->
 
@@ -410,99 +414,10 @@
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
-
-                    <!--// Settings //-->
-
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TrainLineReport_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/stat.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Izveštaj vožnji"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_trainLineReport"
-                                         Content="Pregled jedne vozne linije"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="MonthlyReport_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/monthly.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Mesečni izveštaj"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_report_monthly"
-                                         Content="Pregled izveštaja na mesečnom nivou"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Train_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/v.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Voz"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_train"
-                                         Content="Pregled vozova"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-
                     <!--// Sign Out //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Logout_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -590,6 +505,7 @@
 
                 </ListView>
 
+
             </StackPanel>
 
 
@@ -636,10 +552,12 @@
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="0.2*"/>
                     <RowDefinition Height="3.5*"/>
-                    <RowDefinition Height="1*"/> 
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.4*"/>
                 </Grid.RowDefinitions>
 
-                <Border Background="White" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="13"
+                <Border Background="#E8F0F2" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="15"
                         BorderThickness="1" CornerRadius="10"></Border>
 
                 <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalAlignment="Left">
@@ -649,7 +567,7 @@
                     <Label Content="Filter" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox Grid.Row="7" Grid.Column="1"  IsEditable="true" Background="#e6f3ff" x:Name="CardType" >
+                <ComboBox Grid.Row="7" Grid.Column="1"  IsEditable="true" Background="White" x:Name="CardType" >
                     <ComboBoxItem Content="Rezervisane" ></ComboBoxItem>
                     <ComboBoxItem Content="Kupljene" ></ComboBoxItem>
                     <ComboBoxItem Content="Sve" ></ComboBoxItem>
@@ -659,22 +577,42 @@
                     <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="#e6f3ff" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
                     <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
                 <syncfusion:DoubleTextBox 
                     x:Name="priceFilter"
-                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" CornerRadius="3"/>
+                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="White" BorderBrush="#204060" BorderThickness="1" CornerRadius="3"/>
                 
                 <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
                     <Label Content="Maksimalna cena" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
+
+                <Label x:Name="ReservationExpireLabel" Visibility="Hidden" Grid.Row="1" Grid.Column="7" Grid.RowSpan="3" Grid.ColumnSpan="5">
+                    <TextBlock Text="Imate rezervacije koje ističu za manje od 24h. Molim Vas potvrdite ih kako ne bi bile otkazane."
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               FontStyle="Italic"
+                               Foreground="#CF1B0D"
+                               ></TextBlock>
+                </Label>
+
+                <Viewbox Grid.Row="13" 
+                         Grid.Column="1" Grid.ColumnSpan="6" 
+                         x:Name="MessageLabel" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center"
+                         Visibility="Hidden">
+                    <Label Foreground="#CF1B0D" FontSize="15" FontStyle="Italic" Content="Nema voznih linija koje odgovaraju izabranim parametrima"></Label>
+                </Viewbox>
+
+                <Image  Source="/images/tickets_history1.png" Grid.Column="10" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="4" ></Image>
 
                 <Button Content="Filtriraj" Grid.Row="7" Grid.Column="5" 
                         Background="Bisque" FontWeight="SemiBold" 

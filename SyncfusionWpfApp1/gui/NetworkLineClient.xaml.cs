@@ -200,23 +200,19 @@ namespace SyncfusionWpfApp1.gui
 
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new CardReservation(frame);
+            frame.Content = new TicketsOverview(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-
+            frame.Content = new CardReservation(frame);
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new NetworkTrainLine(frame);
+            frame.Content = new NetworkLineClient(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TrainLineView(frame);
+            frame.Content = new ClientTrainLinesOverview(frame);
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -225,20 +221,20 @@ namespace SyncfusionWpfApp1.gui
             if (Tg_Btn.IsChecked == true)
             {
                 tt_ticket.Visibility = Visibility.Collapsed;
-                tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+
             }
             else
             {
                 tt_ticket.Visibility = Visibility.Visible;
-                tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
+
         private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
         {
             // img_bg.Opacity = 1;
@@ -252,6 +248,13 @@ namespace SyncfusionWpfApp1.gui
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;
+        }
+
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+
+            frame.Content = new LoginPage(frame);
+            frame.NavigationService.RemoveBackEntry();
         }
     }
 }

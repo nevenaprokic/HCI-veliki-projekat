@@ -28,7 +28,7 @@ namespace SyncfusionWpfApp1.gui
     public partial class NotDirectlyTranferOptions : Page, INotifyPropertyChanged
     {
         public Frame frame { get; set; }
-        private String[] RowColors = { "#CDE6D8", "#F6EBDA", "#DEDAF6", "#DAF6EB", "#DEDAF6", "#DEDAF6" };
+        private String[] RowColors = { "#F6ECFF", "#e6ffe6", "#ffffe6", "#FFECFC", "#DEDAF6",  "#F6EBDA", "#e6f3ff", "#ffccb3", "#ffccb3" };
         private int colorIndex = 0;
         private int _selectedRideIndex;
         private DirectionItem _selectedRide;
@@ -199,24 +199,28 @@ namespace SyncfusionWpfApp1.gui
             NotDirectionRideService service = new NotDirectionRideService();
             service.getNotDirectionsRide(startStation, endStation, startDateTime);
             AllIndirectionRides = service.directions;
-            SelectedRideIndex = 0;
-            StartDateTime = startDateTime;
-            SelectedRide = AllIndirectionRides.ElementAt(0);
-            RidesOnDirection = BindSelectedDirectionData();
-
-            InitializeComponent();
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
-            this.Background = myBrush;
             this.frame = frame;
-            this.SelectedTwoWays = backTicket;
+            
+                InitializeComponent();
+                SelectedRideIndex = 0;
+                StartDateTime = startDateTime;
+                SelectedRide = AllIndirectionRides.ElementAt(0);
+                RidesOnDirection = BindSelectedDirectionData();
 
-            setPriceLabels();
+                
+                ImageBrush myBrush = new ImageBrush();
+                myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+                this.Background = myBrush;
+                this.frame = frame;
+                this.SelectedTwoWays = backTicket;
 
-            drawIcons();
-            setButtons();
+                setPriceLabels();
 
-            DataContext = this;
+                drawIcons();
+                setButtons();
+
+                DataContext = this;
+            
 
         }
 
@@ -330,14 +334,15 @@ namespace SyncfusionWpfApp1.gui
                     DateTime startTime = findNearestTime(StartDateTime, schedual);
                     ride.start = startTime;
                     travelStart = startTime;
-                    ride.RowColor = RowColors[0];
-                    
+                    ride.RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(RowColors[0]));
+
+
                 }
                 else
                 {
                     TrainRide lastTrainLide = rides.Last();
                     ride.start = calculateSTartTime(lastTrainLide.arrivalTime, lastTrainLide, ride);
-                    ride.RowColor = generateRowColor(rides.Last(), ride);
+                    ride.RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(generateRowColor(rides.Last(), ride)));
                    
                 }
 
@@ -553,36 +558,19 @@ namespace SyncfusionWpfApp1.gui
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new CardReservation(frame);
+            frame.Content = new TicketsOverview(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-
+            frame.Content = new CardReservation(frame);
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new NetworkLineClient(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void Train_Handler(object sender, RoutedEventArgs e)
-        {
-
-
+            frame.Content = new ClientTrainLinesOverview(frame);
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -591,23 +579,16 @@ namespace SyncfusionWpfApp1.gui
             if (Tg_Btn.IsChecked == true)
             {
                 tt_ticket.Visibility = Visibility.Collapsed;
-                tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                tt_trainLineReport.Visibility = Visibility.Collapsed;
-                tt_train.Visibility = Visibility.Collapsed;
-                tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+
             }
             else
             {
                 tt_ticket.Visibility = Visibility.Visible;
-                tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-                tt_trainLineReport.Visibility = Visibility.Visible;
-                tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
@@ -625,6 +606,13 @@ namespace SyncfusionWpfApp1.gui
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;
+        }
+
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+
+            frame.Content = new LoginPage(frame);
+            frame.NavigationService.RemoveBackEntry();
         }
     }
 }
