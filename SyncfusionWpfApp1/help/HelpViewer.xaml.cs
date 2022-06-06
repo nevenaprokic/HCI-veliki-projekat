@@ -30,7 +30,7 @@ namespace SyncfusionWpfApp1.help
             {
                 key = "error";
             }
-            Uri u = new Uri(String.Format("C:\\Users\\Joco\\Desktop\\IIIb\\HCI\\HCI-projekat\\ZeleznicaAplikacija\\SyncfusionWpfApp1\\help\\{0}.htm", key));
+            Uri u = new Uri(String.Format(path));
             ch = new JavaScriptControlHelper(originator);
             wbHelp.ObjectForScripting = ch;
             wbHelp.Navigate(u);
