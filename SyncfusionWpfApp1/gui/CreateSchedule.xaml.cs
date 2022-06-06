@@ -20,6 +20,7 @@ namespace SyncfusionWpfApp1.gui
         public bool AlreadyInInsertMode { get; set; }
         public Schedule SelectedSchedule {get; set;}
         private Frame frame;
+        private AddNewTrainLine Parent;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,6 +30,8 @@ namespace SyncfusionWpfApp1.gui
         }
 
         private string _name;
+        private AddNewTrainLine.scheduleDelegate someEvent;
+
         public string ScheduleName
         {
             get { return _name; }
@@ -44,11 +47,12 @@ namespace SyncfusionWpfApp1.gui
 
         public CreateSchedule(){ }
 
-        public CreateSchedule(Frame f)
+        public CreateSchedule(Frame f, AddNewTrainLine.scheduleDelegate someEvent, AddNewTrainLine parent)
         {
             InitializeComponent();
             setBackground();
             frame = f;
+            Parent = parent;
             SelectedSchedule = new Schedule();
             SelectedSchedule.Times = new List<string>();
             DataContext = this;
@@ -59,6 +63,7 @@ namespace SyncfusionWpfApp1.gui
             editLabel.Content = "Unesite novo vreme za: " + ScheduleName;
         }
 
+       
         private void setBackground()
         {
             ImageBrush myBrush = new ImageBrush();
@@ -249,13 +254,25 @@ namespace SyncfusionWpfApp1.gui
             ScheduleName = "";
             nameBox.Text = "";
             drawTable();
+            if(Parent != null)
+            {
+                someEvent += Parent.CreateSchedule;
+                someEvent?.Invoke(SelectedSchedule);
+            }
+                
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi red vožnje.");
-            if ((bool)dialog.ShowDialog())
-                return;
+            if ((bool)dialog.ShowDialog()) 
+            {
+                if(someEvent == null)
+                    return;
+                this.NavigationService.GoBack();
+            }
+                
         }
 
         private void Cancel_Handler(object sender, RoutedEventArgs e)
         {
+
             frame.Content = new ScheduleUpdateDelete(frame);
         }
 

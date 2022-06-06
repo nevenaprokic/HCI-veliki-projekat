@@ -10,18 +10,16 @@ namespace SyncfusionWpfApp1.Model
     {
         public TrainStation() { }
 
-        public TrainStation(string street, int number, string country, string city, int id)
+        public TrainStation(string street, string country, string city, int id)
         {
             Street = street;
-            Number = number;
             Country = country;
             City = city;
             Id = id;
-            Name = City + ", " + Street + " " + Number + ", " + Country;
+            Name = City + ", " + Street + " " + ", " + Country;
         }
 
         public string Street { get; set; }
-        public int Number { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
 
@@ -40,7 +38,7 @@ namespace SyncfusionWpfApp1.Model
         }
         public TrainStation DeepCopy()
         {
-            TrainStation deepcopyTrainStation = new TrainStation(this.Street, this.Number, this.Country, this.City, this.Id);
+            TrainStation deepcopyTrainStation = new TrainStation(this.Street, this.Country, this.City, this.Id);
             return deepcopyTrainStation;
         }
     }
