@@ -1,7 +1,5 @@
-﻿using BingMapsRESTToolkit;
-using BingMapsRESTToolkit.Extensions;
-using Microsoft.Maps.MapControl.WPF;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,40 +12,46 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BingMapsRESTToolkit;
+using BingMapsRESTToolkit.Extensions;
+using Microsoft.Maps.MapControl.WPF;
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
-using System.Collections;
 
 namespace SyncfusionWpfApp1.gui
 {
-    public partial class NetworkTrainLine : Page
+    /// <summary>
+    /// Interaction logic for AddNewLine.xaml
+    /// </summary>
+    public partial class AddNewLine : Window
     {
         private Frame frame;
+        System.Windows.Point startPoint = new System.Windows.Point();
         private string BingMapsKey = "AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6";
 
         private string SessionKey;
         private List<SimpleWaypoint> waypoints = new List<SimpleWaypoint>();
+        private Pushpin pin;
+        private List<TrainStation> newTrainStations = new List<TrainStation>();
+        private List<TrainStationInfo> newTrainStationInfo = new List<TrainStationInfo>();
         public ObservableCollection<TrainLine> TrainLines { get; set; }
-
-        public NetworkTrainLine(Frame f)
+        public AddNewLine(TrainLine currentTrainLine)
         {
             InitializeComponent();
-            frame = f;
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
-            this.Background = myBrush;
-
-            TrainLines = new ObservableCollection<TrainLine>(MainRepository.trainLines);
-            foreach(TrainLine t in TrainLines)
+            foreach (DictionaryEntry kvp in currentTrainLine.Map)
             {
-                comboLines.Items.Add(t.Start.Name + " - " + t.End.Name);
+                TrainStation t = (TrainStation)kvp.Key;
+                comboLines.Items.Add(t.Name);
             }
+           
             comboLines.SelectedItem = 0;
 
             DataContext = this;
-
+            initMap();
+        }
+        private void initMap()
+        {
             MainMap.Mode = new RoadMode();
             MainMap.Focus();
             MainMap.Culture = "sr-Latn-RS";
@@ -56,25 +60,75 @@ namespace SyncfusionWpfApp1.gui
             {
                 SessionKey = c.ApplicationId;
             });
-           
         }
-        
+        private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+        }
+        private void Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            System.Windows.Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                Image image = e.Source as Image;
+                DataObject data = new DataObject(typeof(ImageSource), image.Source);
+                DragDrop.DoDragDrop(image, data, DragDropEffects.Move);
+            }
+
+        }
+        private void ListView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!e.Data.GetDataPresent("myFormat") || sender == e.Source)
+            {
+                e.Effects = DragDropEffects.None;
+            }
+        }
+
+        private void ListView_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+
+            System.Windows.Point mousePosition = e.GetPosition(MainMap);
+            Microsoft.Maps.MapControl.WPF.Location pinLocation = MainMap.ViewportPointToLocation(mousePosition);
+
+            pin = new Pushpin();
+            pin.Location = pinLocation;
+
+
+            waypoints.Add(new SimpleWaypoint(pinLocation.Latitude.ToString() + "," + pinLocation.Longitude.ToString()));
+            if (waypoints.Count == 1)
+            {
+                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, true);
+                point.Show();
+            }
+            else
+            {
+                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, false);
+                point.Show();
+            }
+
+
+        }
 
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
         {
             MainMap.Children.Clear();
-            int index = comboLines.SelectedIndex;
-            if (index == -1) return;
-
+            //OutputTbx.Text = string.Empty;
             LoadingBar.Visibility = Visibility.Visible;
 
-            var waypoints = GetWaypoints(index);
+            var waypoints = GetWaypoints();
 
             if (waypoints.Count < 2)
             {
                 NotificationDialog dialog = new NotificationDialog("Potrebno je minimalno dva pina kako bi se ruta nacrtala!");
                 if ((bool)dialog.ShowDialog())
                     return;
+
+                return;
             }
 
             var travelMode = (TravelModeType)Enum.Parse(typeof(TravelModeType), (string)("Walking"));
@@ -119,7 +173,6 @@ namespace SyncfusionWpfApp1.gui
             }
             catch (Exception ex)
             {
-
                 NotificationDialog dialog = new NotificationDialog("Greška, pokušajte ponovo...");
                 if ((bool)dialog.ShowDialog())
                     return;
@@ -127,17 +180,8 @@ namespace SyncfusionWpfApp1.gui
 
             LoadingBar.Visibility = Visibility.Collapsed;
         }
-        private List<SimpleWaypoint> GetWaypoints(int index)
+        private List<SimpleWaypoint> GetWaypoints()
         {
-            waypoints.Clear();
-            TrainLine line = TrainLines[index];
-            waypoints.Add(new SimpleWaypoint(line.Start.Name));
-            foreach (DictionaryEntry kvp in line.Map)
-            {
-                waypoints.Add(new SimpleWaypoint(kvp.Key.ToString()));
-            }
-            waypoints.Add(new SimpleWaypoint(line.End.Name));
-
             return waypoints;
         }
         private void RenderRouteResponse(RouteRequest routeRequest, Response response)
@@ -194,73 +238,22 @@ namespace SyncfusionWpfApp1.gui
                 throw new Exception(String.Join("", response.ErrorDetails));
             }
         }
-
-        private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
+        private void Save_Handler(object sender, RoutedEventArgs e)
         {
-            // Set tooltip visibility
-
-            if (Tg_Btn.IsChecked == true)
+            if (newTrainStations.Count < 1)
             {
-                tt_schedule.Visibility = Visibility.Collapsed;
-                tt_trainLine.Visibility = Visibility.Collapsed;
-                tt_maps.Visibility = Visibility.Collapsed;
-                tt_trainLineReport.Visibility = Visibility.Collapsed;
-                tt_train.Visibility = Visibility.Collapsed;
-                tt_report_monthly.Visibility = Visibility.Collapsed;
-                tt_signout.Visibility = Visibility.Collapsed;
+                NotificationDialog dialog = new NotificationDialog("Nije moguce kreirati novu liniju bez njenih koordinata!");
+                if ((bool)dialog.ShowDialog())
+                    return;
+
+                return;
             }
-            else
-            {
-                tt_schedule.Visibility = Visibility.Visible;
-                tt_trainLine.Visibility = Visibility.Visible;
-                tt_maps.Visibility = Visibility.Visible;
-                tt_trainLineReport.Visibility = Visibility.Visible;
-                tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;
-                tt_signout.Visibility = Visibility.Visible;
-            }
-        }
+           
 
-       
-        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new MonthlyReport(frame);
         }
-        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
+        private void GoBack_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TrainLineReport(frame);
+            this.Close();
         }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new ScheduleUpdateDelete(frame);
-        }
-        private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new NetworkTrainLine(frame);
-        }
-        private void TrainLine_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new TrainLineCRUD(frame);
-        }
-        private void Train_Handler(object sender, RoutedEventArgs e)
-        {
-            frame.Content = new TrainUpdateDelete(frame);
-        }
-
-        private void Tg_Btn_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // img_bg.Opacity = 1;
-        }
-
-        private void Tg_Btn_Checked(object sender, RoutedEventArgs e)
-        {
-            //img_bg.Opacity = 0.3;
-        }
-
-        private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Tg_Btn.IsChecked = false;
-        }
-
     }
 }

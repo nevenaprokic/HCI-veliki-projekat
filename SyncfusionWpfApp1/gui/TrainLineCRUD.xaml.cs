@@ -105,17 +105,10 @@ namespace SyncfusionWpfApp1.gui
             }
                 
         }
+        
         private void AddNew_Handler(object sender, RoutedEventArgs e)
         {
             frame.Content = new AddNewTrainLine(frame);
-        }
-        private void TicketReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void TicketReservation_Handler(object sender, RoutedEventArgs e)
-        {
-
         }
         private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
         {
@@ -147,7 +140,7 @@ namespace SyncfusionWpfApp1.gui
 
             if (Tg_Btn.IsChecked == true)
             {
-                tt_ticket.Visibility = Visibility.Collapsed;
+                
                 tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
@@ -158,7 +151,7 @@ namespace SyncfusionWpfApp1.gui
             }
             else
             {
-                tt_ticket.Visibility = Visibility.Visible;
+                
                 tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;

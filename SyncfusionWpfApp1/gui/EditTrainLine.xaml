@@ -79,6 +79,7 @@
 
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="Ime vozne linije" Binding="{Binding StationName}" Width="*" />
+                    <DataGridTextColumn Header="Cena" Binding="{Binding Price}" Width="*" />
                     <DataGridTemplateColumn Header="Obriši"  Width="0.6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -218,7 +219,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Column="1" Grid.ColumnSpan="2" MinWidth="110" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#9FC088" Foreground="White"  FontSize="15">
+            <Button Grid.Column="1" Click="AddNewTrainLine_Handler" Grid.ColumnSpan="2" MinWidth="110" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#9FC088" Foreground="White"  FontSize="15">
                 <Button.Content>
                     <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
