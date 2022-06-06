@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
         mc:Ignorable="d"
          WindowStyle="None" ResizeMode="NoResize"
-        Title="Izmena vozne linije" Height="500" Width="700"
+        Title="Izmena vozne linije" Height="500" Width="500"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
     <Border BorderThickness="2" BorderBrush="#00264d" 
@@ -73,7 +73,7 @@
                     <DataGridTemplateColumn Header="Dodaj"  Width="0.6*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="addRowButton" Height="30" Background="White">
+                                <Button x:Name="addRowButton" Height="30" Background="White" Click="AddTrain_Handler">
                                     <StackPanel>
                                         <Image x:Name="addIconTable" Source="/images/add1.png"  Width="20" Height="20"></Image>
                                     </StackPanel>
@@ -119,7 +119,7 @@
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
 
-                        <Label Content="Sačuvaj izmene" VerticalAlignment="Top" 
+                        <Label Content="Sačuvaj" VerticalAlignment="Top" 
                    HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
                     </StackPanel>
                 </Button.Content>

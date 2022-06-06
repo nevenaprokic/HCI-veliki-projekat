@@ -62,6 +62,8 @@ namespace SyncfusionWpfApp1.gui
         public int Id;
         public delegate void someDelegate();
         //public event someDelegate someEvent;
+        public delegate void trainDelegate(List<Train> trains);
+        public static event trainDelegate trainEvent;
         public TrainLineCRUD Parent { get; set; }
         public EditTrainLine(int trainLineId, Frame f, TrainLineCRUD parent)
         {
@@ -145,6 +147,7 @@ namespace SyncfusionWpfApp1.gui
                 if (tr.Name.Equals(train.Name))
                 {
                     CurrentTrainLine.Trains.Remove(train);
+                    train.HasTrain = false;
                 }
 
             }
@@ -162,8 +165,17 @@ namespace SyncfusionWpfApp1.gui
        
         private void AddTrain_Handler(object sender, RoutedEventArgs e)
         {
-            AddNewTrain add = new AddNewTrain();
+            trainEvent += AddNewTrain;
+            AddNewTrain add = new AddNewTrain(trainEvent);
             add.Show();
+        }
+        public void AddNewTrain(List<Train> trains)
+        {
+            foreach(Train t in trains)
+            {
+                CurrentTrainLine.Trains.Add(t);
+            }
+            drawTableTrain();
         }
 
 
