@@ -116,6 +116,11 @@ namespace SyncfusionWpfApp1.gui
             }
 
         }
+        private void AddNewTrainLine_Handler(object sender, RoutedEventArgs e)
+        {
+            AddNewLine line = new AddNewLine(CurrentTrainLine);
+            line.Show();
+        }
         private void DeleteTrainLine_Handler(object sender, RoutedEventArgs e)
         {
             int forRemove = dataGridTrainLine.SelectedIndex;
