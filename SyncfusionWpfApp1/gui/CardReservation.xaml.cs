@@ -370,7 +370,7 @@ namespace SyncfusionWpfApp1.gui
             stationsNames = new List<string>();
             foreach(TrainStation station in trainStations)
             {
-                String name = station.City + ", " +  station.Street + " " + station.Number + ", "  +station.Country;
+                String name = station.City + ", " +  station.Street + " " + ", "  +station.Country;
                 stationsNames.Add(name);
             }
         }

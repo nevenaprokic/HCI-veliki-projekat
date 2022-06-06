@@ -78,7 +78,7 @@ namespace SyncfusionWpfApp1.gui
             Rows.Clear();
             foreach (TrainLine t in TrainLines)
             {
-                string trains = "";
+                string trains = "   ";
                 foreach (Train train in t.Trains)
                 {
                     trains += train.Name + ", ";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ using System.Windows.Shapes;
 using BingMapsRESTToolkit;
 using BingMapsRESTToolkit.Extensions;
 using Microsoft.Maps.MapControl.WPF;
+using SyncfusionWpfApp1.Model;
+using SyncfusionWpfApp1.repo;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -29,13 +32,27 @@ namespace SyncfusionWpfApp1.gui
 
         private string SessionKey;
         private List<SimpleWaypoint> waypoints = new List<SimpleWaypoint>();
+        private Pushpin pin;
+        private List<TrainStation> newTrainStations = new List<TrainStation>();
+        private List<TrainStationInfo> newTrainStationInfo = new List<TrainStationInfo>();
+        private TrainLine newTrainLine;
+        private List<Train> Trains = new List<Train>();
+        private List<string> TimeSlots = new List<string>();
+        private List<string> TimeSlotsWeekend = new List<string>();
+
+        public delegate void scheduleDelegate(Schedule schedule);
+        public static event scheduleDelegate someEvent;
         public AddNewTrainLine(Frame f)
         {
             InitializeComponent();
             frame = f;
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
-            this.Background = myBrush;
+            newTrainLine = new TrainLine();
+            initBanckground();
+            initMap();
+        }
+
+        private void initMap()
+        {
             MainMap.Mode = new RoadMode();
             MainMap.Focus();
             MainMap.Culture = "sr-Latn-RS";
@@ -45,22 +62,14 @@ namespace SyncfusionWpfApp1.gui
                 SessionKey = c.ApplicationId;
             });
         }
-        private void MapWithPushpins_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void initBanckground()
         {
-            e.Handled = true;
-
-            System.Windows.Point mousePosition = e.GetPosition(this);
-            Microsoft.Maps.MapControl.WPF.Location pinLocation = MainMap.ViewportPointToLocation(mousePosition);
-
-            Pushpin pin = new Pushpin();
-            pin.Location = pinLocation;
-
-
-            //Coordinates.Text = pinLocation.Longitude.ToString();
-            //Coordinates1.Text = pinLocation.Latitude.ToString();
-            MainMap.Children.Add(pin);
-
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
+            this.Background = myBrush;
         }
+
         private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             startPoint = e.GetPosition(null);
@@ -78,6 +87,7 @@ namespace SyncfusionWpfApp1.gui
                 DataObject data = new DataObject(typeof(ImageSource), image.Source);
                 DragDrop.DoDragDrop(image, data, DragDropEffects.Move);
             }
+            
         }
         private void ListView_DragEnter(object sender, DragEventArgs e)
         {
@@ -94,15 +104,22 @@ namespace SyncfusionWpfApp1.gui
             System.Windows.Point mousePosition = e.GetPosition(MainMap);
             Microsoft.Maps.MapControl.WPF.Location pinLocation = MainMap.ViewportPointToLocation(mousePosition);
 
-            Pushpin pin = new Pushpin();
+            pin = new Pushpin();
             pin.Location = pinLocation;
 
-
-            //Coordinates.Text = pinLocation.Longitude.ToString();
-            //Coordinates1.Text = pinLocation.Latitude.ToString();
-            MainMap.Children.Add(pin);
-            //add waitpoints
+            
             waypoints.Add(new SimpleWaypoint(pinLocation.Latitude.ToString() + "," + pinLocation.Longitude.ToString()));
+            if(waypoints.Count == 1)
+            {
+                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, true);
+                point.Show();
+            }
+            else
+            {
+                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, false);
+                point.Show();
+            }
+           
 
         }
 
@@ -174,17 +191,6 @@ namespace SyncfusionWpfApp1.gui
         }
         private List<SimpleWaypoint> GetWaypoints()
         {
-
-            // waypoints = new List<SimpleWaypoint>();
-
-            /*foreach (var p in places)
-            {
-                if (!string.IsNullOrWhiteSpace(p))
-                {
-                    waypoints.Add(new SimpleWaypoint(p));
-                }
-            }*/
-
             return waypoints;
         }
         private void RenderRouteResponse(RouteRequest routeRequest, Response response)
@@ -195,19 +201,6 @@ namespace SyncfusionWpfApp1.gui
                && response.ResourceSets[0].Resources[0] is Route)
             {
                 var route = response.ResourceSets[0].Resources[0] as Route;
-
-                var timeSpan = new TimeSpan(0, 0, (int)Math.Round(route.TravelDurationTraffic));
-
-                if (timeSpan.Days > 0)
-                {
-                    Console.WriteLine(string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days));
-                    //OutputTbx.Text = string.Format("Travel Time: {3} days {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Days);
-                }
-                else
-                {
-                    Console.WriteLine(string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds));
-                    //OutputTbx.Text = string.Format("Travel Time: {0} hr {1} min {2} sec\r\n", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-                }
 
                 var routeLine = route.RoutePath.Line.Coordinates;
                 var routePath = new LocationCollection();
@@ -253,6 +246,60 @@ namespace SyncfusionWpfApp1.gui
             {
                 throw new Exception(String.Join("", response.ErrorDetails));
             }
+        }
+        public void DeleteLast()
+        {
+            waypoints.RemoveAt(waypoints.Count-1);
+        }
+        public void SaveLast(string street, string city, string state, double price, int minute)
+        {
+            TrainStation station = new TrainStation(street, state, city, (MainRepository.trainStations.Count+2));
+            newTrainStations.Add(station);
+            TrainStationInfo stationInfo = new TrainStationInfo(minute,price);
+            newTrainStationInfo.Add(stationInfo);
+            //MainRepository.trainStations.Add(station);
+            MainMap.Children.Add(pin);
+        }
+        private void GoBack_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new TrainLineCRUD(frame);
+        }
+        private void CreateSchedule_Handler(object sender, RoutedEventArgs e)
+        {
+            someEvent += CreateSchedule;
+            frame.Content = new CreateSchedule(frame, someEvent, this);
+            
+            
+        }
+        public void CreateSchedule(Schedule schedule)
+        {
+            TimeSlots = schedule.Times;
+        }
+        private void Save_Handler(object sender, RoutedEventArgs e)
+        {
+            newTrainLine.Start = newTrainStations[0];
+            newTrainLine.End = newTrainStations[newTrainStations.Count - 1];
+            newTrainLine.Price = newTrainStationInfo[newTrainStationInfo.Count - 1].Price;
+            newTrainLine.Id = MainRepository.trainLines.Count + 2;
+            OrderedDictionary newDict = new OrderedDictionary();
+            
+            for(int i = 0; i < newTrainStations.Count; i++)
+            {
+                newDict.Add(newTrainStations[i], newTrainStationInfo[i]);
+            }
+            newTrainLine.Map = newDict;
+            newTrainLine.TimeSlots = TimeSlots;
+            newTrainLine.TimeSlotsWeekend = TimeSlotsWeekend;
+            newTrainLine.Trains = Trains;
+
+            MainRepository.trainLines.Add(newTrainLine);
+            foreach(TrainStation station in newTrainStations)
+            {
+                MainRepository.trainStations.Add(station);
+            }
+            
+            frame.Content = new TrainLineCRUD(frame);
+
         }
     }
 }
