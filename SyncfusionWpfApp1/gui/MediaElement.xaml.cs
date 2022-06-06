@@ -20,14 +20,14 @@ namespace SyncfusionWpfApp1.gui
     /// </summary>
     public partial class MediaElement : Window
     {
-        public MediaElement()
+        public MediaElement(String source)
         {
             InitializeComponent();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-			mePlayer.Source = new Uri("../../../images/video.mkv", UriKind.Relative);
+			mePlayer.Source = new Uri(source, UriKind.Relative);
 			mePlayer.LoadedBehavior = MediaState.Manual;
         }
 

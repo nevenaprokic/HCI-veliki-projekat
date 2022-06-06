@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
         mc:Ignorable="d"
-        Title="MediaElement" Height="700" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="MediaElement" Width="500" Height="500" Icon="../App.ico">
     <Window.Resources>
         <Style TargetType="ToolTip" x:Key="tt_style">
 
@@ -32,8 +33,11 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Viewbox>
+            <MediaElement x:Name="mePlayer" Stretch="UniformToFill" />
+        </Viewbox>
         
-        <MediaElement x:Name="mePlayer" Stretch="None" />
         <Viewbox>
             <Label x:Name="labela" FontStyle="Italic">Pritisnite dugme Play da biste pokrenuli video!</Label>
         </Viewbox>
