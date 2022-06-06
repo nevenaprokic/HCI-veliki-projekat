@@ -1,9 +1,11 @@
 ﻿using SyncfusionWpfApp1.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SyncfusionWpfApp1.dto
 {
@@ -27,7 +29,7 @@ namespace SyncfusionWpfApp1.dto
         //potrebni podaci za iscrtavanje voznje sa presedanjems
         public DateTime arrivalTime {get; set;}
         
-        public String RowColor { get; set; }
+        public SolidColorBrush RowColor { get; set; }
        
 
         public TrainRide(TrainStation startStation, TrainStation endStation, TrainLine line, Train train, WagonClass wagonClass, DateTime start,int travelDuration, double price, bool backTicket)

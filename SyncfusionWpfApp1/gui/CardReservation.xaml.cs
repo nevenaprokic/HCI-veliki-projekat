@@ -384,21 +384,24 @@ namespace SyncfusionWpfApp1.gui
                 {
                     StartDateTime = convertToFullDateTime(StartDate, StartTime);
                     selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
-                    if (selectedLines.Count == 0)
-                    {
-
-                        offerNotDirectlyTravel();
-                    }
+                    
 
                     if (DateTimeValidator.validateDates(StartDateTime))
                     {
-                        
-                        StartDateTime.Date.ToShortDateString();
-                        this.FirstPage.Visibility = Visibility.Hidden;
-                        this.SecondPage.Visibility = Visibility.Visible;
+                        if (selectedLines.Count == 0)
+                        {
+                                offerNotDirectlyTravel();
+                        }
+                        else
+                        {
+                            StartDateTime.Date.ToShortDateString();
+                            this.FirstPage.Visibility = Visibility.Hidden;
+                            this.SecondPage.Visibility = Visibility.Visible;
 
-                        TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, backTicket);
-                        AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
+                            TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, backTicket);
+                            AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
+
+                        }
 
                     }
                    
@@ -550,7 +553,20 @@ namespace SyncfusionWpfApp1.gui
 
         private void offerNotDirectlyTravel()
         {
-            frame.Content = new NotDirectlyTranferOptions(frame, StartStation, EndStation, StartDateTime, backTicket);
+            NotDirectionRideService service = new NotDirectionRideService();
+            service.getNotDirectionsRide(StartStation, EndStation, StartDateTime);
+            List<DirectionItem> AllIndirectionRides = service.directions;
+            if (AllIndirectionRides.Count != 0)
+            {
+                frame.Content = new NotDirectlyTranferOptions(frame, StartStation, EndStation, StartDateTime, backTicket);
+            }
+            else
+            {
+                MessageBox box = new MessageBox("Za izabrane stanice ne postoje linije koje ih povezuju.", MainWindow.GetWindow(this));
+                box.Show();
+                //frame.Content = new WelcomePageClient(frame);
+            }
+                
         }
 
         private void disableReservationOption()
@@ -846,19 +862,14 @@ namespace SyncfusionWpfApp1.gui
         {
             frame.Content = new CardReservation(frame);
         }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
             frame.Content = new NetworkLineClient(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TrainLineView(frame);
+            frame.Content = new ClientTrainLinesOverview(frame);
         }
-        
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
             // Set tooltip visibility
@@ -866,15 +877,14 @@ namespace SyncfusionWpfApp1.gui
             if (Tg_Btn.IsChecked == true)
             {
                 tt_ticket.Visibility = Visibility.Collapsed;
-                tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+
             }
             else
             {
                 tt_ticket.Visibility = Visibility.Visible;
-                tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
@@ -894,6 +904,13 @@ namespace SyncfusionWpfApp1.gui
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;
+        }
+
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+
+            frame.Content = new LoginPage(frame);
+            frame.NavigationService.RemoveBackEntry();
         }
     }
 }

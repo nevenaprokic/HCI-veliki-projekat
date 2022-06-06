@@ -13,7 +13,7 @@
         <!--<local:RowStyleConverter x:Key="rowstyleconverter"/>-->
         
         <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
-            <Setter Property="Background" Value="#E8F0F2" />
+            <Setter Property="Background" Value="Bisque" />
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Foreground" Value="#204060"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -282,6 +282,7 @@
 
                 <!--// ListView with menu list items //-->
 
+
                 <ListView  x:Name="LV"
                                Background="Transparent"
                                BorderBrush="Transparent"
@@ -353,35 +354,6 @@
 
                     <!--// Contacts //-->
 
-                    <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
-                                      >
-
-                        <StackPanel Orientation="Horizontal"
-                                        Width="280">
-
-                            <Image Source="/images/s.png"
-                                       Stretch="None"
-                                       Margin="12,0,0,0"/>
-
-                            <TextBlock Text="Red vožnje"
-                                           Margin="25,0,0,0"
-                                           Style="{StaticResource font_style}"/>
-
-                        </StackPanel>
-
-                        <!--// Tooltip //-->
-
-                        <ListViewItem.ToolTip>
-
-                            <ToolTip x:Name="tt_schedule"
-                                         Content="Red vožnje"
-                                         Style="{StaticResource tt_style}"/>
-
-                        </ListViewItem.ToolTip>
-
-                    </ListViewItem>
-
                     <!--// Messages //-->
 
                     <ListViewItem HorizontalAlignment="Left"
@@ -446,7 +418,7 @@
                     <!--// Sign Out //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Logout_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -473,7 +445,6 @@
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
-
                     <!--// Listview items style template //-->
 
                     <ListView.ItemContainerStyle>
@@ -552,42 +523,45 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1"  Visibility="Visible">
+            <Grid x:Name="FirstPage" Grid.Row="1" Grid.Column="1"  Visibility="Visible">
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.3*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.2*"/>
-                        <RowDefinition Height="0.4*"/>
-                        <RowDefinition Height="0.3*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.3*"/>
-                        <RowDefinition Height="0.4*"/>
-                        <RowDefinition Height="0.4*"/>
-                        <RowDefinition Height="0.3*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="3.5*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="3.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
 
-                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="17" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" 
+                        Grid.ColumnSpan="5" Grid.RowSpan="17" 
+                        Background="#E8F0F2" BorderThickness="1" 
+                        CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
-                    <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
-                        <Label Content="Za izabrane stanice ne postoji direktna linija, ovo su ponude sa presedanjem" Foreground="#204060"></Label>
-                    </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
+                    <Label Content="Za izabrane stanice ne postoji direktna linija, ovo su ponude sa presedanjem" Foreground="#204060"></Label>
+                </Viewbox>
 
-                    <Grid Grid.Column="3" Grid.Row="3">
+                <Grid Grid.Column="3" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0*"/>
                             <ColumnDefinition/>
@@ -625,69 +599,104 @@
                         </Button>
                     </Grid>
 
-                    <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="8" Background="White" 
+                <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+                    <Label Content="Promena boje označava promenu vozne linije odnosno presedanje."
+                           FontSize="10"
+                           Foreground="#204060"
+                           FontWeight="SemiBold">
+                        
+                    </Label>
+                </Viewbox>
+
+                    <DataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="4" Grid.RowSpan="7" Background="White" 
                                    ItemsSource="{Binding RidesOnDirection}" 
                                    Margin="0,0,38,0"
-                                   RowSelectionBrush="#9FC088"
-                                   HeaderStyle="{StaticResource customHeaderStyle}"
-                                   
                                   x:Name="DirectionGrid"
                 >
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{Binding RowColor}" />
+                            <Setter Property="BorderBrush" Value="#00264d"/>
+                            <Setter Property="BorderThickness" Value="0, 0, 0,  0.6"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Height" Value="20"></Setter>
+                            <Setter Property="FontSize" Value="13"></Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="Bisque"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="FontWeight"  Value="DemiBold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
 
-                        <syncfusion:SfDataGrid.Columns>
+                        </Style>
+                    </DataGrid.Resources>
 
-                            <syncfusion:GridTextColumn MappingName="startStation.Name"
-                                    HeaderText="Polazište"
+                    <DataGrid.Columns>
+
+                            <DataGridTextColumn Binding="{Binding startStation.Name}"
+                                    Header="Polazište"
                                     IsReadOnly="True"
-                                    ColumnSizer="SizeToCells"
+                                                Width="240"
+                                    
                                     >
-                            </syncfusion:GridTextColumn>
-                            <syncfusion:GridTextColumn MappingName="endStation.Name"
-                                   HeaderText="Odredište"
+                            </DataGridTextColumn>
+                        <DataGridTextColumn Binding ="{Binding endStation.Name}"
+                                   Header="Odredište"
                                    IsReadOnly="True"
-                                               ColumnSizer="SizeToCells"
+                                            Width="240"
+                                            
                                    
                    >
-                            </syncfusion:GridTextColumn>
-                            <syncfusion:GridTextColumn MappingName="start"
-                                   HeaderText="Vreme polaska"
+                            </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding start}"
+                                   Header="Vreme polaska"
                                    IsReadOnly="True"
-                                   ColumnSizer="SizeToCells"
+                                            Width="160"
+                                   
                    >
 
-                            </syncfusion:GridTextColumn>
-                            <syncfusion:GridTextColumn MappingName="arrivalTime"
-                                   HeaderText="Vreme dolaska"
+                            </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding arrivalTime}"
+                                   Header="Vreme dolaska"
                                    IsReadOnly="True"
-                                   ColumnSizer="SizeToCells"
+                                            Width="160"
+                                  
                    >
 
-                            </syncfusion:GridTextColumn>
-                            <syncfusion:GridTextColumn
-                                       MappingName="train"
-                                   HeaderText="Voz"
+                            </DataGridTextColumn>
+                        <DataGridTextColumn
+                                   Binding="{Binding train}"
+                                   Header="Voz"
                                    IsReadOnly="True"
-                                   ColumnSizer="SizeToCells"
-                   ></syncfusion:GridTextColumn>
+                                    
+                                   
+                   ></DataGridTextColumn>
 
-                            <syncfusion:GridTextColumn 
-                        MappingName="seat.Wagon.OrderdNumber"
-                                   HeaderText="Vagon"
+                        <DataGridTextColumn
+                        Binding="{Binding seat.Wagon.OrderdNumber}"
+                                   Header="Vagon"
                                    IsReadOnly="True"
-                                   ColumnSizer="Star"
-                   ></syncfusion:GridTextColumn>
+                                    Width="80"
+                                   
+                   ></DataGridTextColumn>
 
-                            <syncfusion:GridTextColumn 
-                        MappingName="seat.SeatNumber"
-                                   HeaderText="Sedište"
+                        <DataGridTextColumn 
+                        Binding="{Binding seat.SeatNumber}"
+                                   Header="Sedište"
                                    IsReadOnly="True"
-                                   ColumnSizer="Star"
-                   ></syncfusion:GridTextColumn>
+                                    Width="80"
+                                   
+                   ></DataGridTextColumn>
 
 
-                        </syncfusion:SfDataGrid.Columns>
+                        </DataGrid.Columns>
 
-                    </syncfusion:SfDataGrid>
+                    </DataGrid>
 
                     <Grid Grid.Row="15" Grid.Column="2" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>

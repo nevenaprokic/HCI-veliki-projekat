@@ -77,15 +77,16 @@ namespace SyncfusionWpfApp1.service
             return null;
         }
 
- /*       internal static DateTime calculateArrivalTime(Ticket ticket)
+        public static bool checkTickectsExpire(List<Ticket> tickets)
         {
-           if(ticket.IndirectRide)
+            foreach(Ticket t in tickets)
             {
-                DirectionItem ride = ticket.SelectedRide;
-                TrainRide startRide = ride.allStations.First();
-                TrainRide lastRide = rides.Last();
-                double duration = (lastRide.arrivalTime - startRide.start).TotalMinutes;
+                if(!t.bought && (t.DepartureTime - DateTime.Now <= TimeSpan.FromHours(24)))
+                {
+                    return true;
+                }
             }
-        }*/
+            return false;
+        }
     }
 }

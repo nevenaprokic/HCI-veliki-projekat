@@ -1,4 +1,5 @@
 ﻿using SyncfusionWpfApp1.Model;
+using SyncfusionWpfApp1.repo;
 using SyncfusionWpfApp1.service;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,21 @@ namespace SyncfusionWpfApp1.gui
     {
         public Ticket Ticket { get; set; }
         private DateTime _arrivalTime;
+        private List<Ticket> _clientTickets;
+        
+        public List<Ticket> ClientTickets
+        {
+            get { return _clientTickets; }
+            set
+            {
+                if(_clientTickets != value)
+                {
+                    _clientTickets = value;
+                    RaisePropertyChanged(nameof(ClientTickets));
+                }
+            }
+        }
+
         public DateTime ArrivalTime
         {
             get { return _arrivalTime; }
@@ -69,9 +85,28 @@ namespace SyncfusionWpfApp1.gui
             endIcon.Source = BitmapFrame.Create(locationIcon);
             Ticket = ticket;
             DataContext = Ticket;
-            priceLabel.Content = Ticket.Price + " din.";
-            
+            //priceLabel.Content = Ticket.Price + " din.";
+
+            renderButtons();
             retRerunLabelsVisibilty();
+        }
+
+        private void renderButtons()
+        {
+            if (!Ticket.bought)
+            {
+                Exit1.Visibility = Visibility.Visible;
+                reservationCancelBtn.Visibility = Visibility.Visible;
+                boughtBtn.Visibility = Visibility.Visible;
+                Exit2.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Exit1.Visibility = Visibility.Hidden;
+                reservationCancelBtn.Visibility = Visibility.Hidden;
+                boughtBtn.Visibility = Visibility.Hidden;
+                Exit2.Visibility = Visibility.Visible;
+            }
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
@@ -92,12 +127,33 @@ namespace SyncfusionWpfApp1.gui
             }
             if (Ticket.IndirectRide)
             {
-                inidrectRideLabel.Visibility = Visibility.Visible;
+                indirectRideLabel.Visibility = Visibility.Visible;
             }
             else
             {
-                inidrectRideLabel.Visibility = Visibility.Hidden;
+                indirectRideLabel.Visibility = Visibility.Hidden;
             }
+        }
+
+        public void setClientTickets(List<Ticket> tickets)
+        {
+            ClientTickets = tickets;
+        }
+        private void Reservation_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            MainRepository.Tickets.Remove(Ticket);
+            ClientTickets = TicketService.getCurrentClientTickets();
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ClientTickets)));
+            this.Close();
+        }
+
+        private void Bought_Click(object sender, RoutedEventArgs e)
+        {
+            Ticket.bought = true;
+            ClientTickets = TicketService.getCurrentClientTickets();
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ClientTickets)));
+            this.Close();
+            this.Close();
         }
     }
 }

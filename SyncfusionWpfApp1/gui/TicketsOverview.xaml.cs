@@ -54,7 +54,7 @@ namespace SyncfusionWpfApp1.gui
             }
         }
 
-        protected void RaisePropertyChanged(String propertyName)
+        public void RaisePropertyChanged(String propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
@@ -72,8 +72,20 @@ namespace SyncfusionWpfApp1.gui
             this.Background = myBrush;
 
             trainStations = MainRepository.trainStations;
-
+            checkExpiringReservations();
             DataContext = this;
+        }
+
+        private void checkExpiringReservations()
+        {
+            if (TicketService.checkTickectsExpire(ClientTickets))
+            {
+                ReservationExpireLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ReservationExpireLabel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void bindingTicketsData()
@@ -83,36 +95,19 @@ namespace SyncfusionWpfApp1.gui
 
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new CardReservation(frame);
+            frame.Content = new TicketsOverview(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void MonthlyReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void TrainLineReport_Handler(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-
+            frame.Content = new CardReservation(frame);
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-
+            frame.Content = new NetworkLineClient(frame);
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void Train_Handler(object sender, RoutedEventArgs e)
-        {
-
-
+            frame.Content = new ClientTrainLinesOverview(frame);
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -121,23 +116,16 @@ namespace SyncfusionWpfApp1.gui
             if (Tg_Btn.IsChecked == true)
             {
                 tt_ticket.Visibility = Visibility.Collapsed;
-                tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
-                //tt_trainLineReport.Visibility = Visibility.Collapsed;
-                //tt_train.Visibility = Visibility.Collapsed;
-                //tt_report_monthly.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+
             }
             else
             {
                 tt_ticket.Visibility = Visibility.Visible;
-                tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
-               /* tt_trainLineReport.Visibility = Visibility.Visible;
-                tt_train.Visibility = Visibility.Visible;
-                tt_report_monthly.Visibility = Visibility.Visible;*/
                 tt_signout.Visibility = Visibility.Visible;
             }
         }
@@ -157,13 +145,26 @@ namespace SyncfusionWpfApp1.gui
             Tg_Btn.IsChecked = false;
         }
 
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.NavigationService.RemoveBackEntry();
+            frame.Content = new LoginPage(frame);
+            
+        }
+
         private void TicketDetailsClick(object sender, RoutedEventArgs e)
         {
             var v = (Button)e.OriginalSource;
             Ticket t = (Ticket)v.DataContext;
             TicketDetailsDialog ticketDetails = new TicketDetailsDialog(t);
-            ticketDetails.Show();
+            ticketDetails.setClientTickets(ClientTickets);
+            
+            ticketDetails.PropertyChanged += (o, s) => {
+                this.ClientTickets = TicketService.getCurrentClientTickets();
+                checkExpiringReservations();
 
+            };
+            ticketDetails.Show();
         }
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
@@ -174,28 +175,28 @@ namespace SyncfusionWpfApp1.gui
             TrainStation end = (TrainStation)endStation.SelectedItem;
             double maxPrice = (Double)priceFilter.Value;
             ComboBoxItem ticketType = (ComboBoxItem)CardType.SelectedItem;
-            string s = (string)ticketType.Content;
-            bool bought = false;
             bool all = false;
-            if (maxPrice == 0.00) maxPrice = 100000;
-            if (s.Equals("Kupljene")) bought = true;
-            if (s.Equals("Sve")) all = true;
-            ClientTickets = TicketService.filterTickets(ClientTickets, start, end, maxPrice, bought, all);
-        }
-
-
-      /*  private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           *//* ComboBoxItem sortParam = (ComboBoxItem)Sort.SelectedItem;
-            string param = (string)sortParam.Content;
-            if (param.Equals("Cena"))
+            bool bought = false;
+            if (ticketType == null || ticketType.Content.Equals("Sve")) all = true;
+            else
             {
-                ClientTickets = TicketService.sortTicketsByPrice(ClientTickets);
+                string s = (string)ticketType.Content;
+                if (s.Equals("Kupljene")) bought = true;
+            }
+         
+            
+            if (maxPrice == 0.00) maxPrice = 100000;
+            
+            
+            ClientTickets = TicketService.filterTickets(ClientTickets, start, end, maxPrice, bought, all);
+            if(ClientTickets.Count == 0)
+            {
+                MessageLabel.Visibility = Visibility.Visible;
             }
             else
             {
-                ClientTickets = TicketService.sortTicketsByDate(ClientTickets);
-            }*//*
-        }*/
+                MessageLabel.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

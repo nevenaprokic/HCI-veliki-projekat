@@ -43,8 +43,10 @@
     <None Remove="images\ticket.png" />
     <None Remove="images\ticketIcon.jpeg" />
     <None Remove="images\tickets_history.png" />
+    <None Remove="images\tickets_history1.png" />
     <None Remove="images\v.png" />
     <None Remove="images\view.png" />
+    <None Remove="images\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,8 +109,10 @@
     <Resource Include="images\ticket.png" />
     <Resource Include="images\ticketIcon.jpeg" />
     <Resource Include="images\tickets_history.png" />
+    <Resource Include="images\tickets_history1.png" />
     <Resource Include="images\v.png" />
     <Resource Include="images\view.png" />
+    <Resource Include="images\warning.png" />
   </ItemGroup>
 
 </Project>

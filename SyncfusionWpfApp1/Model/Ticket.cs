@@ -44,7 +44,10 @@ namespace SyncfusionWpfApp1.Model
             DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
             ClassNumber = (int)Class + 1;
             this.ArrivalTime = selectedRide.start.AddMinutes(selectedRide.travelDuration);
-
+            if (selectedRide.backTicket)
+            {
+                ExpireDate = DepartureTime.AddDays(30);
+            }
         }
 
         public Ticket(User client, DirectionItem selectedRide, double price, DateTime startTime)
@@ -58,9 +61,12 @@ namespace SyncfusionWpfApp1.Model
             this.SelectedRide = selectedRide;
             PriceStr = price.ToString() + ",00 din";
             DepartureTimeStr = this.DepartureTime.ToString("dd.MM.yyyy HH:mm");
-            ClassNumber = (int)Class + 1;
             this.ArrivalTime = selectedRide.ArrivalTime;
             this.From = TicketService.getStartStation(selectedRide);
+            if (selectedRide.selectedReturnDirection)
+            {
+                ExpireDate = DepartureTime.AddDays(30);
+            }
         }
 
         public override string ToString()
@@ -115,6 +121,8 @@ namespace SyncfusionWpfApp1.Model
         //koristi se kad ima presedanja
         public DirectionItem SelectedRide { get; set; }
         public bool IndirectRide { get; set; }
+
+        public DateTime ExpireDate { get; set; }
 
         public double Price
         {
