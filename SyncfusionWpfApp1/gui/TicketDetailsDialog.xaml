@@ -94,6 +94,7 @@
                         <Label Content="Vozna karta" FontStyle="Italic" FontWeight="Bold" Foreground="DarkBlue" FontSize="17"></Label>
                     </Viewbox>
 
+
                     <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Border>
                     <Label Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Left">
                         <TextBlock FontSize="15" TextWrapping="WrapWithOverflow" Foreground="DarkBlue" Text="{Binding From.Name}"/>
@@ -110,6 +111,7 @@
                     <Viewbox Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Left">
                 <Label Foreground="DarkBlue" FontSize="7" Content="{Binding ArrivalTime}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
                     </Viewbox>
+
 
                     <Viewbox x:Name="returnTicketLabel" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Visibility="Hidden">
                         <Label Foreground="DarkBlue" FontSize="10" Content="Povrtna karta: da" ></Label>

@@ -1,0 +1,95 @@
+﻿<Window x:Class="SyncfusionWpfApp1.gui.CreatePoint"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+        mc:Ignorable="d"
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" Background="Transparent"
+        Title="CreatePoint" Height="370" Width="500">
+    <Grid>
+        <Border BorderThickness="2" BorderBrush="Black" 
+    CornerRadius="20" Background="#E8F0F2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="1.8*"></RowDefinition>
+                    <RowDefinition Height="1.5*"></RowDefinition>
+                    <RowDefinition Height="1.2*"></RowDefinition>
+                    <RowDefinition Height="1.2*"></RowDefinition>
+                    <RowDefinition Height="1.5*"></RowDefinition>
+                    <RowDefinition Height="1.2*"></RowDefinition>
+                    <RowDefinition Height="1.2*"></RowDefinition>
+                    <RowDefinition Height="2.5*"></RowDefinition>
+                    <RowDefinition Height="0.1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Top" >
+                    <TextBlock x:Name="headline" TextWrapping="Wrap" Text="Nova vozna stanica" HorizontalAlignment="Left" Foreground="#00264d" FontWeight="Bold"/>
+                </Viewbox>
+
+                <Viewbox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Label Content="Adresa stanice: "  Foreground="#00264d" HorizontalAlignment="Left"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Label Content="" x:Name="addressLabel"  Foreground="#00264d" HorizontalAlignment="Left"></Label>
+                </Viewbox>
+
+                <Viewbox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Label x:Name="priceLbl" Content="Cena" Foreground="#00264d" HorizontalAlignment="Left"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
+                    <TextBox Name="price" Foreground="#00264d" Grid.ColumnSpan="3"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                </Viewbox>
+                <Viewbox Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Label x:Name="priceValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
+                </Viewbox>
+                <Viewbox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
+                    <Label x:Name="intervalLbl" Content="Vremenski period" Foreground="#00264d"></Label>
+                </Viewbox>
+
+                <Viewbox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
+                    <TextBox Name="intervalTextBox" Grid.ColumnSpan="3" Foreground="#00264d"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Viewbox>
+
+                <Viewbox Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Label x:Name="intervalValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
+                </Viewbox>
+
+                <Viewbox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="5">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Sačuvaj" Click="Save_Handler" x:Name="Yes" Margin="0, 0, 20, 5" HorizontalAlignment="Left" Background="#9FC088" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="45" 
+                            >
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button Content="Odustani" x:Name="No" Click="GoBack_Handler" Margin="0, 0, 20, 0" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#00264d" Foreground="White" 
+                             IsCancel="True">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+
+                </Viewbox>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

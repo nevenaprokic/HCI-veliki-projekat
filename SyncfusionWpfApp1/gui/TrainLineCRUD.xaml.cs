@@ -78,7 +78,7 @@ namespace SyncfusionWpfApp1.gui
             Rows.Clear();
             foreach (TrainLine t in TrainLines)
             {
-                string trains = "";
+                string trains = "   ";
                 foreach (Train train in t.Trains)
                 {
                     trains += train.Name + ", ";
@@ -104,6 +104,10 @@ namespace SyncfusionWpfApp1.gui
                 drawTable();
             }
                 
+        }
+        private void AddNew_Handler(object sender, RoutedEventArgs e)
+        {
+            frame.Content = new AddNewTrainLine(frame);
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {

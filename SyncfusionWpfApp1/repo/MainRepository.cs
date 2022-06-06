@@ -100,26 +100,26 @@ namespace SyncfusionWpfApp1.repo
             Trains = new List<Train> { t1, t2, t3, t4, t5 };
 
             //train stations
-            TrainStation ts1 = new TrainStation("Bulevar Jase Tomica", 4, "Srbija", "Novi Sad", 1);
-            TrainStation ts2 = new TrainStation("Franje Stefanovica", 7, "Srbija", "Novi Sad", 2);
-            TrainStation ts3 = new TrainStation("Dunavska", 1, "Srbija", "Novi Sad", 3);
-            TrainStation ts4 = new TrainStation("Zeleznicka", 9, "Srbija", "Indjija", 4);
-            TrainStation ts5 = new TrainStation("Zeleznicka", 4, "Srbija", "Stara Pazova", 5);
-            TrainStation ts6 = new TrainStation("Savski trg", 2, "Srbija", "Beograd", 6);
+            TrainStation ts1 = new TrainStation("Bulevar Jase Tomica 4", "Srbija", "Novi Sad", 1);
+            TrainStation ts2 = new TrainStation("Franje Stefanovica 7", "Srbija", "Novi Sad", 2);
+            TrainStation ts3 = new TrainStation("Dunavska 1", "Srbija", "Novi Sad", 3);
+            TrainStation ts4 = new TrainStation("Zeleznicka 9", "Srbija", "Indjija", 4);
+            TrainStation ts5 = new TrainStation("Zeleznicka 4", "Srbija", "Stara Pazova", 5);
+            TrainStation ts6 = new TrainStation("Savski trg 2", "Srbija", "Beograd", 6);
 
-            TrainStation ts7 = new TrainStation("Knez Milosev venac", 1, "Srbija", "Pozarevac", 7);
-            TrainStation ts8 = new TrainStation("Omladinska", 3, "Srbija", "Smederevo", 8);
-            TrainStation ts9 = new TrainStation("Brace Badzak", 16, "Srbija", "Mladenovac", 9);
+            TrainStation ts7 = new TrainStation("Knez Milosev venac 1", "Srbija", "Pozarevac", 7);
+            TrainStation ts8 = new TrainStation("Omladinska 3", "Srbija", "Smederevo", 8);
+            TrainStation ts9 = new TrainStation("Brace Badzak 16", "Srbija", "Mladenovac", 9);
 
 
-            TrainStation ts10 = new TrainStation("Aleksandra Vojinovića", 78, "Srbija", "Resnik", 10);
-            TrainStation ts11 = new TrainStation("Patrijarha Dimitrija", 7, "Srbija", "Rakovica", 11);
-            TrainStation ts12 = new TrainStation("Zeleznicka", 10, "Srbija", "Lazarevac", 12);
-            TrainStation ts13 = new TrainStation("Avalska", 40, "Srbija", "Relja", 13);
-            TrainStation ts14 = new TrainStation("Zeleznicka bb", 8, "Srbija", "Ripanj", 14);
-            TrainStation ts15 = new TrainStation("Put za Kolarusu", 7, "Srbija", "Ripanj-tunel", 15);
-            TrainStation ts16 = new TrainStation("Veliki Crljeni", 148, "Srbija", "Stepojevac", 16);
-            TrainStation ts17 = new TrainStation("Željeznicka Stanica Bar", 46, "Crna Gora", "Bar", 17);
+            TrainStation ts10 = new TrainStation("Aleksandra Vojinovića 78", "Srbija", "Resnik", 10);
+            TrainStation ts11 = new TrainStation("Patrijarha Dimitrija 7", "Srbija", "Rakovica", 11);
+            TrainStation ts12 = new TrainStation("Zeleznicka 10", "Srbija", "Lazarevac", 12);
+            TrainStation ts13 = new TrainStation("Avalska 40", "Srbija", "Relja", 13);
+            TrainStation ts14 = new TrainStation("Zeleznicka bb 8", "Srbija", "Ripanj", 14);
+            TrainStation ts15 = new TrainStation("Put za Kolarusu 7", "Srbija", "Ripanj-tunel", 15);
+            TrainStation ts16 = new TrainStation("Veliki Crljeni 148", "Srbija", "Stepojevac", 16);
+            TrainStation ts17 = new TrainStation("Željeznicka Stanica Bar 46", "Crna Gora", "Bar", 17);
 
             trainStations = new List<TrainStation> { ts1, ts2, ts3, ts4, ts5, ts6,
                 ts7, ts8, ts9, ts10, ts11, ts12, ts13, ts14, ts15, ts16};

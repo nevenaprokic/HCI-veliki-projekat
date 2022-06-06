@@ -157,7 +157,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void Create_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new CreateSchedule(frame);
+            frame.Content = new CreateSchedule(frame, null, null);
         }
 
         private List<String> sortTimes()
