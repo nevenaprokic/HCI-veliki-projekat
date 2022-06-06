@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:converters="clr-namespace:SyncfusionWpfApp1.converters"
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MonthlyReport">
@@ -619,6 +620,17 @@
 
                 <TextBlock Text="Pregled prodatih karata u toku jednog meseca" TextWrapping="WrapWithOverflow" Grid.Column="2"  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="22" FontWeight="Bold" FontStyle="Italic"/>
 
+                <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="helpButton" l:HelpProvider.HelpKey="monthlyReport" Width="35" Height="35"
+                    Command="Help" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <StackPanel Background="Transparent">
+                        <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
+                
+                
                 <TextBlock x:Name="periodTextblock" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
                 <Border Grid.Row="2" Grid.Column="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
                 <TextBlock x:Name="numberTextblock" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
@@ -647,38 +659,30 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding ClientName}"
-                                    Header="Client Name"
+                                    Header="Ime kupca"
                                     Width="1.5*" 
                                     IsReadOnly="True"
                  >
 
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding TrainLine}"
-                                    Header="Train Line"
-                                    Width="2*"
+                                    Header="Vozna linija"
+                                    Width="4*"
                                     IsReadOnly="True"
                                     >
 
 
                         </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding FromTo}"
-                                    Header="From - To"
-                                    Width="2*"
-                                    IsReadOnly="True"
-                                    >
 
-
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Binding="{Binding Price}"
-                                    Header="Price"
+                        <DataGridTextColumn Binding="{Binding Price}"
+                                    Header="Cena"
                                     Width="*"
                                     IsReadOnly="True"
                    >
 
                         </DataGridTextColumn>
 
-                    <DataGridTemplateColumn Header="Detaljan prikaz"  Width="1.2*">
+                    <DataGridTemplateColumn Header="Detalji"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="detailViewButton" Click="DetailView_Handler" Height="30" Background="White">

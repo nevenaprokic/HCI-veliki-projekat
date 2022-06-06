@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace SyncfusionWpfApp1.gui
@@ -63,6 +64,11 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
+        }
+
+        private void playVideoHandler(object sender, RoutedEventArgs e) {
+            MediaElement m = new MediaElement();
+            m.ShowDialog();
         }
 
         private void AddRow_Handler(object sender, RoutedEventArgs e)

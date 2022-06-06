@@ -743,7 +743,7 @@
                         <Label Content="Izmena i brisanje vozova i njihovih vagona" Foreground="#00264d" HorizontalAlignment="Left" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
                     </Viewbox>
 
-                    <Button Grid.Column="4" Grid.Row="0" x:Name="helpButton" l:HelpProvider.HelpKey="error" Width="35" Height="35" 
+                    <Button Grid.Column="4" Grid.Row="0" x:Name="helpButton" l:HelpProvider.HelpKey="updateDeleteTrain" Width="35" Height="35" 
                             Command="ApplicationCommands.Help" Background="Transparent" HorizontalAlignment="Right">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>

@@ -93,12 +93,12 @@
                 <Label Content="Vozna karta" FontStyle="Italic" FontWeight="Bold" Foreground="DarkBlue" FontSize="17"></Label>
             </Viewbox>
 
-            <Viewbox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                <Label Foreground="DarkBlue" FontSize="11" Content="{Binding Path=From}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
-            </Viewbox>
-            <Viewbox Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Left">
-                <Label Foreground="DarkBlue" FontSize="11" Content="{Binding Path=To}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
-            </Viewbox>
+          
+                <Label Foreground="DarkBlue" FontSize="15" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="Novi Sad, Jevrejska 1" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
+       
+           
+                <Label Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" HorizontalAlignment="Left" Foreground="DarkBlue" FontSize="15" Content="Beograd, Savrski trg 13" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
+            
             <Viewbox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left">
                 <Label Foreground="DarkBlue" FontSize="11" Content="{Binding Path=DepartureTime}" BorderBrush="Bisque" BorderThickness="0,0,0,1"></Label>
             </Viewbox>
@@ -107,7 +107,7 @@
             </Viewbox>
 
             <Viewbox x:Name="returnTicketLabel" Grid.Row="6" Grid.Column="1"  HorizontalAlignment="Left" Grid.ColumnSpan="2" Visibility="Hidden">
-                <Label Foreground="DarkBlue" FontSize="10" Content="Povrtna karta: da" ></Label>
+                <Label Foreground="DarkBlue" FontSize="10" Content="Povratna karta: Da" ></Label>
             </Viewbox>
             <Viewbox  x:Name="inidrectRideLabel" Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="2"  HorizontalAlignment="Left" Visibility="Hidden">
                 <Label Foreground="DarkBlue" FontSize="10" Content="Presedanje: da" ></Label>

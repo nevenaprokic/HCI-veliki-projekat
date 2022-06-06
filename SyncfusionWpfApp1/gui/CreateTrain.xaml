@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -214,6 +215,15 @@
                 <Viewbox Grid.Row="1" Grid.Column="2">
                     <TextBlock Text="Definisanje novog voza i njegovih vagona" Foreground="#00264d" FontWeight="Bold" FontStyle="Italic" />
                 </Viewbox>
+                <Button Grid.Column="3" Grid.Row="1" x:Name="helpButton" l:HelpProvider.HelpKey="createTrain" Width="35" Height="35" 
+                            Command="ApplicationCommands.Help" Background="Transparent" HorizontalAlignment="Right">
+                    <StackPanel Background="Transparent">
+                        <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
             </Grid>
 
 
@@ -306,7 +316,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding NumOfWagons}"
                                     Header="Količina"
-                                    Width="2*" />
+                                    Width="1.5*" />
 
                     <DataGridTextColumn Binding="{Binding NumOfSeats}"
                                     Header="Broj sedišta"
@@ -314,9 +324,9 @@
 
                     <DataGridTextColumn Binding="{Binding Class}"
                                     Header="Razred"
-                                    Width="3*" />
+                                    Width="2*" />
 
-                    <DataGridTemplateColumn Header="Brisanje"  Width="*">
+                    <DataGridTemplateColumn Header="Obriši"  Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="White">
