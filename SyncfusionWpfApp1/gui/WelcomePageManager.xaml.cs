@@ -104,6 +104,12 @@ namespace SyncfusionWpfApp1.gui
         {
             //Close();
         }*/
-    
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+
+            frame.Content = new LoginPage(frame);
+            frame.NavigationService.RemoveBackEntry();
+        }
+
     }
 }

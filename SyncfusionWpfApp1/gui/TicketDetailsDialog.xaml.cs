@@ -93,7 +93,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void renderButtons()
         {
-            if (!Ticket.bought)
+            if (!Ticket.bought && Ticket.Client.Email.Equals(MainRepository.CurrentUser))
             {
                 Exit1.Visibility = Visibility.Visible;
                 reservationCancelBtn.Visibility = Visibility.Visible;
