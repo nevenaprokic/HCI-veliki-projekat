@@ -29,6 +29,11 @@ namespace SyncfusionWpfApp1.gui
         public delegate void someDelegate();
         public delegate void saveDelegate(string street, string city, string state, double price, int minute);
         private bool IsFirst;
+        private string v1;
+        private string v2;
+        private AddNewLine addNewLine;
+        private bool v3;
+
         public AddNewTrainLine Parent { get; set; }
         public CreatePoint(string latitude, string longitude, AddNewTrainLine parent, bool isFirst)
         {
@@ -48,6 +53,26 @@ namespace SyncfusionWpfApp1.gui
             }
 
         }
+
+        public CreatePoint(string v1, string v2, AddNewLine addNewLine, bool v3)
+        {
+            InitializeComponent();
+            Latitude = v1;
+            Longitude = v2;
+           // Parent = addNewLine;
+            sendRequest();
+            addressLabel.Content = Street + ", " + City + ", " + State;
+            IsFirst = v3;
+            if (IsFirst)
+            {
+                price.Visibility = Visibility.Hidden;
+                intervalTextBox.Visibility = Visibility.Hidden;
+                priceLbl.Visibility = Visibility.Hidden;
+                intervalLbl.Visibility = Visibility.Hidden;
+            }
+            
+        }
+
         private void sendRequest()
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://" + $@"dev.virtualearth.net/REST/v1/Locations/{Latitude}, {Longitude}?includeEntityTypes=Address, Neighborhood, CountryRegion&includeNeighborhood=1&include=ciso2&key={BingMapsKey}");

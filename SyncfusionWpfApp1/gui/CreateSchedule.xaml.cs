@@ -20,7 +20,6 @@ namespace SyncfusionWpfApp1.gui
         public bool AlreadyInInsertMode { get; set; }
         public Schedule SelectedSchedule {get; set;}
         private Frame frame;
-        private AddNewTrainLine Parent;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -47,12 +46,12 @@ namespace SyncfusionWpfApp1.gui
 
         public CreateSchedule(){ }
 
-        public CreateSchedule(Frame f, AddNewTrainLine.scheduleDelegate someEvent, AddNewTrainLine parent)
+        public CreateSchedule(Frame f, AddNewTrainLine.scheduleDelegate someEvent)
         {
             InitializeComponent();
             setBackground();
             frame = f;
-            Parent = parent;
+            this.someEvent = someEvent;
             SelectedSchedule = new Schedule();
             SelectedSchedule.Times = new List<string>();
             DataContext = this;
@@ -254,12 +253,7 @@ namespace SyncfusionWpfApp1.gui
             ScheduleName = "";
             nameBox.Text = "";
             drawTable();
-            if(Parent != null)
-            {
-                someEvent += Parent.CreateSchedule;
-                someEvent?.Invoke(SelectedSchedule);
-            }
-                
+            someEvent?.Invoke(SelectedSchedule);
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi red vožnje.");
             if ((bool)dialog.ShowDialog()) 
             {
@@ -272,8 +266,10 @@ namespace SyncfusionWpfApp1.gui
 
         private void Cancel_Handler(object sender, RoutedEventArgs e)
         {
-
-            frame.Content = new ScheduleUpdateDelete(frame);
+            if (someEvent == null)
+                frame.Content = new ScheduleUpdateDelete(frame);
+            else
+                this.NavigationService.GoBack();
         }
 
     }

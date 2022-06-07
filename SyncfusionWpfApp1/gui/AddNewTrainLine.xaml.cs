@@ -269,7 +269,7 @@ namespace SyncfusionWpfApp1.gui
         private void CreateSchedule_Handler(object sender, RoutedEventArgs e)
         {
             someEvent += CreateSchedule;
-            frame.Content = new CreateSchedule(frame, someEvent, this);
+            frame.Content = new CreateSchedule(frame, someEvent);
             
             
         }

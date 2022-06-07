@@ -1,17 +1,29 @@
-﻿<Page x:Class="SyncfusionWpfApp1.gui.NetworkLineClient"
+﻿<Page x:Class="SyncfusionWpfApp1.gui.ClientTrainLinesOverview"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
-       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="NetworkTrainLine">
+      Title="ClientTrainLinesOverview">
 
     <Page.Resources>
+        <Style TargetType="syncfusion:GridHeaderCellControl" x:Key="customHeaderStyle">
+            <Setter Property="Background" Value="Bisque" />
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#204060"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+
+        </Style>
+        <Style TargetType="syncfusion:GridCell" x:Key="customCellStyle">
+            <Setter Property="BorderBrush" Value="#204060"/>
+            <Setter Property="BorderThickness" Value="0.4"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15"></Setter>
+        </Style>
         <ImageBrush x:Key="tb_mouse_over"
                     ImageSource="../images/tgBtn_MouseOver.png"/>
 
@@ -40,7 +52,7 @@
 
             <Setter Property="Placement" Value="Right"/>
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="190"/>
+            <Setter Property="Width" Value="180"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="#E8F0F2"/>
             <Setter Property="BorderBrush" Value="#00264d"/>
@@ -163,7 +175,9 @@
         <Grid   x:Name="nav_pnl"
                     HorizontalAlignment="Left"
                     Width="65"
-                    Background="#E8F0F2" Grid.Column="0">
+                    Background="#E8F0F2"
+                Grid.Column="0">
+
 
             <StackPanel x:Name="st_pnl">
 
@@ -177,7 +191,7 @@
                                     Grid.Column="0"
                                     Margin="73,-20,0,0"
                                     Text="M E N I"
-                                    Foreground="#00264d"
+                                    Foreground="#141C61"
                                     FontSize="20"
                                     Background="Transparent"
                                     HorizontalAlignment="Left"
@@ -427,6 +441,8 @@
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
+
+
                     <!--// Listview items style template //-->
 
                     <ListView.ItemContainerStyle>
@@ -487,78 +503,335 @@
 
                 </ListView>
 
+
             </StackPanel>
 
 
         </Grid>
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="19*" />
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <Grid Grid.Column="1">
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.3*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="2.4*" />
-                <ColumnDefinition Width="7*" />
-                <ColumnDefinition Width="0.5*" />
-                <ColumnDefinition Width="0.3*" />
-
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8.1*"/>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="7" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
-            <Viewbox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left">
-                <Label x:Name="title" Content="Mrežni pregled voznih linija " Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" FontWeight="Bold"/>
-            </Viewbox>
-            <Button Grid.Row="2" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="error" Width="35" Height="35"
-                    Command="Help" Background="Transparent" HorizontalAlignment="Left">
-                <StackPanel Background="Transparent">
-                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
-                </StackPanel>
-                <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
-                </Button.ToolTip>
-            </Button>
 
-            <Viewbox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="2" HorizontalAlignment="Left"  VerticalAlignment="Top">
-                <Label x:Name="choseLabel" Content="Izaberite voznu liniju: " FontSize="6" Foreground="#00264d" FontStyle="Italic" VerticalAlignment="Center" FontWeight="Bold"/>
-            </Viewbox>
-            <ComboBox Grid.Row="4" Grid.Column="3" BorderBrush="#00264d" HorizontalAlignment="Left" Height="30" Name="comboLines" MinWidth="200" FontSize="15" >
-                <ComboBox.ToolTip>
-                    <ToolTip 
-                                Content="Izaberite voznu liniju za prikaz"
-                                Style="{StaticResource tt_style}"/>
-                </ComboBox.ToolTip>
-            </ComboBox>
-            <Viewbox Grid.Row="4" Grid.Column="3"  HorizontalAlignment="Right" VerticalAlignment="Center" >
-                <Button Content="Nacrtaj rutu" MinWidth="80" Height="29"  Click="CalculateRouteBtn_Clicked"  Foreground="White" Background="#00264d" >
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </Button.Resources>
-                    <Button.ToolTip>
-                        <ToolTip 
-                                Content="Iscrtavanje izabrane rute na mapi"
-                                Style="{StaticResource tt_style}"/>
-                    </Button.ToolTip>
-                </Button>
-            </Viewbox>
+            <Grid Grid.Column="1" Grid.Row="1"  x:Name="TrainLinesTableView" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="3.5*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
 
-            <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2">
-                <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="7" Center="44.2108 , 20.9224">
-                    <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
-                </m:Map>
+                <Border Background="#E8F0F2" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="14"
+                        BorderThickness="1" CornerRadius="10"></Border>
+
+                <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="8" HorizontalAlignment="Left">
+                    <Label Content="Pregled voznih linija i redova vožnje" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Filter" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="EndStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
+                    <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <ComboBox x:Name="ContainedStation"  Grid.Row="4" Grid.Column="8" Grid.ColumnSpan="4" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <Viewbox Grid.Row="5" Grid.Column="8" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+                    <Label Content="Sadrži stanicu" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                </Viewbox>
+
+                <Button Grid.Column="13" Grid.Row="4" Content="FIltriraj"
+                        Background="Bisque" FontWeight="SemiBold"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontSize="13"
+                        Click="FIlter_Click"
+                       ></Button>
+
+                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="15" Grid.RowSpan="4" Background="White" 
+                                    ItemsSource="{Binding AllLines}"
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#ebebe0"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   x:Name="TrainRidesDataGrid"
+                                  
+                                   >
+                    <syncfusion:SfDataGrid.Columns>
+
+                        <syncfusion:GridTextColumn 
+                                    MappingName="StartStation.Name"
+                                    HeaderText="Polazište"
+                                    IsReadOnly="True"
+                                    ColumnSizer="AutoLastColumnFill"
+                                    >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                            MappingName="EndStation.Name"
+                                   HeaderText="Odredište"
+                                   IsReadOnly="True"
+                                               ColumnSizer="SizeToCells"
+                                   
+                   >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                                    MappingName="OneWayPrice"
+                                   HeaderText="Cena - 1 pravac (din)"
+                                   IsReadOnly="True"
+                                   Width="130"                            
+                   >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                                    MappingName="TwoWayPrice"
+                                   HeaderText="Cena - 2 pravca (din)"
+                                   IsReadOnly="True"
+                                   Width="130"
+                                   
+                   >
+
+                        </syncfusion:GridTextColumn>
+                        
+                        <syncfusion:GridTemplateColumn HeaderText=""  Width="110">
+                            <syncfusion:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Detalji"
+                                            Click="TrsinLinesDetails_Click"
+                                            Margin="5,1,5,1" 
+                                            Background="#86b069" 
+                                            Foreground="White" 
+                                            FontWeight="SemiBold"
+                                            Width="90px"
+                                            HorizontalContentAlignment="Center"
+                                            
+                                            >
+                                    </Button>
+                                </DataTemplate>
+                            </syncfusion:GridTemplateColumn.CellTemplate>
+                        </syncfusion:GridTemplateColumn>
+
+
+                    </syncfusion:SfDataGrid.Columns>
+
+                </syncfusion:SfDataGrid>
+
+                <Viewbox Grid.Row="13" 
+                         Grid.Column="1" Grid.ColumnSpan="6" 
+                         x:Name="MessageLabel" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center"
+                         Visibility="Hidden">
+                    <Label Foreground="#CF1B0D" FontSize="15" FontStyle="Italic" Content="Nema voznih linija koje odgovaraju izabranim parametrima"></Label>
+                </Viewbox>
+
             </Grid>
+            <Grid Grid.Column="1" Grid.Row="1"  x:Name="TrainLineDeatils" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="3.5*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    
+                </Grid.RowDefinitions>
 
-            <ProgressBar Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2" Name="LoadingBar" Foreground="#E8F0F2" IsIndeterminate="True" Height="25" Width="250" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                <Border Background="#E8F0F2" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="17"
+                        BorderThickness="1" CornerRadius="10"></Border>
+
+                <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Right">
+                    <Label Content="Detaljan prikaz vozne linije: " 
+                           FontSize="15" FontWeight="SemiBold" FontStyle="Italic"
+                           Foreground="#336699"> </Label>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="9" HorizontalAlignment="Left">
+                    <Label Content="{Binding SelectedLineNames}" 
+                           FontSize="15" FontWeight="SemiBold" FontStyle="Italic"
+                           Foreground="#204060"></Label>
+                </Viewbox>
+
+                <Viewbox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Left">
+                    <Label Content="Stanice" 
+                           FontSize="17" FontWeight="SemiBold" FontStyle="Italic"
+                           Foreground="#204060"></Label>
+
+                </Viewbox>
+
+                <Viewbox Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Left">
+                    <Label Content="Raspored vožnje" 
+                           FontSize="15" FontWeight="SemiBold" FontStyle="Italic"
+                           Foreground="#204060"></Label>
+
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="6" HorizontalAlignment="Left">
+                    <Label Content="(Cena i vreme se odnose na vožnju od prethodne to te stanice)"
+                           FontStyle="Italic"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="#204060"></Label>
+                </Viewbox>
+
+                <Button Grid.Column="1" Grid.Row="15" 
+                        Content="Nazad"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Background="#FFA881"
+                        Click="BackBtn_Click">
+                        
+                </Button>
+
+                <ComboBox Grid.Row="3" Grid.Column="12" Grid.ColumnSpan="2" Background="White"
+                          SelectionChanged="SchedualSelection_chancged"
+                         x:Name="scahedualSelector">
+                    <ComboBoxItem Content="Radni dan"></ComboBoxItem>
+                    <ComboBoxItem Content="Vikend"></ComboBoxItem>
+                </ComboBox>
+
+                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="8" Grid.RowSpan="8" Background="White" 
+                                    ItemsSource="{Binding SelectedLine.AllStations}"
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#ebebe0"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   x:Name="TrainLineStations"
+                                   
+                                   >
+                    <syncfusion:SfDataGrid.Columns>
+
+                        <syncfusion:GridTextColumn 
+                                    MappingName="Station"
+                                    HeaderText="Stanica"
+                                    IsReadOnly="True"
+                                    ColumnSizer="AutoLastColumnFill"
+                                    
+                                    >
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                            MappingName="PriceToNextStation"
+                                   HeaderText="Cena (din)"
+                                   IsReadOnly="True"
+                                   Width="100"
+                                   
+                   >
+                            <syncfusion:GridTextColumn.HeaderToolTipTemplate>
+
+                                <DataTemplate>
+
+                                    <TextBlock Text="Cena karte do sledeće stanice" TextWrapping="Wrap"/>
+
+                                </DataTemplate>
+
+                            </syncfusion:GridTextColumn.HeaderToolTipTemplate>
+                        </syncfusion:GridTextColumn>
+                        <syncfusion:GridTextColumn 
+                            MappingName="TimeToNextStation"
+                                   HeaderText="Vreme (min)"
+                                   IsReadOnly="True"
+                                   Width="100" 
+                                    
+                   >
+                            
+                            
+                        </syncfusion:GridTextColumn>
+                    </syncfusion:SfDataGrid.Columns>
+
+                </syncfusion:SfDataGrid>
+
+                <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="9" Grid.Row="5" Grid.ColumnSpan="8" Grid.RowSpan="8" Background="White" 
+                                    ItemsSource="{Binding SelectedSchedual}"
+                                   Margin="0,0,38,0"
+                                   RowSelectionBrush="#ebebe0"
+                                   HeaderStyle="{StaticResource customHeaderStyle}"
+                                   x:Name="TrainLineSchedual"
+                                   
+                                   >
+                    <syncfusion:SfDataGrid.Columns>
+
+                        <syncfusion:GridTextColumn 
+                                    MappingName="Time"
+                                    HeaderText="Satnica (hh:mm)"
+                                    IsReadOnly="True"
+                                    ColumnSizer="Star"
+                                    
+                                    >
+                        </syncfusion:GridTextColumn>
+                    </syncfusion:SfDataGrid.Columns>
+
+                </syncfusion:SfDataGrid>
+
+            </Grid>
         </Grid>
-    </Grid>
+     </Grid>
 </Page>

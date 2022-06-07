@@ -140,8 +140,7 @@ namespace SyncfusionWpfApp1.repo
             TrainStationInfo info3 = new TrainStationInfo(10, 250);
             TrainStationInfo info4 = new TrainStationInfo(10, 250);
             TrainStationInfo info5 = new TrainStationInfo(10, 300);
-
-
+            
             // trainline1
             //Dictionary<TrainStation, TrainStationInfo> dictTL34 = new Dictionary<TrainStation, TrainStationInfo>();
             OrderedDictionary dictTL1 = new OrderedDictionary
@@ -186,8 +185,8 @@ namespace SyncfusionWpfApp1.repo
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 2, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 2, 12, 0, 0)); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
-            ticket1.bought = true;
+            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 7, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 2, 12, 0, 0)); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            ticket1.bought = false;
             ticket1.ReturnTicket = true;
             ticket1.IndirectRide = false;
             Ticket ticket2 = new Ticket(2, client1, false, tl1, new DateTime(2022, 06, 2, 12, 0, 0), seats[10], null, t2, ts1, ts5, 1250, new DateTime(2022, 06, 2, 12, 20, 0));

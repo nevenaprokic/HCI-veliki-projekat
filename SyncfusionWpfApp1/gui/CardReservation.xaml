@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
+      
       d:DesignHeight="773.934" d:DesignWidth="1212.941"
       Title="CardReservation">
 
@@ -290,7 +291,7 @@
                     <!--// Home //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReservation_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -319,20 +320,20 @@
 
                     </ListViewItem>
 
-                    <!--// Contacts //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Schedule_Handler"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="TicketReport_Handler"
+                              
                                       >
 
                         <StackPanel Orientation="Horizontal"
                                         Width="280">
 
-                            <Image Source="/images/s.png"
+                            <Image Source="/images/tickets_history.png"
                                        Stretch="None"
                                        Margin="12,0,0,0"/>
 
-                            <TextBlock Text="Red vožnje"
+                            <TextBlock Text="Istorija karata"
                                            Margin="25,0,0,0"
                                            Style="{StaticResource font_style}"/>
 
@@ -342,13 +343,16 @@
 
                         <ListViewItem.ToolTip>
 
-                            <ToolTip x:Name="tt_schedule"
-                                         Content="Red vožnje"
-                                         Style="{StaticResource tt_style}"/>
+                            <ToolTip x:Name="history_ticket"
+                                         Content="Istorija karata"
+                                         Style="{StaticResource tt_style}"
+                                         />
 
                         </ListViewItem.ToolTip>
 
                     </ListViewItem>
+
+                    <!--// Contacts //-->
 
                     <!--// Messages //-->
 
@@ -414,7 +418,7 @@
                     <!--// Sign Out //-->
 
                     <ListViewItem HorizontalAlignment="Left"
-                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter"
+                                      Margin="0,0,0,15" MouseEnter="ListViewItem_MouseEnter" Selected="Logout_Handler"
                                       >
 
                         <StackPanel Orientation="Horizontal"
@@ -502,6 +506,7 @@
 
                 </ListView>
 
+
             </StackPanel>
 
 
@@ -546,7 +551,10 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" 
+                        Grid.ColumnSpan="5" Grid.RowSpan="15" 
+                        Background="#E8F0F2" BorderThickness="1" 
+                        CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
                     <Grid.ColumnDefinitions>
@@ -648,7 +656,7 @@
                     <Label Content="Polazište: *" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="1" Background="#e6f3ff" IsEditable="True"  x:Name="startStationSelection" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name" ></ComboBox>
+                <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="1" Background="white" IsEditable="True"  x:Name="startStationSelection" ItemsSource="{Binding trainStations}" SelectionChanged="StartStationChanged" DisplayMemberPath="Name" ></ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                     <Label x:Name="startStationLabel"  Foreground="#CF1B0D"></Label>
                 </Viewbox>
@@ -657,7 +665,7 @@
                     <Label Content="Odredište: *" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="3" Background="#e6f3ff" IsEditable="True" x:Name="endStationSelection"  ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name" />
+                <ComboBox  FontSize="13"  Grid.Row="4" Grid.Column="3" Background="white" IsEditable="True" x:Name="endStationSelection"  ItemsSource="{Binding trainStations}" SelectionChanged="EndStationChanged" DisplayMemberPath="Name" />
                 <Viewbox Grid.Row="5" Grid.Column="3" HorizontalAlignment="Left">
                     <Label x:Name="endStationLabel"  Foreground="#CF1B0D"></Label>
                 </Viewbox>
@@ -666,7 +674,7 @@
                     <Label Content="Datum polaska: *"  FontSize="15" Foreground="#204060"  ></Label>
                 </Viewbox>
 
-                <DatePicker  IsEnabled ="False" FontSize="13" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7"   Background="#e6f3ff" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged" />
+                <DatePicker  IsEnabled ="False" FontSize="13" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="7"   Background="white" x:Name="startDatePicker" SelectedDateChanged="startDate_SelectedDateChanged" Height="38" />
                 <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
                     <Label x:Name="startDateError"  Foreground="#CF1B0D"></Label>
                 </Viewbox>
@@ -675,7 +683,7 @@
                     <Label Content="Satnica polaska (h): *" FontSize="15" Foreground="#204060" ></Label>
                 </Viewbox>
 
-                <ComboBox  IsEnabled ="False" FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="7" Grid.Column="3" Background="#e6f3ff" IsEditable="True"></ComboBox>
+                <ComboBox  IsEnabled ="False" FontSize="13" ItemsSource="{Binding SortedStartTimes}" SelectedItem="{Binding StartTime}" x:Name="startTimePicker" Grid.Row="7" Grid.Column="3" Background="White" IsEditable="True"></ComboBox>
                 <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left" >
                     <Label x:Name="startTimeError" Foreground="#CF1B0D"></Label>
                 </Viewbox>
@@ -744,7 +752,7 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,38,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -889,7 +897,7 @@
                         <Label Content="Voz:"  FontSize="10" Foreground="#204060"></Label>
                     </Viewbox>
 
-                    <ComboBox x:Name="TrainCombobox" Grid.Row="1" Grid.Column="1" Background="#e6f3ff" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name"  FontSize="14"></ComboBox>
+                    <ComboBox x:Name="TrainCombobox" Grid.Row="1" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name"  FontSize="14"></ComboBox>
 
                     <Viewbox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left">
                         <Label Content="Maksimalna cena:"  FontSize="10" Foreground="#204060"></Label>
@@ -897,9 +905,13 @@
 
                     <syncfusion:DoubleTextBox 
                     x:Name="priceFilter"
-                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="#e6f3ff" BorderBrush="#204060" BorderThickness="1" />
+                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="white" BorderBrush="#204060" BorderThickness="1" />
 
-                    <Button Content="Filtriraj" Grid.Row="1" Grid.Column="5" Background="Bisque" Click="filterTrainRidesClicked">
+                    <Button Content="Filtriraj" Grid.Row="1" Grid.Column="5" 
+                            Background="Bisque" 
+                            Foreground="#204060"
+                            FontWeight="SemiBold"
+                            Click="filterTrainRidesClicked">
 
                     </Button>
                 </Grid>
@@ -947,9 +959,9 @@
                     </syncfusion:SfDataGrid.Columns>
 
                 </syncfusion:SfDataGrid>
-                <Border  x:Name="SecondPageErrorBox" Grid.Row="13" Grid.Column="1" Background="White" CornerRadius="15" Visibility="Hidden" >
+                <Border  x:Name="SecondPageErrorBox" Grid.Row="13" Grid.Column="1" Background="#E8F0F2" CornerRadius="15" Visibility="Hidden" >
                     <Viewbox  HorizontalAlignment="Left" >
-                        <Label x:Name="SecondPageErrorLabel" Foreground="#CF1B0D" FontSize="14" FontWeight="Bold" FontStyle="Italic" ></Label>
+                        <Label x:Name="SecondPageErrorLabel" Foreground="#CF1B0D" FontSize="10" FontWeight="SemiBold" FontStyle="Italic" ></Label>
                     </Viewbox>
                 </Border>
 
@@ -1019,7 +1031,7 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
                     <Grid.ColumnDefinitions>
@@ -1117,8 +1129,8 @@
 
 
                 </Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.ColumnSpan="2" Background="White" Grid.Row="3" Grid.RowSpan="9" >
-                    <Grid  x:Name="SeatsGrid" Background="#e6f3ff">
+                <ScrollViewer Grid.Column="2" Grid.ColumnSpan="2" Background="White" Grid.Row="3" Grid.RowSpan="9" >
+                    <Grid  x:Name="SeatsGrid" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.2*"/>
                             <ColumnDefinition Width="0.2*"/>
@@ -1151,7 +1163,7 @@
                         <Label Content="Vagon:"  FontSize="15" Foreground="#204060"></Label>
                     </Viewbox>
 
-                    <ComboBox Grid.Row="1" Grid.Column="0" FontSize="13" ItemsSource="{Binding SelectedTrainWagons}" SelectionChanged="wagonSelectionChanged" DisplayMemberPath="OrderdNumber" Background="#e6f3ff"></ComboBox>
+                    <ComboBox Grid.Row="1" Grid.Column="0" FontSize="13" ItemsSource="{Binding SelectedTrainWagons}" SelectionChanged="wagonSelectionChanged" DisplayMemberPath="OrderdNumber" Background="White"></ComboBox>
 
 
                     <Viewbox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left">
@@ -1241,7 +1253,7 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="White" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="0,0,38,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>

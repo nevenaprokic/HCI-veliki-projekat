@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SyncfusionWpfApp1.service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -32,19 +35,43 @@ namespace SyncfusionWpfApp1.gui
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
 
+            setWarningMessage();
+
+        }
+
+        private void setWarningMessage()
+        {
+            if (TicketService.checkTickectsExpire(TicketService.getCurrentClientTickets()))
+            {
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(3);
+                WarrningMessage.Visibility = Visibility.Visible;
+                WarrningBorder.Visibility = Visibility.Visible;
+                WarningTitle.Visibility = Visibility.Visible;
+                WarningImg.Visibility = Visibility.Visible;
+
+                timer.Tick += (s, en) => {
+                    WarrningMessage.Visibility = Visibility.Hidden;
+                    WarrningBorder.Visibility = Visibility.Hidden;
+                    WarningTitle.Visibility = Visibility.Hidden;
+                    WarningImg.Visibility = Visibility.Hidden;
+                    timer.Stop(); // Stop the timer
+                };
+                timer.Start();
+            }
+            else
+            {
+                WarrningMessage.Visibility = Visibility.Hidden;
+                WarrningBorder.Visibility = Visibility.Hidden;
+            }
         }
         private void TicketReport_Handler(object sender, RoutedEventArgs e)
         {
-            //frame.Content = new CardReservation(frame);
             frame.Content = new TicketsOverview(frame);
         }
         private void TicketReservation_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TicketsOverview(frame);
-        }
-        private void Schedule_Handler(object sender, RoutedEventArgs e)
-        {
-            
+            frame.Content = new CardReservation(frame);
         }
         private void NetworkTrainLine_Handler(object sender, RoutedEventArgs e)
         {
@@ -52,7 +79,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void TrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            frame.Content = new TrainLineView(frame);
+            frame.Content = new ClientTrainLinesOverview(frame);
         }
         private void ListViewItem_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -61,15 +88,14 @@ namespace SyncfusionWpfApp1.gui
             if (Tg_Btn.IsChecked == true)
             {
                 tt_ticket.Visibility = Visibility.Collapsed;
-                tt_schedule.Visibility = Visibility.Collapsed;
                 tt_trainLine.Visibility = Visibility.Collapsed;
                 tt_maps.Visibility = Visibility.Collapsed;
                 tt_signout.Visibility = Visibility.Collapsed;
+                
             }
             else
             {
                 tt_ticket.Visibility = Visibility.Visible;
-                tt_schedule.Visibility = Visibility.Visible;
                 tt_trainLine.Visibility = Visibility.Visible;
                 tt_maps.Visibility = Visibility.Visible;
                 tt_signout.Visibility = Visibility.Visible;
@@ -89,6 +115,13 @@ namespace SyncfusionWpfApp1.gui
         private void BG_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Tg_Btn.IsChecked = false;
+        }
+
+        private void Logout_Handler(object sender, RoutedEventArgs e)
+        {
+
+            frame.Content = new LoginPage(frame);
+            frame.NavigationService.RemoveBackEntry();
         }
     }
 }

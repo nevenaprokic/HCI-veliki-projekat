@@ -23,17 +23,30 @@ namespace SyncfusionWpfApp1.gui
         public MessageBox(String message, Window parentWindow)
         {
             InitializeComponent();
-            this.parentWindow = parentWindow;
-            parentWindow.IsEnabled = false;
             txtMessage.Text = message;
-            Canvas.SetLeft(this, parentWindow.Left + parentWindow.Width / 2.8);
-            Canvas.SetTop(this, parentWindow.Top + parentWindow.Height / 2.3);
+            if (parentWindow != null)
+            {
+                this.parentWindow = parentWindow;
+                parentWindow.IsEnabled = false;
+                
+                Canvas.SetLeft(this, parentWindow.Left + parentWindow.Width / 2.8);
+                Canvas.SetTop(this, parentWindow.Top + parentWindow.Height / 2.3);
+            }
+            else
+            {
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+           
         }
 
         private void Ok_clicked(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Hidden;
-            parentWindow.IsEnabled = true;
+            if(parentWindow != null)
+            {
+                parentWindow.IsEnabled = true;
+            }
+          
         }
     }
 }
