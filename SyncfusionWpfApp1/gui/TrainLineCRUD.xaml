@@ -581,7 +581,7 @@
                     <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
         </Button>
-        <Button x:Name="delete"  Grid.Column="5" Width="80" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#BB6464">
+        <Button x:Name="delete"  Grid.Column="5" Width="80" Grid.Row="3" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#BB6464">
             <Button.Content>
                 <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
@@ -596,6 +596,7 @@
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
             </Button.Resources>
+            
         </Button>
         <Button Grid.Column="6" Width="150" Grid.Row="3" Click="AddNew_Handler" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9FC088" Foreground="White"  FontSize="15">
             <Button.Content>
@@ -612,7 +613,10 @@
                     <Setter Property="CornerRadius" Value="5" />
                 </Style>
             </Button.Resources>
-        </Button>
+                <Button.ToolTip>
+                    <ToolTip Content="Dodavanje nove vozne linije" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
 
         <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"
@@ -636,18 +640,18 @@
 
             <!--DA LI STAVITI I DUGME ZA DETALJNIJI PREGLED-->      
             <DataGrid.Columns >
-                <DataGridTemplateColumn Header="Označi" Width="0.4*">
+                <!--<DataGridTemplateColumn Header="Označi" Width="0.4*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox HorizontalAlignment="Center"  VerticalAlignment="Top"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
                 <DataGridTextColumn Binding="{Binding Id}" Header="O"  Width="0.1*" /> <!--oznaka vozne linije-->
                 <DataGridTextColumn Binding="{Binding StartStationName}" Header="Početna stanica"  Width="2.3*"/>
                 <DataGridTextColumn Binding="{Binding EndStationName}" Header="Krajnja stanica"  Width="2.3*"/>
-                <!--<DataGridTextColumn Binding="{Binding Trains}" Header="Vozovi"  Width="2*"/>-->
-                <DataGridTextColumn Binding="{Binding Price}" Header="Cena"  Width="0.6*"/>
+                    <DataGridTextColumn Binding="{Binding Trains}" Header="Vozovi"  Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding Price}" Header="Cena"  Width="0.6*"/>
                 <DataGridTemplateColumn Header="Izmeni"  Width="0.6*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -655,7 +659,10 @@
                                 <StackPanel>
                                     <Image Source="/images/edit.png" Width="20" Height="20"></Image>
                                 </StackPanel>
-                            </Button>
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Izmena vozne linije" Style="{StaticResource tt_style}"/>
+                                    </Button.ToolTip>
+                                </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -666,7 +673,10 @@
                                 <StackPanel>
                                     <Image x:Name="deleteIconTable" Source="/images/delete2.png"  Width="20" Height="20"></Image>
                                 </StackPanel>
-                            </Button>
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Brisanje vozne linije" Style="{StaticResource tt_style}"/>
+                                    </Button.ToolTip>
+                                </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -96,7 +96,7 @@
             </DataGrid>
 
 
-            <Button x:Name="delete"  Grid.Column="3" MinWidth="80" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center"  Background="#00264d">
+            <Button x:Name="delete"  Grid.Column="3" MinWidth="80" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Center"  Click="Cancel_Handler" Background="#00264d">
                 <Button.Content>
                     <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 

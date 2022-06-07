@@ -9,6 +9,27 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent"
         Title="CreatePoint" Height="370" Width="500">
+    <Window.Resources>
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" 
     CornerRadius="20" Background="#E8F0F2">
@@ -50,7 +71,11 @@
                     <Label x:Name="priceLbl" Content="Cena" Foreground="#00264d" HorizontalAlignment="Left"></Label>
                 </Viewbox>
                 <Viewbox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
-                    <TextBox Name="price" Foreground="#00264d" Grid.ColumnSpan="3"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <TextBox Name="price" Foreground="#00264d" Grid.ColumnSpan="3"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                        <TextBox.ToolTip>
+                            <ToolTip Content="Polje za unos cene" Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
                 </Viewbox>
                 <Viewbox Grid.Row="6" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
                     <Label x:Name="priceValidationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" />
@@ -60,7 +85,12 @@
                 </Viewbox>
 
                 <Viewbox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
-                    <TextBox Name="intervalTextBox" Grid.ColumnSpan="3" Foreground="#00264d"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBox Name="intervalTextBox" Grid.ColumnSpan="3" Foreground="#00264d"  PreviewTextInput="NumberValidationTextBox" BorderBrush="#00264d" MinWidth="100" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBox.ToolTip>
+                            <ToolTip Content="Polje za unos vremenskog perioda" Style="{StaticResource tt_style}"/>
+                        </TextBox.ToolTip>
+                    </TextBox>
+
                 </Viewbox>
 
                 <Viewbox Grid.Row="9" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
@@ -76,6 +106,9 @@
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip Content="Čuvanje stanice" Style="{StaticResource tt_style}"/>
+                            </Button.ToolTip>
                         </Button>
                         <Button Content="Odustani" x:Name="No" Click="GoBack_Handler" Margin="0, 0, 20, 0" HorizontalAlignment="Left" FontSize="5" VerticalAlignment="Top" Width="45" Background="#00264d" Foreground="White" 
                              IsCancel="True">
@@ -84,6 +117,9 @@
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip Content="Odustajanje od dodavanja stanice" Style="{StaticResource tt_style}"/>
+                            </Button.ToolTip>
                         </Button>
                     </StackPanel>
 

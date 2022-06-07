@@ -115,12 +115,14 @@ namespace SyncfusionWpfApp1.gui
             if(waypoints.Count == 1)
             {
                 CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, true);
-                point.Show();
+                if(point.Show)
+                    point.Show();
             }
             else
             {
                 CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, false);
-                point.Show();
+                if (point.Show)
+                    point.Show();
             }
            
 
