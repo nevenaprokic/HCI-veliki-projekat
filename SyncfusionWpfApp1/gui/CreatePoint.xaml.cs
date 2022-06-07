@@ -29,12 +29,11 @@ namespace SyncfusionWpfApp1.gui
         public delegate void someDelegate();
         public delegate void saveDelegate(string street, string city, string state, double price, int minute);
         private bool IsFirst;
-        private string v1;
-        private string v2;
-        private AddNewLine addNewLine;
-        private bool v3;
-
+       
         public AddNewTrainLine Parent { get; set; }
+        public AddNewLine Parent2 { get; set; }
+        public bool Show = true;
+
         public CreatePoint(string latitude, string longitude, AddNewTrainLine parent, bool isFirst)
         {
             InitializeComponent();
@@ -59,21 +58,24 @@ namespace SyncfusionWpfApp1.gui
             InitializeComponent();
             Latitude = v1;
             Longitude = v2;
-           // Parent = addNewLine;
-            sendRequest();
-            addressLabel.Content = Street + ", " + City + ", " + State;
-            IsFirst = v3;
-            if (IsFirst)
+            Parent2 = addNewLine;
+            if (sendRequest())
             {
-                price.Visibility = Visibility.Hidden;
-                intervalTextBox.Visibility = Visibility.Hidden;
-                priceLbl.Visibility = Visibility.Hidden;
-                intervalLbl.Visibility = Visibility.Hidden;
+                addressLabel.Content = Street + ", " + City + ", " + State;
+                IsFirst = v3;
+                if (IsFirst)
+                {
+                    price.Visibility = Visibility.Hidden;
+                    intervalTextBox.Visibility = Visibility.Hidden;
+                    priceLbl.Visibility = Visibility.Hidden;
+                    intervalLbl.Visibility = Visibility.Hidden;
+                }
             }
-            
+           
+
         }
 
-        private void sendRequest()
+        private bool sendRequest()
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://" + $@"dev.virtualearth.net/REST/v1/Locations/{Latitude}, {Longitude}?includeEntityTypes=Address, Neighborhood, CountryRegion&includeNeighborhood=1&include=ciso2&key={BingMapsKey}");
 
@@ -84,16 +86,45 @@ namespace SyncfusionWpfApp1.gui
             if (temp.Contains("locality"))
             {
                 string[] formattedAddress = temp.Split("formattedAddress")[1].Split(',');
-                Street = formattedAddress[0].Substring(3, formattedAddress[0].Length-3);
-                City = formattedAddress[1].Substring(6, formattedAddress[1].Length-6).Trim();
-                State = formattedAddress[2].Substring(0, formattedAddress[2].Length-1).Trim();
+                Street = formattedAddress[0].Substring(3, formattedAddress[0].Length - 3).Trim();
+                City = formattedAddress[1].Substring(6, formattedAddress[1].Length - 6).Trim();
+                State = formattedAddress[2].Substring(0, formattedAddress[2].Length - 1).Trim();
             }
+            if (Street == null || City == null || State == null)
+            {
+                NotificationDialog dialog = new NotificationDialog("Pin sa izabranim koordinatama nema adresu, pokušajte ponovo!");
+                if ((bool)dialog.ShowDialog())
+                {
+                    someDelegate p = null;
+                    if (Parent != null)
+                    {
+                        p = new someDelegate(Parent.DeleteLast);
+                    }
+                    else
+                    {
+                        p = new someDelegate(Parent2.DeleteLast);
+                    }
+                    p?.Invoke();
+                    this.Close();
+                    Show = false;
+                    return false;
+                }
+            }
+            return true;
             
         }
         private void GoBack_Handler(object sender, RoutedEventArgs e)
         {
-            someDelegate p = new someDelegate(Parent.DeleteLast);
-            p.Invoke();
+            someDelegate p = null;
+            if (Parent != null)
+            {
+                p = new someDelegate(Parent.DeleteLast);
+            }
+            else
+            {
+                p = new someDelegate(Parent2.DeleteLast);
+            }
+            p?.Invoke();
             this.Close();
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -122,17 +153,24 @@ namespace SyncfusionWpfApp1.gui
 
         private void Save_Handler(object sender, RoutedEventArgs e)
         {
-            if (IsFirst)
+            saveDelegate p = null;
+            if (Parent != null)
             {
-                saveDelegate p = new saveDelegate(Parent.SaveLast); 
-                p.Invoke(Street, City, State, 0, 0);
+                p = new saveDelegate(Parent.SaveLast);
+            }
+            else
+            {
+                p = new saveDelegate(Parent2.SaveLast);
+            }
+            if (IsFirst)
+            {  
+                p?.Invoke(Street, City, State, 0, 0);
                 this.Close();
             }
             else {
                 if (ValidateInput())
                 {
-                    saveDelegate p = new saveDelegate(Parent.SaveLast);
-                    p.Invoke(Street, City, State, double.Parse(price.Text), int.Parse(intervalTextBox.Text));
+                    p?.Invoke(Street, City, State, double.Parse(price.Text), int.Parse(intervalTextBox.Text));
                     this.Close();
                 }
             }

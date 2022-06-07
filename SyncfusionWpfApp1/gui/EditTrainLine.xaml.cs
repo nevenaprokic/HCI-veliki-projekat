@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -94,7 +95,7 @@ namespace SyncfusionWpfApp1.gui
             frame.Content = new ScheduleUpdateDelete(frame);
         }
 
-        private void drawTableTrainLine()
+        public void drawTableTrainLine()
         {
             RowsTrainLine.Clear();
             foreach (DictionaryEntry kvp in CurrentTrainLine.Map)
@@ -118,7 +119,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void AddNewTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            AddNewLine line = new AddNewLine(CurrentTrainLine);
+            AddNewLine line = new AddNewLine(CurrentTrainLine, this);
             line.Show();
         }
         private void DeleteTrainLine_Handler(object sender, RoutedEventArgs e)
@@ -139,6 +140,11 @@ namespace SyncfusionWpfApp1.gui
             CurrentTrainLine.Map.Clear();
             CurrentTrainLine.Map = newDict;  
             drawTableTrainLine();
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
         {

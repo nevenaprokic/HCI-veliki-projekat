@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,14 @@ namespace SyncfusionWpfApp1.gui
         private List<TrainStation> newTrainStations = new List<TrainStation>();
         private List<TrainStationInfo> newTrainStationInfo = new List<TrainStationInfo>();
         public ObservableCollection<TrainLine> TrainLines { get; set; }
-        public AddNewLine(TrainLine currentTrainLine)
+        private TrainLine CurrentLine;
+        public delegate void drawDelegate();
+        private EditTrainLine Line;
+        public AddNewLine(TrainLine currentTrainLine, EditTrainLine line)
         {
             InitializeComponent();
+            CurrentLine = currentTrainLine;
+            Line = line;
             foreach (DictionaryEntry kvp in currentTrainLine.Map)
             {
                 TrainStation t = (TrainStation)kvp.Key;
@@ -100,20 +106,16 @@ namespace SyncfusionWpfApp1.gui
 
 
             waypoints.Add(new SimpleWaypoint(pinLocation.Latitude.ToString() + "," + pinLocation.Longitude.ToString()));
-            if (waypoints.Count == 1)
-            {
-                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, true);
+            CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, false);
+            if (point.Show)
                 point.Show();
-            }
-            else
-            {
-                CreatePoint point = new CreatePoint(pinLocation.Latitude.ToString(), pinLocation.Longitude.ToString(), this, false);
-                point.Show();
-            }
 
 
         }
-
+        public void DeleteLast()
+        {
+            waypoints.RemoveAt(waypoints.Count - 1);
+        }
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)
         {
             MainMap.Children.Clear();
@@ -248,8 +250,35 @@ namespace SyncfusionWpfApp1.gui
 
                 return;
             }
-           
+            string station = comboLines.Text;
+            OrderedDictionary newDict = new OrderedDictionary();
+            IDictionaryEnumerator myEnumerator = CurrentLine.Map.GetEnumerator();
+            while (myEnumerator.MoveNext())
+            {
+                TrainStation t = (TrainStation)myEnumerator.Key;
+                newDict.Add(myEnumerator.Key, myEnumerator.Value);
+                if (station.Equals(t.Name))
+                {
+                    newDict.Add(newTrainStations[0], newTrainStationInfo[0]);
+                }
+            }
+            CurrentLine.Map.Clear();
+            CurrentLine.Map = newDict;
 
+            drawDelegate p = new drawDelegate(Line.drawTableTrainLine);
+            p.Invoke();
+            this.Close();
+            this.Close();
+
+        }
+        public void SaveLast(string street, string city, string state, double price, int minute)
+        {
+            TrainStation station = new TrainStation(street, state, city, (MainRepository.trainStations.Count + 2));
+            newTrainStations.Add(station);
+            TrainStationInfo stationInfo = new TrainStationInfo(minute, price);
+            newTrainStationInfo.Add(stationInfo);
+            MainMap.Children.Add(pin);
+            img1.Visibility = Visibility.Hidden;
         }
         private void GoBack_Handler(object sender, RoutedEventArgs e)
         {
