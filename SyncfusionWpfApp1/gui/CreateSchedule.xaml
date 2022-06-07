@@ -58,27 +58,39 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="White" />
 
-            <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
-                <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Definisanje novog reda vožnje</TextBlock>
-            </Viewbox>
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12">
+                    <TextBlock FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Definisanje novog reda vožnje</TextBlock>
+                </Viewbox>
 
-            <Button Grid.Row="0" Grid.Column="3" x:Name="helpButton" l:HelpProvider.HelpKey="createSchedule" HorizontalAlignment="Right" Width="35" Height="35"
+                <Button Grid.Row="0" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="createSchedule" HorizontalAlignment="Center" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
-                <StackPanel Background="Transparent">
-                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
-                </StackPanel>
-                <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
-                </Button.ToolTip>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="3" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
-                <StackPanel Background="Transparent">
-                    <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
-                </StackPanel>
-                <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
-                </Button.ToolTip>
-            </Button>
+                    <StackPanel Background="Transparent">
+                        <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <StackPanel Background="Transparent">
+                        <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
 
             <DataGrid Name="dataGrid"
                   AutoGenerateColumns="False"

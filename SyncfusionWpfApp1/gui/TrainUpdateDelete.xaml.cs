@@ -73,6 +73,12 @@ namespace SyncfusionWpfApp1.gui
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            m.ShowDialog();
+        }
+
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
         {
             ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši voz i njegove vagone?");

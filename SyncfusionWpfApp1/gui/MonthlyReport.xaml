@@ -564,7 +564,7 @@
             <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.3*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1.5*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -583,6 +583,7 @@
                     <ColumnDefinition Width="0*"/>
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="0.3*"/>
                 </Grid.ColumnDefinitions>
@@ -590,7 +591,7 @@
 
                 <TextBlock Text="Pregled prodatih karata u toku jednog meseca" TextWrapping="WrapWithOverflow" Grid.Column="2"  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="22" FontWeight="Bold" FontStyle="Italic"/>
 
-                <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" x:Name="helpButton" l:HelpProvider.HelpKey="monthlyReport" Width="35" Height="35"
+                <Button Grid.Row="1" Grid.Column="3" x:Name="helpButton" l:HelpProvider.HelpKey="monthlyReport" Width="35" Height="35"
                     Command="Help" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <StackPanel Background="Transparent">
                         <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -599,18 +600,28 @@
                         <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
-                
-                
-                <TextBlock x:Name="periodTextblock" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <Border Grid.Row="2" Grid.Column="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
-                <TextBlock x:Name="numberTextblock" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <Border Grid.Row="3" Grid.Column="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
-                <TextBlock x:Name="totalTextblock" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <Border Grid.Row="4" Grid.Column="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+
+                <Button Grid.Row="1" Grid.Column="3" x:Name="videoButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <StackPanel Background="Transparent">
+                        <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
+
+
+                <TextBlock x:Name="periodTextblock"  Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="2" Grid.Column="2"  Grid.ColumnSpan="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+                <TextBlock x:Name="numberTextblock"  Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+                <TextBlock x:Name="totalTextblock"  Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="4" Grid.Column="2"  Grid.ColumnSpan="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
 
                 <DataGrid Name="dataGrid"
                   AutoGenerateColumns="True"
                   Grid.Column="2"
+                  Grid.ColumnSpan="2"
                   Grid.Row="6"
                   Grid.RowSpan="6"
                   FontSize="14"                 
@@ -683,7 +694,7 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
-                <TextBlock Text="Ne postoje prodate karte za odabrani mesec" Grid.Row="9"   Grid.Column="2" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#00264d" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
+                <TextBlock Text="Ne postoje prodate karte za odabrani mesec" Grid.Row="9"  Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#00264d" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
 
 
             </Grid>

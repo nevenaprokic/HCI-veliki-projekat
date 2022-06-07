@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
         mc:Ignorable="d"
+        Title="MediaElement" Width="1200" Height="700"
         WindowStartupLocation="CenterScreen"
-        Title="MediaElement" Width="500" Height="500" Icon="../App.ico">
+        Icon="../App.ico">
     <Window.Resources>
         <Style TargetType="ToolTip" x:Key="tt_style">
 

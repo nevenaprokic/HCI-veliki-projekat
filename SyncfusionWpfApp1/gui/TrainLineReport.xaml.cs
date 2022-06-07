@@ -81,6 +81,12 @@ namespace SyncfusionWpfApp1.gui
             return total;
         }
 
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            m.ShowDialog();
+        }
+
         private void drawTable()
         {
             dataGrid?.Items.Clear();

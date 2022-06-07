@@ -89,6 +89,12 @@ namespace SyncfusionWpfApp1.gui
             
         }
 
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            m.ShowDialog();
+        }
+
         private double CalculateTotalPrice(List<Ticket> tickets)
         {
             double total = 0;

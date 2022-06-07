@@ -575,6 +575,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.1*"/>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="0.1*"/>
                     <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
@@ -584,10 +585,9 @@
                 <Viewbox  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock Text="Pregled prodatih karata za jednu vožnju" FontWeight="Bold" FontStyle="Italic" TextWrapping="WrapWithOverflow" Foreground="#00264d" FontSize="22" Margin="0,1,0,0" />
                 </Viewbox>
-               
 
-                <Button Grid.Row="1" Grid.Column="1" x:Name="helpButton" l:HelpProvider.HelpKey="trainLineReport" Width="35" Height="35"
-                    Command="Help" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Grid.Row="1" Grid.Column="2" x:Name="helpButton" l:HelpProvider.HelpKey="trainLineReport" Width="35" Height="35"
+                    Command="Help" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0">
                     <StackPanel Background="Transparent">
                         <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                     </StackPanel>
@@ -596,17 +596,26 @@
                     </Button.ToolTip>
                 </Button>
 
+                <Button Grid.Row="1" Grid.Column="2" x:Name="videoButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <StackPanel Background="Transparent">
+                        <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                    </StackPanel>
+                    <Button.ToolTip>
+                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    </Button.ToolTip>
+                </Button>
 
-                <TextBlock x:Name="numberTextblock" TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <Border Grid.Row="2" Grid.Column="1" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
-                <TextBlock x:Name="totalTextblock" TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
-                <Border Grid.Row="3" Grid.Column="1" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+
+                <TextBlock x:Name="numberTextblock" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
+                <TextBlock x:Name="totalTextblock" Grid.ColumnSpan="2" TextWrapping="WrapWithOverflow" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#00264d" FontSize="15" Padding="10" Margin="0, 0, 130, 0" />
+                <Border Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" BorderBrush="#8db5bf" BorderThickness="0,0,0,1" Margin="10, 0, 0, 0"></Border>
 
                 <DataGrid Name="dataGrid"
                   AutoGenerateColumns="True"
                   Grid.Column="1"
                   Grid.RowSpan="4"
-                  Grid.ColumnSpan="1"
+                  Grid.ColumnSpan="2"
                   Grid.Row="5"
                   FontSize="14"                 
                   >
@@ -681,7 +690,7 @@
                         </Style>
                     </DataGrid.Resources>
                 </DataGrid>
-                <TextBlock Text="Ne postoje prodate karte za odabranu vožnju" Grid.Column="1" Grid.Row="5" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
+                <TextBlock Text="Ne postoje prodate karte za odabranu vožnju" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="center" FontSize="20" FontStyle="Italic" Foreground="#141C61" VerticalAlignment="center" Visibility="{Binding Items.IsEmpty, Converter={StaticResource BooleanToVisibility}, ElementName=dataGrid}" />
 
             </Grid>
 

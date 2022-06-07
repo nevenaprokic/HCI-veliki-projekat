@@ -711,11 +711,19 @@
                     <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <Label Content="Izmena i brisanje vozova i njihovih vagona" Foreground="#00264d" HorizontalAlignment="Left" FontSize="20" FontStyle="Italic" FontWeight="Bold"/>
                     </Viewbox>
-
+                
                     <Button Grid.Column="4" Grid.Row="0" x:Name="helpButton" l:HelpProvider.HelpKey="updateDeleteTrain" Width="35" Height="35" 
                             Command="ApplicationCommands.Help" Background="Transparent" HorizontalAlignment="Right">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Grid.Row="0" Grid.Column="3" x:Name="videoButton" HorizontalAlignment="Left" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
                             <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>

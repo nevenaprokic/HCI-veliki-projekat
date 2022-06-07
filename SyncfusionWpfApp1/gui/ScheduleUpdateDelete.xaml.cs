@@ -116,6 +116,12 @@ namespace SyncfusionWpfApp1.gui
             return m.Success;
         }
 
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/update_delete_schedule.mkv");
+            m.ShowDialog();
+        }
+
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
         {
             int forRemove = dataGrid.SelectedIndex;

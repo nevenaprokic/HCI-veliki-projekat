@@ -83,6 +83,11 @@ namespace SyncfusionWpfApp1.gui
             InitForm();
         }
 
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            m.ShowDialog();
+        }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
