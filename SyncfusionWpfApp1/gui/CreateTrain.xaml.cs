@@ -49,6 +49,7 @@ namespace SyncfusionWpfApp1.gui
         public ObservableCollection<RowDataWagon> Rows { get; set; }
         public Train NewTrain { get; set; }
         public List<Wagon> Wagons { get; set; }
+        public bool AlreadyInInsertMode { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -79,13 +80,14 @@ namespace SyncfusionWpfApp1.gui
             NewTrain = new Train();
             Rows = new ObservableCollection<RowDataWagon>();
             TrainName = "";
+            AlreadyInInsertMode = true;
             SetBackground();
             InitForm();
         }
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            MediaElement m = new MediaElement(@"../../../videos/create_train.mkv");
             m.ShowDialog();
         }
 
@@ -115,6 +117,73 @@ namespace SyncfusionWpfApp1.gui
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource = new BitmapImage(new Uri("../../../images/ReservationBackground.png", UriKind.Relative));
             this.Background = myBrush;
+        }
+
+        private void insertMode()
+        {
+            Uri uri = new Uri("../../../images/add_icon.png", UriKind.RelativeOrAbsolute);
+            editIcon.Source = BitmapFrame.Create(uri);
+            NumberSeatsTextBox.Text = "";
+            NumberWagonsTextBox.Text = "1";
+            comboClass.SelectedItem = WagonClass.FIRST;
+
+            if (!AlreadyInInsertMode)
+            {
+                iconButton.Click += AddWagon_Handler;
+                iconButton.Click -= EditWagon_Handler;
+            }
+            AlreadyInInsertMode = true;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            int selectedIndex = dataGrid.SelectedIndex;
+            if (selectedIndex == -1) return;
+
+            NumberSeatsTextBox.Text = Rows[selectedIndex].NumOfSeats.ToString();
+            NumberWagonsTextBox.Text = Rows[selectedIndex].NumOfWagons.ToString();
+            comboClass.SelectedItem = Rows[selectedIndex].Class;
+            editMode();
+        }
+
+        private void EditWagon_Handler(object sender, RoutedEventArgs e)
+        {
+            seatValidationLabel.Content = "";
+            wagonValidationLabel.Content = "";
+
+            if (NumberSeatsTextBox.Text == "")
+            {
+                seatValidationLabel.Content = "Broj sedišta je obavezan.";
+                return;
+            }
+            if (NumberWagonsTextBox.Text == "")
+            {
+                wagonValidationLabel.Content = "Broj vagona je obavezan.";
+                return;
+            }
+            int selectedIndex = dataGrid.SelectedIndex;
+            if (selectedIndex == -1) return;
+
+            RowDataWagon row = dataGrid.SelectedItem as RowDataWagon;
+            row.NumOfSeats = Int32.Parse(NumberSeatsTextBox.Text);
+            row.NumOfWagons = Int32.Parse(NumberWagonsTextBox.Text);
+            row.Class = (WagonClass)comboClass.SelectedItem;
+            insertMode();
+            dataGrid.Items.Refresh();
+            dataGrid.SelectedIndex = -1;
+        }
+
+        private void editMode()
+        {
+            Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
+            editIcon.Source = BitmapFrame.Create(uri);
+
+            if (AlreadyInInsertMode)
+            {
+                iconButton.Click -= AddWagon_Handler;
+                iconButton.Click += EditWagon_Handler;
+            }
+            AlreadyInInsertMode = false;
         }
 
         private bool ValidInput()
@@ -187,14 +256,6 @@ namespace SyncfusionWpfApp1.gui
             nameValidationLabel.Content = "";
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs args)
-        {
-            //int selectedIndex = dataGrid.SelectedIndex;
-            //if (selectedIndex == -1) return;
-            //newTime.Text = Rows[selectedIndex].Time;
-            //editMode();
-        }
-
         private void AddWagon_Handler(object sender, RoutedEventArgs e)
         {
             seatValidationLabel.Content = "";
@@ -224,6 +285,8 @@ namespace SyncfusionWpfApp1.gui
         {
             int forRemove = dataGrid.SelectedIndex;
             Rows.RemoveAt(forRemove);
+            ResetForm();
+            insertMode();
         }
 
         

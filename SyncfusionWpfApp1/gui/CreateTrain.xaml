@@ -50,7 +50,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="12*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -246,12 +246,12 @@
                 </Grid.RowDefinitions>
 
                 <Viewbox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left">
-                    <Button Grid.Column="0"  MinWidth="80" Click="GoBack_Handler" Background="#00264d" Foreground="White">
+                    <Button Grid.Column="0" MinWidth="100" Click="GoBack_Handler" Background="#00264d" Foreground="White">
                         <Button.Content>
                             <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
-
+                                <Image Source="/images/odustani.png" />
                                 <Label Content="Odustani" VerticalAlignment="Top" 
                    HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
                             </StackPanel>
@@ -271,15 +271,15 @@
                 </Viewbox>
                 
                 <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">
-                    <Button Click="Save_Handler" Background="#9FC088" HorizontalAlignment="Right">
+                    <Button Click="Save_Handler" MinWidth="100" Background="#00264d" HorizontalAlignment="Right">
 
                         <Button.Content>
                             <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
-
+                                <Image Source="/images/save.png" />
                                 <Label Content="Sačuvaj" VerticalAlignment="Top" 
-                   HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
+                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
                             </StackPanel>
                         </Button.Content>
                         <Button.Resources>

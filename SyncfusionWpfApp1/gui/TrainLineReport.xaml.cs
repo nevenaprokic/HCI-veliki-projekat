@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SyncfusionWpfApp1.repo;
+using System.Collections.ObjectModel;
 
 namespace SyncfusionWpfApp1.gui
 {
@@ -22,10 +23,13 @@ namespace SyncfusionWpfApp1.gui
     public partial class TrainLineReport : Page
     {
         private Frame frame;
-        //public ReportService reportService = new ReportService();
         public List<TrainStation> trainStations { get; set; }
         public List<Ticket> Tickets { get; set; }
         public List<string> stationsNames { get; set; }
+
+        public ObservableCollection<TrainStation> comboStartItems { get; set; }
+        public ObservableCollection<TrainStation> comboEndItems { get; set; }
+
         public int ticketsCounter = 0;
         public double totalCost = 0;
 
@@ -44,17 +48,6 @@ namespace SyncfusionWpfApp1.gui
             GenerateReport();
         }
 
-        //private void StartStationChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    ComboBox cmb = sender as ComboBox;
-        //    startStation = (TrainStation)cmb.SelectedItem;
-        //}
-
-        //private void EndStationChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    ComboBox cmb = sender as ComboBox;
-        //    endStation = (TrainStation)cmb.SelectedItem;
-        //}
         private void GenerateClicked(object sender, RoutedEventArgs e)
         {
             GenerateReport();
@@ -62,13 +55,32 @@ namespace SyncfusionWpfApp1.gui
 
         private void GenerateReport()
         {
-            Tickets = ReportService.GenerateReport((TrainStation)comboStart.SelectedItem, (TrainStation)comboEnd.SelectedItem);
-            drawTable();
-            ticketsCounter = Tickets.Count;
-            totalCost = CalculateTotalPrice();
-            numberTextblock.Text = string.Format("- Ukupno je prodato {0} karata", ticketsCounter);
-            totalTextblock.Text = string.Format("- Ukupna dobit je {0}", totalCost);
+            if (comboStart.SelectedItem != null && comboEnd.SelectedItem != null)
+            {
+                Tickets = ReportService.GenerateReport((TrainStation)comboStart.SelectedItem, (TrainStation)comboEnd.SelectedItem);
+                drawTable();
+                ticketsCounter = Tickets.Count;
+                totalCost = CalculateTotalPrice();
+                numberTextblock.Text = string.Format("- Ukupno je prodato {0} karata", ticketsCounter);
+                totalTextblock.Text = string.Format("- Ukupna dobit je {0}", totalCost);
+                validationLabel.Content = "";
+            }
+            else
+            {
+                validationLabel.Content = "Nevalidan unos stanica!";
+            }
+        }
 
+        private void ComboBoxStart_Preview_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            comboStart.IsDropDownOpen = true;
+            //comboStart.ItemsSource = comboStartItems.Where(p => p.Name.Contains(e.Text)).ToList();
+        }
+
+        private void ComboBoxEnd_Preview_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            comboEnd.IsDropDownOpen = true;
+            //comboEnd.ItemsSource = comboEndItems.Where(p => p.Name.Contains(e.Text)).ToList();
         }
 
         private double CalculateTotalPrice()
@@ -83,7 +95,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            MediaElement m = new MediaElement(@"../../../videos/trainline_report.mkv");
             m.ShowDialog();
         }
 
@@ -105,9 +117,14 @@ namespace SyncfusionWpfApp1.gui
         private void generateStationsNames()
         {
             stationsNames = new List<string>();
+            comboStartItems = new ObservableCollection<TrainStation>();
+            comboEndItems = new ObservableCollection<TrainStation>();
+
             foreach (TrainStation station in trainStations)
             {
                 String name = station.City + ", " + station.Street + " " + ", " + station.Country;
+                comboStartItems.Add(station);
+                comboEndItems.Add(station);
                 stationsNames.Add(name);
             }
         }

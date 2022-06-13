@@ -159,7 +159,7 @@ namespace SyncfusionWpfApp1
 
         void SetProperties()
         {
-            this.Title = "Želecnica Srbije";
+            this.Title = "Železnica Srbije";
 
             Uri iconUri = new Uri("../../../images/logo1.png", UriKind.RelativeOrAbsolute);
             this.Icon = BitmapFrame.Create(iconUri);

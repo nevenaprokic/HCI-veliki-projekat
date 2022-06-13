@@ -624,6 +624,7 @@
                   Grid.Column="2"
                   Grid.ColumnSpan="5"
                   FontSize="14" 
+                  IsReadOnly="True"
                   ItemsSource="{Binding Rows}" 
                   
                   

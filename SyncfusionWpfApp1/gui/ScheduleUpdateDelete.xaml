@@ -572,11 +572,50 @@
                     <RowDefinition Height="8*"/>
                     <RowDefinition Height="3*" />
                 </Grid.RowDefinitions>
+
                 <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="15" Grid.RowSpan="15" Background="#E8F0F2" BorderThickness="1" CornerRadius="15" BorderBrush="#00264d" />
 
                 <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="90, 12, 0, 12" HorizontalAlignment="Left">
                     <Label FontSize="20" Content="Izmena i brisanje reda vožnje" Foreground="#00264d" FontWeight="Bold" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 </Viewbox>
+
+                <Grid Grid.Column="2"  Grid.Row="5" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Viewbox  Grid.Column="0"  Grid.Row="1">
+                        <Button x:Name="saveButton" Click="Save_Handler" HorizontalAlignment="Center" MinWidth="150" VerticalAlignment="Center" Background="#00264d" Foreground="White">
+                            <Button.Content>
+                                <StackPanel VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" Orientation="Horizontal" 
+                                    Background="Transparent" Height="29">
+                                    <Image Source="/images/save.png" />
+                                    <Label Content="Sačuvaj" VerticalAlignment="Top" 
+                                   HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip 
+                                         Content="Trajno čuvanje novokreiranog reda vožnje"
+                                         Style="{StaticResource tt_style}"/>
+
+                            </Button.ToolTip>
+                        </Button>
+                    </Viewbox>
+
+
+                </Grid>
 
                 <Button Grid.Row="0" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="updateDeleteSchedule" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
@@ -685,6 +724,7 @@
                             </TextBox.ToolTip>
                         </TextBox>
                     </Viewbox>
+
                     <Viewbox Grid.ColumnSpan="4" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left">
                         <Label x:Name="messageLabel" Content="" Foreground="#BB6464" FontStyle="Italic" VerticalAlignment="Center" />
                     </Viewbox>
@@ -732,7 +772,7 @@
                     </ComboBox>
 
                     <Viewbox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" Height="35">
-                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="#9FC088" Foreground="White" Click="Create_Handler">
+                        <Button HorizontalAlignment="Right" MinWidth="150" VerticalAlignment="Center" Background="#9FC088" Foreground="White" Click="Create_Handler">
                             <Button.Content>
                                 <StackPanel VerticalAlignment="Center" 
                                     HorizontalAlignment="Center" Orientation="Horizontal" 
@@ -757,7 +797,7 @@
                     </Viewbox>
 
                     <Viewbox  Grid.Column="2" Grid.Row="1" Height="35" HorizontalAlignment="Right">
-                        <Button x:Name="deleteScheduleButton" HorizontalAlignment="Right" Click="DeleteSchedule_Handler" VerticalAlignment="Center" Background="#BB6464" Foreground="White">
+                        <Button x:Name="deleteScheduleButton" MinWidth="150" HorizontalAlignment="Right" Click="DeleteSchedule_Handler" VerticalAlignment="Center" Background="#BB6464" Foreground="White">
                             <Button.Content>
                                 <StackPanel VerticalAlignment="Center" 
                                     HorizontalAlignment="Center" Orientation="Horizontal" 
@@ -780,6 +820,8 @@
                         </Button>
                     </Viewbox>
                 </Grid>
+                
+                
             </Grid>
         </Grid>
     </Grid>

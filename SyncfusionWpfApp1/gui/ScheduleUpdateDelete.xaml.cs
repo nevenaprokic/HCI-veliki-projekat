@@ -78,6 +78,16 @@ namespace SyncfusionWpfApp1.gui
             newTime.IsEnabled = check;
         }
 
+        private void Save_Handler(object sender, RoutedEventArgs e)
+        {
+            MainRepository.Schedules.Add(SelectedSchedule);
+            NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi red vožnje.");
+            if ((bool)dialog.ShowDialog())
+            {
+                return;
+            }
+        }
+
         private void AddRow_Handler(object sender, RoutedEventArgs e)
         {
             if (validInput())

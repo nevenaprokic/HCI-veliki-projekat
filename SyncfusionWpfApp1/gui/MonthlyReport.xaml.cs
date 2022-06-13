@@ -91,7 +91,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            MediaElement m = new MediaElement(@"../../../videos/monthly_report.mkv");
             m.ShowDialog();
         }
 
