@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-      mc:Ignorable="d" 
-      
+            mc:Ignorable="d" 
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="773.934" d:DesignWidth="1212.941"
       Title="CardReservation">
 
@@ -560,15 +560,36 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
 
                     <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
                         <Image x:Name="trainIcon"/>
@@ -757,15 +778,36 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton1" l:HelpProvider.HelpKey="cardReservationSecondStep" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon1" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton1" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
 
                     <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
                         <Image x:Name="trainIcon1"/>
@@ -1037,15 +1079,36 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton2" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon2" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton2" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
 
                     <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
                         <Image x:Name="trainIcon2"/>
@@ -1258,15 +1321,36 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton3" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon3" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton3" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
 
                     <Viewbox Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10 0 0 0">
                         <Image x:Name="trainIcon3"/>

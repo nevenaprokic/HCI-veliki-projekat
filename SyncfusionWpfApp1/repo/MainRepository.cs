@@ -152,7 +152,7 @@ namespace SyncfusionWpfApp1.repo
                 { ts6, info5 },
                 { ts8, info5 },
             };
-            TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1 }, schedule1, schedule2, 300, dictTL1, 0);
+            TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1, t2 }, schedule1, schedule2, 300, dictTL1, 0);
 
             // trainline2
             TrainStationInfo info6 = new TrainStationInfo(20, 100);
@@ -185,19 +185,19 @@ namespace SyncfusionWpfApp1.repo
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 7, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 2, 12, 0, 0)); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 14, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 14, 12, 0, 0)); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
             ticket1.bought = false;
             ticket1.ReturnTicket = true;
             ticket1.IndirectRide = false;
-            Ticket ticket2 = new Ticket(2, client1, false, tl1, new DateTime(2022, 06, 2, 12, 0, 0), seats[10], null, t2, ts1, ts5, 1250, new DateTime(2022, 06, 2, 12, 20, 0));
+            Ticket ticket2 = new Ticket(2, client1, false, tl1, new DateTime(2022, 06, 01, 12, 0, 0), seats[10], null, t2, ts1, ts5, 1250, new DateTime(2022, 06, 01, 12, 20, 0));
             ticket2.bought = true;
             ticket2.ReturnTicket = true;
             ticket2.IndirectRide = false;
-            Ticket ticket3 = new Ticket(3, client1, false, tl1, new DateTime(2022, 05, 27, 13, 0, 0), seats[11], null, t1, ts1, ts4, 700, new DateTime(2022, 06, 2, 12, 30, 0));
+            Ticket ticket3 = new Ticket(3, client1, false, tl1, new DateTime(2022, 05, 10, 13, 0, 0), seats[11], null, t1, ts1, ts4, 700, new DateTime(2022, 06, 15, 10, 30, 0));
             ticket3.bought = true;
             ticket3.ReturnTicket = false;
             ticket3.IndirectRide = false;
-            Ticket ticket4 = new Ticket(4, client1, true, tl3, new DateTime(2022, 06, 1, 11, 0, 0), seats[20], seats[21], t2, ts1, ts6, 950, new DateTime(2022, 06, 2, 12, 0, 0));
+            Ticket ticket4 = new Ticket(4, client2, true, tl1, new DateTime(2022, 06, 1, 06, 11, 0), seats[10], seats[10], t2, ts1, ts6, 950, new DateTime(2022, 06, 15, 08, 0, 0));
             ticket4.bought = true;
             ticket4.ReturnTicket = false;
             ticket4.IndirectRide = false;

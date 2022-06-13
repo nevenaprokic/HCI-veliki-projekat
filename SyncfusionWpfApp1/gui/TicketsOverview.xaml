@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TicketsOverview">
 
@@ -537,7 +538,7 @@
                     <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition Width="0.1*"/>
                     <ColumnDefinition Width="0.6*"/>
-                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.2*"/>
@@ -557,9 +558,38 @@
                     <RowDefinition Height="0.4*"/>
                 </Grid.RowDefinitions>
 
+                
+
                 <Border Background="#E8F0F2" Grid.Column="0" Grid.ColumnSpan="15" Grid.Row="0" Grid.RowSpan="15"
                         BorderThickness="1" CornerRadius="10"></Border>
 
+                <Grid Grid.Row="1" Grid.Column="12" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="helpButton" l:HelpProvider.HelpKey="ticketOverview" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
+
+                </Grid>
+                
                 <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" HorizontalAlignment="Left">
                     <Label Content="Pregled rezervisanih i kupljenih karata" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
