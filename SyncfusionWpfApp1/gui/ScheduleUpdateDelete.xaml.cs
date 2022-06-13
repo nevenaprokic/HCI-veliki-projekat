@@ -215,7 +215,7 @@ namespace SyncfusionWpfApp1.gui
         private void editMode()
         {
             editLabel.Content = "Unesite izmenu za: " + comboSchedule.SelectedItem?.ToString();
-            Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
+            Uri uri = new Uri("../../../images/edit.png", UriKind.RelativeOrAbsolute);
             editIcon.Source = BitmapFrame.Create(uri);
 
             if (AlreadyInInsertMode)

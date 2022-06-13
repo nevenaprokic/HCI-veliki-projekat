@@ -142,12 +142,13 @@
             </Viewbox>
             <Viewbox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Sačuvaj" Click="Save_Handler" x:Name="Yes" Margin="0, 0, 2, 3" HorizontalAlignment="Left" Background="#9FC088" 
-                            BorderBrush="#9FC088" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="25" 
+                    <Button Content="Sačuvaj" Click="Save_Handler" x:Name="Yes" Margin="0, 0, 2, 3" HorizontalAlignment="Left" Background="#00264d" 
+                            BorderBrush="#00264d" FontSize="5" Foreground="White" VerticalAlignment="Top" Width="25" 
                             >
+                       
                         <Button.Resources>
                             <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5" />
+                                <Setter Property="CornerRadius" Value="1" />
                             </Style>
                         </Button.Resources>
                         <Button.ToolTip>
@@ -160,7 +161,7 @@
                              IsCancel="True">
                         <Button.Resources>
                             <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5" />
+                                <Setter Property="CornerRadius" Value="1" />
                             </Style>
                         </Button.Resources>
                         <Button.ToolTip>

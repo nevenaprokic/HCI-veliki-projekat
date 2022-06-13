@@ -674,7 +674,7 @@
                                 <DataTemplate>
                                     <Button x:Name="deleteRowButton" Click="DeleteRow_Handler" Height="30" Background="White">
                                         <StackPanel>
-                                            <Image Source="/images/delete_icon.png" Width="20" Height="20"></Image>
+                                            <Image Source="/images/delete2.png" Width="20" Height="20"></Image>
                                         </StackPanel>
                                         <Button.ToolTip>
 

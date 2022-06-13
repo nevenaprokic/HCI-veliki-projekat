@@ -79,13 +79,44 @@ namespace SyncfusionWpfApp1.gui
             m.ShowDialog();
         }
 
+        private bool IsAbleToDelete()
+        {
+            foreach (Ticket t in MainRepository.Tickets)
+            {
+                if (t.Train.Name.Equals(SelectedTrain.Name) && !Passed(t.DepartureTime))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool Passed(DateTime start)
+        {
+            return (start.Date - DateTime.Now.Date).TotalDays < 0;
+        }
+
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
         {
+            if (IsAbleToDelete())
+            {
+                NotificationDialog n = new NotificationDialog("Voz ne može biti obrisan zbog budućih karata.");
+                if ((bool)n.ShowDialog())
+                {
+                    return;
+                }
+            }
+
             ConfirmDialog cofirmDialog = new ConfirmDialog("Obriši voz i njegove vagone?");
             if ((bool)cofirmDialog.ShowDialog())
             {
                 int index = comboSchedule.SelectedIndex;
                 if (index == -1) return;
+
+                foreach (TrainLine line in MainRepository.trainLines)
+                {
+                    line.Trains.RemoveAll(p => p.Name == SelectedTrain.Name);
+                }
 
                 Train t = MainRepository.Trains[index];
                 foreach (Wagon w in t.Wagons)
@@ -148,7 +179,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void editMode()
         {
-            Uri uri = new Uri("../../../images/edit_icon.png", UriKind.RelativeOrAbsolute);
+            Uri uri = new Uri("../../../images/edit.png", UriKind.RelativeOrAbsolute);
             editIcon.Source = BitmapFrame.Create(uri);
 
             if (AlreadyInInsertMode)
@@ -197,6 +228,18 @@ namespace SyncfusionWpfApp1.gui
 
         private void EditWagon_Handler(object sender, RoutedEventArgs e)
         {
+
+            if (IsAbleToDelete())
+            {
+                NotificationDialog n = new NotificationDialog("Voz ne može izmenjen zbog budućih karata.");
+                if ((bool)n.ShowDialog())
+                {
+                    ResetForm();
+                    insertMode();
+                    return;
+                }
+            }
+
             seatValidationLabel.Content = "";
             wagonValidationLabel.Content = "";
 
@@ -238,6 +281,17 @@ namespace SyncfusionWpfApp1.gui
 
         private void DeleteRow_Handler(object sender, RoutedEventArgs e)
         {
+            if (IsAbleToDelete())
+            {
+                NotificationDialog n = new NotificationDialog("Voz ne može izmenjen zbog budućih karata.");
+                if ((bool)n.ShowDialog())
+                {
+                    ResetForm();
+                    insertMode();
+                    return;
+                }
+            }
+
             int forRemove = dataGrid.SelectedIndex;
             Rows.RemoveAt(forRemove);
             //SelectedTrain.Wagons.RemoveAt(forRemove);
