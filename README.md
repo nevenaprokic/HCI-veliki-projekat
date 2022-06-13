@@ -23,3 +23,4 @@ Ukoliko se projekat ne pokreće potrebno je instalirati:
 - Syncfusion.Themes.FluentLight.WPF
 
 Podaci su mock i nije potrebno ništa dodatno instalirati.
+Kod se nalazi na developer grani.
