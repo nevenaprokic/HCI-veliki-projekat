@@ -135,6 +135,7 @@ namespace SyncfusionWpfApp1.gui
             AllLines = TrainLineService.converLinesToDTO(MainRepository.trainLines);
             SelectedLine = AllLines.First();
             SelectedLineNames = "";
+            
             DataContext = this;
 
 
@@ -222,6 +223,7 @@ namespace SyncfusionWpfApp1.gui
         private void DetailView_Handler(object sender, RoutedEventArgs e)
         {
             Button b = (Button)e.OriginalSource;
+            scahedualSelector.SelectedIndex = 0;
             RowDataTrainLine CurrentSelectedLine = (RowDataTrainLine)b.DataContext;
             TrainLine current =  MainRepository.trainLines.FirstOrDefault(t => t.Id == CurrentSelectedLine.Id);
             List<TrainLineDirectionItem> trainStation = new List<TrainLineDirectionItem>();
@@ -239,7 +241,6 @@ namespace SyncfusionWpfApp1.gui
             nameLine.Content = SelectedLine.StartStation.Name + "  ---> " +
                                 SelectedLine.EndStation.Name;
 
-            scahedualSelector.SelectedIndex = 0;
             TrainLinesTableView.Visibility = Visibility.Hidden;
             TrainLineDeatils.Visibility = Visibility.Visible;
             

@@ -330,11 +330,21 @@ namespace SyncfusionWpfApp1.gui
                 if (index == 1)
                 {
                     TrainLine line = TrainLineService.findMatchingLine(start, end);
-                    List<DateTime> schedual = MainRepository.sortedDatesFromString(line.TimeSlots, StartDateTime);
-                    DateTime startTime = findNearestTime(StartDateTime, schedual);
-                    ride.start = startTime;
-                    travelStart = startTime;
-                    ride.RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(RowColors[0]));
+                    if(line == null)
+                    {
+                        MessageBox box = new MessageBox("Nema linija koje povezuju izabrane stanice", MainWindow.GetWindow(this));
+                        box.Show();
+
+                    }
+                    else
+                    {
+                        List<DateTime> schedual = MainRepository.sortedDatesFromString(line.TimeSlots, StartDateTime);
+                        DateTime startTime = findNearestTime(StartDateTime, schedual);
+                        ride.start = startTime;
+                        travelStart = startTime;
+                        ride.RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(RowColors[0]));
+                    }
+                   
 
 
                 }
@@ -610,14 +620,14 @@ namespace SyncfusionWpfApp1.gui
 
         private void Logout_Handler(object sender, RoutedEventArgs e)
         {
-
             frame.Content = new LoginPage(frame);
             frame.NavigationService.RemoveBackEntry();
         }
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-
+            MediaElement m = new MediaElement(@"../../../videos/indirect_ride.wmv");
+            m.ShowDialog();
         }
     }
 }

@@ -806,21 +806,21 @@
                                    x:Name="TrainLineStations" IsReadOnly="True"
                                    
                                    >
-                                   <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Foreground" Value="#00264d"/>
-                    <Setter Property="BorderThickness" Value="0.6"/>
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Foreground" Value="#00264d"/>
+                        <Setter Property="BorderThickness" Value="0.6"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
-                </Style>
-            </DataGrid.CellStyle>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns >
                     <DataGridTextColumn Binding="{Binding Station}" Header="Stanica"  Width="3*" />
                     <DataGridTextColumn Binding="{Binding PriceToNextStation}" Header="Cena (din)"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding TimeToNextStation}" Header="Vreme (min)"  Width="*"/>
-           
-                  
+
+
                 </DataGrid.Columns>
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -833,7 +833,8 @@
                 </DataGrid.Resources>
 
             </DataGrid>
-            <!-- <DataGrid Name="dataGridTrain"
+
+            <DataGrid Name="dataGridTrain"
                   AutoGenerateColumns="False"
                   Grid.Row="7"
                   Grid.Column="9"
@@ -856,9 +857,8 @@
 
 
                 <DataGrid.Columns >
-                    <DataGridTextColumn Header="Ime voza" Binding="{Binding Time}"  Width="*" />
+                    <DataGridTextColumn Header="Satnica" Binding="{Binding Time}"  Width="*" />
                     
-                   
 
                 </DataGrid.Columns>
 
@@ -871,7 +871,7 @@
 
                     </Style>
                 </DataGrid.Resources>
-            </DataGrid> -->
+            </DataGrid> 
 
             <!-- <DataGrid AutoGenerateColumns="False" Grid.Column="9" Grid.Row="5" Grid.ColumnSpan="8" Grid.RowSpan="8" Background="White" 
                                     ItemsSource="{Binding SelectedSchedual}"

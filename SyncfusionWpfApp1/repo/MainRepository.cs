@@ -150,9 +150,9 @@ namespace SyncfusionWpfApp1.repo
                 { ts4, info3 },
                 { ts5, info4 },
                 { ts6, info5 },
-                { ts8, info5 },
+                
             };
-            TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1, t2 }, schedule1, schedule2, 1200, dictTL1, 0);
+            TrainLine tl1 = new TrainLine(ts1, ts8, new List<Train> { t1, t2 }, schedule1, schedule2, 1200, dictTL1, 0);
 
             // trainline2
             TrainStationInfo info6 = new TrainStationInfo(20, 100);
@@ -161,9 +161,9 @@ namespace SyncfusionWpfApp1.repo
             {
                 { ts6, info6 },
                 { ts9, info7 },
-                { ts10, info7 }
+           
             };
-            TrainLine tl2 = new TrainLine(ts7, ts6, new List<Train> { t2 }, schedule3, schedule2, 300, dictTL2, 1);
+            TrainLine tl2 = new TrainLine(ts7, ts10, new List<Train> { t2 }, schedule3, schedule2, 300, dictTL2, 1);
 
             // trainline3
             TrainStationInfo info8 = new TrainStationInfo(20, 200);
@@ -172,7 +172,6 @@ namespace SyncfusionWpfApp1.repo
             OrderedDictionary dictTL3 = new OrderedDictionary
             {
                  
-                { ts3, info2 },
                 { ts6, info5 },
                 { ts10, info7 },
                 { ts11, info8 },
@@ -180,7 +179,7 @@ namespace SyncfusionWpfApp1.repo
                 { ts16, info10 }
                
             };
-            TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t3 }, schedule1, schedule2, 2300, dictTL3, 2);
+            TrainLine tl3 = new TrainLine(ts3, ts17, new List<Train> { t3 }, schedule1, schedule2, 2300, dictTL3, 2);
             trainLines = new List<TrainLine> { tl1, tl2, tl3 };
 
             //tickets
@@ -219,12 +218,17 @@ namespace SyncfusionWpfApp1.repo
 
         public static List<TrainLine> selectMatchingTrainLine(TrainStation startStation, TrainStation endStation)
         {
+            TrainLine line1 = trainLines.ElementAt(0);
+            bool o = line1.Map.Contains(startStation) || line1.Start.Id == startStation.Id;
+            bool o1 = line1.Map.Contains(endStation) || line1.End.Id == endStation.Id;
+            bool o2 = GetIndex(startStation, line1) < GetIndex(endStation, line1);
             IEnumerable<TrainLine> lines = from line in trainLines
-                                           where ((line.Map.Contains(startStation) || line.Start.Id == startStation.Id) && (line.Map.Contains(endStation) || line.End.Id == endStation.Id)
+                                           where (line.Map.Contains(startStation) || line.Start.Id == startStation.Id) && (line.Map.Contains(endStation) || line.End.Id == endStation.Id)
                                            &&
-                                           GetIndex(startStation, line) < GetIndex(endStation, line))
+                                           GetIndex(startStation, line) < GetIndex(endStation, line)
                                            select line;
             return lines.ToList();
+            //return null;
         }
 
         public static int GetIndex(TrainStation station, TrainLine line)
@@ -234,7 +238,10 @@ namespace SyncfusionWpfApp1.repo
             {
                 return 0;
             }
-
+            if (station.Id == line.End.Id)
+            {
+                return line.Map.Count + 1;
+            }
             int index = 1;
             foreach (TrainStation s in line.Map.Keys)
             {
@@ -246,11 +253,7 @@ namespace SyncfusionWpfApp1.repo
                 index++;
 
             }
-            if(station.Id == line.End.Id)
-            {
-                index++;
-                return index;
-            }
+            
             return -1;
         }
 

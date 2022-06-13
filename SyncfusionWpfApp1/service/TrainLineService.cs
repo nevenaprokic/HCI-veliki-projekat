@@ -61,7 +61,11 @@ namespace SyncfusionWpfApp1.service
         public static OrderedDictionary getNextStation(TrainLine line, TrainStation station)
         {
             int stationIndex = MainRepository.GetIndex(station, line);
-            int counter = 0;
+            if(stationIndex == line.Map.Count + 1)
+            {
+                return null;
+            }
+            int counter = 1;
             IDictionaryEnumerator myEnumerator = line.Map.GetEnumerator();
             while (myEnumerator.MoveNext())
             {

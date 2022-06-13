@@ -377,7 +377,6 @@ namespace SyncfusionWpfApp1.gui
 
         private void FistPageNextBtnClicked(object sender, RoutedEventArgs e)
         {
-            
             try
             {
                 if (checkFullFields())
@@ -948,7 +947,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            MediaElement m = new MediaElement(@"../../../videos/CardReservation.wmv");
+            MediaElement m = new MediaElement(@"../../../videos/card_reservation.wmv");
             m.ShowDialog();
         }
     }

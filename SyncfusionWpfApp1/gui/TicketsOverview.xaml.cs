@@ -201,7 +201,8 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-
+            MediaElement m = new MediaElement(@"../../../videos/ticket_overview.wmv");
+            m.ShowDialog();
         }
     }
 }
