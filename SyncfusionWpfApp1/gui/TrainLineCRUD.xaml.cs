@@ -172,13 +172,46 @@ namespace SyncfusionWpfApp1.gui
         {
             int forRemove = dataGrid.SelectedIndex;
             RowDataTrainLine tl = dataGrid.SelectedItem as RowDataTrainLine;
+            RowDataTrainLine t = dataGrid.SelectedItem as RowDataTrainLine;
+            if (IsAbleToDelete(t.Id))
+            {
+                NotificationDialog n = new NotificationDialog("Voznu liniju nije moguće obrisati zbog budućih karata.");
+                if ((bool)n.ShowDialog())
+                {
+                    return;
+                }
+            }
             MainRepository.trainLines.Remove(MainRepository.trainLines.FirstOrDefault(t => t.Id == tl.Id));
             TrainLines.RemoveAt(forRemove);
             drawTable();
         }
+        private bool IsAbleToDelete(int id)
+        {
+            foreach (Ticket t in MainRepository.Tickets)
+            {
+                if (t.Line.Id == id && !Passed(t.DepartureTime))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool Passed(DateTime start)
+        {
+            return (start.Date - DateTime.Now.Date).TotalDays < 0;
+        }
         private void EditRow_Handler(object sender, RoutedEventArgs e)
         {
             RowDataTrainLine t = dataGrid.SelectedItem as RowDataTrainLine;
+            if (IsAbleToDelete(t.Id))
+            {
+                NotificationDialog n = new NotificationDialog("Voznu liniju nije moguće izmeniti zbog budućih karata.");
+                if ((bool)n.ShowDialog())
+                {
+                    return;
+                }
+            }
             EditTrainLine line = new EditTrainLine(t.Id, frame, this);
             if ((bool)line.ShowDialog())
             {
