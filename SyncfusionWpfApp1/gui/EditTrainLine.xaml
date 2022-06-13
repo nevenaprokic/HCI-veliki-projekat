@@ -73,7 +73,7 @@
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 TextAlignment="Center" Text="Izmena vozne linije" FontWeight="Bold" FontStyle="Italic"/>
             </Viewbox>
-            <Button Grid.Row="0" Grid.Column="6" x:Name="helpButton" l:HelpProvider.HelpKey="EditTrainLine" HorizontalAlignment="Left" Width="35" Height="35"
+            <Button Grid.Row="0" Grid.Column="5" x:Name="helpButton" l:HelpProvider.HelpKey="EditTrainLine" HorizontalAlignment="Right" Width="35" Height="35"
                 Command="Help" Background="Transparent" Margin="28,9,0,0" VerticalAlignment="Top">
                 <StackPanel Background="Transparent">
                     <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -82,7 +82,7 @@
                     <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
             </Button>
-            <Button Grid.Row="0" Grid.Column="5" x:Name="videoButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+            <Button Grid.Row="0" Grid.Column="5" x:Name="videoButton" HorizontalAlignment="Center" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                 <StackPanel Background="Transparent">
                     <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                 </StackPanel>
