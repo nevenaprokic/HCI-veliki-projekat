@@ -572,7 +572,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="helpButton" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -582,7 +582,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
@@ -710,7 +710,11 @@
                 </Viewbox>
 
                 <Viewbox  Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left">
-                    <CheckBox x:Name="backTicketCheckBox" Content="Povratna karta"  FontSize="9" IsChecked="{Binding Path=backTicket, Mode=TwoWay}"/>
+                    <CheckBox x:Name="backTicketCheckBox" Content="Povratna karta"  FontSize="9" IsChecked="{Binding Path=backTicket, Mode=TwoWay}">
+                        <CheckBox.ToolTip>
+                            <ToolTip Content="Odabir povratne karte"></ToolTip>
+                        </CheckBox.ToolTip>
+                    </CheckBox>
                 </Viewbox>
 
 
@@ -736,6 +740,9 @@
                                 <Image x:Name="FirstPageNextBtn" HorizontalAlignment="Right"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Content="Prelazak na naredni korak"></ToolTip>
+                        </Button.ToolTip>
                     </Button>
                 </Grid>
 
@@ -790,7 +797,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton1" l:HelpProvider.HelpKey="cardReservationSecondStep" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="helpButton1" l:HelpProvider.HelpKey="cardReservationSecondStep" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon1" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -800,7 +807,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton1" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="videoButton1" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
@@ -939,7 +946,11 @@
                         <Label Content="Voz:"  FontSize="10" Foreground="#204060"></Label>
                     </Viewbox>
 
-                    <ComboBox x:Name="TrainCombobox" Grid.Row="1" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name"  FontSize="14"></ComboBox>
+                    <ComboBox x:Name="TrainCombobox" Grid.Row="1" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding AwailableTrains}" DisplayMemberPath="Name"  FontSize="14">
+                        <ComboBox.ToolTip>
+                            <ToolTip Content="Filtriranje po vozu"></ToolTip>
+                        </ComboBox.ToolTip>
+                    </ComboBox>
 
                     <Viewbox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left">
                         <Label Content="Maksimalna cena:"  FontSize="10" Foreground="#204060"></Label>
@@ -947,7 +958,11 @@
 
                     <syncfusion:DoubleTextBox 
                     x:Name="priceFilter"
-                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="white" BorderBrush="#204060" BorderThickness="1" />
+                     Grid.Row="1" Grid.Column="3" Height="36" FontSize="14" Background="white" BorderBrush="#204060" BorderThickness="1" >
+                        <syncfusion:DoubleTextBox.ToolTip>
+                            <ToolTip Content="Filtriranje po maskimalnoj ceni"></ToolTip>
+                        </syncfusion:DoubleTextBox.ToolTip>
+                    </syncfusion:DoubleTextBox>
 
                     <Button Content="Filtriraj" Grid.Row="1" Grid.Column="5" 
                             Background="Bisque" 
@@ -1030,6 +1045,9 @@
                                 </Viewbox>
                             </StackPanel>
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Content="Povratak na prethodni korak"></ToolTip>
+                        </Button.ToolTip>
                     </Button>
                     <Button Grid.Column="2" FontSize="5" Background="#86b069" FontWeight="Bold" Foreground="White" Click="SecondPageNextBtnClicked">
                         <Button.Content>
@@ -1042,6 +1060,9 @@
                                 <Image x:Name="SecondPageNextBtn" HorizontalAlignment="Right"/>
                             </StackPanel>
                         </Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Content="Prelazak na naredni korak"></ToolTip>
+                        </Button.ToolTip>
                     </Button>
                 </Grid>
             </Grid>
@@ -1091,7 +1112,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton2" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="helpButton2" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon2" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -1101,7 +1122,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton2" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="videoButton2" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
@@ -1333,7 +1354,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="7" x:Name="helpButton3" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="8" x:Name="helpButton3" l:HelpProvider.HelpKey="cardReservationFirstStep" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon3" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -1343,7 +1364,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="8" x:Name="videoButton3" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="7" x:Name="videoButton3" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
