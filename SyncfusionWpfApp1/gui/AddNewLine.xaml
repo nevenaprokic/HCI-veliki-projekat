@@ -11,6 +11,15 @@
         Title="Dodavanje nove medjustanice" Height="500" Width="700"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="Help" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help"
+                    Executed="CommandBinding_Executed"
+                    />
+    </Window.CommandBindings>
 
         <Window.Resources>
             <Style TargetType="ToolTip" x:Key="tt_style">
@@ -57,7 +66,7 @@
                 <TextBlock FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Center" FontStyle="Italic" Foreground="#00264d" >Definisanje nove Međustanice</TextBlock>
             </Viewbox>
 
-            <Button Grid.Row="1" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="error" HorizontalAlignment="Right" Width="35" Height="35"
+        <Button Grid.Row="1" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="EditAndAddTrainLine" HorizontalAlignment="Right" Width="35" Height="35"
                 Command="Help" Background="Transparent">
                 <StackPanel Background="Transparent">
                     <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -66,7 +75,15 @@
                     <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
             </Button>
-            <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="3" Grid.Row="2">
+        <Button Grid.Row="1" Grid.Column="3" x:Name="videoButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+            <StackPanel Background="Transparent">
+                <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+            </StackPanel>
+            <Button.ToolTip>
+                <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+            </Button.ToolTip>
+        </Button>
+        <Grid x:Name="LayoutRoot" Background="White"  Grid.Column="3" Grid.Row="2">
                 <m:Map  x:Name="MainMap" CredentialsProvider="AusVMyYktKC6acBY2olTotz0tcbvBRx6Oal5XaWYcP-lXLpvW2Ejy162U2hIubv6" Mode="Road" ZoomLevel="7" Center="44.2108 , 20.9224" AllowDrop="True" DragEnter="ListView_DragEnter" Drop="ListView_Drop">
                     <!--<m:Pushpin Location="45.255001, 19.844723"/>-->
                 </m:Map>

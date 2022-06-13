@@ -61,6 +61,11 @@ namespace SyncfusionWpfApp1.gui
             });
 
         }
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/klijentMrezniPregled.wmv");
+            m.ShowDialog();
+        }
 
 
         private async void CalculateRouteBtn_Clicked(object sender, RoutedEventArgs e)

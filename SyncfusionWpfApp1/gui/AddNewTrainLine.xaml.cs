@@ -53,6 +53,11 @@ namespace SyncfusionWpfApp1.gui
             initBanckground();
             initMap();
         }
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/dodavanjeNoveVozneLinije.wmv");
+            m.ShowDialog();
+        }
 
         private void initMap()
         {

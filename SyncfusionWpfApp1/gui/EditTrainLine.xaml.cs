@@ -1,4 +1,5 @@
 ﻿using Syncfusion.Linq;
+using SyncfusionWpfApp1.help;
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
 using System;
@@ -83,6 +84,12 @@ namespace SyncfusionWpfApp1.gui
             drawTableTrainLine();
             drawTableTrain();
         }
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/izmenaVoznihLinija.wmv");
+            m.ShowDialog();
+        }
+
         private void Close_Handler(object sender, RoutedEventArgs e)
         {//treba sve izmene vratiti na pocetno stanje
             CurrentTrainLine = CurrentTrainLineCopy;
@@ -187,6 +194,38 @@ namespace SyncfusionWpfApp1.gui
                 CurrentTrainLine.Trains.Add(t);
             }
             drawTableTrain();
+        }
+        public void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Button b = null;
+            var windows = Application.Current.Windows;
+            foreach (var window in windows)
+            {
+                IEnumerable<Button> buttons = FindVisualChilds<Button>((DependencyObject)window);
+                if (buttons != null)
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button.Name.Equals("helpButton"))
+                        {
+                            b = button;
+                        }
+                    }
+                }
+            }
+            string path = HelpProvider.GetHelpKey((DependencyObject)b);
+            HelpProvider.ShowHelp(path, this);
+        }
+        public IEnumerable<T> FindVisualChilds<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) yield return (T)Enumerable.Empty<T>();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject ithChild = VisualTreeHelper.GetChild(depObj, i);
+                if (ithChild == null) continue;
+                if (ithChild is T t) yield return t;
+                foreach (T childOfChild in FindVisualChilds<T>(ithChild)) yield return childOfChild;
+            }
         }
 
 
