@@ -75,7 +75,7 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            MediaElement m = new MediaElement(@"../../../videos/create_schedule.mkv");
+            MediaElement m = new MediaElement(@"../../../videos/update_delete_train.mkv");
             m.ShowDialog();
         }
 
@@ -99,6 +99,7 @@ namespace SyncfusionWpfApp1.gui
                 NotificationDialog dialog = new NotificationDialog("Uspešno ste obrisali izabrani voz i njegove vagone.");
                 if ((bool)dialog.ShowDialog())
                 {
+                    ResetForm();
                     return;
                 }
             }           
@@ -116,10 +117,15 @@ namespace SyncfusionWpfApp1.gui
             }
             MainRepository.Trains.RemoveAt(index);
 
-            MainRepository.Trains.Add(SelectedTrain);
+            //MainRepository.Trains.Add(SelectedTrain);
             NotificationDialog dialog = new NotificationDialog("Uspešno ste izmenili izabrani voz i njegove vagone.");
             if ((bool)dialog.ShowDialog())
             {
+                InitForm();
+                insertMode();
+                BuildTrain();
+                SelectedTrain = (Train)comboSchedule.SelectedItem;
+                drawTable();
                 return;
             }
         }
@@ -207,11 +213,14 @@ namespace SyncfusionWpfApp1.gui
             int selectedIndex = dataGrid.SelectedIndex;
             if (selectedIndex == -1) return;
 
-            SelectedTrain.Wagons[selectedIndex].NumberOfSeats = Int32.Parse(NumberSeatsTextBox.Text);
-            if (NumberWagonsTextBox.Text != "1") NumberOfWagonsChanged();
-            SelectedTrain.Wagons[selectedIndex].Class = (WagonClass)comboClass.SelectedItem;
-            drawTable();
+            int forRemove = dataGrid.SelectedIndex;
+            RowDataWagon row = dataGrid.SelectedItem as RowDataWagon;
+            row.NumOfSeats = Int32.Parse(NumberSeatsTextBox.Text);
+            row.NumOfWagons = Int32.Parse(NumberWagonsTextBox.Text);
+            row.Class = (WagonClass)comboClass.SelectedItem;
             insertMode();
+            dataGrid.Items.Refresh();
+            dataGrid.SelectedIndex = -1;
         }
 
         private void NumberOfWagonsChanged()
@@ -231,7 +240,37 @@ namespace SyncfusionWpfApp1.gui
         {
             int forRemove = dataGrid.SelectedIndex;
             Rows.RemoveAt(forRemove);
-            SelectedTrain.Wagons.RemoveAt(forRemove);
+            //SelectedTrain.Wagons.RemoveAt(forRemove);
+            ResetForm();
+            insertMode();
+        }
+
+        private void BuildTrain()
+        {
+            SelectedTrain.Wagons = new List<Wagon>();
+            int wagonId = NextWagonId() + 1;
+            int order = 1;
+
+            foreach (RowDataWagon r in Rows)
+            {
+                for (int i = 0; i < r.NumOfWagons; i++)
+                {
+                    SelectedTrain.Wagons.Add(new Wagon(wagonId, r.NumOfSeats, r.Class, order));
+                    order++;
+                    wagonId++;
+                }
+            }
+            MainRepository.Trains.Add(SelectedTrain);
+        }
+
+        private int NextWagonId()
+        {
+            int maxVal = 0;
+            foreach (Wagon w in MainRepository.Wagons)
+            {
+                if (maxVal < w.Id) maxVal = w.Id;
+            }
+            return maxVal;
         }
 
         private void CreateTrain_Handler(object sender, RoutedEventArgs e)

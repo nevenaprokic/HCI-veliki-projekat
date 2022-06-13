@@ -185,7 +185,7 @@ namespace SyncfusionWpfApp1.repo
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 14, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 14, 12, 0, 0)); // PODACI ZA FROM I TO ATRIBUTE SU STAVLJENI BEZ PROVERE DA LI IMAJU SMISLA
+            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 14, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 14, 12, 0, 0)); 
             ticket1.bought = false;
             ticket1.ReturnTicket = true;
             ticket1.IndirectRide = false;

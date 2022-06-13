@@ -705,7 +705,9 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="0.5*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
                     <RowDefinition Height="0.2*" />
                 </Grid.RowDefinitions>
 
@@ -715,13 +717,17 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="9" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
+                <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="11" Grid.ColumnSpan="3" Background="#E8F0F2"  BorderThickness="1" CornerRadius="15" BorderBrush="#00264d"/>
                 <Label Content="Izbor stanica" Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" FontStyle="Italic" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
                 <Label Content="Polazište: *" Grid.Row="2" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
-                <ComboBox x:Name="comboStart" Grid.Row="3" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"></ComboBox>
+                <ComboBox x:Name="comboStart" Grid.Row="3" Grid.Column="1" Background="White" IsEditable="True" PreviewTextInput="ComboBoxStart_Preview_TextInput" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"></ComboBox>
+
+                <Viewbox Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Label x:Name="validationLabel" Content="" Foreground="#BB6464" FontStyle="Italic" Visibility="Visible" ></Label>
+                </Viewbox>
 
                 <Label Content="Odredište: *" Grid.Row="5" Grid.Column="1" FontSize="15" Foreground="#00264d" VerticalAlignment="Bottom"></Label>
-                <ComboBox x:Name="comboEnd" Grid.Row="6" Grid.Column="1" Background="White" IsEditable="True" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
+                <ComboBox x:Name="comboEnd" Grid.Row="6" Grid.Column="1" Background="White" IsEditable="True" PreviewTextInput="ComboBoxEnd_Preview_TextInput" ItemsSource="{Binding trainStations}" DisplayMemberPath="Name"/>
 
                 <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" MinWidth="100" MinHeight="50" Background="#00264d" Click="GenerateClicked">
                     <Button.Content>

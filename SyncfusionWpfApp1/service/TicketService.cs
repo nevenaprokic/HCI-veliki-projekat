@@ -81,7 +81,7 @@ namespace SyncfusionWpfApp1.service
         {
             foreach(Ticket t in tickets)
             {
-                if(!t.bought && (t.DepartureTime - DateTime.Now <= TimeSpan.FromHours(24)))
+                if(!t.bought && ((t.DepartureTime - DateTime.Now <= TimeSpan.FromHours(48)) && !(t.DepartureTime - DateTime.Now <= TimeSpan.FromHours(24))))
                 {
                     return true;
                 }

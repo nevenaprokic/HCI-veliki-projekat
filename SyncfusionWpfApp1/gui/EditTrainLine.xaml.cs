@@ -1,4 +1,5 @@
 ﻿using Syncfusion.Linq;
+using SyncfusionWpfApp1.help;
 using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,6 +84,12 @@ namespace SyncfusionWpfApp1.gui
             drawTableTrainLine();
             drawTableTrain();
         }
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            MediaElement m = new MediaElement(@"../../../videos/izmenaVoznihLinija.wmv");
+            m.ShowDialog();
+        }
+
         private void Close_Handler(object sender, RoutedEventArgs e)
         {//treba sve izmene vratiti na pocetno stanje
             CurrentTrainLine = CurrentTrainLineCopy;
@@ -94,7 +102,7 @@ namespace SyncfusionWpfApp1.gui
             frame.Content = new ScheduleUpdateDelete(frame);
         }
 
-        private void drawTableTrainLine()
+        public void drawTableTrainLine()
         {
             RowsTrainLine.Clear();
             foreach (DictionaryEntry kvp in CurrentTrainLine.Map)
@@ -118,7 +126,7 @@ namespace SyncfusionWpfApp1.gui
         }
         private void AddNewTrainLine_Handler(object sender, RoutedEventArgs e)
         {
-            AddNewLine line = new AddNewLine(CurrentTrainLine);
+            AddNewLine line = new AddNewLine(CurrentTrainLine, this);
             line.Show();
         }
         private void DeleteTrainLine_Handler(object sender, RoutedEventArgs e)
@@ -139,6 +147,11 @@ namespace SyncfusionWpfApp1.gui
             CurrentTrainLine.Map.Clear();
             CurrentTrainLine.Map = newDict;  
             drawTableTrainLine();
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
         private void DeleteTrain_Handler(object sender, RoutedEventArgs e)
         {
@@ -181,6 +194,38 @@ namespace SyncfusionWpfApp1.gui
                 CurrentTrainLine.Trains.Add(t);
             }
             drawTableTrain();
+        }
+        public void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Button b = null;
+            var windows = Application.Current.Windows;
+            foreach (var window in windows)
+            {
+                IEnumerable<Button> buttons = FindVisualChilds<Button>((DependencyObject)window);
+                if (buttons != null)
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button.Name.Equals("helpButton"))
+                        {
+                            b = button;
+                        }
+                    }
+                }
+            }
+            string path = HelpProvider.GetHelpKey((DependencyObject)b);
+            HelpProvider.ShowHelp(path, this);
+        }
+        public IEnumerable<T> FindVisualChilds<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) yield return (T)Enumerable.Empty<T>();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject ithChild = VisualTreeHelper.GetChild(depObj, i);
+                if (ithChild == null) continue;
+                if (ithChild is T t) yield return t;
+                foreach (T childOfChild in FindVisualChilds<T>(ithChild)) yield return childOfChild;
+            }
         }
 
 

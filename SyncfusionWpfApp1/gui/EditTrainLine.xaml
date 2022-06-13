@@ -4,11 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+        xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
         mc:Ignorable="d"
          WindowStyle="None" ResizeMode="NoResize"
         Title="Izmena vozne linije" Height="500" Width="700"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="Help" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help"
+                    Executed="CommandBinding_Executed"
+                    />
+    </Window.CommandBindings>
+    <Window.Resources>
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+
+        </Style>
+    </Window.Resources>
     <Border BorderThickness="2" BorderBrush="#00264d" 
     CornerRadius="20" Background="#E8F0F2">
         <Grid>
@@ -42,6 +73,23 @@
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 TextAlignment="Center" Text="Izmena vozne linije" FontWeight="Bold" FontStyle="Italic"/>
             </Viewbox>
+            <Button Grid.Row="0" Grid.Column="6" x:Name="helpButton" l:HelpProvider.HelpKey="EditTrainLine" HorizontalAlignment="Left" Width="35" Height="35"
+                Command="Help" Background="Transparent" Margin="28,9,0,0" VerticalAlignment="Top">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="5" x:Name="videoButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                <StackPanel Background="Transparent">
+                    <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
 
             <Viewbox Grid.Column="1" Grid.Row="2"  >
                 <Label x:Name="lblTrainLine" 
@@ -52,17 +100,22 @@
             <Viewbox Grid.Column="2" Grid.Row="2"  >
                 <TextBox x:Name="price" 
                     FontSize="18" 
-                    HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="100" />
+                    HorizontalAlignment="Center" PreviewTextInput="NumberValidationTextBox" VerticalAlignment="Center" MinWidth="100" >
+                    <TextBox.ToolTip>
+                        <ToolTip Content="Polje za unos cene" Style="{StaticResource tt_style}"/>
+                    </TextBox.ToolTip>
+                </TextBox>
             </Viewbox>
 
             <DataGrid Name="dataGridTrainLine"
                   AutoGenerateColumns="False"
                   Grid.Row="6"
+                      IsReadOnly="True"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.RowSpan="3"
                   FontSize="14" 
-                  ItemsSource="{Binding RowsTrainLine}" 
+                  ItemsSource="{Binding RowsTrainLine}"  IsReadOnly="True"
                   
                   
                   >
@@ -87,6 +140,9 @@
                                     <StackPanel>
                                         <Image x:Name="deleteIcon" Source="/images/delete2.png"  Width="20" Height="20"></Image>
                                     </StackPanel>
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Brisanje vozne linije" Style="{StaticResource tt_style}"/>
+                                    </Button.ToolTip>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -104,15 +160,16 @@
                     </Style>
                 </DataGrid.Resources>
             </DataGrid>
-            
+
             <DataGrid Name="dataGridTrain"
                   AutoGenerateColumns="False"
                   Grid.Row="6"
                   Grid.Column="4"
                   Grid.ColumnSpan="2"
+                      IsReadOnly="True"
                   Grid.RowSpan="3"
                   FontSize="14" 
-                  ItemsSource="{Binding RowsTrain}" 
+                  ItemsSource="{Binding RowsTrain}"  IsReadOnly="True"
                   
                   
                   >
@@ -136,6 +193,9 @@
                                     <StackPanel>
                                         <Image x:Name="deleteIconTable" Source="/images/delete2.png"  Width="20" Height="20"></Image>
                                     </StackPanel>
+                                    <Button.ToolTip>
+                                        <ToolTip Content="Brisanje voza" Style="{StaticResource tt_style}"/>
+                                    </Button.ToolTip>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -165,6 +225,9 @@
                    HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
                     </StackPanel>
                 </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Content="Odustajanje od izmene vozne linije" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5" />
@@ -172,27 +235,30 @@
                 </Button.Resources>
             </Button>
             <Button x:Name="schedule"  Grid.Column="5" MinWidth="80" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Schedule_Handler" Background="#00264d">
-            <Button.Content>
-                <StackPanel VerticalAlignment="Center" 
+                <Button.Content>
+                    <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
 
-                    <Label Content="Izmeni raspored" VerticalAlignment="Top" 
+                        <Label Content="Izmeni raspored" VerticalAlignment="Top" 
                    HorizontalAlignment="Center" Background="#00264d" Foreground="White" FontSize="15"/>
-                </StackPanel>
-            </Button.Content>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5" />
-                </Style>
-            </Button.Resources>
+                    </StackPanel>
+                </Button.Content>
+                <Button.ToolTip>
+                    <ToolTip Content="Izmena rasporeda vozna linije" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5" />
+                    </Style>
+                </Button.Resources>
             </Button>
             <Button Click="Save_Handler" Grid.Column="4" MinWidth="110" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9FC088" Foreground="White"  FontSize="15">
                 <Button.Content>
                     <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" Orientation="Horizontal" 
                     Background="Transparent" Height="29">
-                       
+
                         <Label Content="Sačuvaj izmene" VerticalAlignment="Top" 
                    HorizontalAlignment="Center" Background="#9FC088" Foreground="White" FontSize="15"/>
                     </StackPanel>
@@ -202,6 +268,9 @@
                         <Setter Property="CornerRadius" Value="5" />
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip Content="Čuvanje izmena vozne linije" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
             </Button>
             <Button Click="AddTrain_Handler" Grid.Column="5" MinWidth="110" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#9FC088" Foreground="White"  FontSize="15">
                 <Button.Content>
@@ -218,6 +287,9 @@
                         <Setter Property="CornerRadius" Value="5" />
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip Content="Dodavanje voza" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
             </Button>
             <Button Grid.Column="1" Click="AddNewTrainLine_Handler" Grid.ColumnSpan="2" MinWidth="110" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right" Background="#9FC088" Foreground="White"  FontSize="15">
                 <Button.Content>
@@ -234,6 +306,9 @@
                         <Setter Property="CornerRadius" Value="5" />
                     </Style>
                 </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip Content="Dodavanje vozne linije" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
             </Button>
         </Grid>
     </Border>

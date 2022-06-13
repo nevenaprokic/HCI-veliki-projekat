@@ -32,6 +32,7 @@
     <None Remove="images\m.png" />
     <None Remove="images\mape.png" />
     <None Remove="images\monthly.png" />
+    <None Remove="images\odustani.png" />
     <None Remove="images\pause_icon.png" />
     <None Remove="images\pinBlue.png" />
     <None Remove="images\pinRed.png" />
@@ -101,6 +102,7 @@
     <Resource Include="images\m.png" />
     <Resource Include="images\mape.png" />
     <Resource Include="images\monthly.png" />
+    <Resource Include="images\odustani.png" />
     <Resource Include="images\pause_icon.png" />
     <Resource Include="images\pinBlue.png" />
     <Resource Include="images\pinRed.png" />

@@ -26,7 +26,7 @@ namespace SyncfusionWpfApp1.help
             //NOOP
         }
 
-        public static void ShowHelp(string key, MainWindow originator)
+        public static void ShowHelp(string key, Window originator)
         {
             HelpViewer hh = new HelpViewer(key, originator);
             hh.Show();
