@@ -570,7 +570,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Grid.Row="0" Grid.Column="0" x:Name="helpButton" l:HelpProvider.HelpKey="NotDirectlyTranferOption" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="helpButton" l:HelpProvider.HelpKey="NotDirectlyTranferOption" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -580,7 +580,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="1" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>

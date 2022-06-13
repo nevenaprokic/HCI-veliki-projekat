@@ -568,7 +568,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Row="0" Grid.Column="0" x:Name="helpButton" l:HelpProvider.HelpKey="clientTrainLineOverview" Width="35" Height="35"
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="helpButton" l:HelpProvider.HelpKey="clientTrainLineOverview" Width="35" Height="35"
                     Command="ApplicationCommands.Help" Background="Transparent">
                         <StackPanel Background="Transparent">
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
@@ -578,7 +578,7 @@
                         </Button.ToolTip>
                     </Button>
 
-                    <Button Grid.Row="0" Grid.Column="1" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
                         <StackPanel Background="Transparent">
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
@@ -594,14 +594,23 @@
                 </Viewbox>
                 <Viewbox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Filter" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                
                 </Viewbox>
 
-                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Polazna stanica" />
+                    </ComboBox.ToolTip>
+                </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox x:Name="EndStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="EndStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Odredišna stanica" />
+                    </ComboBox.ToolTip>
+                </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
                     <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
@@ -617,7 +626,11 @@
                         VerticalContentAlignment="Center"
                         FontSize="13"
                         Click="FIlter_Click"
-                       ></Button>
+                       >
+                    <Button.ToolTip>
+                        <ToolTip Content="Filtriranje voznih linija" />
+                    </Button.ToolTip>
+                </Button>
 
                 <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="15" Grid.RowSpan="4" Background="White" 
                                     ItemsSource="{Binding AllLines}"
@@ -671,9 +684,11 @@
                                             Foreground="White" 
                                             FontWeight="SemiBold"
                                             Width="90px"
-                                            HorizontalContentAlignment="Center"
+                                            HorizontalContentAlignment="Center">
+                                        <Button.ToolTip>
+                                            <ToolTip Content="Prikaz detalja vozne linije i reda vožnje"/>
+                                        </Button.ToolTip>
                                             
-                                            >
                                     </Button>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>
@@ -813,6 +828,9 @@
                          x:Name="scahedualSelector">
                     <ComboBoxItem Content="Radni dan"></ComboBoxItem>
                     <ComboBoxItem Content="Vikend"></ComboBoxItem>
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Odabir reda vožnje"></ToolTip>
+                    </ComboBox.ToolTip>
                 </ComboBox>
 
                 <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="8" Grid.RowSpan="8" Background="White" 

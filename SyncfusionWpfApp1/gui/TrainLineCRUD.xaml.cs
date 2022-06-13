@@ -223,8 +223,9 @@ namespace SyncfusionWpfApp1.gui
         private void DetailView_Handler(object sender, RoutedEventArgs e)
         {
             Button b = (Button)e.OriginalSource;
-            scahedualSelector.SelectedIndex = 0;
+            
             RowDataTrainLine CurrentSelectedLine = (RowDataTrainLine)b.DataContext;
+
             TrainLine current =  MainRepository.trainLines.FirstOrDefault(t => t.Id == CurrentSelectedLine.Id);
             List<TrainLineDirectionItem> trainStation = new List<TrainLineDirectionItem>();
             double time = 0.00;
@@ -237,6 +238,7 @@ namespace SyncfusionWpfApp1.gui
             }
             SelectedLine = new TrainLineDTO(current.Start, current.End,trainStation, current.Price, current.Price * 2,(int)time, current.TimeSlots, current.TimeSlotsWeekend);
 
+            scahedualSelector.SelectedIndex = 0;
 
             nameLine.Content = SelectedLine.StartStation.Name + "  ---> " +
                                 SelectedLine.EndStation.Name;
