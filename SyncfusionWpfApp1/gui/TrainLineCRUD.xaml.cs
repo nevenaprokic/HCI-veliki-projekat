@@ -1,8 +1,12 @@
-﻿using SyncfusionWpfApp1.Model;
+﻿using SyncfusionWpfApp1.dto;
+using SyncfusionWpfApp1.Model;
 using SyncfusionWpfApp1.repo;
+using SyncfusionWpfApp1.service;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,8 +47,81 @@ namespace SyncfusionWpfApp1.gui
         public TrainLine TrainLine { get; set; }
         public ObservableCollection<TrainLine> TrainLines { get; set; }
         public ObservableCollection<RowDataTrainLine> Rows { get; set; }
-       
-       // public event someDelegate someEvent;
+        private List<TrainLineDTO> _allLines { get; set; }
+
+        private TrainLineDTO _selectedLine;
+        private string _selectedLineNames;
+        private List<RowDataSchedule> _selectedSchedual;
+
+        public List<RowDataSchedule> SelectedSchedual
+        {
+            get
+            {
+                return _selectedSchedual;
+            }
+            set
+            {
+                if (_selectedSchedual != value)
+                {
+                    _selectedSchedual = value;
+                    RaisePropertyChanged(nameof(SelectedSchedual));
+                }
+            }
+        }
+        public TrainLineDTO SelectedLine
+        {
+            get { return _selectedLine; }
+            set
+            {
+                if (_selectedLine != value)
+                {
+                    _selectedLine = value;
+                    RaisePropertyChanged(nameof(SelectedLine));
+                }
+            }
+        }
+        public List<TrainLineDTO> AllLines
+        {
+            get { return _allLines; }
+            set
+            {
+                if (_allLines != value)
+                {
+                    _allLines = value;
+                    RaisePropertyChanged(nameof(AllLines));
+
+                }
+            }
+        }
+
+
+        public string SelectedLineNames
+        {
+            get { return _selectedLineNames; }
+            set
+            {
+                if (_selectedLineNames != value)
+                {
+                    _selectedLineNames = value;
+                    RaisePropertyChanged(nameof(SelectedLineNames));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            var handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected void RaisePropertyChanged(String propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
 
         public TrainLineCRUD(Frame f)
         {
@@ -52,9 +129,13 @@ namespace SyncfusionWpfApp1.gui
             frame = f;
             initPage();
             TrainLines = new ObservableCollection<TrainLine>(MainRepository.trainLines);
-            DataContext = this;
+            
             Rows = new ObservableCollection<RowDataTrainLine>();
             drawTable();
+            AllLines = TrainLineService.converLinesToDTO(MainRepository.trainLines);
+            SelectedLine = AllLines.First();
+            SelectedLineNames = "";
+            DataContext = this;
 
 
         }
@@ -105,7 +186,53 @@ namespace SyncfusionWpfApp1.gui
             }
                 
         }
-        
+        private void DetailView_Handler(object sender, RoutedEventArgs e)
+        {
+            Button b = (Button)e.OriginalSource;
+            RowDataTrainLine CurrentSelectedLine = (RowDataTrainLine)b.DataContext;
+            TrainLine current =  MainRepository.trainLines.FirstOrDefault(t => t.Id == CurrentSelectedLine.Id);
+            List<TrainLineDirectionItem> trainStation = new List<TrainLineDirectionItem>();
+            double time = 0.00;
+            foreach (DictionaryEntry kvp in current.Map)
+            {
+                TrainStation t = (TrainStation)kvp.Key;
+                TrainStationInfo info = (TrainStationInfo)kvp.Value;
+                time += info.Price;
+                trainStation.Add(new TrainLineDirectionItem(t, info.Price, info.FromDeparture));
+            }
+            SelectedLine = new TrainLineDTO(current.Start, current.End,trainStation, current.Price, current.Price * 2,(int)time, current.TimeSlots, current.TimeSlotsWeekend);
+
+
+            nameLine.Content = SelectedLine.StartStation.Name + "  ---> " +
+                                SelectedLine.EndStation.Name;
+
+            scahedualSelector.SelectedIndex = 0;
+            TrainLinesTableView.Visibility = Visibility.Hidden;
+            TrainLineDeatils.Visibility = Visibility.Visible;
+            
+            
+        }
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TrainLinesTableView.Visibility = Visibility.Visible;
+            TrainLineDeatils.Visibility = Visibility.Hidden;
+        }
+        private void SchedualSelection_chancged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox box = sender as ComboBox;
+            ComboBoxItem selectedItem = (ComboBoxItem)box.SelectedItem;
+            string selection = (string)selectedItem.Content;
+            if (selection.Equals("Vikend"))
+            {
+                SelectedSchedual = SelectedLine.WeekendDaySchedual;
+            }
+            else
+            {
+                SelectedSchedual = SelectedLine.WorkingDaySchedual;
+            }
+        }
+
+
         private void AddNew_Handler(object sender, RoutedEventArgs e)
         {
             frame.Content = new AddNewTrainLine(frame);

@@ -4,11 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
+         xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
         mc:Ignorable="d"
          WindowStyle="None" ResizeMode="NoResize"
         Title="Izmena vozne linije" Height="500" Width="500"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" Background="Transparent">
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="Help" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help"
+                    Executed="CommandBinding_Executed"
+                    />
+    </Window.CommandBindings>
+    <Window.Resources>
+        <Style TargetType="ToolTip" x:Key="tt_style">
+
+            <Setter Property="Placement" Value="Right"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Margin" Value="20,0,0,0"/>
+            <Setter Property="Background" Value="#E8F0F2"/>
+            <Setter Property="BorderBrush" Value="#00264d"/>
+            <Setter Property="Foreground" Value="#00264d"/>
+            <Setter Property="FontFamily" Value="Fonts/Roboto-Light.ttf #Roboto"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="PlacementRectangle" Value="60,0,0,0"/>
+            <Setter Property="HorizontalOffset" Value="15"/>
+            <Setter Property="VerticalOffset" Value="6"/>
+            <Setter Property="HasDropShadow" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+
+        </Style>
+    </Window.Resources>
     <Border BorderThickness="2" BorderBrush="#00264d" 
     CornerRadius="20" Background="#E8F0F2">
         <Grid>
@@ -36,8 +67,25 @@
                 <TextBlock x:Name="txtMessage" 
                 FontSize="18" TextWrapping="Wrap" 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
-                TextAlignment="Center" Text="Izmena vozne linije" FontWeight="Bold" FontStyle="Italic"/>
+                TextAlignment="Center" Text="Vozovi vozne linije" FontWeight="Bold" FontStyle="Italic"/>
             </Viewbox>
+            <Button Grid.Row="0" Grid.Column="4" x:Name="helpButton" l:HelpProvider.HelpKey="AddNewTrain" HorizontalAlignment="Right" Width="35" Height="35"
+                Command="Help" Background="Transparent">
+                <StackPanel Background="Transparent">
+                    <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="4" x:Name="videoButton" HorizontalAlignment="Left" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                <StackPanel Background="Transparent">
+                    <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                </StackPanel>
+                <Button.ToolTip>
+                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                </Button.ToolTip>
+            </Button>
 
             <Viewbox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left">
                 <Label x:Name="lblTrainLine" 
@@ -55,6 +103,7 @@
                   Grid.RowSpan="3"
                   FontSize="14" 
                   ItemsSource="{Binding RowsNewTrain}" 
+                      IsReadOnly="True"
                   
                   
                   >

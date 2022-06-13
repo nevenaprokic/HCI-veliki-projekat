@@ -17,10 +17,13 @@ namespace SyncfusionWpfApp1.help
 {
     public partial class HelpViewer : Window
     {
-        private JavaScriptControlHelper ch;
-        public HelpViewer(string key, MainWindow originator)
+        //private JavaScriptControlHelper ch;
+        public HelpViewer(string key, Window originator)
         {
             InitializeComponent();
+            this.Title = "Pomoć";
+            Uri iconUri = new Uri("../../../images/help_icon.png", UriKind.RelativeOrAbsolute);
+            this.Icon = BitmapFrame.Create(iconUri);
             string curDir = Directory.GetCurrentDirectory();
            
             string newPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(curDir, @"..\..\..\help\"));
@@ -31,8 +34,8 @@ namespace SyncfusionWpfApp1.help
                 key = "error";
             }
             Uri u = new Uri(String.Format(path));
-            ch = new JavaScriptControlHelper(originator);
-            wbHelp.ObjectForScripting = ch;
+            //ch = new JavaScriptControlHelper(originator);
+            //wbHelp.ObjectForScripting = ch;
             wbHelp.Navigate(u);
 
         }

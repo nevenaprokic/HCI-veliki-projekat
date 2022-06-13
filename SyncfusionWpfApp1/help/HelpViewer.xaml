@@ -6,19 +6,8 @@
         xmlns:local="clr-namespace:SyncfusionWpfApp1.help"
         mc:Ignorable="d"
         Title="HelpViewer" Height="450" Width="800">
-    <Window.CommandBindings>
-        <CommandBinding Command="NavigationCommands.BrowseBack" CanExecute="BrowseBack_CanExecute" Executed="BrowseBack_Executed" />
-        <CommandBinding Command="NavigationCommands.BrowseForward" CanExecute="BrowseForward_CanExecute" Executed="BrowseForward_Executed" />
-    </Window.CommandBindings>
+
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top">
-            <Button Command="NavigationCommands.BrowseBack">
-                Back
-            </Button>
-            <Button Command="NavigationCommands.BrowseForward">
-                Forward
-            </Button>
-        </ToolBar>
         <WebBrowser Name="wbHelp" Navigating="wbHelp_Navigating"></WebBrowser>
     </DockPanel>
 </Window>
