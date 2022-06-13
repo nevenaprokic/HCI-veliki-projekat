@@ -576,7 +576,7 @@
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -585,7 +585,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
                     
@@ -612,14 +612,20 @@
                                     </Viewbox>
                                 </StackPanel>
                             </Button.Content>
-                        </Button>
+                        <Button.ToolTip>
+                            <ToolTip Content="Povratak na ponudu" Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
+                    </Button>
                         <Button Grid.Column="3" Background="Bisque" Foreground="#204060" FontWeight="SemiBold" x:Name="NextBtn" Click="NextBtn_Clicked">
                             <Button.Resources>
                                 <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="5" />
+                                <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
-                            <Button.Content>
+                        <Button.ToolTip>
+                            <ToolTip Content="Prelazak na narednu ponudu" />
+                        </Button.ToolTip>
+                        <Button.Content>
                                 <StackPanel VerticalAlignment="Center" 
                         HorizontalAlignment="Left" Orientation="Horizontal" 
                         Background="Transparent" Height="27">
@@ -746,28 +752,41 @@
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
-                        </Button>
+                        <Button.ToolTip>
+                            <ToolTip Content="Odustajanje od karte" />
+                        </Button.ToolTip>
+                    </Button>
                         <Button Grid.Column="3" FontSize="15" Content="Odustani" x:Name="CancelBtnSecond" Background="#BB6464" Foreground="White" FontWeight="SemiBold" Click="cancleClicked">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
-                        </Button>
+                        <Button.ToolTip>
+                            <ToolTip Content="Odustajanje ponudu" Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
+
+                    </Button>
                         <Button Grid.Column="3" FontSize="15" Content="Rezerviši" Background="#FFA881" Foreground="White" FontWeight="SemiBold" x:Name="ReservBtn" Click="reservationTicketClicked">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
-                        </Button>
+                        <Button.ToolTip>
+                            <ToolTip Content="Rezervacija karte" Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
+                    </Button>
                         <Button Grid.Column="5" FontSize="15" Content="Kupi" Background="#9FC088"  x:Name="BoughtBtn" Foreground="White" FontWeight="SemiBold" Click="buyTicketClicked">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5" />
                                 </Style>
                             </Button.Resources>
-                        </Button>
+                        <Button.ToolTip>
+                            <ToolTip Content="Kupovina karte" Style="{StaticResource tt_style}"/>
+                        </Button.ToolTip>
+                    </Button>
                     </Grid >
 
                     <Grid Grid.Row="3" Grid.Column="1" >

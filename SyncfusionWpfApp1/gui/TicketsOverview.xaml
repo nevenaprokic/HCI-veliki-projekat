@@ -575,7 +575,7 @@
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -584,7 +584,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -601,25 +601,42 @@
                     <ComboBoxItem Content="Rezervisane" ></ComboBoxItem>
                     <ComboBoxItem Content="Kupljene" ></ComboBoxItem>
                     <ComboBoxItem Content="Sve" ></ComboBoxItem>
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Odabir tipa karte za filter" Style="{StaticResource tt_style}"></ToolTip>
+                    </ComboBox.ToolTip>
                 </ComboBox>
                 
                 <Viewbox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
+                    <Label Content="Tip" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060">
+                        
+                    </Label>
                 </Viewbox>
 
-                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Odabir polazne stanice za filter" Style="{StaticResource tt_style}"></ToolTip>
+                    </ComboBox.ToolTip>
+                </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Polazište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
 
-                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}"></ComboBox>
+                <ComboBox x:Name="endStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
+                    <ComboBox.ToolTip>
+                        <ToolTip Content="Odabir odredišne stanice za filter" Style="{StaticResource tt_style}"></ToolTip>
+                    </ComboBox.ToolTip>
+                </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
                     <Label Content="Odredište" FontStyle="Italic" FontWeight="SemiBold" FontSize="25" Foreground="#204060"></Label>
                 </Viewbox>
                 <syncfusion:DoubleTextBox 
                     x:Name="priceFilter"
-                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="White" BorderBrush="#204060" BorderThickness="1" CornerRadius="3"/>
-                
+                     Grid.Row="7" Grid.Column="3" Height="28" FontSize="14" Background="White" BorderBrush="#204060" BorderThickness="1" CornerRadius="3">
+                <syncfusion:DoubleTextBox.ToolTip>
+                        <ToolTip Content="Odabir maksimalne cene za filter" Style="{StaticResource tt_style}"></ToolTip>
+                </syncfusion:DoubleTextBox.ToolTip>
+                </syncfusion:DoubleTextBox>
+
                 <Viewbox Grid.Row="8" Grid.Column="3" HorizontalAlignment="Left">
                     <Label Content="Maksimalna cena" FontStyle="Italic" FontWeight="SemiBold" FontSize="15" Foreground="#204060"></Label>
                 </Viewbox>
@@ -650,7 +667,9 @@
                         x:Name="Filter"
                         Click="Filter_Click"
                         FontSize="14">
-                    
+                    <Button.ToolTip>
+                        <ToolTip Content="Pokretanje filtera" Style="{StaticResource tt_style}"></ToolTip>
+                    </Button.ToolTip>
                 </Button>
                 
                 <syncfusion:SfDataGrid AutoGenerateColumns="False" Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="12" Grid.RowSpan="2" Background="White" 
@@ -723,6 +742,9 @@
                                             HorizontalContentAlignment="Center"
                                             
                                             >
+                                        <Button.ToolTip>
+                                            <ToolTip Content="Prikaz detalja karte" Style="{StaticResource tt_style}"></ToolTip>
+                                        </Button.ToolTip>
                                     </Button>
                                 </DataTemplate>
                             </syncfusion:GridTemplateColumn.CellTemplate>

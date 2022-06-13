@@ -574,7 +574,7 @@
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -583,7 +583,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -599,7 +599,7 @@
 
                 <ComboBox x:Name="StartStation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
                     <ComboBox.ToolTip>
-                        <ToolTip Content="Polazna stanica" />
+                        <ToolTip Content="Polazna stanica" Style="{StaticResource tt_style}"/>
                     </ComboBox.ToolTip>
                 </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left">
@@ -608,7 +608,7 @@
 
                 <ComboBox x:Name="EndStation"  Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="2" IsEditable="true" Background="White" ItemsSource="{Binding trainStations}">
                     <ComboBox.ToolTip>
-                        <ToolTip Content="Odredišna stanica" />
+                        <ToolTip Content="Odredišna stanica" Style="{StaticResource tt_style}"/>
                     </ComboBox.ToolTip>
                 </ComboBox>
                 <Viewbox Grid.Row="5" Grid.Column="5" HorizontalAlignment="Left">
@@ -628,7 +628,7 @@
                         Click="FIlter_Click"
                        >
                     <Button.ToolTip>
-                        <ToolTip Content="Filtriranje voznih linija" />
+                        <ToolTip Content="Filtriranje voznih linija" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
 
@@ -686,7 +686,7 @@
                                             Width="90px"
                                             HorizontalContentAlignment="Center">
                                         <Button.ToolTip>
-                                            <ToolTip Content="Prikaz detalja vozne linije i reda vožnje"/>
+                                            <ToolTip Content="Prikaz detalja vozne linije i reda vožnje" Style="{StaticResource tt_style}"/>
                                         </Button.ToolTip>
                                             
                                     </Button>
@@ -766,7 +766,7 @@
                             <Image x:Name="helpIcon1" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -775,7 +775,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -829,7 +829,7 @@
                     <ComboBoxItem Content="Radni dan"></ComboBoxItem>
                     <ComboBoxItem Content="Vikend"></ComboBoxItem>
                     <ComboBox.ToolTip>
-                        <ToolTip Content="Odabir reda vožnje"></ToolTip>
+                        <ToolTip Content="Odabir reda vožnje" Style="{StaticResource tt_style}"></ToolTip>
                     </ComboBox.ToolTip>
                 </ComboBox>
 
