@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:SyncfusionWpfApp1.gui"
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
       mc:Ignorable="d" 
+       xmlns:l="clr-namespace:SyncfusionWpfApp1.help"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="NotDirectlyTranferOptions">
 
@@ -513,9 +514,9 @@
         <Grid Grid.Column="1">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.2*"/>
                     <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -549,17 +550,49 @@
                     <ColumnDefinition Width="3.5*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="3.5*"/>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="0.05*"/>
                 </Grid.ColumnDefinitions>
 
                 <Border Grid.Row="0" Grid.Column="0" 
-                        Grid.ColumnSpan="5" Grid.RowSpan="17" 
+                        Grid.ColumnSpan="6" Grid.RowSpan="17" 
                         Background="#E8F0F2" BorderThickness="1" 
                         CornerRadius="15" BorderBrush="#00264d" Margin="2,0,-2,0"/>
 
                 <Viewbox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" >
                     <Label Content="Za izabrane stanice ne postoji direktna linija, ovo su ponude sa presedanjem" Foreground="#204060"></Label>
                 </Viewbox>
+
+                <Grid Grid.Row="1" Grid.Column="4" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="helpButton" l:HelpProvider.HelpKey="NotDirectlyTranferOption" Width="35" Height="35"
+                    Command="ApplicationCommands.Help" Background="Transparent">
+                        <StackPanel Background="Transparent">
+                            <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                        </Button.ToolTip>
+                    </Button>
+
+                    <Button Grid.Row="0" Grid.Column="1" x:Name="videoButton" HorizontalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
+                        <StackPanel Background="Transparent">
+                            <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
+                        </StackPanel>
+                        <Button.ToolTip>
+                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                        </Button.ToolTip>
+                    </Button>
+                    
+                </Grid>
+
+
+               
 
                 <Grid Grid.Column="3" Grid.Row="3">
                         <Grid.ColumnDefinitions>

@@ -513,40 +513,47 @@ namespace SyncfusionWpfApp1.gui
 
         private void startDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            startDatePicker.SelectedDate.Value.Date.ToShortDateString();
-            startDateError.Content = "";
-            startDatePicker.BorderBrush = Brushes.Transparent;
-            startDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
+            
             DatePicker picker = sender as DatePicker;
             StartDate = (DateTime)picker.SelectedDate;
-            //selekotvanje vremena polaska
-            //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
-            
-            selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
-            if(selectedLines.Count == 0)
+            if (StartDate != DateTime.MinValue)
             {
-                List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(StartStation);
-                List<TrainLine> linesContainsEndStation = TrainLineService.getLinesWhichContainesStation(EndStation);
-                selectedLines = TrainLineService.combileListOfTrainLines(linesContainsEndStation, linesContainsStartStation);
-                
-            }
-            
-            SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
-            startTimePicker.IsEnabled = true;
-            if (StartDate == DateTime.MinValue)
-            {
-                startTimePicker.IsEnabled = false;
+                startDatePicker.SelectedDate.Value.Date.ToShortDateString();
+                startDateError.Content = "";
+                startDatePicker.BorderBrush = Brushes.Transparent;
+                startDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
 
+                //selekotvanje vremena polaska
+                //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
+
+                selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
+                if (selectedLines.Count == 0)
+                {
+                    List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(StartStation);
+                    List<TrainLine> linesContainsEndStation = TrainLineService.getLinesWhichContainesStation(EndStation);
+                    selectedLines = TrainLineService.combileListOfTrainLines(linesContainsEndStation, linesContainsStartStation);
+
+                }
+
+                SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
+                startTimePicker.IsEnabled = true;
+                if (StartDate == DateTime.MinValue)
+                {
+                    startTimePicker.IsEnabled = false;
+
+                }
+
+                else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
+                {
+                    disableReservationOption();
+                }
+                else
+                {
+                    restoreReservationOption();
+                }
             }
             
-            else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
-            {
-                disableReservationOption();
-            }
-            else
-            {
-                restoreReservationOption();
-            }
+
             
             
         }
@@ -911,6 +918,12 @@ namespace SyncfusionWpfApp1.gui
 
             frame.Content = new LoginPage(frame);
             frame.NavigationService.RemoveBackEntry();
+        }
+
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+            /*MediaElement m = new MediaElement(@"../../../videos/update_delete_schedule.mkv");
+            m.ShowDialog();*/
         }
     }
 }

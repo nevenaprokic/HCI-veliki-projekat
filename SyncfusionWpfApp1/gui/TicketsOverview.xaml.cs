@@ -198,5 +198,10 @@ namespace SyncfusionWpfApp1.gui
                 MessageLabel.Visibility = Visibility.Hidden;
             }
         }
+
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

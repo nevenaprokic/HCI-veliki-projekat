@@ -614,5 +614,10 @@ namespace SyncfusionWpfApp1.gui
             frame.Content = new LoginPage(frame);
             frame.NavigationService.RemoveBackEntry();
         }
+
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

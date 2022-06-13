@@ -238,5 +238,10 @@ namespace SyncfusionWpfApp1.gui
             TrainLinesTableView.Visibility = Visibility.Visible;
             TrainLineDeatils.Visibility = Visibility.Hidden;
         }
+
+        private void playVideoHandler(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
