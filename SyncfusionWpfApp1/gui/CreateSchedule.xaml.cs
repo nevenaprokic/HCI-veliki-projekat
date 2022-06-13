@@ -248,12 +248,13 @@ namespace SyncfusionWpfApp1.gui
 
             SelectedSchedule.Name = ScheduleName;
             MainRepository.Schedules.Add(SelectedSchedule);
+            someEvent?.Invoke(SelectedSchedule);
             SelectedSchedule = new Schedule();
             SelectedSchedule.Times = new List<string>();
             ScheduleName = "";
             nameBox.Text = "";
             drawTable();
-            someEvent?.Invoke(SelectedSchedule);
+            
             NotificationDialog dialog = new NotificationDialog("Uspešno ste kreirali novi red vožnje.");
             if ((bool)dialog.ShowDialog()) 
             {

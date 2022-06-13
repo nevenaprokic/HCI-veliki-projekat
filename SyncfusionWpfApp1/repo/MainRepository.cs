@@ -152,7 +152,7 @@ namespace SyncfusionWpfApp1.repo
                 { ts6, info5 },
                 { ts8, info5 },
             };
-            TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1, t2 }, schedule1, schedule2, 300, dictTL1, 0);
+            TrainLine tl1 = new TrainLine(ts1, ts6, new List<Train> { t1, t2 }, schedule1, schedule2, 1200, dictTL1, 0);
 
             // trainline2
             TrainStationInfo info6 = new TrainStationInfo(20, 100);
@@ -180,27 +180,31 @@ namespace SyncfusionWpfApp1.repo
                 { ts16, info10 }
                
             };
-            TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t3 }, schedule1, schedule2, 2000, dictTL3, 2);
+            TrainLine tl3 = new TrainLine(ts6, ts17, new List<Train> { t3 }, schedule1, schedule2, 2300, dictTL3, 2);
             trainLines = new List<TrainLine> { tl1, tl2, tl3 };
 
             //tickets
             //User client, bool returnTicket, TrainLine line, DateTime departureTime, Seat seat, Seat returnSeat
-            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 14, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1200, new DateTime(2022, 06, 14, 12, 0, 0)); 
+            Ticket ticket1 = new Ticket(1,client1, false, tl1, new DateTime(2022, 06, 14, 11, 0, 0), seats[0], null, t1, ts1, ts6, 1250, new DateTime(2022, 06, 14, 12, 0, 0)); 
             ticket1.bought = false;
             ticket1.ReturnTicket = true;
             ticket1.IndirectRide = false;
-            Ticket ticket2 = new Ticket(2, client1, false, tl1, new DateTime(2022, 06, 01, 12, 0, 0), seats[10], null, t2, ts1, ts5, 1250, new DateTime(2022, 06, 01, 12, 20, 0));
+            ticket1.PriceStr = "1250,00 din";
+            Ticket ticket2 = new Ticket(2, client1, false, tl1, new DateTime(2022, 06, 01, 12, 0, 0), seats[10], null, t2, ts1, ts5, 1200, new DateTime(2022, 06, 01, 12, 20, 0));
             ticket2.bought = true;
             ticket2.ReturnTicket = true;
             ticket2.IndirectRide = false;
+            ticket1.PriceStr = "1200,00 din";
             Ticket ticket3 = new Ticket(3, client1, false, tl1, new DateTime(2022, 05, 10, 13, 0, 0), seats[11], null, t1, ts1, ts4, 700, new DateTime(2022, 06, 15, 10, 30, 0));
             ticket3.bought = true;
             ticket3.ReturnTicket = false;
             ticket3.IndirectRide = false;
+            ticket1.PriceStr = "700,00 din";
             Ticket ticket4 = new Ticket(4, client2, true, tl1, new DateTime(2022, 06, 1, 06, 11, 0), seats[10], seats[10], t2, ts1, ts6, 950, new DateTime(2022, 06, 15, 08, 0, 0));
             ticket4.bought = true;
             ticket4.ReturnTicket = false;
             ticket4.IndirectRide = false;
+            ticket1.PriceStr = "950,00 din";
             Tickets = new List<Ticket>();
             Tickets.Add(ticket1);
             Tickets.Add(ticket2);
@@ -216,7 +220,8 @@ namespace SyncfusionWpfApp1.repo
         public static List<TrainLine> selectMatchingTrainLine(TrainStation startStation, TrainStation endStation)
         {
             IEnumerable<TrainLine> lines = from line in trainLines
-                                           where (line.Map.Contains(startStation) && line.Map.Contains(endStation) &&
+                                           where ((line.Map.Contains(startStation) || line.Start.Id == startStation.Id) && (line.Map.Contains(endStation) || line.End.Id == endStation.Id)
+                                           &&
                                            GetIndex(startStation, line) < GetIndex(endStation, line))
                                            select line;
             return lines.ToList();
@@ -224,7 +229,13 @@ namespace SyncfusionWpfApp1.repo
 
         public static int GetIndex(TrainStation station, TrainLine line)
         {
-            int index = 0;
+            
+            if(line.Start.Id == station.Id)
+            {
+                return 0;
+            }
+
+            int index = 1;
             foreach (TrainStation s in line.Map.Keys)
             {
                 if (s.Id == station.Id)
@@ -234,6 +245,11 @@ namespace SyncfusionWpfApp1.repo
                 }
                 index++;
 
+            }
+            if(station.Id == line.End.Id)
+            {
+                index++;
+                return index;
             }
             return -1;
         }
@@ -326,6 +342,14 @@ namespace SyncfusionWpfApp1.repo
                             int travelDuration = calculateDepartureTime(line, startStation, endStation);
                             price = classPercent * price;
 
+                            if(price == 0)
+                            {
+                                price = line.Price;
+                            }
+                            if(travelDuration == 0)
+                            {
+                                travelDuration = line.TravelDuration;
+                            }
                             TrainRide ride = new TrainRide(startStation, endStation, line, train, wagonClass, startDateTime, travelDuration, price, backTicket);
                             trainRides.Add(ride);
 

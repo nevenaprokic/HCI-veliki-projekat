@@ -31,6 +31,7 @@ namespace SyncfusionWpfApp1.Model
         public double Price { get; set; }
         public OrderedDictionary Map { get; set; }
 
+        public int TravelDuration { get; set; }
         public int Id { get; set; }
 
         public TrainLine DeepCopy()

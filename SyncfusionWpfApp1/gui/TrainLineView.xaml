@@ -518,7 +518,7 @@
                     <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                 </StackPanel>
                 <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
             </Button>
             <Viewbox Grid.Column="2" Grid.ColumnSpan="2"  Grid.Row="3" HorizontalAlignment="Left">

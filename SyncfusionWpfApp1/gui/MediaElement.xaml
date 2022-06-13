@@ -60,7 +60,7 @@
                         <Image Source="/images/pause_icon.png"  Width="30" Height="30"></Image>
                     </StackPanel>
                     <Button.ToolTip>
-                        <ToolTip Content="Pokreni video" Style="{StaticResource tt_style}"/>
+                        <ToolTip Content="Puziraj" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
                 
@@ -69,7 +69,7 @@
                         <Image Source="/images/stop_icon.png"  Width="30" Height="30"></Image>
                     </StackPanel>
                     <Button.ToolTip>
-                        <ToolTip Content="Pokreni video" Style="{StaticResource tt_style}"/>
+                        <ToolTip Content="Vrati na početak" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
               

@@ -394,12 +394,24 @@ namespace SyncfusionWpfApp1.gui
                         }
                         else
                         {
-                            StartDateTime.Date.ToShortDateString();
-                            this.FirstPage.Visibility = Visibility.Hidden;
-                            this.SecondPage.Visibility = Visibility.Visible;
-
                             TrainRides = MainRepository.filterSelectedLines(StartStation, EndStation, StartDateTime, backTicket);
                             AwailableTrains = TrainService.getTrainsForLines(MainRepository.selectMatchingTrainLine(StartStation, EndStation));
+
+                            if(AwailableTrains.Count == 0)
+                            {
+                                MessageBox box = new MessageBox("Nema dostupnih vožnji za izabranu destinaciju", MainWindow.GetWindow(this));
+                                box.Show();
+                            }
+                            else
+                            {
+                                StartDateTime.Date.ToShortDateString();
+                                this.FirstPage.Visibility = Visibility.Hidden;
+                                this.SecondPage.Visibility = Visibility.Visible;
+                            }
+                            
+                           
+
+                            
 
                         }
 
@@ -476,6 +488,7 @@ namespace SyncfusionWpfApp1.gui
         private void StartStationChanged(object sender, SelectionChangedEventArgs e)
         {
             startStationLabel.Content = "";
+            startTimeError.Visibility = Visibility.Hidden;
             startStationSelection.BorderBrush = Brushes.Transparent;
             startStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
@@ -495,6 +508,7 @@ namespace SyncfusionWpfApp1.gui
         private void EndStationChanged(object sender, SelectionChangedEventArgs e)
         {
             endStationLabel.Content = "";
+            startTimeError.Visibility = Visibility.Hidden;
             endStationSelection.BorderBrush = Brushes.Transparent;
             endStationSelection.BorderThickness = new Thickness(1, 1, 1, 1);
             ComboBox cmb = sender as ComboBox;
@@ -515,47 +529,59 @@ namespace SyncfusionWpfApp1.gui
         {
             
             DatePicker picker = sender as DatePicker;
-            StartDate = (DateTime)picker.SelectedDate;
-            if (StartDate != DateTime.MinValue)
+            try
             {
-                startDatePicker.SelectedDate.Value.Date.ToShortDateString();
-                startDateError.Content = "";
-                startDatePicker.BorderBrush = Brushes.Transparent;
-                startDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
-
-                //selekotvanje vremena polaska
-                //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
-
-                selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
-                if (selectedLines.Count == 0)
+                StartDate = (DateTime)picker.SelectedDate;
+                if (StartDate != DateTime.MinValue)
                 {
-                    List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(StartStation);
-                    List<TrainLine> linesContainsEndStation = TrainLineService.getLinesWhichContainesStation(EndStation);
-                    selectedLines = TrainLineService.combileListOfTrainLines(linesContainsEndStation, linesContainsStartStation);
+                    startDatePicker.SelectedDate.Value.Date.ToShortDateString();
+                    startDateError.Content = "";
+                    startDatePicker.BorderBrush = Brushes.Transparent;
+                    startDatePicker.BorderThickness = new Thickness(1, 1, 1, 1);
 
-                }
+                    //selekotvanje vremena polaska
+                    //dobaviti sve vozne linije koje sadrze ove dve stanice u odgovarajucem redosledu
 
-                SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
-                startTimePicker.IsEnabled = true;
-                if (StartDate == DateTime.MinValue)
-                {
-                    startTimePicker.IsEnabled = false;
+                    selectedLines = MainRepository.selectMatchingTrainLine(StartStation, EndStation);
+                    if (selectedLines.Count == 0)
+                    {
+                        List<TrainLine> linesContainsStartStation = TrainLineService.getLinesWhichContainesStation(StartStation);
+                        List<TrainLine> linesContainsEndStation = TrainLineService.getLinesWhichContainesStation(EndStation);
+                        selectedLines = TrainLineService.combileListOfTrainLines(linesContainsEndStation, linesContainsStartStation);
 
-                }
+                    }
 
-                else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
-                {
-                    disableReservationOption();
-                }
-                else
-                {
-                    restoreReservationOption();
+                    SortedStartTimes = MainRepository.getTimeList(selectedLines, StartDate);
+                    if (SortedStartTimes.Count == 0){
+                        startTimeError.Content = "Za ovu destinaciju nije kreiran raspored vožnje.";
+                        startTimeError.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        startTimePicker.IsEnabled = true;
+                        if (StartDate == DateTime.MinValue)
+                        {
+                            startTimePicker.IsEnabled = false;
+
+                        }
+
+                        else if (StartDate - DateTime.Now <= TimeSpan.FromHours(24))
+                        {
+                            disableReservationOption();
+                        }
+                        else
+                        {
+                            restoreReservationOption();
+                        }
+                    }
+                    
                 }
             }
-            
+            catch
+            {
+                MessageBox box = new MessageBox("Morate izabrati datum", MainWindow.GetWindow(this));
+            }
 
-            
-            
         }
 
         private void offerNotDirectlyTravel()
@@ -922,8 +948,8 @@ namespace SyncfusionWpfApp1.gui
 
         private void playVideoHandler(object sender, RoutedEventArgs e)
         {
-            /*MediaElement m = new MediaElement(@"../../../videos/update_delete_schedule.mkv");
-            m.ShowDialog();*/
+            MediaElement m = new MediaElement(@"../../../videos/CardReservation.wmv");
+            m.ShowDialog();
         }
     }
 }

@@ -261,7 +261,7 @@ namespace SyncfusionWpfApp1.gui
         {
             waypoints.RemoveAt(waypoints.Count-1);
         }
-        public void SaveLast(string street, string city, string state, double price, int minute)
+        public void Save_HandlereLast(string street, string city, string state, double price, int minute)
         {
             TrainStation station = new TrainStation(street, state, city, (MainRepository.trainStations.Count+2));
             newTrainStations.Add(station);
@@ -315,23 +315,58 @@ namespace SyncfusionWpfApp1.gui
             newTrainLine.Id = MainRepository.trainLines.Count + 2;
             OrderedDictionary newDict = new OrderedDictionary();
             
-            for(int i = 0; i < newTrainStations.Count; i++)
+            for(int i = 1; i < newTrainStations.Count - 1; i++)
             {
                 newDict.Add(newTrainStations[i], newTrainStationInfo[i]);
             }
-            newTrainLine.Map = newDict;
-            newTrainLine.TimeSlots = TimeSlots;
-            newTrainLine.TimeSlotsWeekend = TimeSlotsWeekend;
-            newTrainLine.Trains = Trains;
 
-            MainRepository.trainLines.Add(newTrainLine);
-            foreach(TrainStation station in newTrainStations)
+            if(newTrainStations.Count == 2)
             {
-                MainRepository.trainStations.Add(station);
+                newTrainLine.TravelDuration = newTrainStationInfo[1].FromDeparture;
+            }
+            newTrainLine.Map = newDict;
+            if(TimeSlots.Count == 0)
+            {
+                NotificationDialog dialog = new NotificationDialog("Morate postaviti raspored vožnje za voznu liniju");
+                if ((bool)dialog.ShowDialog())
+                {
+                    return;
+                   
+                }
+            }
+            else if(Trains.Count == 0)
+            {
+                NotificationDialog dialog = new NotificationDialog("Morate izabrati voz za voznu liniju.");
+                if ((bool)dialog.ShowDialog())
+                {
+                    return;
+
+                }
             }
             
-            frame.Content = new TrainLineCRUD(frame);
+            else{
+                newTrainLine.TimeSlots = TimeSlots;
+                newTrainLine.TimeSlotsWeekend = TimeSlotsWeekend;
+                newTrainLine.Trains = Trains;
 
+                MainRepository.trainLines.Add(newTrainLine);
+                foreach (TrainStation station in newTrainStations)
+                {
+                    MainRepository.trainStations.Add(station);
+                }
+
+                frame.Content = new TrainLineCRUD(frame);
+            }
+            
+
+        }
+        public void SaveLast(string street, string city, string state, double price, int minute)
+        {
+            TrainStation station = new TrainStation(street, state, city, (MainRepository.trainStations.Count + 2 + newTrainStations.Count));
+            newTrainStations.Add(station);
+            TrainStationInfo stationInfo = new TrainStationInfo(minute, price);
+            newTrainStationInfo.Add(stationInfo);
+            MainMap.Children.Add(pin);
         }
     }
 }

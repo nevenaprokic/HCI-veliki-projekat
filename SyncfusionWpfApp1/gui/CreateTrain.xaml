@@ -220,7 +220,7 @@
                         <Image x:Name="helpIcon" Source="/images/help_icon.jpg"  Width="30" Height="30"></Image>
                     </StackPanel>
                     <Button.ToolTip>
-                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                        <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
 
@@ -229,7 +229,7 @@
                         <Image Source="/images/play_icon.png" Width="30" Height="30"></Image>
                     </StackPanel>
                     <Button.ToolTip>
-                        <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                        <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                     </Button.ToolTip>
                 </Button>
             </Grid>

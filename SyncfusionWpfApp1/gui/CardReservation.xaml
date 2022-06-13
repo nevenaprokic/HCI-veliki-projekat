@@ -578,7 +578,7 @@
                             <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
                         </Button.ToolTip>
                     </Button>
 
@@ -587,7 +587,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                            <ToolTip Content=" Demo pomoć za korišćenje stranice"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -796,7 +796,7 @@
                             <Image x:Name="helpIcon1" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
                         </Button.ToolTip>
                     </Button>
 
@@ -805,7 +805,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -1097,7 +1097,7 @@
                             <Image x:Name="helpIcon2" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
                         </Button.ToolTip>
                     </Button>
 
@@ -1106,7 +1106,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
                         </Button.ToolTip>
                     </Button>
 
@@ -1339,7 +1339,7 @@
                             <Image x:Name="helpIcon3" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice" />
+                            <ToolTip Content="Pomoć za korišćenje stranice (F1)" />
                         </Button.ToolTip>
                     </Button>
 
@@ -1348,7 +1348,7 @@
                             <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                         </StackPanel>
                         <Button.ToolTip>
-                            <ToolTip Content="Pomoć za korišćenje stranice"/>
+                            <ToolTip Content="Demo pomoć za korišćenje stranice"/>
                         </Button.ToolTip>
                     </Button>
 

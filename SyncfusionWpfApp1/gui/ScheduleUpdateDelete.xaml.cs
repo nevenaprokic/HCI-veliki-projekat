@@ -94,7 +94,7 @@ namespace SyncfusionWpfApp1.gui
             {
                 if (TimeAlreadyExists())
                 {
-                    messageLabel.Content = "Time already exists!";
+                    messageLabel.Content = "Vreme već postoji!";
                     return;
                 }
                 SelectedSchedule.Times.Add(newTime.Text);

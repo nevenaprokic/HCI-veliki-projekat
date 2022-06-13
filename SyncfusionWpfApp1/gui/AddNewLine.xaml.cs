@@ -252,6 +252,10 @@ namespace SyncfusionWpfApp1.gui
                 return;
             }
             string station = comboLines.Text;
+            if (station.Equals(""))
+            {
+                station = (string)comboLines.Items.GetItemAt(0);
+            }
             OrderedDictionary newDict = new OrderedDictionary();
             IDictionaryEnumerator myEnumerator = CurrentLine.Map.GetEnumerator();
             while (myEnumerator.MoveNext())

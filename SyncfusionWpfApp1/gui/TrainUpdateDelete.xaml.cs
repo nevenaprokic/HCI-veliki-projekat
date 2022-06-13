@@ -41,13 +41,13 @@ namespace SyncfusionWpfApp1.gui
             Rows = new ObservableCollection<RowDataWagon>();
             AlreadyInInsertMode = true;
             SetBackground();
+            comboClass.Items.Add(WagonClass.FIRST);
+            comboClass.Items.Add(WagonClass.SECOND);
             InitForm();
         }
 
         private void InitForm()
         {
-            comboClass.Items.Add(WagonClass.FIRST);
-            comboClass.Items.Add(WagonClass.SECOND);
             comboClass.SelectedItem = 0;
             NumberWagonsTextBox.Text = "1";
         }

@@ -523,7 +523,7 @@
                     <Image x:Name="helpIcon" Source="/images/help_icon.png"  Width="30" Height="30"></Image>
                 </StackPanel>
                 <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    <ToolTip Content="Pomoć za korišćenje stranice (F1)" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
             </Button>
             <Button Grid.Row="2" Grid.Column="3" x:Name="videoButton" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="35" Background="Transparent" Click="playVideoHandler">
@@ -531,7 +531,7 @@
                     <Image Source="/images/play_icon.png"  Width="30" Height="30"></Image>
                 </StackPanel>
                 <Button.ToolTip>
-                    <ToolTip Content="Pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
+                    <ToolTip Content="Demo pomoć za korišćenje stranice" Style="{StaticResource tt_style}"/>
                 </Button.ToolTip>
             </Button>
 
