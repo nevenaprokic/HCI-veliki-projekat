@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "dgSpecHash": "iF39M+AtJmGM8gg6E4XSLiAA7t+197UQMe8NDz5YZ97gFIg8gyc9H3QuLm6HZH059AaV68LqABZJBnid4ABFeQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Joco\\Desktop\\IIIb\\HCI\\HCI-projekat\\ZeleznicaAplikacija\\SyncfusionWpfApp1\\SyncfusionWpfApp1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Joco\\.nuget\\packages\\bingmapsresttoolkit\\1.1.4\\bingmapsresttoolkit.1.1.4.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\microsoft.maps.mapcontrol.wpf\\1.0.0.3\\microsoft.maps.mapcontrol.wpf.1.0.0.3.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.data.wpf\\20.1.0.55\\syncfusion.data.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.licensing\\20.1.0.55\\syncfusion.licensing.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.sfchart.wpf\\20.1.0.55\\syncfusion.sfchart.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.sfdiagram.wpf\\20.1.0.55\\syncfusion.sfdiagram.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.sfgrid.wpf\\20.1.0.55\\syncfusion.sfgrid.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.sfskinmanager.wpf\\20.1.0.55\\syncfusion.sfskinmanager.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.shared.wpf\\20.1.0.55\\syncfusion.shared.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.themes.fluentlight.wpf\\20.1.0.55\\syncfusion.themes.fluentlight.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Users\\Joco\\.nuget\\packages\\syncfusion.tools.wpf\\20.1.0.55\\syncfusion.tools.wpf.20.1.0.55.nupkg.sha512",
+    "C:\\Program Files (x86)\\Syncfusion\\Essential Studio\\WPF\\20.1.0.55\\ToolboxNuGetPackages\\syncfusion.ui.wpf.net\\20.1.0.55\\syncfusion.ui.wpf.net.20.1.0.55.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Maps.MapControl.WPF 1.0.0.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Maps.MapControl.WPF",
+      "targetGraphs": [
+        "net5.0-windows7.0"
+      ]
+    }
+  ]
+}

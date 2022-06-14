@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="gui\ConfirmDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\CreateSchedule.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\CreateTrain.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\GenerateTimeSlotsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\MediaElement.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\NotificationDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\ScheduleUpdateDelete.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\TicketDetailsDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\TrainLineReport.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="gui\TrainUpdateDelete.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="help\HelpViewer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="gui\ConfirmDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\CreateSchedule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\CreateTrain.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\GenerateTimeSlotsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\MediaElement.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\NotificationDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\ScheduleUpdateDelete.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\TicketDetailsDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\TrainLineReport.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="gui\TrainUpdateDelete.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="help\HelpViewer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
