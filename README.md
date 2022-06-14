@@ -22,4 +22,4 @@ Ukoliko se projekat ne pokreće potrebno je instalirati:
 - Syncfusion.UI.WPF.NET
 - Syncfusion.Themes.FluentLight.WPF
 
-Podaci su mock i nije potrebno ništa dodatno instalirati.
+Podaci su mock i nije potrebno ništa dodatno instalirati. Kod preuzeti sa DEVELOPER grane.
